@@ -141,18 +141,18 @@ const currentPath = Astro.url.pathname;
   <body class="min-h-screen bg-background font-sans antialiased relative">
 
     <!-- FlickeringGrid — animation d'arrière-plan originale -->
-    <div class="absolute inset-0 top-0 left-0 right-0 h-25 overflow-hidden z-0">
+    <div class="absolute inset-0 top-0 left-0 right-0 h-[60vh] overflow-hidden z-0">
       <DiagonalGrid
         client:load
         className="h-full w-full"
         lineSize={8}
         gridGap={12}
         color="#f59e0b"
-        flickerChance={0.15}
+        flickerChance={0.3}
         maxOpacity={0.45}
         style={{
-          maskImage: "linear-gradient(to bottom, black, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+          maskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
         }}
       />
     </div>
