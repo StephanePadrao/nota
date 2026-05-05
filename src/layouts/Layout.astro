@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { DATA } from "@/data/resume";
 import { CONFIG } from "@/data/config";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
 interface Props {
   title?: string;
@@ -139,56 +140,81 @@ const currentPath = Astro.url.pathname;
   </head>
   <body class="min-h-screen bg-background font-sans antialiased relative">
 
-    <!-- Ambient glow background — replaces FlickeringGrid -->
-    <div class="ambient-glow pointer-events-none absolute inset-x-0 top-0 h-96 overflow-hidden z-0" aria-hidden="true"></div>
+    <!-- FlickeringGrid — animation d'arrière-plan originale -->
+    <div class="absolute inset-0 top-0 left-0 right-0 h-25 overflow-hidden z-0">
+      <FlickeringGrid
+        client:load
+        className="h-full w-full"
+        squareSize={2}
+        gridGap={2}
+        style={{
+          maskImage: "linear-gradient(to bottom, black, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+        }}
+      />
+    </div>
 
-    <!-- Top navigation bar — integrated into design, no floating dock -->
-    <header class="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b border-border/40">
-      <div class="max-w-2xl mx-auto px-6 h-12 flex items-center justify-between">
+    <!-- Navigation flottante — pills indépendantes sur l'animation, sans barre de fond -->
+    <nav class="fixed top-0 inset-x-0 z-30 pointer-events-none">
+      <div class="max-w-2xl mx-auto px-6 pt-4 flex items-center justify-between">
+
+        <!-- Logo "nota" -->
         <a
           href="/"
-          class="font-semibold text-sm tracking-tight text-foreground hover:text-primary transition-colors"
+          class="pointer-events-auto text-sm font-semibold tracking-tight
+                 bg-background/80 backdrop-blur-sm text-foreground hover:text-primary
+                 px-3 py-1.5 rounded-full border border-border/40 transition-colors"
         >
           nota
         </a>
-        <nav class="flex items-center gap-1">
-          {DATA.navbar.map((item) => (
+
+        <!-- Liens de navigation — pills droite -->
+        <div class="flex items-center gap-1.5 pointer-events-auto">
+          {DATA.navbar.filter((item) => item.href !== "/").map((item) => (
             <a
               href={item.href}
-              class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href))
-                  ? "text-foreground font-medium bg-muted"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
+              class={`text-sm px-3 py-1.5 rounded-full border border-border/40
+                      bg-background/80 backdrop-blur-sm transition-colors
+                      ${
+                        currentPath === item.href ||
+                        (item.href !== "/" && currentPath.startsWith(item.href))
+                          ? "text-foreground font-medium"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
             >
               {item.label}
             </a>
           ))}
+
+          <!-- Toggle dark/light -->
           <button
             id="theme-toggle"
             aria-label="Changer de thème"
-            class="ml-1 size-8 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors cursor-pointer"
+            class="size-8 flex items-center justify-center rounded-full
+                   bg-background/80 backdrop-blur-sm border border-border/40
+                   text-muted-foreground hover:text-foreground transition-colors cursor-pointer
+                   pointer-events-auto"
           >
-            <!-- Moon icon: shown in light mode -->
-            <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
+            <!-- Moon: affiché en mode clair -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block dark:hidden">
               <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
             </svg>
-            <!-- Sun icon: shown in dark mode -->
-            <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
+            <!-- Sun: affiché en mode sombre -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden dark:block">
               <circle cx="12" cy="12" r="4"/>
               <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
             </svg>
           </button>
-        </nav>
+        </div>
       </div>
-    </header>
+    </nav>
 
-    <!-- Main content wrapper -->
-    <div class="relative z-10 max-w-2xl mx-auto pt-8 pb-16 sm:pt-12 sm:pb-20 px-6">
+    <!-- Contenu principal — padding-top pour ne pas passer sous la nav fixe -->
+    <div class="relative z-10 max-w-2xl mx-auto pt-16 pb-16 sm:pt-20 sm:pb-20 px-6">
       <slot />
     </div>
 
-    <!-- Theme toggle script — pure vanilla JS, no React needed -->
+    <!-- Theme toggle — vanilla JS, pas de React -->
     <script is:inline>
       document.getElementById("theme-toggle").addEventListener("click", function () {
         var isDark = document.documentElement.classList.toggle("dark");

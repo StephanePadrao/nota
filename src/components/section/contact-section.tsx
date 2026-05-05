@@ -1,5 +1,6 @@
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { DATA } from "@/data/resume";
+import { ArrowUpRight } from "lucide-react";
 
 export default function ContactSection() {
   return (
@@ -25,8 +26,15 @@ export default function ContactSection() {
         <p className="mx-auto max-w-lg text-muted-foreground text-balance">
           {DATA.sections.contact.text}
         </p>
+        <a
+          href="/contact"
+          className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5
+                     text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+        >
+          Écrire un message
+          <ArrowUpRight className="h-4 w-4" />
+        </a>
       </div>
     </div>
   );
 }
-
