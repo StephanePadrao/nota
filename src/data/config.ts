@@ -3,9 +3,9 @@ export const CONFIG = {
   // Site Settings
   // ---------------------------------------------------------------------------
   site: {
-    url: "https://alexmercer.dev",
-    locale: "en_US",
-    twitterHandle: "@alexmercer_dev",
+    url: "https://spadrao.erro.cloud",
+    locale: "fr_FR",
+    twitterHandle: "", // TODO: ajouter ton handle Twitter si tu en as un
   },
 
   // ---------------------------------------------------------------------------
@@ -22,8 +22,7 @@ export const CONFIG = {
   // ---------------------------------------------------------------------------
   typography: {
     // Base font size as a percentage. 100 = browser default (16px).
-    // 110 = 10% larger or 90 = 10% smaller, across all text, headings, and links simultaneously.
-    baseFontSize: 115,
+    baseFontSize: 112,
   },
 
   // ---------------------------------------------------------------------------
@@ -34,18 +33,9 @@ export const CONFIG = {
   },
 
   // ---------------------------------------------------------------------------
-  // Font Settings
-  // See https://fontsource.org/?variable=true for fonts that can be installed via package registry
-  // To change fonts:
-  // 1. pnpm install @fontsource-variable/<font-name> (for example 'pnpm add @fontsource-variable/inter'). Install BOTH the sans and mono fonts.
-  // 2. Edit src/styles/global.css - swap the @import and --font-sans and --font-mono values
-  // ---------------------------------------------------------------------------
-
-  // ---------------------------------------------------------------------------
   // Design Settings
-  // 1. Pick a theme at ui.shadcn.com/themes or generate one with a tool like tweakcn.com
-  // 2. Copy the CSS variables block
-  // 3. Paste into BELOW with the naming conversion already used
+  // Thème de base Starfolio avec accent ambre/cuivre
+  // Pour modifier : ui.shadcn.com/themes ou tweakcn.com
   // ---------------------------------------------------------------------------
 
   theme: {
@@ -58,7 +48,7 @@ export const CONFIG = {
       cardForeground: "oklch(0.145 0 0)",
       popover: "oklch(1 0 0)",
       popoverForeground: "oklch(0.145 0 0)",
-      primary: "oklch(0.205 0 0)",
+      primary: "oklch(0.52 0.17 55)",
       primaryForeground: "oklch(0.985 0 0)",
       secondary: "oklch(0.97 0 0)",
       secondaryForeground: "oklch(0.205 0 0)",
@@ -79,8 +69,8 @@ export const CONFIG = {
       cardForeground: "oklch(0.985 0 0)",
       popover: "oklch(0.205 0 0)",
       popoverForeground: "oklch(0.985 0 0)",
-      primary: "oklch(0.922 0 0)",
-      primaryForeground: "oklch(0.205 0 0)",
+      primary: "oklch(0.74 0.16 55)",
+      primaryForeground: "oklch(0.145 0 0)",
       secondary: "oklch(0.269 0 0)",
       secondaryForeground: "oklch(0.985 0 0)",
       muted: "oklch(0.269 0 0)",

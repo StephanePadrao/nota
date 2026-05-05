@@ -1,0 +1,64 @@
+---
+title: "Pourquoi j'auto-héberge mon blog en 2026"
+publishedAt: "2026-05-05"
+author: "Stéphane Padrao"
+summary: "Medium, Substack, Notion public — les options ne manquent pas. J'ai quand même choisi de tout gérer moi-même. Voilà pourquoi."
+---
+
+Il y a quelques semaines, j'aurais pu ouvrir un compte Substack en cinq minutes et commencer à écrire. La plupart des gens font ça. C'est raisonnable.
+
+J'ai fait autrement.
+
+---
+
+## Le problème avec les plateformes
+
+Substack, Medium, Notion public — ces outils sont excellents pour démarrer. Ils ont réglé les problèmes difficiles : mise en page, distribution, abonnés. Mais ils ont un coût invisible qu'on ne voit pas au moment de s'inscrire.
+
+**Vous écrivez sur leur terrain.**
+
+Le domaine est le leur. Le format est le leur. Si demain ils changent l'algorithme, modifient les conditions d'utilisation, ou ferment simplement (rappelle-toi de ce qui s'est passé avec Vine, puis Tumblr, puis Reader) — tu n'as rien. Ou presque.
+
+Ce n'est pas de la paranoïa. C'est de la gestion de risque de base.
+
+---
+
+## Mon contexte
+
+J'ai déjà un VPS. Je le fais tourner pour d'autres projets — un suivi de temps, des outils internes, quelques apps Docker. Le serveur coûte ce qu'il coûte, que j'y mette un blog dessus ou non.
+
+Coût marginal d'un blog auto-hébergé sur cette infra : **zéro**.
+
+L'argument économique est donc inversé par rapport à d'habitude. Ce n'est pas "payer pour avoir le contrôle vs gratuit mais dépendant". C'est "gratuit avec contrôle total vs gratuit mais sans contrôle".
+
+Le choix devient évident.
+
+---
+
+## Ce que ça implique concrètement
+
+Je ne vais pas prétendre que c'est sans friction. Il faut :
+
+- Configurer Nginx pour servir les fichiers statiques
+- Obtenir et renouveler un certificat SSL (Certbot s'en charge automatiquement)
+- Maintenir une chaîne de build : écrire en Markdown → builder avec Astro → déployer sur le VPS
+
+Est-ce que c'est compliqué ? Pour quelqu'un qui n'a jamais touché à un serveur, oui. Pour moi, non — c'est exactement ce que je fais au quotidien.
+
+Ce blog tourne sur [Astro](https://astro.build) avec le template Starfolio. Le build génère du HTML statique pur. Pas de serveur Node.js qui tourne en permanence, pas de base de données, pas de dépendances runtime. Un répertoire de fichiers servi par Nginx. Simple, rapide, robuste.
+
+---
+
+## La vraie raison
+
+Au fond, il y a quelque chose qui va au-delà du pragmatisme technique.
+
+Quand j'écris quelque chose ici, c'est à moi. L'URL est la mienne. La mise en page est la mienne. Dans dix ans, si je veux migrer vers un autre outil, j'ai des fichiers Markdown que je peux prendre et aller ailleurs.
+
+C'est ce que j'appelle la **souveraineté numérique** — un grand mot pour une idée simple : posséder ce qu'on crée.
+
+Pour un blog personnel qui documente une réflexion sur le long terme, c'est exactement le bon investissement.
+
+---
+
+*Nota est hébergé sur un VPS Debian avec Nginx. Le code source est [disponible sur GitHub](https://github.com/StephanePadrao/nota).*
