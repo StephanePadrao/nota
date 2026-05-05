@@ -1,3 +1,4 @@
+import React from "react";
 import { Icons } from "@/components/icons";
 import {
   House, Library, Mail,
@@ -8,7 +9,7 @@ import {
 } from "lucide-react";
 import { Mechanical } from "@/components/ui/svgs/mechanical";
 
-const ci = (Icon: any, color: string) =>
+const ci = (Icon: React.ComponentType<{ className?: string; color?: string }>, color: string) =>
   ({ className }: { className?: string }) =>
     <Icon className={className} color={color} />;
 

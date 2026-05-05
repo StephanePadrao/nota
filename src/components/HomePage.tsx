@@ -5,8 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
-import HackathonsSection from "@/components/section/hackathons-section";
-import PhotosSection from "@/components/section/photos-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { ArrowUpRight } from "lucide-react";
@@ -136,14 +134,6 @@ const sectionComponents: Record<string, React.ReactNode> = {
       </BlurFade>
     </section>
   ),
-  hackathons: (
-    <section id="hackathons">
-      <BlurFade delay={BLUR_FADE_DELAY * 13}>
-        <HackathonsSection />
-      </BlurFade>
-    </section>
-  ),
-  photos: <PhotosSection />,
   contact: (
     <section id="contact">
       <BlurFade delay={BLUR_FADE_DELAY * 16}>
@@ -154,11 +144,6 @@ const sectionComponents: Record<string, React.ReactNode> = {
 };
 
 export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPost[] }) {
-  const orderedSections = Object.entries(DATA.sections)
-    .filter(([, s]) => s.enabled)
-    .sort(([, a], [, b]) => a.order - b.order)
-    .map(([key]) => key);
-
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
