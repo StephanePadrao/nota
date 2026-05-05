@@ -23,7 +23,7 @@ export const DATA = {
     "Ingénieur électronique & Responsable produit. Je construis des produits, de l'idée à l'industrialisation. J'écris sur le produit, le design et la tech.",
   summary:
     "Double formation technique ([Ingénieur Polytech Sorbonne](/#education)) et managériale ([MBA IAE Paris](/#education)), je pilote des projets produits depuis plusieurs années — IoT, hardware embarqué, cycle en V. Depuis début 2024, je suis Responsable Produit chez Zaack. En parallèle, j'explore l'entrepreneuriat tech et je construis des projets de ma propre initiative. Nota est mon espace pour partager ces réflexions.",
-  avatarUrl: "/picofme.png",
+  avatarUrl: "/Profil-Pic.jpeg",
   ogImage: "/og_image.png",
 
   sections: {
