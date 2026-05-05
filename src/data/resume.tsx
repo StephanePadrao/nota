@@ -1,9 +1,10 @@
 import { Icons } from "@/components/icons";
-import { House, Library, Mail } from "lucide-react";
-import { Astro } from "@/components/ui/svgs/astro";
-import { Typescript } from "@/components/ui/svgs/typescript";
-import { Docker } from "@/components/ui/svgs/docker";
-import { Python } from "@/components/ui/svgs/python";
+import {
+  House, Library, Mail,
+  CircuitBoard, Code2, Cpu, ShieldCheck,
+  Layers, Factory, Wrench, Handshake,
+  Kanban, Users, TrendingUp, BarChart2,
+} from "lucide-react";
 import { Java } from "@/components/ui/svgs/java";
 
 export const DATA = {
@@ -65,14 +66,19 @@ export const DATA = {
   ],
 
   skills: [
-    { name: "Gestion de projet", icon: undefined },
-    { name: "Product Management", icon: undefined },
-    { name: "Python", icon: Python },
+    { name: "Design électronique (analogique & numérique)", icon: CircuitBoard },
+    { name: "C / C++ embarqué ARM32", icon: Code2 },
     { name: "Java", icon: Java },
-    { name: "TypeScript", icon: Typescript },
-    { name: "Docker", icon: Docker },
-    { name: "Astro", icon: Astro },
-    { name: "C embarqué (ARM32)", icon: undefined },
+    { name: "KiCad / Altium Designer", icon: Cpu },
+    { name: "Certification CE (RED, CEM, sécurité)", icon: ShieldCheck },
+    { name: "Design mécanique (SolidWorks, Fusion 360)", icon: Layers },
+    { name: "Industrialisation & production (EU & Chine)", icon: Factory },
+    { name: "Conception lignes & bancs de production", icon: Wrench },
+    { name: "Achats & négociation fournisseurs", icon: Handshake },
+    { name: "Pilotage de projet (cycle en V)", icon: Kanban },
+    { name: "Management pluridisciplinaire", icon: Users },
+    { name: "Product Management", icon: TrendingUp },
+    { name: "Étude de marché & marketing", icon: BarChart2 },
   ],
 
   navbar: [
