@@ -5,7 +5,7 @@ import {
   Layers, Factory, Wrench, Handshake,
   Kanban, Users, TrendingUp, BarChart2,
 } from "lucide-react";
-import { Java } from "@/components/ui/svgs/java";
+
 
 export const DATA = {
   name: "Stéphane Padrao",
@@ -68,7 +68,7 @@ export const DATA = {
   skills: [
     { name: "Design électronique", icon: CircuitBoard },
     { name: "C / C++ ARM32", icon: Code2 },
-    { name: "Java", icon: Java },
+
     { name: "KiCad / Altium", icon: Cpu },
     { name: "Certification CE", icon: ShieldCheck },
     { name: "Design mécanique", icon: Layers },
