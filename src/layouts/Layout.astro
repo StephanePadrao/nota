@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import { DATA } from "@/data/resume";
 import { CONFIG } from "@/data/config";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { DiagonalGrid } from "@/components/magicui/diagonal-grid";
 
 interface Props {
   title?: string;
@@ -142,11 +142,14 @@ const currentPath = Astro.url.pathname;
 
     <!-- FlickeringGrid — animation d'arrière-plan originale -->
     <div class="absolute inset-0 top-0 left-0 right-0 h-25 overflow-hidden z-0">
-      <FlickeringGrid
+      <DiagonalGrid
         client:load
         className="h-full w-full"
-        squareSize={2}
-        gridGap={2}
+        lineSize={8}
+        gridGap={12}
+        color="#f59e0b"
+        flickerChance={0.15}
+        maxOpacity={0.45}
         style={{
           maskImage: "linear-gradient(to bottom, black, transparent)",
           WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
