@@ -221,8 +221,15 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
                     <BlurFade key={post.slug} delay={BLUR_FADE_DELAY * 2 + i * 0.06}>
                       <a
                         href={`/blog/${post.slug}`}
-                        className="group flex items-start justify-between gap-4 py-3 border-b border-border/50 hover:border-primary/40 transition-colors"
+                        className="group flex items-center gap-3 py-3 border-b border-border/50 hover:border-primary/40 transition-colors"
                       >
+                        {post.image && (
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="w-14 h-10 rounded-md object-cover flex-none opacity-80 group-hover:opacity-100 transition-opacity"
+                          />
+                        )}
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-sm leading-snug group-hover:text-primary transition-colors">
                             {post.title}
@@ -231,7 +238,7 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
                             {post.summary}
                           </p>
                         </div>
-                        <time className="text-xs text-muted-foreground tabular-nums flex-none pt-0.5">
+                        <time className="text-xs text-muted-foreground tabular-nums flex-none">
                           {new Date(post.publishedAt).toLocaleDateString("fr-FR", {
                             month: "short",
                             year: "numeric",

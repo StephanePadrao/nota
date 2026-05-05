@@ -7,6 +7,7 @@ interface Post {
   id: string;
   title: string;
   publishedAt: string;
+  image?: string;
 }
 
 interface Pagination {
@@ -47,13 +48,13 @@ export default function BlogList({ posts, allPostsCount, pagination, pageSize }:
                 return (
                   <BlurFade delay={BLUR_FADE_DELAY * 3 + id * 0.05} key={post.id}>
                     <a
-                      className="flex items-start gap-x-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex items-center gap-x-3 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       href={`/blog/${post.id}`}
                     >
-                      <span className="text-xs font-mono tabular-nums font-medium mt-[5px]">
+                      <span className="text-xs font-mono tabular-nums font-medium shrink-0">
                         {String(indexNumber).padStart(2, "0")}.
                       </span>
-                      <div className="flex flex-col gap-y-2 flex-1">
+                      <div className="flex flex-col gap-y-1 flex-1 min-w-0">
                         <p className="tracking-tight text-lg font-medium">
                           <span className="group-hover:text-foreground transition-colors">
                             {post.title}
@@ -67,6 +68,13 @@ export default function BlogList({ posts, allPostsCount, pagination, pageSize }:
                           {post.publishedAt}
                         </p>
                       </div>
+                      {post.image && (
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-20 h-14 rounded-lg object-cover flex-none opacity-80 group-hover:opacity-100 transition-opacity"
+                        />
+                      )}
                     </a>
                   </BlurFade>
                 );
