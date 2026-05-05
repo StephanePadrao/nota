@@ -135,7 +135,7 @@ export const DATA = {
       badges: ["Responsable Produit"],
       location: "Achères, France",
       title: "Responsable Produit",
-      logoUrl: "https://logo.clearbit.com/zaack.fr",
+      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=zaack.fr",
       start: "Janvier 2024",
       end: undefined,
       description:
@@ -147,7 +147,7 @@ export const DATA = {
       badges: [],
       location: "Paris 15, France",
       title: "Project Manager",
-      logoUrl: "https://logo.clearbit.com/kickmaker.co",
+      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=kickmaker.co",
       start: "Juin 2022",
       end: "Janvier 2024",
       description:
@@ -159,7 +159,7 @@ export const DATA = {
       badges: [],
       location: "Levallois-Perret, France",
       title: "Ingénieur design électronique",
-      logoUrl: "https://logo.clearbit.com/mca-ingenierie.fr",
+      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=mca-ingenierie.fr",
       start: "Septembre 2021",
       end: "Février 2022",
       description:
@@ -171,7 +171,7 @@ export const DATA = {
       badges: ["Alternance"],
       location: "Palaiseau, France",
       title: "Apprenti Ingénieur système embarqué — Responsable production",
-      logoUrl: "https://logo.clearbit.com/springcard.com",
+      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
       start: "Septembre 2018",
       end: "Juillet 2021",
       description:
@@ -184,7 +184,7 @@ export const DATA = {
       school: "IAE Paris — Sorbonne Business School",
       href: "https://www.iae-paris.com",
       degree: "MAE Executive MBA — Management et Administration des Entreprises",
-      logoUrl: "https://logo.clearbit.com/iae-paris.com",
+      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
       start: "2020",
       end: "2022",
     },
@@ -192,7 +192,7 @@ export const DATA = {
       school: "Polytech Sorbonne — Paris",
       href: "https://www.polytech.sorbonne-universite.fr",
       degree: "Diplôme d'Ingénieur — Électronique et Informatique Industrielle (EI2I)",
-      logoUrl: "https://logo.clearbit.com/polytech.sorbonne-universite.fr",
+      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=polytech.sorbonne-universite.fr",
       start: "2018",
       end: "2021",
     },
