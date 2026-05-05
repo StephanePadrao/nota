@@ -24,11 +24,12 @@ const posts = paginatedPosts.map((post) => ({
   id: post.id,
   title: post.data.title,
   publishedAt: post.data.publishedAt,
+  summary: post.data.summary,
   image: post.data.image,
 }));
 ---
 
-<Layout title="Blog" description="Thoughts on software development, life, and more.">
+<Layout title="Blog" description="Réflexions sur la tech, le produit et la vie de builder.">
   <BlogList
     client:load
     posts={posts}
