@@ -162,7 +162,7 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
+        <div className="w-full space-y-8">
           <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText
@@ -187,56 +187,70 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
         </div>
       </section>
 
-      {/* Derniers articles — affichés juste après le hero */}
-      {recentPosts.length > 0 && (
-        <section id="recent-posts">
-          <div className="flex min-h-0 flex-col gap-y-4">
-            <BlurFade delay={BLUR_FADE_DELAY * 2}>
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold">Derniers articles</h2>
-                <a
-                  href="/blog"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
-                >
-                  Tous les articles
-                  <ArrowUpRight className="h-3 w-3" />
-                </a>
-              </div>
-            </BlurFade>
-            <div className="flex flex-col">
-              {recentPosts.map((post, i) => (
-                <BlurFade key={post.slug} delay={BLUR_FADE_DELAY * 2 + i * 0.06}>
-                  <a
-                    href={`/blog/${post.slug}`}
-                    className="group flex items-start justify-between gap-4 py-3 border-b border-border/50 hover:border-primary/40 transition-colors"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm leading-snug group-hover:text-primary transition-colors">
-                        {post.title}
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                        {post.summary}
-                      </p>
-                    </div>
-                    <time className="text-xs text-muted-foreground tabular-nums flex-none pt-0.5">
-                      {new Date(post.publishedAt).toLocaleDateString("fr-FR", {
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </time>
-                  </a>
-                </BlurFade>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Grille deux colonnes */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-14 items-start">
 
-      {orderedSections.map((key) => (
-        <React.Fragment key={key}>
-          {sectionComponents[key]}
-        </React.Fragment>
-      ))}
+        {/* Colonne gauche — Profil */}
+        <div className="flex flex-col gap-14">
+          {sectionComponents.about}
+          {sectionComponents.work}
+          {sectionComponents.education}
+          {sectionComponents.skills}
+          {sectionComponents.hobbies}
+        </div>
+
+        {/* Colonne droite — Créations */}
+        <div className="flex flex-col gap-14">
+          {recentPosts.length > 0 && (
+            <section id="recent-posts">
+              <div className="flex min-h-0 flex-col gap-y-4">
+                <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-bold">Derniers articles</h2>
+                    <a
+                      href="/blog"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                    >
+                      Tous les articles
+                      <ArrowUpRight className="h-3 w-3" />
+                    </a>
+                  </div>
+                </BlurFade>
+                <div className="flex flex-col">
+                  {recentPosts.map((post, i) => (
+                    <BlurFade key={post.slug} delay={BLUR_FADE_DELAY * 2 + i * 0.06}>
+                      <a
+                        href={`/blog/${post.slug}`}
+                        className="group flex items-start justify-between gap-4 py-3 border-b border-border/50 hover:border-primary/40 transition-colors"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm leading-snug group-hover:text-primary transition-colors">
+                            {post.title}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                            {post.summary}
+                          </p>
+                        </div>
+                        <time className="text-xs text-muted-foreground tabular-nums flex-none pt-0.5">
+                          {new Date(post.publishedAt).toLocaleDateString("fr-FR", {
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </time>
+                      </a>
+                    </BlurFade>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+          {sectionComponents.projects}
+        </div>
+
+      </div>
+
+      {/* Contact — full-width */}
+      {sectionComponents.contact}
     </main>
   );
 }
