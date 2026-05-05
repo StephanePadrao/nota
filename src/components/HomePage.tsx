@@ -162,8 +162,8 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
-        <div className="w-full space-y-8">
-          <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
+        <div className="max-w-2xl space-y-8">
+          <div className="gap-8 flex flex-col md:flex-row items-center">
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
@@ -200,7 +200,7 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
         </div>
 
         {/* Colonne droite — Créations */}
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col gap-14 sticky top-6 self-start border-l border-border/20 pl-10">
           {recentPosts.length > 0 && (
             <section id="recent-posts">
               <div className="flex min-h-0 flex-col gap-y-4">
