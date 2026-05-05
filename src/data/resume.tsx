@@ -135,7 +135,7 @@ export const DATA = {
       badges: ["Responsable Produit"],
       location: "Achères, France",
       title: "Responsable Produit",
-      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=zaack.fr",
+      logoUrl: "/logos/zaack.png",
       start: "Janvier 2024",
       end: undefined,
       description:
@@ -147,7 +147,7 @@ export const DATA = {
       badges: [],
       location: "Paris 15, France",
       title: "Project Manager",
-      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=kickmaker.co",
+      logoUrl: "/logos/kickmaker.png",
       start: "Juin 2022",
       end: "Janvier 2024",
       description:
@@ -192,7 +192,7 @@ export const DATA = {
       school: "Polytech Sorbonne — Paris",
       href: "https://www.polytech.sorbonne-universite.fr",
       degree: "Diplôme d'Ingénieur — Électronique et Informatique Industrielle (EI2I)",
-      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=polytech.sorbonne-universite.fr",
+      logoUrl: "/logos/polytech.svg",
       start: "2018",
       end: "2021",
     },
