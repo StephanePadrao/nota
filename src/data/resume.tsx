@@ -4,6 +4,7 @@ import {
   CircuitBoard, Code2, Cpu, ShieldCheck,
   Factory, Wrench, Handshake,
   Kanban, Users, TrendingUp, BarChart2,
+  Plane, Rocket, Zap, Gauge, Music, Tv2, Hammer, BookOpen, Globe, Camera,
 } from "lucide-react";
 import { Mechanical } from "@/components/ui/svgs/mechanical";
 
@@ -44,8 +45,9 @@ export const DATA = {
       heading: "Événements & Expériences",
       text: "Conférences, meetups et formations marquants.",
     },
+    hobbies: { order: 6, enabled: true, heading: "En dehors du bureau" },
     photos: {
-      order: 6,
+      order: 7,
       enabled: false,
       heading: "En dehors du bureau",
     },
@@ -83,6 +85,19 @@ export const DATA = {
     { name: "Management pluridisciplinaire", icon: ci(Users,     "#06b6d4") },
     { name: "Product Management",         icon: ci(TrendingUp,   "#f59e0b") },
     { name: "Étude de marché",            icon: ci(BarChart2,    "#ef4444") },
+  ],
+
+  hobbies: [
+    { name: "Aviation",             icon: ci(Plane,   "#3b82f6") },
+    { name: "Spatial",              icon: ci(Rocket,  "#6366f1") },
+    { name: "Nouvelles techno",     icon: ci(Zap,     "#f59e0b") },
+    { name: "F1 & WEC",             icon: ci(Gauge,   "#ef4444") },
+    { name: "Musique",              icon: ci(Music,   "#ec4899") },
+    { name: "Séries & Films",       icon: ci(Tv2,     "#8b5cf6") },
+    { name: "Bricolage & Fab",      icon: ci(Hammer,  "#d97706") },
+    { name: "Lecture",              icon: ci(BookOpen,"#22c55e") },
+    { name: "Voyages",              icon: ci(Globe,   "#0d9488") },
+    { name: "Photographie",         icon: ci(Camera,  "#64748b") },
   ],
 
   navbar: [
