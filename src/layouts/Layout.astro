@@ -158,19 +158,18 @@ const currentPath = Astro.url.pathname;
     <nav class="fixed top-0 inset-x-0 z-30 pointer-events-none">
       <div class="max-w-2xl mx-auto px-6 pt-4 flex items-center justify-between">
 
-        <!-- Logo "nota" -->
-        <a
-          href="/"
-          class="pointer-events-auto text-sm font-semibold tracking-tight
-                 bg-background/80 backdrop-blur-sm text-foreground hover:text-primary
-                 px-3 py-1.5 rounded-full border border-border/40 transition-colors"
+        <!-- Logo "nota" — identité visuelle, non-cliquable -->
+        <span
+          class="text-sm font-semibold tracking-tight
+                 bg-background/80 backdrop-blur-sm text-foreground
+                 px-3 py-1.5 rounded-full border border-border/40"
         >
           nota
-        </a>
+        </span>
 
         <!-- Liens de navigation — pills droite -->
         <div class="flex items-center gap-1.5 pointer-events-auto">
-          {DATA.navbar.filter((item) => item.href !== "/").map((item) => (
+          {DATA.navbar.map((item) => (
             <a
               href={item.href}
               class={`text-sm px-3 py-1.5 rounded-full border border-border/40
