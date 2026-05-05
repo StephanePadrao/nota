@@ -200,7 +200,7 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
         </div>
 
         {/* Colonne droite — Créations */}
-        <div className="relative flex flex-col gap-14 sticky top-6 self-start pl-10 before:absolute before:left-0 before:top-[15%] before:h-[70%] before:w-[3px] before:bg-border/50">
+        <div className="relative flex flex-col gap-14 lg:sticky lg:top-6 lg:self-start lg:pl-10 lg:before:absolute lg:before:left-0 lg:before:top-[15%] lg:before:h-[70%] lg:before:w-[3px] lg:before:bg-border/50">
           {recentPosts.length > 0 && (
             <section id="recent-posts">
               <div className="flex min-h-0 flex-col gap-y-4">
