@@ -7,6 +7,10 @@ import {
 } from "lucide-react";
 import { Mechanical } from "@/components/ui/svgs/mechanical";
 
+const ci = (Icon: any, color: string) =>
+  ({ className }: { className?: string }) =>
+    <Icon className={className} color={color} />;
+
 
 export const DATA = {
   name: "Stéphane Padrao",
@@ -67,19 +71,18 @@ export const DATA = {
   ],
 
   skills: [
-    { name: "Design électronique", icon: CircuitBoard },
-    { name: "C / C++ ARM32", icon: Code2 },
-
-    { name: "KiCad / Altium", icon: Cpu },
-    { name: "Certification CE", icon: ShieldCheck },
-    { name: "SolidWorks & Fusion 360", icon: Mechanical },
-    { name: "Industrialisation produit", icon: Factory },
-    { name: "Lignes de production", icon: Wrench },
-    { name: "Achats & négociation", icon: Handshake },
-    { name: "Pilotage de projet", icon: Kanban },
-    { name: "Management pluridisciplinaire", icon: Users },
-    { name: "Product Management", icon: TrendingUp },
-    { name: "Étude de marché", icon: BarChart2 },
+    { name: "Design électronique",        icon: ci(CircuitBoard, "#6366f1") },
+    { name: "C / C++ ARM32",              icon: ci(Code2,        "#0ea5e9") },
+    { name: "KiCad / Altium",             icon: ci(Cpu,          "#8b5cf6") },
+    { name: "Certification CE",           icon: ci(ShieldCheck,  "#22c55e") },
+    { name: "SolidWorks & Fusion 360",    icon: Mechanical },
+    { name: "Industrialisation produit",  icon: ci(Factory,      "#f59e0b") },
+    { name: "Lignes de production",       icon: ci(Wrench,       "#f97316") },
+    { name: "Achats & négociation",       icon: ci(Handshake,    "#10b981") },
+    { name: "Pilotage de projet",         icon: ci(Kanban,       "#7c3aed") },
+    { name: "Management pluridisciplinaire", icon: ci(Users,     "#06b6d4") },
+    { name: "Product Management",         icon: ci(TrendingUp,   "#f59e0b") },
+    { name: "Étude de marché",            icon: ci(BarChart2,    "#ef4444") },
   ],
 
   navbar: [
