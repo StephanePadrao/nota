@@ -2,9 +2,10 @@ import { Icons } from "@/components/icons";
 import {
   House, Library, Mail,
   CircuitBoard, Code2, Cpu, ShieldCheck,
-  Layers, Factory, Wrench, Handshake,
+  Factory, Wrench, Handshake,
   Kanban, Users, TrendingUp, BarChart2,
 } from "lucide-react";
+import { Mechanical } from "@/components/ui/svgs/mechanical";
 
 
 export const DATA = {
@@ -71,7 +72,7 @@ export const DATA = {
 
     { name: "KiCad / Altium", icon: Cpu },
     { name: "Certification CE", icon: ShieldCheck },
-    { name: "Design mécanique", icon: Layers },
+    { name: "SolidWorks & Fusion 360", icon: Mechanical },
     { name: "Industrialisation produit", icon: Factory },
     { name: "Lignes de production", icon: Wrench },
     { name: "Achats & négociation", icon: Handshake },
