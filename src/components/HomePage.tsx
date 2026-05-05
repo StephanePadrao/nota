@@ -13,6 +13,14 @@ import { ArrowUpRight } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
+interface RecentPost {
+  slug: string;
+  title: string;
+  publishedAt: string;
+  summary: string;
+  image?: string;
+}
+
 const sectionComponents: Record<string, React.ReactNode> = {
   about: (
     <section id="about">
@@ -126,7 +134,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   ),
 };
 
-export default function HomePage() {
+export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPost[] }) {
   const orderedSections = Object.entries(DATA.sections)
     .filter(([, s]) => s.enabled)
     .sort(([, a], [, b]) => a.order - b.order)
@@ -142,7 +150,7 @@ export default function HomePage() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                text={DATA.name}
               />
               <BlurFadeText
                 className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
@@ -159,6 +167,52 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Derniers articles — affichés juste après le hero */}
+      {recentPosts.length > 0 && (
+        <section id="recent-posts">
+          <div className="flex min-h-0 flex-col gap-y-4">
+            <BlurFade delay={BLUR_FADE_DELAY * 2}>
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold">Derniers articles</h2>
+                <a
+                  href="/blog"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                >
+                  Tous les articles
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+              </div>
+            </BlurFade>
+            <div className="flex flex-col">
+              {recentPosts.map((post, i) => (
+                <BlurFade key={post.slug} delay={BLUR_FADE_DELAY * 2 + i * 0.06}>
+                  <a
+                    href={`/blog/${post.slug}`}
+                    className="group flex items-start justify-between gap-4 py-3 border-b border-border/50 hover:border-primary/40 transition-colors"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm leading-snug group-hover:text-primary transition-colors">
+                        {post.title}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                        {post.summary}
+                      </p>
+                    </div>
+                    <time className="text-xs text-muted-foreground tabular-nums flex-none pt-0.5">
+                      {new Date(post.publishedAt).toLocaleDateString("fr-FR", {
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </time>
+                  </a>
+                </BlurFade>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {orderedSections.map((key) => (
         <React.Fragment key={key}>
           {sectionComponents[key]}

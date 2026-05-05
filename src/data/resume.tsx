@@ -1,22 +1,21 @@
 import { Icons } from "@/components/icons";
-import { House, Library } from "lucide-react";
+import { House, Library, Mail } from "lucide-react";
 import { Astro } from "@/components/ui/svgs/astro";
-import { ReactLight } from "@/components/ui/svgs/reactLight";
 import { Typescript } from "@/components/ui/svgs/typescript";
-import { Nodejs } from "@/components/ui/svgs/nodejs";
 import { Docker } from "@/components/ui/svgs/docker";
 import { Python } from "@/components/ui/svgs/python";
+import { Java } from "@/components/ui/svgs/java";
 
 export const DATA = {
   name: "Stéphane Padrao",
   initials: "SP",
   url: "https://spadrao.erro.cloud",
-  location: "France", // TODO: préciser la ville si souhaité
-  locationLink: "https://www.google.com/maps/place/france",
+  location: "Le Plessis-Robinson, France",
+  locationLink: "https://www.google.com/maps/place/le+plessis-robinson+france",
   description:
-    "Chef de projet technique. Je construis des produits, j'explore l'indie hacking, et j'écris sur ce que j'apprends.",
+    "Ingénieur électronique & Responsable produit. Je construis des produits, de l'idée à l'industrialisation. J'écris sur le produit, le design et la tech.",
   summary:
-    "Après plusieurs années comme chef de projet technique, je travaille à construire mes propres produits et à développer une activité freelance. J'écris sur ce que j'apprends — produit, design, entrepreneuriat. Nota est mon espace pour noter, réfléchir et partager.",
+    "Double formation technique ([Ingénieur Polytech Sorbonne](/#education)) et managériale ([MBA IAE Paris](/#education)), je pilote des projets produits depuis plusieurs années — IoT, hardware embarqué, cycle en V. Depuis début 2024, je suis Responsable Produit chez Zaack. En parallèle, j'explore l'entrepreneuriat tech et je construis des projets de ma propre initiative. Nota est mon espace pour partager ces réflexions.",
   avatarUrl: "/picofme.png",
   ogImage: "/og_image.png",
 
@@ -34,22 +33,22 @@ export const DATA = {
     },
     hackathons: {
       order: 7,
-      enabled: false, // TODO: réactiver et remplir avec de vrais événements
+      enabled: false,
       label: "Événements",
       heading: "Événements & Expériences",
       text: "Conférences, meetups et formations marquants.",
     },
     photos: {
       order: 6,
-      enabled: false, // TODO: réactiver quand les vraies photos sont prêtes
-      heading: "En dehors du code",
+      enabled: false,
+      heading: "En dehors du bureau",
     },
     contact: {
       order: 8,
       enabled: true,
       label: "Contact",
       heading: "Parlons-en",
-      text: "Une question, une idée, une opportunité ? Envoie-moi un message, je réponds à tout.",
+      text: "Une question, une idée, une opportunité ? Envoie-moi un message — je réponds à tout.",
     },
   },
 
@@ -66,17 +65,20 @@ export const DATA = {
   ],
 
   skills: [
-    { name: "Astro", icon: Astro },
-    { name: "React", icon: ReactLight },
-    { name: "TypeScript", icon: Typescript },
-    { name: "Node.js", icon: Nodejs },
+    { name: "Gestion de projet", icon: undefined },
+    { name: "Product Management", icon: undefined },
     { name: "Python", icon: Python },
+    { name: "Java", icon: Java },
+    { name: "TypeScript", icon: Typescript },
     { name: "Docker", icon: Docker },
+    { name: "Astro", icon: Astro },
+    { name: "C embarqué (ARM32)", icon: undefined },
   ],
 
   navbar: [
     { href: "/", icon: House, label: "Accueil" },
     { href: "/blog", icon: Library, label: "Blog" },
+    { href: "/contact", icon: Mail, label: "Contact" },
   ],
 
   contact: {
@@ -91,7 +93,7 @@ export const DATA = {
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://linkedin.com/in/stephane-padrao", // TODO: vérifier l'URL exacte
+        url: "https://linkedin.com/in/SPADRAO",
         icon: Icons.linkedin,
         navbar: true,
       },
@@ -99,13 +101,13 @@ export const DATA = {
         name: "X",
         url: "https://x.com",
         icon: Icons.x,
-        navbar: false, // désactivé — TODO: ajouter URL si compte actif
+        navbar: false,
       },
       Youtube: {
         name: "Youtube",
         url: "https://youtube.com",
         icon: Icons.youtube,
-        navbar: false, // désactivé — TODO: ajouter URL si chaîne active
+        navbar: false,
       },
       email: {
         name: "Envoyer un email",
@@ -117,43 +119,72 @@ export const DATA = {
   },
 
   work: [
-    // TODO: remplacer par tes vraies expériences professionnelles
-    // Structure : company, href, badges[], location, title, logoUrl, start, end (undefined = poste actuel), description
     {
-      company: "Poste actuel",
-      href: "#",
-      badges: ["CdP"],
-      location: "France",
-      title: "Chef de projet technique",
-      logoUrl: "https://avatar.vercel.sh/poste-actuel?size=40",
-      start: "À compléter",
+      company: "Zaack (Igienair)",
+      href: "https://zaack.fr",
+      badges: ["Responsable Produit"],
+      location: "Achères, France",
+      title: "Responsable Produit",
+      logoUrl: "https://www.google.com/s2/favicons?domain=zaack.fr&sz=128",
+      start: "Janvier 2024",
       end: undefined,
       description:
-        "TODO: Décrire les responsabilités, l'équipe, les technologies utilisées et les réalisations.",
+        "Pilotage de la production & innovation — coordination des achats, validation qualité fournisseurs, intégration de nouvelles fonctionnalités. Accompagnement client avant et après achat (design système). Management d'équipes pluridisciplinaires (électronique, software, mécanique).",
     },
     {
-      company: "Expérience précédente",
-      href: "#",
+      company: "Kickmaker",
+      href: "https://kickmaker.co",
       badges: [],
-      location: "France",
-      title: "À compléter",
-      logoUrl: "https://avatar.vercel.sh/exp-precedente?size=40",
-      start: "À compléter",
-      end: "À compléter",
+      location: "Paris 15, France",
+      title: "Project Manager",
+      logoUrl: "https://www.google.com/s2/favicons?domain=kickmaker.co&sz=128",
+      start: "Juin 2022",
+      end: "Janvier 2024",
       description:
-        "TODO: Décrire les responsabilités et réalisations.",
+        "Chef de projet sur plusieurs produits (Javelot, Elax, Zaack, LaPoste). Définition des architectures et besoins produits (PRD), mise en place du cycle en V. Suivi des budgets et plannings, coordination entre le client et les équipes internes électronique, mécanique, software et certification.",
+    },
+    {
+      company: "MCA Ingénierie / Carmat SA",
+      href: "https://mca-ingenierie.fr",
+      badges: [],
+      location: "Levallois-Perret, France",
+      title: "Ingénieur design électronique",
+      logoUrl: "https://www.google.com/s2/favicons?domain=mca-ingenierie.fr&sz=128",
+      start: "Septembre 2021",
+      end: "Février 2022",
+      description:
+        "Mission chez Carmat SA (cœur artificiel). Mise à jour des dossiers de conception, amélioration des parties puissance du produit, analyse des défauts détectés en production.",
+    },
+    {
+      company: "Springcard SAS",
+      href: "https://www.springcard.com",
+      badges: ["Alternance"],
+      location: "Palaiseau, France",
+      title: "Apprenti Ingénieur système embarqué — Responsable production",
+      logoUrl: "https://www.google.com/s2/favicons?domain=springcard.com&sz=128",
+      start: "Septembre 2018",
+      end: "Juillet 2021",
+      description:
+        "Formation en alternance sur 3 ans. Conception de produits : schématisation, design PCB, mise en production. Dernière année : responsable du service méthodes et production — gestion d'équipe, relation fournisseurs.",
     },
   ],
 
   education: [
-    // TODO: remplacer par tes vraies formations/diplômes
     {
-      school: "Formation principale",
-      href: "#",
-      degree: "À compléter",
-      logoUrl: "https://avatar.vercel.sh/formation?size=40",
-      start: "À compléter",
-      end: "À compléter",
+      school: "IAE Paris — Sorbonne Business School",
+      href: "https://www.iae-paris.com",
+      degree: "MAE Executive MBA — Management et Administration des Entreprises",
+      logoUrl: "https://www.google.com/s2/favicons?domain=iae-paris.com&sz=128",
+      start: "2020",
+      end: "2022",
+    },
+    {
+      school: "Polytech Sorbonne — Paris",
+      href: "https://www.polytech.sorbonne-universite.fr",
+      degree: "Diplôme d'Ingénieur — Électronique et Informatique Industrielle (EI2I)",
+      logoUrl: "https://www.google.com/s2/favicons?domain=polytech.sorbonne-universite.fr&sz=128",
+      start: "2018",
+      end: "2021",
     },
   ],
 
@@ -164,8 +195,8 @@ export const DATA = {
       dates: "Mai 2026 - Aujourd'hui",
       active: true,
       description:
-        "Blog personnel et espace de réflexion, construit avec Astro (Starfolio). Auto-hébergé sur un VPS avec Nginx — ownership total des données, zéro dépendance plateforme.",
-      technologies: ["Astro", "TypeScript", "TailwindCSS", "Nginx", "VPS"],
+        "Blog personnel et espace de réflexion, construit sur Astro (Starfolio). Auto-hébergé sur un VPS avec Nginx — ownership total des données, zéro dépendance plateforme.",
+      technologies: ["Astro", "TypeScript", "TailwindCSS", "Nginx"],
       links: [
         {
           type: "Site",
@@ -187,8 +218,8 @@ export const DATA = {
       dates: "2025 - Aujourd'hui",
       active: true,
       description:
-        "TODO: Décrire ce que fait Tempo.", // TODO: remplir la description de Tempo
-      technologies: ["Node.js", "VPS", "PM2"],
+        "Application de suivi de temps personnelle. Auto-hébergée sur VPS, gérée avec PM2.",
+      technologies: ["Node.js", "PM2", "VPS"],
       links: [
         {
           type: "Site",
@@ -199,12 +230,9 @@ export const DATA = {
       image: "",
       video: "",
     },
-    // TODO: ajouter d'autres projets si nécessaire
   ],
 
   hackathons: [
-    // TODO: remplacer par de vrais événements (conférences, meetups, formations)
-    // La section est désactivée (enabled: false dans sections.hackathons)
     {
       title: "À compléter",
       dates: "2026",
