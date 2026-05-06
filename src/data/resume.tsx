@@ -23,7 +23,7 @@ export const DATA = {
   description:
     "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production. J'écris sur le produit, le design et la tech.",
   summary:
-    "Double formation technique ([Ingénieur Polytech Sorbonne](/#education)) et managériale ([MBA IAE Paris](/#education)), je pilote des projets produits depuis plusieurs années — IoT, hardware embarqué, cycle en V. Depuis début 2024, je suis Responsable Produit chez Zaack. En parallèle, j'explore l'entrepreneuriat tech et je construis des projets de ma propre initiative. Nota est mon espace pour partager ces réflexions.",
+    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé.\n\nConcevoir un produit, c'est assembler des contraintes : technique, usage, marché, production.\n\nAujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle.\n\nLa combinaison ingénieur-PM est rare. Ce blog, c'est l'endroit où je partage ce que j'observe des deux côtés.",
   avatarUrl: "/Profil-Pic.jpeg",
   ogImage: "/og_image.png",
 
