@@ -10,14 +10,14 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
 
   if (!src || imageError) {
-    return <div className="w-full h-48 bg-muted" />;
+    return <div className="w-full aspect-video bg-muted" />;
   }
 
   return (
     <img
       src={src}
       alt={alt}
-      className="w-full h-48 object-cover object-top"
+      className="w-full aspect-video object-cover object-top"
       onError={() => setImageError(true)}
     />
   );
@@ -71,7 +71,7 @@ export function ProjectCard({
               loop
               muted
               playsInline
-              className="w-full h-48 object-cover"
+              className="w-full aspect-video object-cover object-top"
             />
           ) : image ? (
             <ProjectImage src={image} alt={title} />
