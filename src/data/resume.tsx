@@ -245,7 +245,7 @@ export const DATA = {
       dates: "2025 - Aujourd'hui",
       active: true,
       description:
-        "Application web de surveillance de la qualité de l'air intérieur. Dashboard temps réel, carte interactive, rapports PDF avec analyse IA. Architecture multi-tenant : chaque client voit uniquement ses données.",
+        "Application web de surveillance de la qualité de l'air intérieur. Dashboard temps réel, carte interactive, rapports PDF avec analyse IA. Architecture multi-tenant : chaque client voit uniquement ses données.\n\nDémo : `demo@test.com` / `demo1234`",
       technologies: ["SvelteKit", "TypeScript", "Supabase", "TailwindCSS"],
       links: [
         {
