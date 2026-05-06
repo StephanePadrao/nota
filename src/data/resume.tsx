@@ -240,6 +240,29 @@ export const DATA = {
       video: "",
     },
     {
+      title: "SensiAir",
+      href: "https://sensiair.erro.cloud",
+      dates: "2025 - Aujourd'hui",
+      active: true,
+      description:
+        "Application web de surveillance de la qualité de l'air intérieur. Dashboard temps réel, carte interactive, rapports PDF avec analyse IA. Architecture multi-tenant : chaque client voit uniquement ses données.",
+      technologies: ["SvelteKit", "TypeScript", "Supabase", "TailwindCSS"],
+      links: [
+        {
+          type: "Site",
+          href: "https://sensiair.erro.cloud",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Code",
+          href: "https://github.com/StephanePadrao/SensiAir",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
       title: "Tempo",
       href: "https://tempo.erro.cloud",
       dates: "2025 - Aujourd'hui",
