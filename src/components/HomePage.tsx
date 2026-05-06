@@ -95,12 +95,12 @@ const sectionComponents: Record<string, React.ReactNode> = {
         <BlurFade delay={BLUR_FADE_DELAY * 9}>
           <h2 className="text-xl font-bold">{DATA.sections.skills.heading}</h2>
         </BlurFade>
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
           {DATA.skills.map((skill, id) => (
-            <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-              <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
-                {skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
-                <span className="text-foreground text-sm font-medium">{skill.name}</span>
+            <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05} className="h-full">
+              <div className="border bg-background border-border ring-2 ring-border/20 rounded-lg h-7 w-full px-3 flex items-center gap-2">
+                {skill.icon && <skill.icon className="size-3.5 rounded overflow-hidden object-contain flex-none" />}
+                <span className="text-foreground text-xs font-medium truncate">{skill.name}</span>
               </div>
             </BlurFade>
           ))}
@@ -114,12 +114,12 @@ const sectionComponents: Record<string, React.ReactNode> = {
         <BlurFade delay={BLUR_FADE_DELAY * 9}>
           <h2 className="text-xl font-bold">{DATA.sections.hobbies.heading}</h2>
         </BlurFade>
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
           {DATA.hobbies.map((hobby, id) => (
-            <BlurFade key={hobby.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-              <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
-                {hobby.icon && <hobby.icon className="size-4 rounded overflow-hidden object-contain" />}
-                <span className="text-foreground text-sm font-medium">{hobby.name}</span>
+            <BlurFade key={hobby.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05} className="h-full">
+              <div className="border bg-background border-border ring-2 ring-border/20 rounded-lg h-7 w-full px-3 flex items-center gap-2">
+                {hobby.icon && <hobby.icon className="size-3.5 rounded overflow-hidden object-contain flex-none" />}
+                <span className="text-foreground text-xs font-medium truncate">{hobby.name}</span>
               </div>
             </BlurFade>
           ))}
