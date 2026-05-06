@@ -217,29 +217,6 @@ export const DATA = {
 
   projects: [
     {
-      title: "Nota",
-      href: "https://spadrao.erro.cloud",
-      dates: "Mai 2026 - Aujourd'hui",
-      active: true,
-      description:
-        "Blog personnel et espace de réflexion, construit sur Astro (Starfolio). Auto-hébergé sur un VPS avec Nginx — ownership total des données, zéro dépendance plateforme.",
-      technologies: ["Astro", "TypeScript", "TailwindCSS", "Nginx"],
-      links: [
-        {
-          type: "Site",
-          href: "https://spadrao.erro.cloud",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Code",
-          href: "https://github.com/StephanePadrao/nota",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "/example-website.webp",
-      video: "",
-    },
-    {
       title: "SensiAir",
       href: "https://sensiair.erro.cloud",
       dates: "2025 - Aujourd'hui",
