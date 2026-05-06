@@ -17,7 +17,7 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
     <img
       src={src}
       alt={alt}
-      className="w-full h-48 object-cover"
+      className="w-full h-48 object-cover object-top"
       onError={() => setImageError(true)}
     />
   );

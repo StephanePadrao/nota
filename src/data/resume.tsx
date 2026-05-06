@@ -268,7 +268,7 @@ export const DATA = {
       dates: "2025 - Aujourd'hui",
       active: true,
       description:
-        "Application de suivi de temps personnelle. Auto-hébergée sur VPS, gérée avec PM2.",
+        "Application web de gestion de projets et de temps pour équipes. Dashboard KPIs, gestion de tâches (kanban, calendrier, timeline), réunions avec compte-rendu, génération de documents PDF via Typst. Architecture multi-tenant : chaque espace voit uniquement ses données.\n\nDémo : `demo@tempo.app` / `DemoTempo2026!`",
       technologies: ["Node.js", "PM2", "VPS"],
       links: [
         {
@@ -277,7 +277,7 @@ export const DATA = {
           icon: <Icons.globe className="size-3" />,
         },
       ],
-      image: "",
+      image: "/tempo-preview.png",
       video: "",
     },
   ],
