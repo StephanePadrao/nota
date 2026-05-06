@@ -156,7 +156,7 @@ export const DATA = {
       start: "Janvier 2024",
       end: undefined,
       description:
-        "Pilotage de la production & innovation — coordination des achats, validation qualité fournisseurs, intégration de nouvelles fonctionnalités. Accompagnement client avant et après achat (design système). Management d'équipes pluridisciplinaires (électronique, software, mécanique).",
+        "Ingénieur hardware et Responsable Produit. Je m'occupe de l'architecture produit, de la stratégie, de la gestion de projets et des relations fournisseurs. Du circuit à la ligne de production, avec des partenaires en Chine et en Europe. Je manage une équipe de 3 à 5 personnes : électronique, software, mécanique.",
     },
     {
       company: "Kickmaker",
@@ -168,7 +168,7 @@ export const DATA = {
       start: "Juin 2022",
       end: "Janvier 2024",
       description:
-        "Chef de projet sur plusieurs produits (Javelot, Elax, Zaack, LaPoste). Définition des architectures et besoins produits (PRD), mise en place du cycle en V. Suivi des budgets et plannings, coordination entre le client et les équipes internes électronique, mécanique, software et certification.",
+        "Studio de développement produit hardware à Paris. J'accompagne les clients du POC au PVT : électronique, mécanique, software, certification. Hermès, ELAX Énergie, Javelot, Zaack. Un pied dans les startups parisiennes, l'autre dans les contraintes industrielles.",
     },
     {
       company: "MCA Ingénierie / Carmat SA",
@@ -180,7 +180,7 @@ export const DATA = {
       start: "Septembre 2021",
       end: "Février 2022",
       description:
-        "Mission chez Carmat SA (cœur artificiel). Mise à jour des dossiers de conception, amélioration des parties puissance du produit, analyse des défauts détectés en production.",
+        "Mission chez Carmat, le fabricant du cœur artificiel. Mise à jour des dossiers de conception, amélioration des étages puissance, analyse des défauts détectés en production.",
     },
     {
       company: "Springcard SAS",
@@ -192,7 +192,7 @@ export const DATA = {
       start: "Septembre 2018",
       end: "Juillet 2021",
       description:
-        "Formation en alternance sur 3 ans. Conception de produits : schématisation, design PCB, mise en production. Dernière année : responsable du service méthodes et production — gestion d'équipe, relation fournisseurs.",
+        "3 ans d'alternance sur des produits NFC/RFID. De la schématisation au PCB jusqu'à la mise en production. Dernière année : responsable de la production, gestion d'équipe et relations fournisseurs.",
     },
   ],
 
