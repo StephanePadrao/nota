@@ -49,8 +49,8 @@ export const DATA = {
     hobbies: { order: 6, enabled: true, heading: "En dehors du bureau" },
     photos: {
       order: 7,
-      enabled: false,
-      heading: "En dehors du bureau",
+      enabled: true,
+      heading: "Voyages & Photos",
     },
     contact: {
       order: 8,
@@ -104,6 +104,7 @@ export const DATA = {
   navbar: [
     { href: "/", icon: House, label: "Accueil" },
     { href: "/blog", icon: Library, label: "Blog" },
+    { href: "/photos", icon: Camera, label: "Photos" },
     { href: "/contact", icon: Mail, label: "Contact" },
   ],
 

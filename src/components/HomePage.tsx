@@ -147,8 +147,8 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
-        <div className="max-w-2xl space-y-8">
-          <div className="gap-8 flex flex-col md:flex-row items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
@@ -157,12 +157,12 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
                 text={DATA.name}
               />
               <BlurFadeText
-                className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
+                className="text-muted-foreground md:text-lg lg:text-xl"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
+            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2 flex-none">
               <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
