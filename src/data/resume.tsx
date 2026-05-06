@@ -259,7 +259,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "",
+      image: "/sensiair-preview.png",
       video: "",
     },
     {
