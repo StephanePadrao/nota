@@ -23,7 +23,7 @@ export const DATA = {
   description:
     "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production. J'écris sur le produit, le design et la tech.",
   summary:
-    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé.\n\nConcevoir un produit, c'est assembler des contraintes : technique, usage, marché, production.\n\nAujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle.\n\nLa combinaison ingénieur-PM est rare. Ce blog, c'est l'endroit où je partage ce que j'observe des deux côtés.",
+    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé. Concevoir un produit, c'est assembler des contraintes : technique, usage, marché, production. Aujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle. La combinaison ingénieur-PM est rare. Ce blog, c'est l'endroit où je partage ce que j'observe des deux côtés.",
   avatarUrl: "/Profil-Pic.jpeg",
   ogImage: "/og_image.png",
 
