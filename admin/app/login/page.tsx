@@ -27,10 +27,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-sm space-y-6 p-8 bg-zinc-900 rounded-2xl border border-zinc-800">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-50">
+      <div className="w-full max-w-sm space-y-6 p-8 bg-white rounded-2xl border border-zinc-200 shadow-sm">
         <div>
-          <h1 className="text-xl font-semibold text-white">Nota Admin</h1>
+          <h1 className="text-xl font-semibold text-zinc-900">Nota Admin</h1>
           <p className="text-sm text-zinc-500 mt-1">Connexion requise</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -40,13 +40,13 @@ export default function LoginPage() {
             placeholder="Mot de passe"
             autoFocus
             required
-            className="w-full px-4 py-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder:text-zinc-500 focus:outline-none focus:border-amber-500 transition-colors"
+            className="w-full px-4 py-2.5 bg-white border border-zinc-300 rounded-lg text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-amber-500 transition-colors"
           />
-          {error && <p className="text-red-400 text-sm">{error}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 bg-amber-500 text-black font-semibold rounded-lg hover:bg-amber-400 disabled:opacity-60 transition-colors"
+            className="w-full py-2.5 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 disabled:opacity-60 transition-colors"
           >
             {loading ? "Connexion..." : "Se connecter"}
           </button>

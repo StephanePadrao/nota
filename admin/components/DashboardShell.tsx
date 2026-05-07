@@ -9,17 +9,17 @@ export default function DashboardShell({ children }: { children: React.ReactNode
 
   return (
     <div className="flex h-full min-h-screen">
-      <aside className="w-56 shrink-0 flex flex-col border-r border-zinc-800 bg-zinc-900 px-4 py-6">
-        <div className="mb-8">
-          <span className="text-white font-semibold text-sm">Nota Admin</span>
+      <aside className="w-56 shrink-0 flex flex-col border-r border-zinc-200 bg-white px-4 py-6">
+        <div className="mb-8 px-3">
+          <span className="text-zinc-900 font-semibold text-sm">Nota Admin</span>
         </div>
         <nav className="flex-1 space-y-1">
           <Link
             href="/articles"
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
               pathname.startsWith("/articles")
-                ? "bg-zinc-800 text-white"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+                ? "bg-amber-50 text-amber-700 font-medium"
+                : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100"
             }`}
           >
             <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -29,8 +29,8 @@ export default function DashboardShell({ children }: { children: React.ReactNode
           </Link>
         </nav>
         <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+          onClick={() => signOut({ callbackUrl: "https://admin.spadrao.erro.cloud/login" })}
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors"
         >
           <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
@@ -38,7 +38,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
           Déconnexion
         </button>
       </aside>
-      <main className="flex-1 overflow-y-auto">{children}</main>
+      <main className="flex-1 overflow-y-auto bg-zinc-50">{children}</main>
     </div>
   );
 }

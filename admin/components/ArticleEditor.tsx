@@ -103,15 +103,15 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
   }
 
   const inputClass =
-    "w-full px-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder:text-zinc-500 text-sm focus:outline-none focus:border-amber-500 transition-colors";
+    "w-full px-3 py-2 bg-white border border-zinc-300 rounded-lg text-zinc-900 placeholder:text-zinc-400 text-sm focus:outline-none focus:border-amber-500 transition-colors";
 
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center gap-3 px-8 py-4 border-b border-zinc-800">
+      <div className="flex items-center gap-3 px-8 py-4 border-b border-zinc-200 bg-white">
         <button
           onClick={() => router.push("/articles")}
-          className="text-zinc-400 hover:text-white transition-colors text-sm"
+          className="text-zinc-400 hover:text-zinc-700 transition-colors text-sm"
         >
           ← Articles
         </button>
@@ -129,7 +129,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
         <button
           onClick={() => save(false)}
           disabled={saving}
-          className="px-4 py-1.5 text-sm bg-zinc-800 border border-zinc-700 text-white rounded-lg hover:bg-zinc-700 disabled:opacity-50 transition-colors"
+          className="px-4 py-1.5 text-sm bg-white border border-zinc-300 text-zinc-700 rounded-lg hover:bg-zinc-50 disabled:opacity-50 transition-colors"
         >
           {saving ? "..." : "Sauvegarder"}
         </button>
@@ -144,9 +144,9 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
 
       <div className="flex flex-1 overflow-hidden">
         {/* Frontmatter sidebar */}
-        <aside className="w-64 shrink-0 border-r border-zinc-800 p-5 space-y-4 overflow-y-auto">
+        <aside className="w-64 shrink-0 border-r border-zinc-200 bg-white p-5 space-y-4 overflow-y-auto">
           <div className="space-y-1">
-            <label className="text-xs font-medium text-zinc-400">Slug</label>
+            <label className="text-xs font-medium text-zinc-500">Slug</label>
             <input
               value={slug}
               onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))}
@@ -156,15 +156,15 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
             />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-medium text-zinc-400">Titre</label>
+            <label className="text-xs font-medium text-zinc-500">Titre</label>
             <input value={form.title} onChange={set("title")} placeholder="Titre de l'article" className={inputClass} />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-medium text-zinc-400">Date de publication</label>
+            <label className="text-xs font-medium text-zinc-500">Date de publication</label>
             <input type="date" value={form.publishedAt} onChange={set("publishedAt")} className={inputClass} />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-medium text-zinc-400">Résumé</label>
+            <label className="text-xs font-medium text-zinc-500">Résumé</label>
             <textarea
               value={form.summary}
               onChange={set("summary")}
@@ -174,7 +174,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
             />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-medium text-zinc-400">Image de couverture</label>
+            <label className="text-xs font-medium text-zinc-500">Image de couverture</label>
             <input value={form.image} onChange={set("image")} placeholder="/blog/image.jpg" className={inputClass} />
             <label className="block">
               <span className="text-xs text-zinc-500 cursor-pointer hover:text-amber-500 transition-colors">
@@ -190,11 +190,11 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
 
         {/* Editor area */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex items-center gap-1 px-5 py-2 border-b border-zinc-800">
+          <div className="flex items-center gap-1 px-5 py-2 border-b border-zinc-200 bg-white">
             <button
               onClick={() => setTab("write")}
               className={`px-3 py-1 text-sm rounded-md transition-colors ${
-                tab === "write" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"
+                tab === "write" ? "bg-zinc-100 text-zinc-900" : "text-zinc-400 hover:text-zinc-700"
               }`}
             >
               Écrire
@@ -202,7 +202,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
             <button
               onClick={() => setTab("preview")}
               className={`px-3 py-1 text-sm rounded-md transition-colors ${
-                tab === "preview" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"
+                tab === "preview" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-zinc-700"
               }`}
             >
               Aperçu
@@ -214,7 +214,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
               value={form.body}
               onChange={set("body")}
               placeholder="Écrivez votre article en Markdown..."
-              className="flex-1 w-full p-6 bg-transparent text-zinc-200 text-sm font-mono leading-relaxed focus:outline-none resize-none placeholder:text-zinc-600"
+              className="flex-1 w-full p-6 bg-white text-zinc-800 text-sm font-mono leading-relaxed focus:outline-none resize-none placeholder:text-zinc-300"
             />
           ) : (
             <div className="flex-1 overflow-y-auto p-6 prose prose-invert prose-sm max-w-none">
@@ -226,19 +226,19 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
 
       {/* Build logs */}
       {showLogs && (
-        <div className="border-t border-zinc-800 bg-zinc-900">
+        <div className="border-t border-zinc-200 bg-zinc-50">
           <div className="flex items-center justify-between px-5 py-2">
-            <span className="text-xs font-medium text-zinc-400">
+            <span className="text-xs font-medium text-zinc-500">
               Build{" "}
               {buildStatus === "building" && <span className="text-amber-400">en cours...</span>}
               {buildStatus === "success" && <span className="text-green-400">terminé</span>}
               {buildStatus === "error" && <span className="text-red-400">échoué</span>}
             </span>
-            <button onClick={() => setShowLogs(false)} className="text-zinc-500 hover:text-white text-xs">
+            <button onClick={() => setShowLogs(false)} className="text-zinc-500 hover:text-zinc-700 text-xs">
               Fermer
             </button>
           </div>
-          <pre className="px-5 pb-4 text-xs text-zinc-400 max-h-40 overflow-y-auto font-mono">
+          <pre className="px-5 pb-4 text-xs text-zinc-600 max-h-40 overflow-y-auto font-mono">
             {buildLogs.join("")}
           </pre>
         </div>
