@@ -22,6 +22,8 @@ export const DATA = {
   locationLink: "https://www.google.com/maps/place/le+plessis-robinson+france",
   description:
     "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production. J'écris sur le produit, le design et la tech.",
+  ogDescription:
+    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Blog sur le produit, le hardware et la tech.",
   summary:
     "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé. Concevoir un produit, c'est assembler des contraintes : technique, usage, marché, production. Aujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle. La combinaison ingénieur-PM est rare. Ce blog, c'est l'endroit où je partage ce que j'observe des deux côtés.",
   avatarUrl: "/Profil-Pic.webp",

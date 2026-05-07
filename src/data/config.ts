@@ -13,6 +13,7 @@ export const CONFIG = {
   // ---------------------------------------------------------------------------
   seo: {
     titleTemplate: "%s | %n", // %s = page title, %n = DATA.name
+    homeTitle: "Stéphane Padrao — Responsable Produit & Maker Tech",
     twitterCard: "summary_large_image" as const,
     robots: "index, follow",
   },

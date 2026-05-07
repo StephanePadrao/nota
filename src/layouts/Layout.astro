@@ -13,14 +13,14 @@ interface Props {
 
 const {
   title,
-  description = DATA.description,
+  description = DATA.ogDescription,
   image,
   canonicalURL = Astro.url.href,
 } = Astro.props;
 
 const pageTitle = title
   ? CONFIG.seo.titleTemplate.replace("%s", title).replace("%n", DATA.name)
-  : DATA.name;
+  : CONFIG.seo.homeTitle;
 const ogImage = image
   ? image.startsWith("http")
     ? image
