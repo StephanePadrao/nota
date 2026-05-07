@@ -45,7 +45,10 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
   const bodyImageInputRef = useRef<HTMLInputElement>(null);
 
   const initialHtml = initialData?.body
-    ? (marked(initialData.body) as string)
+    ? (marked(initialData.body) as string).replace(
+        /(<img[^>]+src=")\/blog\//g,
+        '$1/api/media/blog/'
+      )
     : "";
 
   const editor = useEditor({
@@ -76,7 +79,9 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
   function getBody(): string {
     if (!editor) return initialData?.body ?? "";
     const td = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
-    return td.turndown(editor.getHTML());
+    // Strip the admin proxy prefix so saved URLs work on the public blog
+    const html = editor.getHTML().replace(/src="\/api\/media\//g, 'src="/');
+    return td.turndown(html);
   }
 
   async function save(publish = false) {
