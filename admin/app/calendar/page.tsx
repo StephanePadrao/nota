@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import DashboardShell from "@/components/DashboardShell";
 import type { ArticleMeta } from "@/lib/articles";
+import type { Idea } from "@/lib/ideas";
 
 const MONTHS_FR = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 const DAYS_FR = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
@@ -25,9 +26,11 @@ export default function CalendarPage() {
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
   const [articles, setArticles] = useState<ArticleMeta[]>([]);
+  const [ideas, setIdeas] = useState<Idea[]>([]);
 
   useEffect(() => {
     fetch("/api/articles").then((r) => r.json()).then(setArticles);
+    fetch("/api/ideas").then((r) => r.json()).then(setIdeas);
   }, []);
 
   function prev() {
@@ -47,6 +50,15 @@ export default function CalendarPage() {
     acc[key].push(a);
     return acc;
   }, {});
+
+  const ideasByDate = ideas
+    .filter((i) => i.targetDate)
+    .reduce<Record<string, Idea[]>>((acc, i) => {
+      const key = i.targetDate!;
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(i);
+      return acc;
+    }, {});
 
   const todayStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
   const monthArticles = articles.filter((a) => a.publishedAt.startsWith(`${year}-${pad(month + 1)}`));
@@ -112,6 +124,7 @@ export default function CalendarPage() {
 
               const dateStr = `${year}-${pad(month + 1)}-${pad(day)}`;
               const dayArticles = byDate[dateStr] ?? [];
+              const dayIdeas = ideasByDate[dateStr] ?? [];
               const isToday = dateStr === todayStr;
 
               return (
@@ -142,6 +155,16 @@ export default function CalendarPage() {
                       {a.title || a.slug}
                     </Link>
                   ))}
+                  {dayIdeas.map((i) => (
+                    <Link
+                      key={i.id}
+                      href="/ideas"
+                      title={`💡 ${i.title}`}
+                      className="block truncate text-[10px] font-medium px-1.5 py-0.5 rounded mb-0.5 bg-violet-100 text-violet-700 transition-opacity hover:opacity-80"
+                    >
+                      💡 {i.title}
+                    </Link>
+                  ))}
                 </div>
               );
             })}
@@ -157,6 +180,10 @@ export default function CalendarPage() {
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-sm bg-amber-100 border border-amber-200 inline-block" />
             <span className="text-xs text-zinc-400">Brouillon</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-sm bg-violet-100 border border-violet-200 inline-block" />
+            <span className="text-xs text-zinc-400">Idée</span>
           </div>
         </div>
 
