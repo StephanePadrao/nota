@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFileSync, mkdirSync, existsSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync, unlinkSync } from "fs";
 import path from "path";
 
 const NOTA_ROOT = process.env.NOTA_PATH
@@ -23,4 +23,21 @@ export async function POST(request: Request) {
   writeFileSync(filePath, buffer);
 
   return NextResponse.json({ url: `/blog/${safeName}` });
+}
+
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const imagePath = searchParams.get("path");
+
+  if (!imagePath || imagePath.includes("..")) {
+    return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+  }
+
+  const filePath = path.join(NOTA_ROOT, "public", imagePath);
+
+  if (existsSync(filePath)) {
+    unlinkSync(filePath);
+  }
+
+  return NextResponse.json({ ok: true });
 }
