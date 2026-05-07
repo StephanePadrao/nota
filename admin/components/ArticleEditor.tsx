@@ -7,7 +7,8 @@ import StarterKit from "@tiptap/starter-kit";
 import ImageExtension from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
-import Markdown from "@tiptap/extension-markdown";
+import { marked } from "marked";
+import TurndownService from "turndown";
 
 interface ArticleData {
   title: string;
@@ -39,15 +40,18 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
   const coverInputRef = useRef<HTMLInputElement>(null);
   const bodyImageInputRef = useRef<HTMLInputElement>(null);
 
+  const initialHtml = initialData?.body
+    ? (marked(initialData.body) as string)
+    : "";
+
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Markdown,
       ImageExtension.configure({ inline: false, allowBase64: false }),
       Link.configure({ openOnClick: false }),
       Placeholder.configure({ placeholder: "Commencez à écrire votre article..." }),
     ],
-    content: initialData?.body ?? "",
+    content: initialHtml,
     editorProps: {
       attributes: {
         class: "prose prose-zinc prose-sm max-w-none focus:outline-none min-h-full px-8 py-6",
@@ -64,7 +68,8 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
 
   function getBody(): string {
     if (!editor) return initialData?.body ?? "";
-    return editor.storage.markdown?.getMarkdown?.() ?? editor.getText();
+    const td = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
+    return td.turndown(editor.getHTML());
   }
 
   async function save(publish = false) {
