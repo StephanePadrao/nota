@@ -42,6 +42,11 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Preconnect pour les ressources externes critiques -->
+    <link rel="preconnect" href="https://t2.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://t2.gstatic.com" />
+    <link rel="preconnect" href="https://cloud.umami.is" crossorigin />
+
     <!-- FOUC prevention: apply stored theme before first paint -->
     <script is:inline>
       (function () {

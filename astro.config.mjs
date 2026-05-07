@@ -18,6 +18,10 @@ export default defineConfig({
   site: CONFIG.site.url,
   output: "static",
 
+  build: {
+    inlineStylesheets: "always",
+  },
+
   vite: { plugins: [tailwindcss()] },
 
   integrations: [
