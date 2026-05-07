@@ -67,6 +67,10 @@ const sectionComponents: Record<string, React.ReactNode> = {
                       src={education.logoUrl}
                       alt={education.school}
                       className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none"
+                      loading="lazy"
+                      decoding="async"
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border bg-muted flex-none" />
@@ -211,6 +215,10 @@ export default function HomePage({ recentPosts = [] }: { recentPosts?: RecentPos
                             src={post.image}
                             alt={post.title}
                             className="w-14 h-10 rounded-md object-cover flex-none opacity-80 group-hover:opacity-100 transition-opacity"
+                            loading="lazy"
+                            decoding="async"
+                            width={56}
+                            height={40}
                           />
                         )}
                         <div className="flex-1 min-w-0">

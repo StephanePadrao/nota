@@ -18,6 +18,8 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
       src={src}
       alt={alt}
       className="w-full aspect-video object-cover object-top"
+      loading="lazy"
+      decoding="async"
       onError={() => setImageError(true)}
     />
   );
