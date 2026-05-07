@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 
 interface DiagonalGridProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,21 +25,11 @@ export const DiagonalGrid: React.FC<DiagonalGridProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const stateRef = useRef<{
-    squares: Float32Array
-    cols: number
-    rows: number
-    dpr: number
-    colorPrefix: string
-    lastTime: number
-    rafId: number
-  } | null>(null)
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
+  const rafRef = useRef<number>(0)
 
   const resolveColorPrefix = useCallback((): string => {
     if (typeof window === "undefined") return "rgba(0,0,0,"
     const colorToResolve = color || "var(--foreground)"
-    // Resolve CSS variable via DOM
     const el = document.createElement("div")
     el.style.color = colorToResolve
     el.style.position = "absolute"
@@ -47,7 +37,6 @@ export const DiagonalGrid: React.FC<DiagonalGridProps> = ({
     document.body.appendChild(el)
     const computed = window.getComputedStyle(el).color
     document.body.removeChild(el)
-    // Convert any color format (including oklch) to RGB via canvas pixel sampling
     const offscreen = document.createElement("canvas")
     offscreen.width = offscreen.height = 1
     const ctx = offscreen.getContext("2d")
@@ -85,78 +74,85 @@ export const DiagonalGrid: React.FC<DiagonalGridProps> = ({
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const w = width || container.clientWidth
-    const h = height || container.clientHeight
-    setCanvasSize({ width: w, height: h })
+    const TARGET_MS = 1000 / 20
 
-    const dpr = window.devicePixelRatio || 1
-    canvas.width = w * dpr
-    canvas.height = h * dpr
-    canvas.style.width = `${w}px`
-    canvas.style.height = `${h}px`
+    const start = () => {
+      cancelAnimationFrame(rafRef.current)
 
-    ctx.lineWidth = 1.5 * dpr
-    ctx.lineCap = "round"
+      const w = width || container.clientWidth
+      const h = height || container.clientHeight
+      const dpr = window.devicePixelRatio || 1
 
-    const cols = Math.floor(w / (lineSize + gridGap))
-    const rows = Math.floor(h / (lineSize + gridGap))
-    const squares = new Float32Array(cols * rows)
-    for (let i = 0; i < squares.length; i++) squares[i] = Math.random() * maxOpacity
+      canvas.width = w * dpr
+      canvas.height = h * dpr
+      canvas.style.width = `${w}px`
+      canvas.style.height = `${h}px`
+      ctx.lineWidth = 1.5 * dpr
+      ctx.lineCap = "round"
 
-    const colorPrefix = resolveColorPrefix()
+      const cols = Math.floor(w / (lineSize + gridGap))
+      const rows = Math.floor(h / (lineSize + gridGap))
+      const squares = new Float32Array(cols * rows)
+      for (let i = 0; i < squares.length; i++) squares[i] = Math.random() * maxOpacity
 
-    // Initial full draw
-    for (let i = 0; i < cols; i++)
-      for (let j = 0; j < rows; j++)
-        drawCell(ctx, i, j, squares[i * rows + j], dpr, colorPrefix)
+      const colorPrefix = resolveColorPrefix()
 
-    const state = { squares, cols, rows, dpr, colorPrefix, lastTime: 0, rafId: 0 }
-    stateRef.current = state
+      for (let i = 0; i < cols; i++)
+        for (let j = 0; j < rows; j++)
+          drawCell(ctx, i, j, squares[i * rows + j], dpr, colorPrefix)
 
-    const TARGET_MS = 1000 / 20 // 20 fps
+      let lastTime = 0
 
-    const animate = (time: number) => {
-      const s = stateRef.current!
-      if (time - s.lastTime < TARGET_MS) {
-        s.rafId = requestAnimationFrame(animate)
-        return
-      }
-      const delta = (time - s.lastTime) / 1000
-      s.lastTime = time
-
-      for (let i = 0; i < s.squares.length; i++) {
-        if (Math.random() < flickerChance * delta) {
-          const op = Math.random() * maxOpacity
-          s.squares[i] = op
-          drawCell(ctx, Math.floor(i / s.rows), i % s.rows, op, s.dpr, s.colorPrefix)
+      const animate = (time: number) => {
+        if (time - lastTime < TARGET_MS) {
+          rafRef.current = requestAnimationFrame(animate)
+          return
         }
+        const delta = (time - lastTime) / 1000
+        lastTime = time
+
+        for (let i = 0; i < squares.length; i++) {
+          if (Math.random() < flickerChance * delta) {
+            const op = Math.random() * maxOpacity
+            squares[i] = op
+            drawCell(ctx, Math.floor(i / rows), i % rows, op, dpr, colorPrefix)
+          }
+        }
+        rafRef.current = requestAnimationFrame(animate)
       }
-      s.rafId = requestAnimationFrame(animate)
+
+      rafRef.current = requestAnimationFrame(animate)
+
+      return { squares, cols, rows, dpr, colorPrefix }
     }
 
-    state.rafId = requestAnimationFrame(animate)
+    let gridState = start()
 
-    // Redraw on theme change
-    const observer = new MutationObserver(() => {
-      const s = stateRef.current
-      if (!s) return
-      s.colorPrefix = resolveColorPrefix()
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      for (let i = 0; i < s.cols; i++)
-        for (let j = 0; j < s.rows; j++)
-          drawCell(ctx, i, j, s.squares[i * s.rows + j], s.dpr, s.colorPrefix)
+    const resizeObserver = new ResizeObserver(() => {
+      gridState = start()
     })
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
+    resizeObserver.observe(container)
+
+    const themeObserver = new MutationObserver(() => {
+      if (!gridState) return
+      gridState.colorPrefix = resolveColorPrefix()
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      for (let i = 0; i < gridState.cols; i++)
+        for (let j = 0; j < gridState.rows; j++)
+          drawCell(ctx, i, j, gridState.squares[i * gridState.rows + j], gridState.dpr, gridState.colorPrefix)
+    })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
 
     return () => {
-      cancelAnimationFrame(state.rafId)
-      observer.disconnect()
+      cancelAnimationFrame(rafRef.current)
+      resizeObserver.disconnect()
+      themeObserver.disconnect()
     }
   }, [lineSize, gridGap, maxOpacity, flickerChance, width, height, drawCell, resolveColorPrefix])
 
   return (
     <div ref={containerRef} className={cn("h-full w-full", className)} {...props}>
-      <canvas ref={canvasRef} className="pointer-events-none" style={{ width: canvasSize.width, height: canvasSize.height }} />
+      <canvas ref={canvasRef} className="pointer-events-none" />
     </div>
   )
 }
