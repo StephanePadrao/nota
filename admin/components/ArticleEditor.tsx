@@ -373,17 +373,17 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
           <Sep />
 
           {/* Text align */}
-          <button onClick={() => editor?.chain().focus().setTextAlign("left").run()} className={tbtn(ia({ textAlign: "left" }))} title="Aligner à gauche">
+          <button onClick={() => editor?.chain().focus().setTextAlign("left").run()} className={tbtn(ia("paragraph", { textAlign: "left" }) || ia("heading", { textAlign: "left" }))} title="Aligner à gauche">
             <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h10.5m-10.5 5.25h16.5" />
             </svg>
           </button>
-          <button onClick={() => editor?.chain().focus().setTextAlign("center").run()} className={tbtn(ia({ textAlign: "center" }))} title="Centrer">
+          <button onClick={() => editor?.chain().focus().setTextAlign("center").run()} className={tbtn(ia("paragraph", { textAlign: "center" }) || ia("heading", { textAlign: "center" }))} title="Centrer">
             <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M7.5 12h9m-6 5.25h9" />
             </svg>
           </button>
-          <button onClick={() => editor?.chain().focus().setTextAlign("right").run()} className={tbtn(ia({ textAlign: "right" }))} title="Aligner à droite">
+          <button onClick={() => editor?.chain().focus().setTextAlign("right").run()} className={tbtn(ia("paragraph", { textAlign: "right" }) || ia("heading", { textAlign: "right" }))} title="Aligner à droite">
             <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M10.5 12h10.5M3.75 17.25h16.5" />
             </svg>
