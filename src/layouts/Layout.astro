@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import { DATA } from "@/data/resume";
 import { CONFIG } from "@/data/config";
-import { DiagonalGrid } from "@/components/magicui/diagonal-grid";
 
 interface Props {
   title?: string;
@@ -84,6 +83,17 @@ const currentPath = Astro.url.pathname;
         --input: ${light.input};
         --ring: ${light.ring};
       }
+      .diagonal-bg {
+        background-image: repeating-linear-gradient(
+          -45deg,
+          transparent 0,
+          transparent 11px,
+          color-mix(in oklch, var(--foreground) 7%, transparent) 11px,
+          color-mix(in oklch, var(--foreground) 7%, transparent) 12px
+        );
+        mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+      }
       .dark {
         --background: ${dark.background};
         --foreground: ${dark.foreground};
@@ -143,22 +153,8 @@ const currentPath = Astro.url.pathname;
   </head>
   <body class="min-h-screen bg-background font-sans antialiased relative">
 
-    <!-- FlickeringGrid — animation d'arrière-plan originale -->
-    <div class="absolute inset-0 top-0 left-0 right-0 h-[30vh] overflow-hidden z-0">
-      <DiagonalGrid
-        client:idle
-        className="h-full w-full"
-        lineSize={8}
-        gridGap={12}
-        color="var(--foreground)"
-        flickerChance={0.3}
-        maxOpacity={0.45}
-        style={{
-          maskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 30%, transparent 100%)",
-        }}
-      />
-    </div>
+    <!-- Grille diagonale CSS — aucun JS, zéro impact TBT -->
+    <div class="diagonal-bg absolute inset-0 h-[30vh] overflow-hidden z-0 pointer-events-none"></div>
 
     <!-- Navigation flottante — pills indépendantes sur l'animation, sans barre de fond -->
     <nav class="fixed top-0 inset-x-0 z-30 pointer-events-none">

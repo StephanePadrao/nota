@@ -152,7 +152,7 @@ export const DATA = {
       badges: ["Responsable Produit"],
       location: "Achères, France",
       title: "Responsable Produit",
-      logoUrl: "/logos/zaack.png",
+      logoUrl: "/logos/zaack.webp",
       start: "Janvier 2024",
       end: undefined,
       description:
