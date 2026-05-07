@@ -29,19 +29,21 @@ export const DiagonalGrid: React.FC<DiagonalGridProps> = ({
 
   const resolveColorPrefix = useCallback((): string => {
     if (typeof window === "undefined") return "rgba(0,0,0,"
-    const colorToResolve = color || "var(--foreground)"
-    const el = document.createElement("div")
-    el.style.color = colorToResolve
-    el.style.position = "absolute"
-    el.style.visibility = "hidden"
-    document.body.appendChild(el)
-    const computed = window.getComputedStyle(el).color
-    document.body.removeChild(el)
+    // Read CSS variable directly from :root — no DOM mutation, no forced layout
+    let rawColor: string
+    const c = color || "var(--foreground)"
+    if (c.startsWith("var(")) {
+      rawColor = getComputedStyle(document.documentElement)
+        .getPropertyValue(c.slice(4, -1).trim())
+        .trim()
+    } else {
+      rawColor = c
+    }
     const offscreen = document.createElement("canvas")
     offscreen.width = offscreen.height = 1
     const ctx = offscreen.getContext("2d")
     if (!ctx) return "rgba(0,0,0,"
-    ctx.fillStyle = computed
+    ctx.fillStyle = rawColor || "#000"
     ctx.fillRect(0, 0, 1, 1)
     const [r, g, b] = Array.from(ctx.getImageData(0, 0, 1, 1).data)
     return `rgba(${r},${g},${b},`
