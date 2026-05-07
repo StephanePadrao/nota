@@ -15,6 +15,7 @@ export interface Idea {
   title: string;
   stage: IdeaStage;
   notes: string;
+  stageNotes?: Partial<Record<IdeaStage, string>>;
   targetDate?: string;
   createdAt: string;
   updatedAt: string;

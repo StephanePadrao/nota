@@ -216,8 +216,10 @@ interface CardProps {
   isLast: boolean;
 }
 
-function IdeaCard({ idea, stage, expanded, onToggle, onUpdate, onMove, onDelete, onConvert, isFirst, isLast }: CardProps) {
+function IdeaCard({ idea, stage, stages, expanded, onToggle, onUpdate, onMove, onDelete, onConvert, isFirst, isLast }: CardProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const currentStageIdx = STAGE_INDEX[idea.stage];
+  const currentNote = idea.stageNotes?.[idea.stage] ?? "";
 
   useEffect(() => {
     if (expanded && textareaRef.current) {
@@ -229,8 +231,12 @@ function IdeaCard({ idea, stage, expanded, onToggle, onUpdate, onMove, onDelete,
   function handleNotesChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     e.target.style.height = "auto";
     e.target.style.height = e.target.scrollHeight + "px";
-    onUpdate({ notes: e.target.value });
+    onUpdate({ stageNotes: { ...idea.stageNotes, [idea.stage]: e.target.value } });
   }
+
+  const previousStagesWithNotes = stages
+    .slice(0, currentStageIdx)
+    .filter((s) => idea.stageNotes?.[s.id]);
 
   return (
     <div className="bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-zinc-300 transition-colors">
@@ -273,7 +279,8 @@ function IdeaCard({ idea, stage, expanded, onToggle, onUpdate, onMove, onDelete,
       {/* Expanded writing zone */}
       {expanded && (
         <div className="border-t border-zinc-100 px-4 pb-4">
-          <div className="flex items-center gap-3 pt-3 pb-1">
+          {/* Title + date */}
+          <div className="flex items-center gap-3 pt-3 pb-3">
             <input
               type="text"
               value={idea.title}
@@ -294,14 +301,37 @@ function IdeaCard({ idea, stage, expanded, onToggle, onUpdate, onMove, onDelete,
               />
             </div>
           </div>
+
+          {/* Previous stages notes - read only */}
+          {previousStagesWithNotes.length > 0 && (
+            <div className="space-y-3 mb-4">
+              {previousStagesWithNotes.map((s) => (
+                <div key={s.id} className="rounded-lg bg-zinc-50 border border-zinc-100 px-3 py-2.5">
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <span className="text-xs">{s.emoji}</span>
+                    <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wide">{s.label}</span>
+                  </div>
+                  <p className="text-sm text-zinc-500 whitespace-pre-wrap leading-relaxed">{idea.stageNotes![s.id]}</p>
+                </div>
+              ))}
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-px bg-zinc-100" />
+                <span className="text-xs text-zinc-300 shrink-0">{stage.emoji} {stage.label}</span>
+                <div className="flex-1 h-px bg-zinc-100" />
+              </div>
+            </div>
+          )}
+
+          {/* Current stage - editable */}
           <textarea
             ref={textareaRef}
-            value={idea.notes}
+            value={currentNote}
             onChange={handleNotesChange}
             placeholder={stage.placeholder}
             rows={4}
             className="w-full text-sm text-zinc-700 placeholder:text-zinc-300 bg-transparent border-none outline-none resize-none leading-relaxed"
           />
+
           <div className="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
             <span className="text-xs text-zinc-300">
               Créé le {idea.createdAt}
