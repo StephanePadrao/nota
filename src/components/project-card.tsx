@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "@/lib/icons";
 import { useState } from "react";
 import Markdown from "react-markdown";
 

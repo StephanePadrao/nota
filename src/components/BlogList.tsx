@@ -1,5 +1,5 @@
 import BlurFade from "@/components/magicui/blur-fade";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from "@/lib/icons";
 
 const BLUR_FADE_DELAY = 0.04;
 

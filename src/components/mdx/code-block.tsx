@@ -1,5 +1,5 @@
 import { useState, type ComponentProps } from "react";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check } from "@/lib/icons";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 

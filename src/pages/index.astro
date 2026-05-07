@@ -19,5 +19,5 @@ const recentPosts = allPosts
 ---
 
 <Layout>
-  <HomePage client:only="react" recentPosts={recentPosts} />
+  <HomePage client:load recentPosts={recentPosts} />
 </Layout>
