@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  const sortedPosts = [...posts].sort((a, b) => {
+  const sortedPosts = [...posts].filter((p) => !p.data.draft).sort((a, b) => {
     if (new Date(a.data.publishedAt) > new Date(b.data.publishedAt)) return -1;
     return 1;
   });

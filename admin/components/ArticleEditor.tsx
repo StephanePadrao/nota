@@ -19,6 +19,7 @@ interface ArticleData {
   summary: string;
   image: string;
   body: string;
+  draft?: boolean;
 }
 
 interface Props {
@@ -35,6 +36,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
     summary: initialData?.summary ?? "",
     image: initialData?.image ?? "",
   });
+  const [isDraft, setIsDraft] = useState(initialData?.draft ?? true);
   const [metaOpen, setMetaOpen] = useState(true);
   const [saving, setSaving] = useState(false);
   const [buildStatus, setBuildStatus] = useState<"idle" | "building" | "success" | "error">("idle");
@@ -84,7 +86,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
     return td.turndown(html);
   }
 
-  async function save(publish = false) {
+  async function save(publish = false, forceDraft = false) {
     if (!slug) { alert("Le slug est requis"); return; }
     setSaving(true);
 
@@ -92,7 +94,8 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
     const isNew = !existingSlug;
     const url = isNew ? "/api/articles" : `/api/articles/${existingSlug}`;
     const method = isNew ? "POST" : "PUT";
-    const payload = isNew ? { slug, ...form, body } : { ...form, body };
+    const draftValue = forceDraft ? true : publish ? false : isDraft;
+    const payload = isNew ? { slug, ...form, body, draft: draftValue } : { ...form, body, draft: draftValue };
 
     const res = await fetch(url, {
       method,
@@ -103,6 +106,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
     if (!res.ok) { alert("Erreur lors de la sauvegarde"); setSaving(false); return; }
 
     if (publish) {
+      setIsDraft(false);
       setBuildStatus("building");
       setBuildLogs([]);
       setShowLogs(true);
@@ -116,6 +120,7 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
       }, 800);
     }
 
+    if (forceDraft) setIsDraft(true);
     setSaving(false);
     if (isNew) router.push(`/articles/${slug}`);
   }
@@ -200,6 +205,14 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
         <span className="text-zinc-300">/</span>
         <span className="text-zinc-500 text-sm truncate max-w-xs">{existingSlug ?? "Nouvel article"}</span>
         <div className="flex-1" />
+
+        {/* Status badge */}
+        {isDraft ? (
+          <span className="px-2 py-1 text-xs font-semibold bg-amber-100 text-amber-600 rounded-full">Brouillon</span>
+        ) : (
+          <span className="px-2 py-1 text-xs font-semibold bg-green-100 text-green-600 rounded-full">Publié</span>
+        )}
+
         {existingSlug && (
           <button
             onClick={handleDelete}
@@ -215,12 +228,22 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
         >
           {saving ? "..." : "Sauvegarder"}
         </button>
+        {!isDraft && (
+          <button
+            onClick={() => save(false, true)}
+            disabled={saving}
+            className="px-3 py-1.5 text-sm text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 rounded-lg disabled:opacity-50 transition-colors"
+            title="Repasser en brouillon"
+          >
+            ↩ Brouillon
+          </button>
+        )}
         <button
           onClick={() => save(true)}
           disabled={saving || buildStatus === "building"}
           className="px-4 py-1.5 text-sm bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 disabled:opacity-50 transition-colors"
         >
-          {buildStatus === "building" ? "Build..." : "Publier"}
+          {buildStatus === "building" ? "Build..." : isDraft ? "Publier" : "Republier"}
         </button>
       </div>
 

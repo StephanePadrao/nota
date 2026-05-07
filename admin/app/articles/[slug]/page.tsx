@@ -23,6 +23,7 @@ export default async function EditArticlePage({
             summary: article.summary,
             image: article.image ?? "",
             body: article.body,
+            draft: article.draft,
           }}
         />
       </div>

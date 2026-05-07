@@ -13,8 +13,11 @@ export interface ArticleMeta {
   slug: string;
   title: string;
   publishedAt: string;
+  updatedAt?: string;
   summary: string;
   image?: string;
+  draft?: boolean;
+  readingTime?: number;
 }
 
 export interface Article extends ArticleMeta {
@@ -34,13 +37,17 @@ export function listArticles(): ArticleMeta[] {
     .map((f) => {
       const slug = f.replace(".mdx", "");
       const raw = fs.readFileSync(path.join(BLOG_DIR, f), "utf-8");
-      const { data } = matter(raw);
+      const { data, content: body } = matter(raw);
+      const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
       return {
         slug,
         title: String(data.title ?? slug),
         publishedAt: String(data.publishedAt ?? ""),
+        updatedAt: data.updatedAt ? String(data.updatedAt) : undefined,
         summary: String(data.summary ?? ""),
         image: data.image ? String(data.image) : undefined,
+        draft: data.draft === true,
+        readingTime: Math.max(1, Math.ceil(wordCount / 200)),
       };
     })
     .sort((a, b) => (a.publishedAt > b.publishedAt ? -1 : 1));
@@ -56,8 +63,10 @@ export function getArticle(slug: string): Article | null {
     slug,
     title: String(data.title ?? ""),
     publishedAt: String(data.publishedAt ?? ""),
+    updatedAt: data.updatedAt ? String(data.updatedAt) : undefined,
     summary: String(data.summary ?? ""),
     image: data.image ? String(data.image) : undefined,
+    draft: data.draft === true,
     body,
   };
 }
@@ -66,11 +75,14 @@ export function saveArticle(slug: string, article: Omit<Article, "slug">): void 
   safeSlug(slug);
   if (!fs.existsSync(BLOG_DIR)) fs.mkdirSync(BLOG_DIR, { recursive: true });
   const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
-  const frontmatter: Record<string, string> = {
+  const today = new Date().toISOString().split("T")[0];
+  const frontmatter: Record<string, unknown> = {
     title: article.title,
     publishedAt: article.publishedAt,
+    updatedAt: today,
     summary: article.summary,
   };
+  if (article.draft === true) frontmatter.draft = true;
   if (article.image) frontmatter.image = article.image;
   const fileContent = matter.stringify(article.body.trim(), frontmatter);
   fs.writeFileSync(filePath, fileContent, "utf-8");

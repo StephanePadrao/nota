@@ -7,7 +7,7 @@ import { paginate, normalizePage } from "@/lib/pagination";
 const PAGE_SIZE = 5;
 
 const allPosts = await getCollection("blog");
-const sortedPosts = [...allPosts].sort((a, b) => {
+const sortedPosts = [...allPosts].filter((p) => !p.data.draft).sort((a, b) => {
   if (new Date(a.data.publishedAt) > new Date(b.data.publishedAt)) return -1;
   return 1;
 });
