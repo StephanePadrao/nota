@@ -273,13 +273,27 @@ function IdeaCard({ idea, stage, expanded, onToggle, onUpdate, onMove, onDelete,
       {/* Expanded writing zone */}
       {expanded && (
         <div className="border-t border-zinc-100 px-4 pb-4">
-          <input
-            type="text"
-            value={idea.title}
-            onChange={(e) => onUpdate({ title: e.target.value })}
-            placeholder="Titre de l'idée"
-            className="w-full text-base font-medium text-zinc-900 placeholder:text-zinc-300 bg-transparent border-none outline-none py-3"
-          />
+          <div className="flex items-center gap-3 pt-3 pb-1">
+            <input
+              type="text"
+              value={idea.title}
+              onChange={(e) => onUpdate({ title: e.target.value })}
+              placeholder="Titre de l'idée"
+              className="flex-1 text-base font-medium text-zinc-900 placeholder:text-zinc-300 bg-transparent border-none outline-none"
+            />
+            <div className="flex items-center gap-1.5 shrink-0">
+              <svg className="size-3.5 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+              <input
+                type="date"
+                value={idea.targetDate ?? ""}
+                onChange={(e) => onUpdate({ targetDate: e.target.value || undefined })}
+                title="Date cible dans le calendrier"
+                className="text-xs text-zinc-400 bg-transparent border-none outline-none cursor-pointer hover:text-zinc-700 transition-colors"
+              />
+            </div>
+          </div>
           <textarea
             ref={textareaRef}
             value={idea.notes}
