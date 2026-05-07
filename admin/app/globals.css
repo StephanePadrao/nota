@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-amber-400: oklch(0.828 0.189 84.429);
+  --color-amber-500: oklch(0.769 0.188 70.08);
+}

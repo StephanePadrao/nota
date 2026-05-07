@@ -1,3 +1,6 @@
+# private context (credentials, never commit)
+CONTEXT.private.md
+
 # misc
 .claude/
 .vscode/
