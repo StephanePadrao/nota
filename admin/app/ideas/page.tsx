@@ -106,7 +106,7 @@ export default function IdeasPage() {
 
   return (
     <DashboardShell>
-      <div className="p-8 max-w-3xl">
+      <div className="p-8 max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>

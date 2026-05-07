@@ -67,7 +67,7 @@ export default function CalendarPage() {
 
   return (
     <DashboardShell>
-      <div className="p-8 max-w-3xl">
+      <div className="p-8 max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
           <h1 className="text-xl font-semibold text-zinc-900">Calendrier éditorial</h1>

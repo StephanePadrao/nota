@@ -49,7 +49,7 @@ export default function ArticlesList({ articles }: { articles: ArticleMeta[] }) 
   const lastPublishedAgo = lastPublished ? timeAgo(lastPublished.updatedAt ?? lastPublished.publishedAt) : null;
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-8 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
