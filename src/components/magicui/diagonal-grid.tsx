@@ -39,6 +39,7 @@ export const DiagonalGrid: React.FC<DiagonalGridProps> = ({
   const resolveColorPrefix = useCallback((): string => {
     if (typeof window === "undefined") return "rgba(0,0,0,"
     const colorToResolve = color || "var(--foreground)"
+    // Resolve CSS variable via DOM
     const el = document.createElement("div")
     el.style.color = colorToResolve
     el.style.position = "absolute"
@@ -46,9 +47,15 @@ export const DiagonalGrid: React.FC<DiagonalGridProps> = ({
     document.body.appendChild(el)
     const computed = window.getComputedStyle(el).color
     document.body.removeChild(el)
-    const m = computed.match(/\d+/g)
-    if (!m) return "rgba(0,0,0,"
-    return `rgba(${m[0]},${m[1]},${m[2]},`
+    // Convert any color format (including oklch) to RGB via canvas pixel sampling
+    const offscreen = document.createElement("canvas")
+    offscreen.width = offscreen.height = 1
+    const ctx = offscreen.getContext("2d")
+    if (!ctx) return "rgba(0,0,0,"
+    ctx.fillStyle = computed
+    ctx.fillRect(0, 0, 1, 1)
+    const [r, g, b] = Array.from(ctx.getImageData(0, 0, 1, 1).data)
+    return `rgba(${r},${g},${b},`
   }, [color])
 
   const drawCell = useCallback((
