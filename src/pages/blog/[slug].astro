@@ -61,12 +61,12 @@ const jsonLd = JSON.stringify({
       <a
         href="/blog"
         class="text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2 py-1 inline-flex items-center gap-1 mb-6 group"
-        aria-label="Back to Blog"
+        aria-label="Retour au blog"
       >
         <ChevronLeft
           className="size-3 group-hover:-translate-x-px transition-transform"
         />
-        Back to Blog
+        Tous les articles
       </a>
     </div>
     <div class="flex flex-col gap-4">
@@ -99,24 +99,24 @@ const jsonLd = JSON.stringify({
       <Content components={mdxComponents} />
     </article>
 
-    <nav class="mt-12 pt-8 max-w-2xl">
-      <div class="flex flex-col sm:flex-row justify-between gap-4">
+    <nav class="mt-16 pt-8 border-t border-border">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {
           previousPost ? (
             <a
               href={`/blog/${previousPost.id}`}
-              class="group flex-1 flex flex-col gap-1 p-4 rounded-lg border border-border hover:bg-accent/50 transition-colors"
+              class="group flex flex-col gap-2 p-5 rounded-xl border border-border hover:bg-accent/50 hover:border-primary/40 transition-all"
             >
-              <span class="flex items-center gap-1 text-xs text-muted-foreground">
-                <ChevronLeft className="size-3" />
-                Previous
+              <span class="flex items-center gap-1.5 text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                <ChevronLeft className="size-3.5 shrink-0" />
+                Article précédent
               </span>
-              <span class="text-sm font-medium group-hover:text-foreground transition-colors whitespace-normal wrap-break-word">
+              <span class="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors line-clamp-2">
                 {previousPost.data.title}
               </span>
             </a>
           ) : (
-            <div class="hidden sm:block flex-1" />
+            <div />
           )
         }
 
@@ -124,18 +124,18 @@ const jsonLd = JSON.stringify({
           nextPost ? (
             <a
               href={`/blog/${nextPost.id}`}
-              class="group flex-1 flex flex-col gap-1 p-4 rounded-lg border border-border hover:bg-accent/50 transition-colors text-right"
+              class="group flex flex-col gap-2 p-5 rounded-xl border border-border hover:bg-accent/50 hover:border-primary/40 transition-all text-right"
             >
-              <span class="flex items-center justify-end gap-1 text-xs text-muted-foreground">
-                Next
-                <ChevronRight className="size-3" />
+              <span class="flex items-center justify-end gap-1.5 text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                Article suivant
+                <ChevronRight className="size-3.5 shrink-0" />
               </span>
-              <span class="text-sm font-medium group-hover:text-foreground transition-colors whitespace-normal wrap-break-word">
+              <span class="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors line-clamp-2">
                 {nextPost.data.title}
               </span>
             </a>
           ) : (
-            <div class="hidden sm:block flex-1" />
+            <div />
           )
         }
       </div>
