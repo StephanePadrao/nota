@@ -6,8 +6,25 @@ type CodeProps = ComponentProps<"code"> & {
   "data-language"?: string;
 };
 
+type ImgProps = ComponentProps<"img">;
+
 export const mdxComponents = {
   MediaContainer,
+  img: ({ src, alt, ...props }: ImgProps) => (
+    <figure className="my-8 not-prose">
+      <img
+        src={src}
+        alt={alt}
+        className="w-full rounded-xl object-cover shadow-sm border border-border/30"
+        {...props}
+      />
+      {alt && (
+        <figcaption className="mt-2.5 text-center text-xs text-muted-foreground/60 italic leading-snug">
+          {alt}
+        </figcaption>
+      )}
+    </figure>
+  ),
   pre: (props: ComponentProps<"pre">) => <CodeBlock {...props} />,
   hr: (props: ComponentProps<"hr">) => (
     <div className="my-10 flex w-full items-center" {...props}>
