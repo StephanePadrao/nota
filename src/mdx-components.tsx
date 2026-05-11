@@ -15,7 +15,7 @@ export const mdxComponents = {
       <img
         src={src}
         alt={alt}
-        className="w-full rounded-xl object-cover shadow-sm border border-border/30"
+        className="max-w-full h-auto rounded-xl shadow-sm border border-border/30 mx-auto block"
         {...props}
       />
       {alt && (
