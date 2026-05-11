@@ -43,8 +43,18 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
   const [buildLogs, setBuildLogs] = useState<string[]>([]);
   const [showLogs, setShowLogs] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
+  const [slugManuallyEdited, setSlugManuallyEdited] = useState(!!existingSlug);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const bodyImageInputRef = useRef<HTMLInputElement>(null);
+
+  function slugify(s: string): string {
+    return s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+  }
 
   const initialHtml = initialData?.body
     ? (marked(initialData.body) as string).replace(
@@ -73,9 +83,14 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
 
   const set = useCallback(
     (field: keyof typeof form) =>
-      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-        setForm((f) => ({ ...f, [field]: e.target.value })),
-    []
+      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const value = e.target.value;
+        setForm((f) => ({ ...f, [field]: value }));
+        if (field === "title" && !slugManuallyEdited) {
+          setSlug(slugify(value));
+        }
+      },
+    [slugManuallyEdited]
   );
 
   function getBody(): string {
@@ -279,7 +294,10 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
                 <label className="text-xs font-medium text-zinc-400">Slug</label>
                 <input
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))}
+                  onChange={(e) => {
+                    setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"));
+                    setSlugManuallyEdited(true);
+                  }}
                   disabled={!!existingSlug}
                   placeholder="mon-article"
                   className={`${inputClass} ${existingSlug ? "opacity-40 cursor-not-allowed" : ""}`}
