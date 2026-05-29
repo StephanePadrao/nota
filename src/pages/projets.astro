@@ -1,0 +1,9 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import ProjectsSection from "@/components/section/projects-section";
+---
+
+<Layout title="Projets" description="Des produits construits de zéro — side projects, outils et expérimentations.">
+  <ProjectsSection client:load />
+</Layout>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Icons } from "@/components/icons";
 import {
-  House, Mail,
+  House, LayoutGrid, Mail,
   CircuitBoard, Code2, Cpu, ShieldCheck,
   Factory, Wrench, Handshake,
   Kanban, Users, TrendingUp, BarChart2,
@@ -105,6 +105,7 @@ export const DATA = {
 
   navbar: [
     { href: "/", icon: House, label: "Accueil" },
+    { href: "/projets", icon: LayoutGrid, label: "Projets" },
     { href: "/photos", icon: Camera, label: "Photos" },
     { href: "/contact", icon: Mail, label: "Contact" },
   ],
