@@ -1,23 +1,9 @@
 ---
 export const prerender = true;
-import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import HomePage from "@/components/HomePage";
-
-const allPosts = await getCollection("blog");
-const recentPosts = allPosts
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime())
-  .slice(0, 3)
-  .map((post) => ({
-    slug: post.id,
-    title: post.data.title,
-    publishedAt: post.data.publishedAt,
-    summary: post.data.summary,
-    image: post.data.image,
-  }));
 ---
 
 <Layout>
-  <HomePage client:load recentPosts={recentPosts} />
+  <HomePage client:load />
 </Layout>

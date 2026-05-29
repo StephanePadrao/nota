@@ -1,7 +1,7 @@
 import React from "react";
 import { Icons } from "@/components/icons";
 import {
-  House, Library, Mail,
+  House, Mail,
   CircuitBoard, Code2, Cpu, ShieldCheck,
   Factory, Wrench, Handshake,
   Kanban, Users, TrendingUp, BarChart2,
@@ -21,11 +21,11 @@ export const DATA = {
   location: "Le Plessis-Robinson, France",
   locationLink: "https://www.google.com/maps/place/le+plessis-robinson+france",
   description:
-    "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production. J'écris sur le produit, le design et la tech.",
+    "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production.",
   ogDescription:
-    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Blog sur le produit, le hardware et la tech.",
+    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Produit, hardware et tech.",
   summary:
-    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé. Concevoir un produit, c'est assembler des contraintes : technique, usage, marché, production. Aujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle. La combinaison ingénieur-PM est rare. Ce blog, c'est l'endroit où je partage ce que j'observe des deux côtés.",
+    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé. Concevoir un produit, c'est assembler des contraintes : technique, usage, marché, production. Aujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle. La combinaison ingénieur-PM est rare. C'est ce croisement que je mets au travail dans mes projets.",
   avatarUrl: "/Profil-Pic.webp",
   ogImage: "/og_image.png",
 
@@ -105,7 +105,6 @@ export const DATA = {
 
   navbar: [
     { href: "/", icon: House, label: "Accueil" },
-    { href: "/blog", icon: Library, label: "Blog" },
     { href: "/photos", icon: Camera, label: "Photos" },
     { href: "/contact", icon: Mail, label: "Contact" },
   ],

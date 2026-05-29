@@ -27,13 +27,6 @@ export const CONFIG = {
   },
 
   // ---------------------------------------------------------------------------
-  // Blog Settings
-  // ---------------------------------------------------------------------------
-  blog: {
-    postsPerPage: 10,
-  },
-
-  // ---------------------------------------------------------------------------
   // Design Settings
   // Thème de base Starfolio avec accent ambre/cuivre
   // Pour modifier : ui.shadcn.com/themes ou tweakcn.com
