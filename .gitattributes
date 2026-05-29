@@ -1,0 +1,17 @@
+# Normaliser les fins de ligne en LF : commit en LF, checkout en LF sur toutes
+# les plateformes. Neutralise le bruit CRLF venant des allers-retours Windows/Mac.
+* text=auto eol=lf
+
+# Fichiers binaires : ne jamais normaliser
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.avif binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.pdf   binary
