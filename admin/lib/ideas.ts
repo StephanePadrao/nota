@@ -16,6 +16,7 @@ export interface Idea {
   stage: IdeaStage;
   notes: string;
   stageNotes?: Partial<Record<IdeaStage, string>>;
+  type?: "article" | "project" | "album";
   targetDate?: string;
   createdAt: string;
   updatedAt: string;
@@ -34,10 +35,10 @@ function persistIdeas(ideas: Idea[]): void {
   fs.writeFileSync(IDEAS_FILE, JSON.stringify(ideas, null, 2), "utf-8");
 }
 
-export function createIdea(title: string, stage: IdeaStage = "idee"): Idea {
+export function createIdea(title: string, stage: IdeaStage = "idee", type: "article" | "project" | "album" = "article"): Idea {
   const ideas = listIdeas();
   const today = new Date().toISOString().split("T")[0];
-  const idea: Idea = { id: randomUUID(), title, stage, notes: "", createdAt: today, updatedAt: today };
+  const idea: Idea = { id: randomUUID(), title, stage, type, notes: "", createdAt: today, updatedAt: today };
   ideas.push(idea);
   persistIdeas(ideas);
   return idea;

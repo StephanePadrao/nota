@@ -12,6 +12,9 @@ import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import { marked } from "marked";
 import TurndownService from "turndown";
+import AIPanel from "@/components/AIPanel";
+import AISelectionToolbar from "@/components/AISelectionToolbar";
+import ImageToolbar from "@/components/ImageToolbar";
 
 interface ArticleData {
   title: string;
@@ -56,17 +59,52 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
       .replace(/^-|-$/g, "");
   }
 
+  function preprocessFigures(html: string): string {
+    return html.replace(
+      /<figure[^>]*class="([^"]*)"[^>]*>([\s\S]*?)<\/figure>/gi,
+      (match, cls, content) => {
+        const alignMatch = cls.match(/img-(left|center|right|full)/);
+        if (!alignMatch) return match;
+        const align = alignMatch[1];
+        const imgMatch = content.match(/<img([^>]*)>/i);
+        if (!imgMatch) return match;
+        const captionMatch = content.match(/<figcaption>([\s\S]*?)<\/figcaption>/i);
+        const caption = captionMatch ? captionMatch[1].trim() : "";
+        const captionAttr = caption ? ` data-caption="${caption}"` : "";
+        return `<img${imgMatch[1]} data-align="${align}"${captionAttr}>`;
+      }
+    );
+  }
+
   const initialHtml = initialData?.body
-    ? (marked(initialData.body) as string).replace(
-        /(<img[^>]+src=")\/blog\//g,
-        '$1/api/media/blog/'
+    ? preprocessFigures(
+        (marked(initialData.body) as string).replace(
+          /(<img[^>]+src=")\/blog\//g,
+          "$1/api/media/blog/"
+        )
       )
     : "";
 
   const editor = useEditor({
     extensions: [
       StarterKit,
-      ImageExtension.configure({ inline: false, allowBase64: false }),
+      ImageExtension.extend({
+      addAttributes() {
+        return {
+          ...this.parent?.(),
+          align: {
+            default: "full",
+            parseHTML: (el) => el.getAttribute("data-align") ?? "full",
+            renderHTML: (attrs) => ({ "data-align": attrs.align }),
+          },
+          caption: {
+            default: "",
+            parseHTML: (el) => el.getAttribute("data-caption") ?? "",
+            renderHTML: (attrs) => (attrs.caption ? { "data-caption": attrs.caption } : {}),
+          },
+        };
+      },
+    }).configure({ inline: false, allowBase64: false }),
       Link.configure({ openOnClick: false }),
       Placeholder.configure({ placeholder: "Commencez à écrire votre article..." }),
       Underline,
@@ -96,8 +134,27 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
   function getBody(): string {
     if (!editor) return initialData?.body ?? "";
     const td = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
-    // Strip the admin proxy prefix so saved URLs work on the public blog
-    const html = editor.getHTML().replace(/src="\/api\/media\//g, 'src="/');
+    td.addRule("figure", {
+      filter: "figure",
+      replacement: (_content: string, node: Node) => {
+        return "\n\n" + (node as HTMLElement).outerHTML + "\n\n";
+      },
+    });
+    let html = editor.getHTML().replace(/src="\/api\/media\//g, 'src="/');
+    // Convert <img data-align="X"> → <figure class="img-X"><img...></figure>
+    html = html.replace(/<img([^>]*?)>/gi, (match, attrs) => {
+      const alignMatch = attrs.match(/data-align="(left|center|right|full)"/);
+      if (!alignMatch) return match;
+      const align = alignMatch[1];
+      const captionMatch = attrs.match(/data-caption="([^"]*)"/);
+      const caption = captionMatch ? captionMatch[1] : "";
+      const cleanAttrs = attrs
+        .replace(/\s*data-align="[^"]*"/, "")
+        .replace(/\s*data-caption="[^"]*"/, "")
+        .trim();
+      const figcaption = caption ? `<figcaption>${caption}</figcaption>` : "";
+      return `<figure class="img-${align}"><img ${cleanAttrs}>${figcaption}</figure>`;
+    });
     return td.turndown(html);
   }
 
@@ -368,6 +425,13 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
               </div>
             </div>
 
+            <AIPanel
+              editor={editor}
+              title={form.title}
+              summary={form.summary}
+              onTitleChange={(t) => setForm((f) => ({ ...f, title: t }))}
+              onSummaryChange={(s) => setForm((f) => ({ ...f, summary: s }))}
+            />
             <input ref={coverInputRef} type="file" accept="image/*" onChange={handleCoverUpload} className="hidden" />
             <input ref={bodyImageInputRef} type="file" accept="image/*" onChange={handleBodyImageUpload} className="hidden" />
           </div>
@@ -515,6 +579,8 @@ export default function ArticleEditor({ slug: existingSlug, initialData }: Props
 
         {/* Tiptap editor content */}
         <div className="flex-1 overflow-y-auto">
+          <AISelectionToolbar editor={editor} />
+          <ImageToolbar editor={editor} />
           <EditorContent editor={editor} className="h-full" />
         </div>
       </div>

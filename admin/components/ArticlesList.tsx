@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import type { ArticleMeta } from "@/lib/articles";
 
@@ -29,6 +29,16 @@ function timeAgo(d: string) {
 
 export default function ArticlesList({ articles }: { articles: ArticleMeta[] }) {
   const [search, setSearch] = useState("");
+  const [publishedSlugs, setPublishedSlugs] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("/api/build")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.lastBuild?.publishedSlugs) setPublishedSlugs(d.lastBuild.publishedSlugs);
+      })
+      .catch(() => {});
+  }, []);
   const [filter, setFilter] = useState<Filter>("all");
 
   const published = articles.filter((a) => !a.draft);
@@ -109,7 +119,7 @@ export default function ArticlesList({ articles }: { articles: ArticleMeta[] }) 
       {/* List */}
       <div className="space-y-2">
         {filtered.map((article) => (
-          <ArticleCard key={article.slug} article={article} />
+          <ArticleCard key={article.slug} article={article} isLiveAsDraft={article.draft === true && publishedSlugs.includes(article.slug)} />
         ))}
 
         {filtered.length === 0 && (
@@ -131,8 +141,9 @@ export default function ArticlesList({ articles }: { articles: ArticleMeta[] }) 
   );
 }
 
-function ArticleCard({ article }: { article: ArticleMeta }) {
+function ArticleCard({ article, isLiveAsDraft }: { article: ArticleMeta; isLiveAsDraft?: boolean }) {
   const [hovered, setHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <div
@@ -142,11 +153,12 @@ function ArticleCard({ article }: { article: ArticleMeta }) {
     >
       <Link href={`/articles/${article.slug}`} className="flex items-stretch gap-4 p-4">
         {/* Thumbnail */}
-        {article.image ? (
+        {article.image && !imgError ? (
           <img
-            src={`/api/media${article.image}`}
+            src={'/api/media' + article.image}
             alt=""
             className="w-20 h-14 object-cover rounded-lg shrink-0 bg-zinc-100"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className="w-20 h-14 rounded-lg shrink-0 bg-zinc-50 border border-zinc-100 flex items-center justify-center">
@@ -161,8 +173,8 @@ function ArticleCard({ article }: { article: ArticleMeta }) {
           <div className="flex items-center gap-2 mb-0.5">
             <p className="font-medium text-zinc-900 truncate">{article.title || article.slug}</p>
             {article.draft ? (
-              <span className="shrink-0 px-1.5 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-600 rounded-full uppercase tracking-wide">
-                Brouillon
+              <span className={"shrink-0 px-1.5 py-0.5 text-[10px] font-semibold rounded-full uppercase tracking-wide " + (isLiveAsDraft ? "bg-orange-100 text-orange-600" : "bg-amber-100 text-amber-600")}>
+                {isLiveAsDraft ? "Brouillon — en ligne" : "Brouillon"}
               </span>
             ) : (
               <span className="shrink-0 px-1.5 py-0.5 text-[10px] font-semibold bg-green-100 text-green-600 rounded-full uppercase tracking-wide">

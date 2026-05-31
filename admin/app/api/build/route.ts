@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { triggerBuild, buildState } from "@/lib/build";
+import { triggerBuild, buildState, readLastBuild } from "@/lib/build";
 
 export async function POST() {
   const started = triggerBuild();
@@ -11,5 +11,6 @@ export async function GET() {
     status: buildState.status,
     startedAt: buildState.startedAt,
     logs: buildState.logs,
+    lastBuild: readLastBuild(),
   });
 }

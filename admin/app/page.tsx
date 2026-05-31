@@ -4,6 +4,8 @@ import DashboardShell from "@/components/DashboardShell";
 import Link from "next/link";
 import type { IdeaStage } from "@/lib/ideas";
 
+export const dynamic = "force-dynamic";
+
 const STAGES: { id: IdeaStage; label: string; emoji: string }[] = [
   { id: "idee", label: "Idée", emoji: "💡" },
   { id: "preparation", label: "Préparation", emoji: "📋" },
