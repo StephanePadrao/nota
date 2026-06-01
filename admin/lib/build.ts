@@ -30,14 +30,17 @@ export function readLastBuild(): LastBuild | null {
   }
 }
 
+function listDistSlugs(dir: string): string[] {
+  const full = path.join(NOTA_ROOT, "dist", dir);
+  if (!existsSync(full)) return [];
+  return readdirSync(full, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => `${dir}/${d.name}`);
+}
+
 function saveLastBuild() {
-  const distBlog = path.join(NOTA_ROOT, "dist", "blog");
-  let publishedSlugs: string[] = [];
-  if (existsSync(distBlog)) {
-    publishedSlugs = readdirSync(distBlog, { withFileTypes: true })
-      .filter((d) => d.isDirectory())
-      .map((d) => d.name);
-  }
+  // Content sections rendered as static routes: projects + photos (albums).
+  const publishedSlugs = [...listDistSlugs("projects"), ...listDistSlugs("photos")];
   const data: LastBuild = { timestamp: Date.now(), publishedSlugs };
   writeFileSync(LAST_BUILD_FILE, JSON.stringify(data, null, 2));
 }

@@ -22,7 +22,7 @@ export default function LoginPage() {
       setError("Mot de passe incorrect");
       setLoading(false);
     } else {
-      router.push("/articles");
+      router.push("/projects");
     }
   }
 
