@@ -1,0 +1,39 @@
+---
+title: SensiAir
+dates: "2025 - Aujourd'hui"
+active: true
+description: Application web de surveillance de la qualité de l'air intérieur. Dashboard temps réel, carte interactive, rapports PDF avec analyse IA. Architecture multi-tenant.
+technologies:
+  - SvelteKit
+  - TypeScript
+  - Supabase
+  - TailwindCSS
+  - ESP32
+  - InfluxDB
+links:
+  - type: "Site"
+    href: "https://sensiair.erro.cloud"
+  - type: "GitHub"
+    href: "https://github.com/StephanePadrao/SensiAir"
+cover: /sensiair-preview.webp
+---
+
+SensiAir est une station de mesure de qualité de l'air que j'ai construite de zéro — du firmware jusqu'à l'infrastructure.
+
+## Pourquoi ce projet
+
+J'habite en ville et je voulais savoir concrètement ce que je respire. Les stations commerciales coûtent cher, collectent tes données, et tu ne contrôles rien. Alors j'ai décidé de construire la mienne.
+
+## Comment ça marche
+
+Un ESP32 lit en continu les capteurs (PM2.5, CO₂, température, humidité) et publie les mesures via MQTT toutes les 30 secondes. Un broker Mosquitto tourne sur mon VPS, les données tombent dans InfluxDB, et Grafana les affiche en temps réel.
+
+L'ensemble est containerisé avec Docker Compose. Zéro cloud propriétaire, zéro abonnement.
+
+Démo : `demo@test.com` / `demo1234`
+
+## Ce que j'ai appris
+
+Écrire du C++ embarqué propre oblige à penser autrement. Pas de GC, pas de frameworks — chaque octet compte. J'ai aussi découvert InfluxDB, qui est taillé pour les séries temporelles d'une manière que PostgreSQL ne sera jamais.
+
+La partie la plus difficile : calibrer les capteurs. Chaque modèle drift différemment selon la température ambiante. J'ai passé deux semaines à croiser mes relevés avec la station Airparif la plus proche pour valider les offsets.

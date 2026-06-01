@@ -1,0 +1,84 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import { DATA } from "@/data/resume";
+import { mdxComponents } from "@/mdx-components";
+import { ChevronLeft } from "lucide-react";
+
+export async function getStaticPaths() {
+  const allAlbums = await getCollection("albums");
+  return allAlbums.map((album) => ({
+    params: { slug: album.id },
+    props: { album },
+  }));
+}
+
+const { album } = Astro.props;
+const { title, date, location, cover, summary, photos } = album.data;
+
+const { Content } = await render(album);
+
+function formatDate(d: string) {
+  const months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  const [year, month, day] = d.split("-");
+  return `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
+}
+---
+
+<Layout title={title} description={summary ?? `Album photos — ${title}`} image={cover} canonicalURL={`${DATA.url}/photos/${album.id}`}>
+  <section id="album" class="max-w-4xl mx-auto">
+    <a
+      href="/photos"
+      class="text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2 py-1 inline-flex items-center gap-1 mb-6 group"
+    >
+      <ChevronLeft className="size-3 group-hover:-translate-x-px transition-transform" />
+      Tous les albums
+    </a>
+
+    <div class="flex flex-col gap-2 mb-6">
+      <h1 class="title font-semibold text-3xl md:text-4xl tracking-tighter leading-tight">{title}</h1>
+      <p class="text-sm text-muted-foreground">
+        {formatDate(date)}{location && ` · ${location}`} · {photos.length} photo{photos.length !== 1 ? "s" : ""}
+      </p>
+      {summary && <p class="text-base text-foreground/80 mt-1">{summary}</p>}
+    </div>
+
+    <div class="my-6 flex w-full items-center">
+      <div
+        class="flex-1 h-px bg-border"
+        style="mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);"
+      />
+    </div>
+
+    {cover && (
+      <img
+        src={cover}
+        alt={title}
+        class="w-full rounded-xl object-cover max-h-[480px] mb-8 shadow-sm"
+      />
+    )}
+
+    {photos.length > 0 && (
+      <div class="columns-2 sm:columns-3 gap-3 mb-8 space-y-3">
+        {photos.map((photo) => (
+          <div class="break-inside-avoid">
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              class="w-full rounded-lg shadow-sm border border-border/30 hover:shadow-md transition-shadow"
+              loading="lazy"
+            />
+            {photo.alt && photo.alt !== `Photo ${photos.indexOf(photo) + 1}` && (
+              <p class="text-xs text-muted-foreground text-center mt-1 italic">{photo.alt}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+
+    <article class="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
+      <Content components={mdxComponents} />
+    </article>
+  </section>
+</Layout>

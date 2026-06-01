@@ -33,3 +33,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Admin runtime data (written by nota-admin CMS)
+/ideas.json
+/editorial-style.json
+/.last-build
+# Orphaned blog assets (blog section removed)
+/public/blog/

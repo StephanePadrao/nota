@@ -1,7 +1,7 @@
 import React from "react";
 import { Icons } from "@/components/icons";
 import {
-  House, LayoutGrid, Mail,
+  House, Mail,
   CircuitBoard, Code2, Cpu, ShieldCheck,
   Factory, Wrench, Handshake,
   Kanban, Users, TrendingUp, BarChart2,
@@ -21,11 +21,11 @@ export const DATA = {
   location: "Le Plessis-Robinson, France",
   locationLink: "https://www.google.com/maps/place/le+plessis-robinson+france",
   description:
-    "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production.",
+    "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production. J'écris sur le produit, le design et la tech.",
   ogDescription:
-    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Produit, hardware et tech.",
+    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Blog sur le produit, le hardware et la tech.",
   summary:
-    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé. Concevoir un produit, c'est assembler des contraintes : technique, usage, marché, production. Aujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle. La combinaison ingénieur-PM est rare. C'est ce croisement que je mets au travail dans mes projets.",
+    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé. Concevoir un produit, c'est assembler des contraintes : technique, usage, marché, production. Aujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle. La combinaison ingénieur-PM est rare. Ce blog, c'est l'endroit où je partage ce que j'observe des deux côtés.",
   avatarUrl: "/Profil-Pic.webp",
   ogImage: "/og_image.png",
 
@@ -105,8 +105,8 @@ export const DATA = {
 
   navbar: [
     { href: "/", icon: House, label: "Accueil" },
-    { href: "/projets", icon: LayoutGrid, label: "Projets" },
-    { href: "/photos", icon: Camera, label: "Photos" },
+    { href: "/projects", icon: Hammer, label: "Projets" },
+    { href: "/photos", icon: Camera, label: "Voyages" },
     { href: "/contact", icon: Mail, label: "Contact" },
   ],
 
@@ -217,49 +217,6 @@ export const DATA = {
     },
   ],
 
-  projects: [
-    {
-      title: "SensiAir",
-      href: "https://sensiair.erro.cloud",
-      dates: "2025 - Aujourd'hui",
-      active: true,
-      description:
-        "Application web de surveillance de la qualité de l'air intérieur. Dashboard temps réel, carte interactive, rapports PDF avec analyse IA. Architecture multi-tenant : chaque client voit uniquement ses données.\n\nDémo : `demo@test.com` / `demo1234`",
-      technologies: ["SvelteKit", "TypeScript", "Supabase", "TailwindCSS"],
-      links: [
-        {
-          type: "Site",
-          href: "https://sensiair.erro.cloud",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Code",
-          href: "https://github.com/StephanePadrao/SensiAir",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "/sensiair-preview.webp",
-      video: "",
-    },
-    {
-      title: "Tempo",
-      href: "https://tempo.erro.cloud",
-      dates: "2025 - Aujourd'hui",
-      active: true,
-      description:
-        "Application web de gestion de projets et de temps pour équipes. Dashboard KPIs, gestion de tâches (kanban, calendrier, timeline), réunions avec compte-rendu, génération de documents PDF via Typst. Architecture multi-tenant : chaque espace voit uniquement ses données.\n\nDémo : `demo@tempo.app` / `DemoTempo2026!`",
-      technologies: ["Node.js", "PM2", "VPS"],
-      links: [
-        {
-          type: "Site",
-          href: "https://tempo.erro.cloud",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "/tempo-preview.webp",
-      video: "",
-    },
-  ],
 
   hackathons: [
     {

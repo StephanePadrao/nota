@@ -235,3 +235,11 @@
     @apply border-b-0;
   }
 }
+/* Article image alignment */
+figure.img-left { float: left; margin: 0.5rem 2rem 1rem 0; max-width: 45%; }
+figure.img-right { float: right; margin: 0.5rem 0 1rem 2rem; max-width: 45%; }
+figure.img-center { margin: 1.5rem auto; max-width: 70%; display: table; }
+figure.img-full { display: block; width: 100%; margin: 1.5rem 0; }
+figure.img-left img, figure.img-right img, figure.img-center img, figure.img-full img { width: 100%; height: auto; border-radius: 0.75rem; }
+figure.img-left figcaption, figure.img-right figcaption, figure.img-center figcaption, figure.img-full figcaption { font-size: 0.75rem; color: var(--muted-foreground, #71717a); text-align: center; margin-top: 0.5rem; font-style: italic; }
+.prose::after, article::after { content: ''; display: table; clear: both; }

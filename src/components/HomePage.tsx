@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
-import ProjectsSection from "@/components/section/projects-section";
+import ProjectsSection, { type ProjectItem } from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { ArrowUpRight } from "@/lib/icons";
 
@@ -123,13 +123,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
       </div>
     </section>
   ),
-  projects: (
-    <section id="projects">
-      <BlurFade delay={BLUR_FADE_DELAY * 11}>
-        <ProjectsSection />
-      </BlurFade>
-    </section>
-  ),
+  // projects section rendered dynamically in HomePage with props
   contact: (
     <section id="contact">
       <BlurFade delay={BLUR_FADE_DELAY * 16}>
@@ -139,7 +133,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   ),
 };
 
-export default function HomePage() {
+export default function HomePage({ projects = [] }: { projects?: ProjectItem[] }) {
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
@@ -180,7 +174,11 @@ export default function HomePage() {
 
         {/* Colonne droite — Créations */}
         <div className="relative flex flex-col gap-14 lg:sticky lg:top-6 lg:self-start lg:pl-10 lg:before:absolute lg:before:left-0 lg:before:top-[15%] lg:before:h-[70%] lg:before:w-[3px] lg:before:bg-border/50">
-          {sectionComponents.projects}
+          <section id="projects">
+            <BlurFade delay={BLUR_FADE_DELAY * 11}>
+              <ProjectsSection projects={projects} />
+            </BlurFade>
+          </section>
         </div>
 
       </div>

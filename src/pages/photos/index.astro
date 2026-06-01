@@ -1,0 +1,68 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { DATA } from "@/data/resume";
+
+const albums = (await getCollection("albums")).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+function formatDate(d: string) {
+  const months = ["jan.", "fév.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+  const [year, month, day] = d.split("-");
+  return `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
+}
+---
+
+<Layout title="Photos" description="Voyages, découvertes et moments de vie en images.">
+  <section id="photos">
+    <div class="flex min-h-0 flex-col gap-y-6">
+      <div class="flex items-center w-full">
+        <div class="flex-1 h-px bg-linear-to-r from-transparent from-5% via-border via-95% to-transparent" />
+        <div class="border bg-primary z-10 rounded-xl px-4 py-1">
+          <span class="text-background text-sm font-medium">Voyages</span>
+        </div>
+        <div class="flex-1 h-px bg-linear-to-l from-transparent from-5% via-border via-95% to-transparent" />
+      </div>
+      <div class="text-center">
+        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl">{DATA.sections.photos.heading}</h2>
+      </div>
+
+      {albums.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {albums.map((album) => (
+            <a href={`/photos/${album.id}`} class="group block rounded-xl overflow-hidden border border-border hover:border-primary/40 transition-all hover:shadow-md">
+              <div class="relative overflow-hidden aspect-[4/3]">
+                <img
+                  src={album.data.cover}
+                  alt={album.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                  <p class="text-white font-semibold text-sm">{album.data.title}</p>
+                  <p class="text-white/70 text-xs mt-0.5">
+                    {formatDate(album.data.date)}
+                    {album.data.location && ` · ${album.data.location}`}
+                    {" · "}{album.data.photos.length} photo{album.data.photos.length !== 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 items-start" id="photos-fallback">
+          {DATA.photos.map((photo) => (
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              class="w-full rounded-xl object-cover aspect-square"
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>
