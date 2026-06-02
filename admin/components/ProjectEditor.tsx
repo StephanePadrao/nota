@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { ProjectLink } from "@/lib/projects";
+import AIAssist from "@/components/AIAssist";
 
 interface Props {
   slug?: string;
@@ -170,6 +171,7 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-zinc-400">Description courte</label>
             <textarea value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={2} placeholder="Une ligne résumant le projet" className={`${inputClass} resize-none`} />
+            <AIAssist value={form.description} onChange={(v) => setForm((f) => ({ ...f, description: v }))} context="project" />
           </div>
 
           {/* Technologies */}

@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { AlbumPhoto } from "@/lib/albums";
+import AIAssist from "@/components/AIAssist";
 
 interface Props {
   slug?: string;
@@ -164,6 +165,7 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-zinc-400">Résumé</label>
             <textarea value={form.summary} onChange={(e) => setForm((f) => ({ ...f, summary: e.target.value }))} rows={2} placeholder="Description de l'album..." className={`${inputClass} resize-none`} />
+            <AIAssist value={form.summary} onChange={(v) => setForm((f) => ({ ...f, summary: v }))} context="voyage" />
           </div>
 
           {/* Cover */}
