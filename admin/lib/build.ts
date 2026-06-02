@@ -64,9 +64,41 @@ export function triggerBuild(): boolean {
   proc.stderr?.on("data", onData);
 
   proc.on("close", (code) => {
-    buildState.status = code === 0 ? "success" : "error";
-    if (code === 0) saveLastBuild();
+    if (code !== 0) {
+      buildState.status = "error";
+      return;
+    }
+    saveLastBuild();
+    publishContent(); // build OK → commit & push content to GitHub, then mark success
   });
 
   return true;
+}
+
+// Publish the admin-authored content (mdx + images) to GitHub after a successful build.
+// Staged paths are scoped to content; gitignored runtime data (ideas.json, etc.) is skipped.
+// A push failure is logged but does not fail the build — dist/ is already up to date locally.
+function publishContent() {
+  buildState.logs.push("\n[git] Publication du contenu sur GitHub…\n");
+  const msg = `content: publish from admin (${new Date().toISOString()})`;
+  const script =
+    "git add src/content/projects src/content/albums public && " +
+    "if git diff --cached --quiet; then echo '[git] aucun changement de contenu'; " +
+    'else git commit -m "$COMMIT_MSG" && git push origin main && echo "[git] poussé sur origin/main"; fi';
+
+  const git = spawn("sh", ["-c", script], {
+    cwd: NOTA_ROOT,
+    env: { ...process.env, COMMIT_MSG: msg },
+  });
+
+  const onData = (data: Buffer) => buildState.logs.push(data.toString());
+  git.stdout?.on("data", onData);
+  git.stderr?.on("data", onData);
+
+  git.on("close", (code) => {
+    if (code !== 0) {
+      buildState.logs.push("[git] échec de la publication — le site local est à jour, pousser manuellement\n");
+    }
+    buildState.status = "success";
+  });
 }
