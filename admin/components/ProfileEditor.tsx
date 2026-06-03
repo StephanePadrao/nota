@@ -124,7 +124,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
       </div>
 
       <div className="flex-1 overflow-y-auto p-6">
-        <div className="max-w-2xl mx-auto space-y-10">
+        <div className="space-y-10">
           <p className="text-xs text-zinc-400">
             Modifie ton CV ici, puis clique <b>Sauvegarder</b>. Les changements apparaissent sur le site après un <b>build</b> (bouton publier).
           </p>

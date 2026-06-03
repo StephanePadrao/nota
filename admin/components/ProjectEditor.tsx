@@ -127,7 +127,7 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
       </div>
 
       <div className="flex-1 overflow-y-auto p-6">
-        <div className="max-w-2xl mx-auto space-y-6">
+        <div className="space-y-6">
           {/* Slug + Title */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
