@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
 
 const navItems = [
   {
@@ -46,6 +47,38 @@ const navItems = [
 
 export default function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [building, setBuilding] = useState(false);
+  const [buildMsg, setBuildMsg] = useState<string | null>(null);
+
+  // Publie le site : lance le build (régénère dist/ + commit & push du contenu),
+  // puis poll le statut jusqu'à success/error.
+  async function publish() {
+    if (building) return;
+    setBuilding(true);
+    setBuildMsg("Publication en cours…");
+    try {
+      const res = await fetch("/api/build", { method: "POST" });
+      if (!res.ok) throw new Error("launch");
+      const poll = setInterval(async () => {
+        try {
+          const s = await (await fetch("/api/build")).json();
+          if (s.status !== "building") {
+            clearInterval(poll);
+            setBuilding(false);
+            setBuildMsg(s.status === "success" ? "Publié ✓ — en ligne" : "Échec du build");
+            setTimeout(() => setBuildMsg(null), 6000);
+          }
+        } catch {
+          clearInterval(poll);
+          setBuilding(false);
+          setBuildMsg("Erreur de suivi");
+        }
+      }, 1500);
+    } catch {
+      setBuilding(false);
+      setBuildMsg("Erreur au lancement");
+    }
+  }
 
   return (
     <div className="flex h-full min-h-screen">
@@ -84,6 +117,21 @@ export default function DashboardShell({ children }: { children: React.ReactNode
         </nav>
 
         <div className="pt-4 border-t border-zinc-100">
+          <button
+            onClick={publish}
+            disabled={building}
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 mb-1 rounded-lg text-sm font-semibold bg-amber-500 text-white hover:bg-amber-600 disabled:opacity-60 transition-colors"
+          >
+            <svg className={`size-4 ${building ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              {building ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+              )}
+            </svg>
+            {building ? "Publication…" : "Publier le site"}
+          </button>
+          {buildMsg && <p className="px-3 mb-1.5 text-[11px] text-zinc-400">{buildMsg}</p>}
           <a
             href="https://spadrao.erro.cloud"
             target="_blank"
