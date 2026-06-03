@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { ICON_NAMES, type Profile } from "@/lib/profile-schema";
 
-const inputClass =
-  "w-full px-3 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 placeholder:text-zinc-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 transition-colors";
+// Base sans largeur : pour les cellules en flex (largeur via flex-1 / w-36 / w-24).
+const inputBase =
+  "px-3 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 placeholder:text-zinc-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 transition-colors";
+// Pleine largeur : pour les champs en grille / pleine ligne.
+const inputClass = `w-full ${inputBase}`;
 
 type ListKey = "work" | "education" | "certifications" | "skills" | "hobbies";
 
@@ -208,11 +211,11 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
             <div className="space-y-2">
               {profile.skills.map((s, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <input value={s.name} onChange={(e) => updateList("skills", i, { name: e.target.value })} placeholder="Compétence" className={`${inputClass} flex-1`} />
-                  <select value={s.icon} onChange={(e) => updateList("skills", i, { icon: e.target.value })} className={`${inputClass} w-36`}>
+                  <input value={s.name} onChange={(e) => updateList("skills", i, { name: e.target.value })} placeholder="Compétence" className={`${inputBase} flex-1`} />
+                  <select value={s.icon} onChange={(e) => updateList("skills", i, { icon: e.target.value })} className={`${inputBase} w-36`}>
                     {ICON_NAMES.map((n) => <option key={n} value={n}>{n}</option>)}
                   </select>
-                  <input value={s.color} onChange={(e) => updateList("skills", i, { color: e.target.value })} placeholder="#6366f1" className={`${inputClass} w-24`} />
+                  <input value={s.color} onChange={(e) => updateList("skills", i, { color: e.target.value })} placeholder="#6366f1" className={`${inputBase} w-24`} />
                   <span className="w-5 h-5 rounded shrink-0 border border-zinc-200" style={{ background: s.color || "transparent" }} />
                   <button type="button" onClick={() => removeItem("skills", i)} className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50 shrink-0">✕</button>
                 </div>
@@ -225,11 +228,11 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
             <div className="space-y-2">
               {profile.hobbies.map((h, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <input value={h.name} onChange={(e) => updateList("hobbies", i, { name: e.target.value })} placeholder="Centre d'intérêt" className={`${inputClass} flex-1`} />
-                  <select value={h.icon} onChange={(e) => updateList("hobbies", i, { icon: e.target.value })} className={`${inputClass} w-36`}>
+                  <input value={h.name} onChange={(e) => updateList("hobbies", i, { name: e.target.value })} placeholder="Centre d'intérêt" className={`${inputBase} flex-1`} />
+                  <select value={h.icon} onChange={(e) => updateList("hobbies", i, { icon: e.target.value })} className={`${inputBase} w-36`}>
                     {ICON_NAMES.map((n) => <option key={n} value={n}>{n}</option>)}
                   </select>
-                  <input value={h.color} onChange={(e) => updateList("hobbies", i, { color: e.target.value })} placeholder="#0d9488" className={`${inputClass} w-24`} />
+                  <input value={h.color} onChange={(e) => updateList("hobbies", i, { color: e.target.value })} placeholder="#0d9488" className={`${inputBase} w-24`} />
                   <span className="w-5 h-5 rounded shrink-0 border border-zinc-200" style={{ background: h.color || "transparent" }} />
                   <button type="button" onClick={() => removeItem("hobbies", i)} className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50 shrink-0">✕</button>
                 </div>
