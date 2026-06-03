@@ -85,6 +85,50 @@ const sectionComponents: Record<string, React.ReactNode> = {
       </div>
     </section>
   ),
+  certifications: DATA.certifications.length > 0 ? (
+    <section id="certifications">
+      <div className="flex min-h-0 flex-col gap-y-6">
+        <BlurFade delay={BLUR_FADE_DELAY * 7}>
+          <h2 className="text-xl font-bold">{DATA.sections.certifications.heading}</h2>
+        </BlurFade>
+        <div className="flex flex-col gap-4">
+          {DATA.certifications.map((cert, index) => {
+            const inner = (
+              <div className="flex items-center gap-x-3 justify-between group">
+                <div className="flex-1 min-w-0 flex flex-col gap-0.5">
+                  <div className="font-semibold leading-none flex items-center gap-2">
+                    {cert.name}
+                    {cert.href && (
+                      <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
+                    )}
+                  </div>
+                  {cert.issuer && (
+                    <div className="font-sans text-sm text-muted-foreground">{cert.issuer}</div>
+                  )}
+                </div>
+                {cert.date && (
+                  <div className="flex items-center gap-1 text-xs tabular-nums text-muted-foreground text-right flex-none">
+                    <span>{cert.date}</span>
+                  </div>
+                )}
+              </div>
+            );
+            return (
+              <BlurFade key={cert.name} delay={BLUR_FADE_DELAY * 8 + index * 0.05}>
+                {cert.href ? (
+                  <a href={cert.href} target="_blank" rel="noopener noreferrer">
+                    {inner}
+                  </a>
+                ) : (
+                  inner
+                )}
+              </BlurFade>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  ) : null,
   skills: (
     <section id="skills">
       <div className="flex min-h-0 flex-col gap-y-4">
@@ -168,6 +212,7 @@ export default function HomePage({ projects = [] }: { projects?: ProjectItem[] }
           {sectionComponents.about}
           {sectionComponents.work}
           {sectionComponents.education}
+          {sectionComponents.certifications}
           {sectionComponents.skills}
           {sectionComponents.hobbies}
         </div>

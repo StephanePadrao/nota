@@ -1,61 +1,73 @@
 import React from "react";
 import { Icons } from "@/components/icons";
 import {
-  House, Mail,
+  House, Mail, Hammer, Camera, Globe, Library,
   CircuitBoard, Code2, Cpu, ShieldCheck,
   Factory, Wrench, Handshake,
   Kanban, Users, TrendingUp, BarChart2,
-  Plane, Rocket, Zap, Gauge, Music, Tv2, Hammer, BookOpen, Globe, Camera,
+  Plane, Rocket, Zap, Gauge, Music, Tv2, BookOpen,
 } from "@/lib/icons";
 import { Mechanical } from "@/components/ui/svgs/mechanical";
+import profile from "./profile.json";
 
-const ci = (Icon: React.ComponentType<{ className?: string; color?: string }>, color: string) =>
+type IconComponent = React.ComponentType<{ className?: string; color?: string }>;
+
+// Les compétences/hobbies stockent un NOM d'icône (string) dans profile.json,
+// résolu ici. Une icône = un composant SVG (code), non sérialisable en JSON :
+// le mapping nom → composant reste donc figé côté code.
+const ICON_MAP: Record<string, IconComponent> = {
+  CircuitBoard, Code2, Cpu, ShieldCheck, Mechanical, Factory, Wrench, Handshake,
+  Kanban, Users, TrendingUp, BarChart2, Plane, Rocket, Zap, Gauge, Music, Tv2,
+  Hammer, BookOpen, Globe, Camera, Library, House, Mail,
+};
+
+const ci = (Icon: IconComponent, color: string) =>
   ({ className }: { className?: string }) =>
     <Icon className={className} color={color} />;
 
+const resolveIcon = (name: string, color: string) =>
+  ci(ICON_MAP[name] ?? ShieldCheck, color || "currentColor");
+
+type Certification = { name: string; issuer: string; date: string; href?: string };
 
 export const DATA = {
-  name: "Stéphane Padrao",
-  initials: "SP",
+  name: profile.identity.name,
+  initials: profile.identity.initials,
   url: "https://spadrao.erro.cloud",
-  location: "Le Plessis-Robinson, France",
-  locationLink: "https://www.google.com/maps/place/le+plessis-robinson+france",
-  description:
-    "Ingénieur de formation, Responsable Produit par métier, maker par choix. D'une idée griffonnée à une carte électronique en production. J'écris sur le produit, le design et la tech.",
+  location: profile.identity.location,
+  locationLink: profile.identity.locationLink,
+  description: profile.identity.description,
   ogDescription:
-    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Blog sur le produit, le hardware et la tech.",
-  summary:
-    "J'ai passé des années à dessiner des schémas électroniques. Le produit m'a rattrapé. Concevoir un produit, c'est assembler des contraintes : technique, usage, marché, production. Aujourd'hui Responsable Produit, je construis aussi mes propres projets tech en parallèle. La combinaison ingénieur-PM est rare. Ce blog, c'est l'endroit où je partage ce que j'observe des deux côtés.",
-  avatarUrl: "/Profil-Pic.webp",
+    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Portfolio produit, hardware et tech.",
+  summary: profile.identity.summary,
+  avatarUrl: profile.identity.avatarUrl,
   ogImage: "/og_image.png",
 
+  // Structure du site (ordre, sections, intitulés) — volontairement en code, pas dans le CMS.
   sections: {
     about: { order: 1, enabled: true, heading: "À propos" },
     work: { order: 2, enabled: true, heading: "Expériences", presentLabel: "Aujourd'hui" },
     education: { order: 3, enabled: true, heading: "Formation" },
-    skills: { order: 4, enabled: true, heading: "Compétences" },
+    certifications: { order: 4, enabled: true, heading: "Certifications" },
+    skills: { order: 5, enabled: true, heading: "Compétences" },
     projects: {
-      order: 5,
+      order: 6,
       enabled: true,
       label: "Projets",
       heading: "Ce sur quoi je travaille",
       text: "Des produits construits de zéro — side projects, outils, expérimentations. Tout est auto-hébergé ou open-source.",
     },
     hackathons: {
-      order: 7,
+      order: 8,
       enabled: false,
       label: "Événements",
       heading: "Événements & Expériences",
       text: "Conférences, meetups et formations marquants.",
     },
-    hobbies: { order: 6, enabled: true, heading: "En dehors du bureau" },
-    photos: {
-      order: 7,
-      enabled: true,
-      heading: "Voyages & Photos",
-    },
+    hobbies: { order: 7, enabled: true, heading: "En dehors du bureau" },
+    photos: { order: 7, enabled: true, heading: "Voyages & Photos" },
     contact: {
-      order: 8,
+      order: 9,
       enabled: true,
       label: "Contact",
       heading: "Parlons-en",
@@ -75,33 +87,14 @@ export const DATA = {
     { src: "/photos/photo9.jpg", alt: "Photo 9" },
   ],
 
-  skills: [
-    { name: "Design électronique",        icon: ci(CircuitBoard, "#6366f1") },
-    { name: "C / C++ ARM32",              icon: ci(Code2,        "#0ea5e9") },
-    { name: "KiCad / Altium",             icon: ci(Cpu,          "#8b5cf6") },
-    { name: "Certification CE",           icon: ci(ShieldCheck,  "#22c55e") },
-    { name: "SolidWorks & Fusion 360",    icon: Mechanical },
-    { name: "Industrialisation produit",  icon: ci(Factory,      "#f59e0b") },
-    { name: "Lignes de production",       icon: ci(Wrench,       "#f97316") },
-    { name: "Achats & négociation",       icon: ci(Handshake,    "#10b981") },
-    { name: "Pilotage de projet",         icon: ci(Kanban,       "#7c3aed") },
-    { name: "Management pluridisciplinaire", icon: ci(Users,     "#06b6d4") },
-    { name: "Product Management",         icon: ci(TrendingUp,   "#f59e0b") },
-    { name: "Étude de marché",            icon: ci(BarChart2,    "#ef4444") },
-  ],
-
-  hobbies: [
-    { name: "Aviation",             icon: ci(Plane,   "#3b82f6") },
-    { name: "Spatial",              icon: ci(Rocket,  "#6366f1") },
-    { name: "Nouvelles techno",     icon: ci(Zap,     "#f59e0b") },
-    { name: "F1 & WEC",             icon: ci(Gauge,   "#ef4444") },
-    { name: "Musique",              icon: ci(Music,   "#ec4899") },
-    { name: "Séries & Films",       icon: ci(Tv2,     "#8b5cf6") },
-    { name: "Bricolage & Fab",      icon: ci(Hammer,  "#d97706") },
-    { name: "Lecture",              icon: ci(BookOpen,"#22c55e") },
-    { name: "Voyages",              icon: ci(Globe,   "#0d9488") },
-    { name: "Photographie",         icon: ci(Camera,  "#64748b") },
-  ],
+  // Contenu éditable via l'admin (profile.json) ──────────────────────────────
+  skills: profile.skills.map((s) => ({ name: s.name, icon: resolveIcon(s.icon, s.color) })),
+  hobbies: profile.hobbies.map((h) => ({ name: h.name, icon: resolveIcon(h.icon, h.color) })),
+  // certifications: tableau vide au seed → assertion (JSON infère never[]).
+  certifications: profile.certifications as Certification[],
+  work: profile.work.map((w) => ({ ...w, end: w.end ? w.end : undefined })),
+  education: profile.education,
+  // ───────────────────────────────────────────────────────────────────────────
 
   navbar: [
     { href: "/", icon: House, label: "Accueil" },
@@ -111,112 +104,16 @@ export const DATA = {
   ],
 
   contact: {
-    email: "stephanepadrao@icloud.com",
+    email: profile.identity.email,
     tel: "",
     social: {
-      GitHub: {
-        name: "GitHub",
-        url: "https://github.com/StephanePadrao",
-        icon: Icons.github,
-        navbar: true,
-      },
-      LinkedIn: {
-        name: "LinkedIn",
-        url: "https://linkedin.com/in/SPADRAO",
-        icon: Icons.linkedin,
-        navbar: true,
-      },
-      X: {
-        name: "X",
-        url: "https://x.com",
-        icon: Icons.x,
-        navbar: false,
-      },
-      Youtube: {
-        name: "Youtube",
-        url: "https://youtube.com",
-        icon: Icons.youtube,
-        navbar: false,
-      },
-      email: {
-        name: "Envoyer un email",
-        url: "mailto:stephanepadrao@icloud.com",
-        icon: Icons.email,
-        navbar: false,
-      },
+      GitHub: { name: "GitHub", url: "https://github.com/StephanePadrao", icon: Icons.github, navbar: true },
+      LinkedIn: { name: "LinkedIn", url: "https://linkedin.com/in/SPADRAO", icon: Icons.linkedin, navbar: true },
+      X: { name: "X", url: "https://x.com", icon: Icons.x, navbar: false },
+      Youtube: { name: "Youtube", url: "https://youtube.com", icon: Icons.youtube, navbar: false },
+      email: { name: "Envoyer un email", url: `mailto:${profile.identity.email}`, icon: Icons.email, navbar: false },
     },
   },
-
-  work: [
-    {
-      company: "Zaack (Igienair)",
-      href: "https://zaack.fr",
-      badges: ["Responsable Produit"],
-      location: "Achères, France",
-      title: "Responsable Produit",
-      logoUrl: "/logos/zaack.webp",
-      start: "Janvier 2024",
-      end: undefined,
-      description:
-        "Ingénieur hardware et Responsable Produit. Je m'occupe de l'architecture produit, de la stratégie, de la gestion de projets et des relations fournisseurs. Du circuit à la ligne de production, avec des partenaires en Chine et en Europe. Je manage une équipe de 3 à 5 personnes : électronique, software, mécanique.",
-    },
-    {
-      company: "Kickmaker",
-      href: "https://kickmaker.co",
-      badges: [],
-      location: "Paris 15, France",
-      title: "Project Manager",
-      logoUrl: "/logos/kickmaker.png",
-      start: "Juin 2022",
-      end: "Janvier 2024",
-      description:
-        "Studio de développement produit hardware à Paris. J'accompagne les clients du POC au PVT : électronique, mécanique, software, certification. Hermès, ELAX Énergie, Javelot, Zaack. Un pied dans les startups parisiennes, l'autre dans les contraintes industrielles.",
-    },
-    {
-      company: "MCA Ingénierie / Carmat SA",
-      href: "https://mca-ingenierie.fr",
-      badges: [],
-      location: "Levallois-Perret, France",
-      title: "Ingénieur design électronique",
-      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=mca-ingenierie.fr",
-      start: "Septembre 2021",
-      end: "Février 2022",
-      description:
-        "Mission chez Carmat, le fabricant du cœur artificiel. Mise à jour des dossiers de conception, amélioration des étages puissance, analyse des défauts détectés en production.",
-    },
-    {
-      company: "Springcard SAS",
-      href: "https://www.springcard.com",
-      badges: ["Alternance"],
-      location: "Palaiseau, France",
-      title: "Apprenti Ingénieur système embarqué — Responsable production",
-      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
-      start: "Septembre 2018",
-      end: "Juillet 2021",
-      description:
-        "3 ans d'alternance sur des produits NFC/RFID. De la schématisation au PCB jusqu'à la mise en production. Dernière année : responsable de la production, gestion d'équipe et relations fournisseurs.",
-    },
-  ],
-
-  education: [
-    {
-      school: "IAE Paris — Sorbonne Business School",
-      href: "https://www.iae-paris.com",
-      degree: "MAE Executive MBA — Management et Administration des Entreprises",
-      logoUrl: "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
-      start: "2020",
-      end: "2022",
-    },
-    {
-      school: "Polytech Sorbonne — Paris",
-      href: "https://www.polytech.sorbonne-universite.fr",
-      degree: "Diplôme d'Ingénieur — Électronique et Informatique Industrielle (EI2I)",
-      logoUrl: "/logos/polytech.svg",
-      start: "2018",
-      end: "2021",
-    },
-  ],
-
 
   hackathons: [
     {
@@ -228,4 +125,4 @@ export const DATA = {
       links: [],
     },
   ],
-} as const;
+};
