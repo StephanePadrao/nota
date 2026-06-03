@@ -13,7 +13,9 @@
     {
       "company": "Zaack (Igienair)",
       "href": "https://zaack.fr",
-      "badges": ["Responsable Produit"],
+      "badges": [
+        "Responsable Produit"
+      ],
       "location": "Achères, France",
       "title": "Responsable Produit",
       "logoUrl": "/logos/zaack.webp",
@@ -46,7 +48,9 @@
     {
       "company": "Springcard SAS",
       "href": "https://www.springcard.com",
-      "badges": ["Alternance"],
+      "badges": [
+        "Alternance"
+      ],
       "location": "Palaiseau, France",
       "title": "Apprenti Ingénieur système embarqué — Responsable production",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
@@ -73,31 +77,126 @@
       "end": "2021"
     }
   ],
-  "certifications": [],
+  "certifications": [
+    {
+      "name": "High-Performance Leadership: Lessons from Formula 1®",
+      "issuer": "Santander : Open Academy",
+      "date": "2026",
+      "href": ""
+    }
+  ],
   "skills": [
-    { "name": "Design électronique", "icon": "CircuitBoard", "color": "#6366f1" },
-    { "name": "C / C++ ARM32", "icon": "Code2", "color": "#0ea5e9" },
-    { "name": "KiCad / Altium", "icon": "Cpu", "color": "#8b5cf6" },
-    { "name": "Certification CE", "icon": "ShieldCheck", "color": "#22c55e" },
-    { "name": "SolidWorks & Fusion 360", "icon": "Mechanical", "color": "" },
-    { "name": "Industrialisation produit", "icon": "Factory", "color": "#f59e0b" },
-    { "name": "Lignes de production", "icon": "Wrench", "color": "#f97316" },
-    { "name": "Achats & négociation", "icon": "Handshake", "color": "#10b981" },
-    { "name": "Pilotage de projet", "icon": "Kanban", "color": "#7c3aed" },
-    { "name": "Management pluridisciplinaire", "icon": "Users", "color": "#06b6d4" },
-    { "name": "Product Management", "icon": "TrendingUp", "color": "#f59e0b" },
-    { "name": "Étude de marché", "icon": "BarChart2", "color": "#ef4444" }
+    {
+      "name": "Design électronique",
+      "icon": "CircuitBoard",
+      "color": "#6366f1"
+    },
+    {
+      "name": "C / C++ ARM32",
+      "icon": "Code2",
+      "color": "#0ea5e9"
+    },
+    {
+      "name": "KiCad / Altium",
+      "icon": "Cpu",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Certification CE",
+      "icon": "ShieldCheck",
+      "color": "#22c55e"
+    },
+    {
+      "name": "SolidWorks & Fusion 360",
+      "icon": "Mechanical",
+      "color": ""
+    },
+    {
+      "name": "Industrialisation produit",
+      "icon": "Factory",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Lignes de production",
+      "icon": "Wrench",
+      "color": "#f97316"
+    },
+    {
+      "name": "Achats & négociation",
+      "icon": "Handshake",
+      "color": "#10b981"
+    },
+    {
+      "name": "Pilotage de projet",
+      "icon": "Kanban",
+      "color": "#7c3aed"
+    },
+    {
+      "name": "Management pluridisciplinaire",
+      "icon": "Users",
+      "color": "#06b6d4"
+    },
+    {
+      "name": "Product Management",
+      "icon": "TrendingUp",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Étude de marché",
+      "icon": "BarChart2",
+      "color": "#ef4444"
+    }
   ],
   "hobbies": [
-    { "name": "Aviation", "icon": "Plane", "color": "#3b82f6" },
-    { "name": "Spatial", "icon": "Rocket", "color": "#6366f1" },
-    { "name": "Nouvelles techno", "icon": "Zap", "color": "#f59e0b" },
-    { "name": "F1 & WEC", "icon": "Gauge", "color": "#ef4444" },
-    { "name": "Musique", "icon": "Music", "color": "#ec4899" },
-    { "name": "Séries & Films", "icon": "Tv2", "color": "#8b5cf6" },
-    { "name": "Bricolage & Fab", "icon": "Hammer", "color": "#d97706" },
-    { "name": "Lecture", "icon": "BookOpen", "color": "#22c55e" },
-    { "name": "Voyages", "icon": "Globe", "color": "#0d9488" },
-    { "name": "Photographie", "icon": "Camera", "color": "#64748b" }
+    {
+      "name": "Aviation",
+      "icon": "Plane",
+      "color": "#3b82f6"
+    },
+    {
+      "name": "Spatial",
+      "icon": "Rocket",
+      "color": "#6366f1"
+    },
+    {
+      "name": "Nouvelles techno",
+      "icon": "Zap",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "F1 & WEC",
+      "icon": "Gauge",
+      "color": "#ef4444"
+    },
+    {
+      "name": "Musique",
+      "icon": "Music",
+      "color": "#ec4899"
+    },
+    {
+      "name": "Séries & Films",
+      "icon": "Tv2",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Bricolage & Fab",
+      "icon": "Hammer",
+      "color": "#d97706"
+    },
+    {
+      "name": "Lecture",
+      "icon": "BookOpen",
+      "color": "#22c55e"
+    },
+    {
+      "name": "Voyages",
+      "icon": "Globe",
+      "color": "#0d9488"
+    },
+    {
+      "name": "Photographie",
+      "icon": "Camera",
+      "color": "#64748b"
+    }
   ]
 }
