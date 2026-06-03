@@ -27,6 +27,9 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
   const [uploadingPhotos, setUploadingPhotos] = useState(false);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const photosInputRef = useRef<HTMLInputElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
+  const bodyImageRef = useRef<HTMLInputElement>(null);
+  const [insertingImage, setInsertingImage] = useState(false);
 
   const [form, setForm] = useState({
     title: initialData?.title ?? "",
@@ -70,6 +73,24 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
     setPhotos((prev) => [...prev, ...newPhotos]);
     setUploadingPhotos(false);
     e.target.value = "";
+  }
+
+  // Upload une image et insère le markdown ![](url) à la position du curseur dans le body.
+  async function handleBodyImage(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setInsertingImage(true);
+    try {
+      const url = await uploadFile(file, `albums/${slug || "draft"}`);
+      const ta = bodyRef.current;
+      const start = ta?.selectionStart ?? form.body.length;
+      const end = ta?.selectionEnd ?? form.body.length;
+      const snippet = `\n![](${url})\n`;
+      setForm((f) => ({ ...f, body: f.body.slice(0, start) + snippet + f.body.slice(end) }));
+    } finally {
+      setInsertingImage(false);
+      e.target.value = "";
+    }
   }
 
   function movePhoto(from: number, to: number) {
@@ -225,14 +246,26 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
 
           {/* Body */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-zinc-400">Texte (Markdown, optionnel)</label>
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-medium text-zinc-400">Texte (Markdown, optionnel)</label>
+              <button
+                type="button"
+                onClick={() => bodyImageRef.current?.click()}
+                disabled={insertingImage}
+                className="px-2 py-0.5 text-[11px] text-zinc-600 bg-zinc-100 rounded-md hover:bg-amber-100 hover:text-amber-700 disabled:opacity-50 transition-colors"
+              >
+                {insertingImage ? "Upload…" : "🖼 Insérer une image"}
+              </button>
+            </div>
             <textarea
+              ref={bodyRef}
               value={form.body}
               onChange={(e) => setForm((f) => ({ ...f, body: e.target.value }))}
               rows={6}
-              placeholder="Description du voyage, du contexte..."
+              placeholder="Description du voyage, du contexte... (insère une image au curseur avec le bouton ci-dessus)"
               className={`${inputClass} resize-y font-mono text-xs`}
             />
+            <input ref={bodyImageRef} type="file" accept="image/*" onChange={handleBodyImage} className="hidden" />
           </div>
         </div>
       </div>
