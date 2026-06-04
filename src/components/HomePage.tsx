@@ -138,9 +138,9 @@ const sectionComponents: Record<string, React.ReactNode> = {
         <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
           {DATA.skills.map((skill, id) => (
             <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05} className="h-full">
-              <div className="border bg-background border-border ring-2 ring-border/20 rounded-lg h-7 w-full px-3 flex items-center gap-2">
+              <div className="border bg-background border-border ring-2 ring-border/20 rounded-lg min-h-[1.75rem] w-full px-3 py-1 flex items-center gap-2">
                 {skill.icon && <skill.icon className="size-3.5 rounded overflow-hidden object-contain flex-none" />}
-                <span className="text-foreground text-xs font-medium truncate">{skill.name}</span>
+                <span className="text-foreground text-xs font-medium">{skill.name}</span>
               </div>
             </BlurFade>
           ))}
@@ -157,9 +157,9 @@ const sectionComponents: Record<string, React.ReactNode> = {
         <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
           {DATA.hobbies.map((hobby, id) => (
             <BlurFade key={hobby.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05} className="h-full">
-              <div className="border bg-background border-border ring-2 ring-border/20 rounded-lg h-7 w-full px-3 flex items-center gap-2">
+              <div className="border bg-background border-border ring-2 ring-border/20 rounded-lg min-h-[1.75rem] w-full px-3 py-1 flex items-center gap-2">
                 {hobby.icon && <hobby.icon className="size-3.5 rounded overflow-hidden object-contain flex-none" />}
-                <span className="text-foreground text-xs font-medium truncate">{hobby.name}</span>
+                <span className="text-foreground text-xs font-medium">{hobby.name}</span>
               </div>
             </BlurFade>
           ))}
