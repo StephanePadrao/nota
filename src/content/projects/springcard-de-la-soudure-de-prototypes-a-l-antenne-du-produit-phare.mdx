@@ -1,0 +1,81 @@
+---
+title: 'SpringCard : de la soudure de prototypes à l''antenne du produit phare'
+dates: 2019-2021
+active: false
+description: >-
+  Trois ans d'apprentissage ingénieur chez SpringCard, fabricant français de
+  lecteurs sans-contact 13,56 MHz. Conception de l'antenne du Puck, projets
+  analogiques et LoRa pour Cykleo, puis responsable du service des méthodes :
+  industrialisation, DFM et bancs de test.
+technologies: []
+---
+Je suis arrivé chez SpringCard avec un DUT GEII et six mois de CDI technicien dans les jambes, à faire du soutien sur du routage PCB. J'en suis reparti trois ans plus tard en ayant conçu l'antenne du produit phare de la boîte et en dirigeant le service des méthodes. Entre les deux, un apprentissage ingénieur à Polytech Sorbonne et une PME où on touche à tout parce qu'on est dix-neuf.
+
+C'est ça, l'intérêt d'une petite structure : la distance entre « je comprends le schéma » et « j'ai mon nom sur la partie haute du produit en production » se compte en mois, pas en années.
+
+## le terrain : une maison française du sans-contact
+
+SpringCard conçoit et fait fabriquer en France des coupleurs et lecteurs RFID/NFC en 13,56 MHz, pour le contrôle d'accès, les transports, le parking. Née au début des années 2000 d'un essaimage du bureau d'étude de Noralsy, marque Springcard en 2005, SpringCard SAS en 2015. Modèle 100 % B2B, des clients comme Thales, Sagem, Aéroport de Paris — et les 35 000 lecteurs qui équipent les bornes Vélib' de Paris.
+
+L'organisation est simple et parlante : hardware à Palaiseau (sous la responsabilité de Jérôme Chalbot, mon tuteur), software à Angers, assemblage chez le partenaire Prod2J. Une ligne hiérarchique courte, beaucoup d'autonomie par service. Le genre d'endroit où un apprenti se voit confier de vrais projets parce qu'il n'y a personne d'autre pour les porter.
+
+## les projets qui m'ont formé
+
+Avant le Puck, deux produits Cykleo m'ont servi de banc d'essai grandeur nature.
+
+Le **CykleoRail**, tôt dans l'apprentissage, est un détecteur de présence de vélo sur borne. Pas de pesée possible vu l'hétérogénéité de la flotte, donc détection par ultrasons : de l'analogique pur — filtrage, amplification à base d'AOP — exactement ce que je voyais en cours d'électronique analogique au même moment. Et comme les stations sont souvent sans connexion, c'est là que j'ai mis en place du LoRa pour la remontée des données, en parallèle de mes cours d'IoT.
+
+Le **Biketracker**, toujours pour Cykleo, m'a fait passer de l'autre côté : conception en cycle en V, mais surtout dossier de faisabilité, offre commerciale, échange direct avec le client, sous la supervision de Johann Dantant. C'est là que j'ai compris qu'un projet hardware se joue autant sur le choix des composants — disponibilité, obsolescence, on privilégie Renesas pour la durée de vie — que sur le schéma lui-même.
+
+## le Puck, et son antenne
+
+Le **Puck** est le lecteur de bureau qui devait remplacer une bonne partie du portefeuille en concentrant la production sur un seul produit. Il s'assemble en deux parties à l'usine : le CPU Puck, et la partie haute — l'antenne Puck, sur laquelle j'ai travaillé.
+
+Cette carte n'est pas qu'une boucle. Elle empile plusieurs métiers sur quelques centimètres carrés :
+
+```
+flowchart TD
+  MCU["Microcontrôleur Renesas RL78<br/>(esclave, FreeRTOS)"] --> ANT["Antenne RFID<br/>accordée 13,56 MHz · 50 Ω"]
+  MCU --> LED["LEDs RGB<br/>(commande directe)"]
+  MCU --> BUZ["Buzzer<br/>(via MOSFET)"]
+  DCDC["Alimentation DC/DC"] --> MCU
+  ANT -. "couplage inductif" .-> CARD["Carte / tag NFC"]
+```
+
+Côté analogique, l'antenne RFID doit être accordée pour répondre au mieux à 13,56 MHz (ISO 18000-3), avec un réseau d'adaptation ramenant l'impédance de piste à 50 Ω. C'est de l'antenne symétrique : le réglage parfait sur le banc à vide ne vaut rien s'il s'effondre dès qu'on approche une main ou un boîtier, donc on conçoit pour le cas réel, pas pour la mesure idéale. Autour, des LEDs RGB et un buzzer pilotés par le microcontrôleur via des MOSFET, et une alimentation DC/DC.
+
+Côté firmware, le RL78 tourne sous FreeRTOS en esclave : il répond aux commandes du reste du produit. C'est le genre d'architecture que je refais aujourd'hui en embarqué, et c'est sur cette carte que j'en ai posé les bases.
+
+## responsable méthodes : là où la conception rencontre l'usine
+
+En novembre 2020, le président m'a confié le service des méthodes. Changement de focale : on ne conçoit plus le produit, on s'assure qu'il se fabrique vite, bien, et sans casse. C'est l'année où j'ai vu pourquoi un bon schéma ne suffit pas.
+
+Deux corrections résument l'esprit du poste, parce qu'elles sont invisibles dans la simulation et brutales en série.
+
+Sur le module OEM **K663** à antenne symétrique, les prototypes passaient sans problème. En pré-industrialisation, sur de gros volumes, plus de 37 % de la production sortait avec des défauts de soudure : un footprint mal dimensionné, qui ne se voyait pas à l'unité mais explosait à l'échelle. Redimensionnement de l'empreinte, problème réglé.
+
+Sur le **Puck**, les deux parties se soudent à la main en sept points. Les deux pins de masse refusaient de chauffer correctement : le plan de masse de l'antenne dissipait trop, la soudure traînait. J'ai fait modifier l'espacement des masses sur le gerber pour réduire le temps de soudure — donc le temps technicien par produit, donc le coût de cette étape.
+
+```
+flowchart LR
+  HW["Schéma hardware<br/>(équipe R&D)"] --> METH["Méthodes :<br/>analyse du produit"]
+  METH --> CDC["Cahier des charges banc<br/>(bête à cornes · AMDEC)"]
+  CDC --> BANC["Conception banc<br/>(cycle en V)"]
+  BANC --> PROTO["Tests prototype<br/>en conditions usine"]
+  PROTO -->|"OK"| GAMME["Gamme de fabrication"]
+  PROTO -->|"KO"| CDC
+```
+
+Le reste du poste tournait autour de ça : inventaire et remise à niveau des bancs de test (certains pour des produits arrêtés, d'autres ayant vingt ans de fonctions accumulées), conception des nouveaux bancs en cycle en V, gestion des nomenclatures sous Excalibur pour absorber la pénurie de composants du Covid sans dériver du cahier des charges ni du prix cible, et même le packaging — l'histoire du câble USB-C de 2 m qu'on a fini par faire livrer pré-enroulé au bon diamètre pour ne pas que le technicien le déroule et le réenroule à chaque boîte.
+
+Enfin, j'ai monté le SAV à peu près de zéro : processus RMA, documentation de réparation pensée pour un technicien sans bagage électronique, et des formations internes — la « Springcard Academy » — sur l'électronique générale et la soudure de composants 0201. L'idée : que chacun reparte avec une vraie compétence, pas seulement de la main-d'œuvre.
+
+## ce que j'en retire
+
+Trois choses sont restées. Le réflexe DFM : un produit se conçoit pour être fabriqué, pas seulement pour fonctionner sur le proto. L'idée que le réel a toujours raison sur la simulation, apprise une antenne désaccordée et un plan de masse trop gourmand à la fois. Et la gestion d'équipe et de projet, qui m'a poussé à doubler Polytech d'un cursus à l'IAE Paris.
+
+Une PME de dix-neuf personnes ne t'apprend pas une spécialité, elle t'apprend la chaîne entière : du AOP au gerber, du client au technicien d'usine. Pour démarrer une carrière d'ingénieur, c'est difficile à battre.
+
+---
+
+Le fichier `.md` mis à jour reste dispo si tu préfères l'importer directement plutôt que copier-coller. Seul truc à régler : les dates exactes de l'apprentissage dans l'en-tête.
