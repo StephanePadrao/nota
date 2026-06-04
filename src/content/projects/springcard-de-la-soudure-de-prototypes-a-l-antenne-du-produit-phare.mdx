@@ -8,6 +8,12 @@ description: >-
   analogiques et LoRa pour Cykleo, puis responsable du service des méthodes :
   industrialisation, DFM et bancs de test.
 technologies: []
+cover: /projects/PUCK-Base---SpringCard.webp
+images:
+  - /projects/Springcard-1.webp
+  - /projects/Springcard-Logiciel-ERP-4.webp
+  - /projects/Springcard-Banc-de-test-3.webp
+  - /projects/Springcard-2-Puck.webp
 ---
 Je suis arrivé chez SpringCard avec un DUT GEII et six mois de CDI technicien dans les jambes, à faire du soutien sur du routage PCB. J'en suis reparti trois ans plus tard en ayant conçu l'antenne du produit phare de la boîte et en dirigeant le service des méthodes. Entre les deux, un apprentissage ingénieur à Polytech Sorbonne et une PME où on touche à tout parce qu'on est dix-neuf.
 
@@ -19,17 +25,29 @@ SpringCard conçoit et fait fabriquer en France des coupleurs et lecteurs RFID/N
 
 L'organisation est simple et parlante : hardware à Palaiseau (sous la responsabilité de Jérôme Chalbot, mon tuteur), software à Angers, assemblage chez le partenaire Prod2J. Une ligne hiérarchique courte, beaucoup d'autonomie par service. Le genre d'endroit où un apprenti se voit confier de vrais projets parce qu'il n'y a personne d'autre pour les porter.
 
+
+![](/projects/Springcard-2-Puck.webp)
+
+
 ## les projets qui m'ont formé
 
 Avant le Puck, deux produits Cykleo m'ont servi de banc d'essai grandeur nature.
 
 Le **CykleoRail**, tôt dans l'apprentissage, est un détecteur de présence de vélo sur borne. Pas de pesée possible vu l'hétérogénéité de la flotte, donc détection par ultrasons : de l'analogique pur — filtrage, amplification à base d'AOP — exactement ce que je voyais en cours d'électronique analogique au même moment. Et comme les stations sont souvent sans connexion, c'est là que j'ai mis en place du LoRa pour la remontée des données, en parallèle de mes cours d'IoT.
 
+
+![](/projects/Springcard-1.webp)
+
+
 Le **Biketracker**, toujours pour Cykleo, m'a fait passer de l'autre côté : conception en cycle en V, mais surtout dossier de faisabilité, offre commerciale, échange direct avec le client, sous la supervision de Johann Dantant. C'est là que j'ai compris qu'un projet hardware se joue autant sur le choix des composants — disponibilité, obsolescence, on privilégie Renesas pour la durée de vie — que sur le schéma lui-même.
 
 ## le Puck, et son antenne
 
 Le **Puck** est le lecteur de bureau qui devait remplacer une bonne partie du portefeuille en concentrant la production sur un seul produit. Il s'assemble en deux parties à l'usine : le CPU Puck, et la partie haute — l'antenne Puck, sur laquelle j'ai travaillé.
+
+
+![](/projects/Springcard-Banc-de-test-3.webp)
+
 
 Cette carte n'est pas qu'une boucle. Elle empile plusieurs métiers sur quelques centimètres carrés :
 
@@ -50,6 +68,10 @@ Côté firmware, le RL78 tourne sous FreeRTOS en esclave : il répond aux comman
 
 En novembre 2020, le président m'a confié le service des méthodes. Changement de focale : on ne conçoit plus le produit, on s'assure qu'il se fabrique vite, bien, et sans casse. C'est l'année où j'ai vu pourquoi un bon schéma ne suffit pas.
 
+
+![](/projects/Springcard-Logiciel-ERP-4.webp)
+
+
 Deux corrections résument l'esprit du poste, parce qu'elles sont invisibles dans la simulation et brutales en série.
 
 Sur le module OEM **K663** à antenne symétrique, les prototypes passaient sans problème. En pré-industrialisation, sur de gros volumes, plus de 37 % de la production sortait avec des défauts de soudure : un footprint mal dimensionné, qui ne se voyait pas à l'unité mais explosait à l'échelle. Redimensionnement de l'empreinte, problème réglé.
@@ -69,6 +91,10 @@ flowchart LR
 Le reste du poste tournait autour de ça : inventaire et remise à niveau des bancs de test (certains pour des produits arrêtés, d'autres ayant vingt ans de fonctions accumulées), conception des nouveaux bancs en cycle en V, gestion des nomenclatures sous Excalibur pour absorber la pénurie de composants du Covid sans dériver du cahier des charges ni du prix cible, et même le packaging — l'histoire du câble USB-C de 2 m qu'on a fini par faire livrer pré-enroulé au bon diamètre pour ne pas que le technicien le déroule et le réenroule à chaque boîte.
 
 Enfin, j'ai monté le SAV à peu près de zéro : processus RMA, documentation de réparation pensée pour un technicien sans bagage électronique, et des formations internes — la « Springcard Academy » — sur l'électronique générale et la soudure de composants 0201. L'idée : que chacun reparte avec une vraie compétence, pas seulement de la main-d'œuvre.
+
+
+![](/projects/springcard-logo.webp)
+
 
 ## ce que j'en retire
 
