@@ -16,16 +16,37 @@ links:
     href: 'https://sensiair.erro.cloud'
   - type: GitHub
     href: 'https://github.com/StephanePadrao/SensiAir'
+cover: /projects/dashboard-carte.webp
+images:
+  - /projects/alertes-liste.webp
+  - /projects/sites-pieces.webp
+  - /projects/base-connaissances.webp
+  - /projects/analyse-metriques.webp
+  - /projects/alertes-vue.webp
+  - /projects/dashboard-carte.webp
+  - /projects/export-donnees.webp
+  - /projects/analyse-vue.webp
+  - /projects/analyse-correlation.webp
+  - /projects/gestion-capteurs.webp
+  - /projects/dashboard-sites.webp
 ---
 # SensiAir : du capteur LoRaWAN au PDF réglementaire
 
 J'ai construit SensiAir parce que la plupart des outils « qualité de l'air » que je croisais s'arrêtaient à une jauge verte et un graphe de CO₂. Je voulais aller jusqu'au bout de la chaîne : du capteur physique posé dans une salle de classe jusqu'au rapport PDF qu'un directeur peut présenter à un inspecteur. Une plateforme SaaS multi-tenant, avec un mode kiosque pour le hall d'accueil et une console d'admin qui surveille sa propre santé. Voici comment c'est foutu sous le capot, et pourquoi j'ai fait ces choix.
+
+
+![](/projects/dashboard-sites.webp)
+
+*Le dashboard à l'ouverture : tous les sites d'un client géolocalisés, leur indice d'air en un coup d'œil, et l'état du parc (ici 100 % des capteurs en ligne).*
 
 ## le problème : l'air intérieur, et l'administratif qui va avec
 
 On passe environ 90 % de notre temps à l'intérieur, et l'air qu'on y respire est souvent plus chargé que celui de la rue : CO₂ qui grimpe dans une salle mal ventilée, particules fines, composés organiques volatils. En France, ce n'est plus qu'une affaire de confort. Les établissements recevant du public (écoles, crèches, collèges) ont une obligation de surveillance, avec une évaluation annuelle des moyens d'aération encadrée par le Cerema.
 
 Mesurer, c'est une chose. Le prouver à un inspecteur en est une autre. C'est le point que je voulais traiter de bout en bout : ne pas m'arrêter à la donnée, mais produire le document qui la rend opposable.
+
+![](/projects/base-connaissances.webp)
+*Le cadre réglementaire est intégré à l'app, dont le Décret n°2022-1689 (Décret QAI 2023) et le module Cerema. L'utilisateur n'a pas à aller chercher la loi ailleurs.*
 
 ## le tour du produit en cinq minutes
 
@@ -40,6 +61,20 @@ Côté utilisateur, l'application authentifiée tourne autour de quelques pages 
 - **Rapports.** Génération de PDF (standard ou détaillé), avec en option une analyse rédigée par IA, et un export CSV par pièce, site ou capteur.
 
 Et derrière, une console super-admin qui n'a rien d'un gadget : monitoring des requêtes d'ingestion, santé de la base et des jobs CRON, journal d'audit, suivi de la consommation des API externes et des quotas par client.
+
+
+![](/projects/dashboard-sites.webp)
+*Vue d'ensemble des 6 sites surveillés : indice EQAI, nombre de pièces et de capteurs, taux de couverture et mini-tendance, site par site.*
+
+
+![](/projects/sites-pieces.webp)
+*Au niveau d'un site, chaque pièce a son score, et je confronte l'air intérieur aux conditions extérieures (ici 19 contre 21).*
+
+
+![](/projects/alertes-vue.webp)
+*Le centre d'alertes : 0 critique, suivi des dépassements sur 7 jours et durée moyenne de résolution. De quoi piloter, pas seulement constater.*
+
+*Le mode kiosque : un écran d'accueil sans login, jauge d'indice et bâtiment coloré pièce par pièce, rafraîchi toutes les 30 secondes. Pensé pour le hall d'une école ou d'un bureau.*
 
 ## la stack : récente, et assumée
 
@@ -77,6 +112,9 @@ flowchart TD
 
 La décision dont je suis le plus content se cache dans ce diagramme : la séparation entre **capteur virtuel** et **capteur physique**. Le capteur virtuel est un emplacement logique, stable dans le temps, rattaché à une pièce. Le capteur physique, lui, est du matériel qui tombe en panne, se remplace, se recalibre. En historisant les assignations entre les deux, je peux changer un boîtier défectueux sans casser la continuité des séries de mesures ni perdre l'historique de la pièce. C'est typiquement le genre de choix qui vient de mon métier d'origine : sur le terrain, le matériel bouge, et le modèle de données doit l'absorber.
 
+![](/projects/gestion-capteurs.webp)
+*Chaque emplacement logique garde son historique même quand le matériel change (colonne « Migration automatique »). C'est le découplage virtuel / physique en pratique.*
+
 ## l'ingestion et le pipeline : du brut au pré-calculé
 
 Les capteurs envoient leurs mesures à une Edge Function Supabase (`/functions/v1/ingest`), qui accepte deux formats : mon format natif SensiAir et celui de The Things Stack pour le LoRaWAN. L'authentification se fait par clé API (préfixe `sak_`), avec rate limiting et journalisation fine de chaque requête (`api_ingest_logs` : device, code de statut, catégorie d'erreur, latence). C'est cette table qui alimente toute la page de monitoring d'ingestion côté admin.
@@ -92,6 +130,9 @@ flowchart LR
 ```
 
 Conséquence pratique : l'indice, son libellé et sa couleur sont déjà calculés et stockés au moment où l'utilisateur ouvre une page. La lecture est en O(1). La rétention décroît avec la granularité (brut quelques jours, horaire un mois, journalier un an), ce qui garde la base légère sans perdre la tendance longue.
+
+![](/projects/analyse-metriques.webp)
+*L'évolution horaire du CO₂ avec les seuils médiocre / mauvais, et la heatmap heure par heure. Tout est pré-agrégé, donc l'affichage est instantané.*
 
 ## l'EQAI : un indice composite, et inversé
 
@@ -110,11 +151,25 @@ pie showData
 
 J'ai mis le CO₂ au poids le plus lourd parce que ma cible principale, c'est la ventilation des salles occupées. Les alertes s'appuient sur des seuils stockés en JSONB par client (`seuils_clients`), avec des référentiels pré-configurés réutilisables. Quand on modifie les seuils, je rappelle la fonction de capture immédiatement pour un recalcul instantané, plutôt que d'attendre le passage horaire.
 
+
+![](/projects/analyse-vue.webp)
+*L'analyse comparative : score EQAI synthétique et décomposition par métrique (CO₂, température, humidité, PM2.5, COV), jusqu'à trois pièces en parallèle.*
+
+
+![](/projects/analyse-correlation.webp)
+*Pour aller plus loin : corrélation entre deux métriques avec régression (ici CO₂ / température, R² = 0,60). On dépasse le simple graphe de tendance.*
+
 ## les rapports : là où ça devient sérieux
 
 Générer un PDF correct côté serveur, en environnement serverless, ce n'est pas trivial, et c'est la partie qui m'a coûté le plus. J'ai assemblé une chaîne complète : D3 produit des SVG (courbes, heatmaps, jauges, radars de conformité), un DOM headless les rend, Puppeteer avec un Chromium allégé (`@sparticuz/chromium`) capture, et pdf-lib assemble le document final. Détection automatique de l'environnement (Vercel, Lambda) pour basculer en mode serverless.
 
-Le contenu va de la synthèse exécutive à l'inventaire du parc, en passant par les résultats par site et la comparaison intérieur/extérieur. En option, un fournisseur d'IA (configurable, avec un repli `mock` si aucune clé n'est fournie) rédige analyses et recommandations. Et pour les ERP, le rapport Cerema suit le cadre réglementaire (Art. R.221-30 à 37), avec validation signée et lien de partage public.
+Le contenu va de la synthèse exécutive à l'inventaire du parc, en passant par les résultats par site et la comparaison intérieur/extérieur. En option, un fournisseur d'IA (configurable, avec un repli `mock` si aucune clé n'est fournie) rédige analyses et recommandations. Et pour les ERP, le rapport Cerema suit le cadre réglementaire (Décret n°2022-1689, dit Décret QAI 2023), avec validation signée et lien de partage public.
+
+*Le livrable : un rapport PDF généré côté serveur (graphes D3, analyse rédigée), prêt à archiver ou à présenter en contrôle. C'est ce qui transforme la mesure en preuve.*
+
+
+![](/projects/export-donnees.webp)
+*L'export : mesures brutes, indices, état capteurs ou alertes, par site, pièce ou capteur, avec la granularité voulue. La donnée reste celle du client.*
 
 C'est cette partie qui transforme un joli dashboard en outil que quelqu'un paie pour utiliser : il ne montre pas seulement que l'air est bon, il fabrique la preuve à archiver.
 
