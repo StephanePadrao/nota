@@ -25,7 +25,7 @@ export default function DashboardPage() {
 
   return (
     <DashboardShell>
-      <div className="p-8 max-w-5xl mx-auto">
+      <div className="p-4 sm:p-8 max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-semibold text-zinc-900">Bonjour 👋</h1>
@@ -49,7 +49,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Section title="Projets" href="/projects" newHref="/projects/new" newLabel="Nouveau projet" empty="Aucun projet">
             {recentProjects.map((p) => (
               <ContentCard

@@ -107,8 +107,9 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
   }
 
   async function save() {
-    if (!slug) { alert("Le slug est requis"); return; }
+    if (!slug) { setStatus("Le slug est requis"); return; }
     setSaving(true);
+    setStatus(null);
     const isNew = !existingSlug;
     const url = isNew ? "/api/projects" : `/api/projects/${existingSlug}`;
     const method = isNew ? "POST" : "PUT";
@@ -116,9 +117,11 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
       ? { slug, ...form, technologies, links, cover, images }
       : { ...form, technologies, links, cover, images };
     const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-    if (!res.ok) { alert("Erreur lors de la sauvegarde"); setSaving(false); return; }
+    if (!res.ok) { setStatus("Erreur lors de la sauvegarde"); setSaving(false); return; }
     setSaving(false);
-    if (isNew) router.push(`/projects/${slug}`);
+    if (isNew) { router.push(`/projects/${slug}`); return; }
+    setStatus("saved");
+    setTimeout(() => setStatus(null), 3000);
   }
 
   async function handleDelete() {
@@ -126,6 +129,8 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
     await fetch(`/api/projects/${existingSlug}`, { method: "DELETE" });
     router.push("/projects");
   }
+
+  const [status, setStatus] = useState<null | "saved" | string>(null);
 
   const inputClass = "w-full px-3 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 placeholder:text-zinc-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 transition-colors";
 
@@ -137,20 +142,22 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
         <span className="text-zinc-300">/</span>
         <span className="text-zinc-500 text-sm truncate">{existingSlug ?? "Nouveau projet"}</span>
         <div className="flex-1" />
+        {status === "saved" && <span className="text-xs text-green-600 shrink-0">Enregistré ✓</span>}
+        {status && status !== "saved" && <span className="text-xs text-red-500 shrink-0">{status}</span>}
         {existingSlug && (
-          <button onClick={handleDelete} className="px-3 py-1.5 text-sm text-red-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+          <button onClick={handleDelete} className="px-3 py-1.5 text-sm text-red-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors shrink-0">
             Supprimer
           </button>
         )}
-        <button onClick={save} disabled={saving} className="px-4 py-1.5 text-sm bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 disabled:opacity-50 transition-colors">
-          {saving ? "..." : "Sauvegarder"}
+        <button onClick={save} disabled={saving} className="px-4 py-1.5 text-sm bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 disabled:opacity-50 transition-colors shrink-0">
+          {saving ? "Enregistrement…" : "Sauvegarder"}
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="space-y-6">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div className="max-w-4xl mx-auto space-y-6">
           {/* Slug + Title */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-zinc-400">Titre</label>
               <input
@@ -177,7 +184,7 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
           </div>
 
           {/* Dates + Active */}
-          <div className="grid grid-cols-2 gap-4 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-zinc-400">Dates</label>
               <input value={form.dates} onChange={(e) => setForm((f) => ({ ...f, dates: e.target.value }))} placeholder="2024 - Aujourd'hui" className={inputClass} />
@@ -227,12 +234,12 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
               <button onClick={addLink} className="text-xs text-amber-500 hover:text-amber-600">+ Ajouter</button>
             </div>
             {links.map((link, i) => (
-              <div key={i} className="flex gap-2">
+              <div key={i} className="flex flex-col sm:flex-row gap-2">
                 <input
                   value={link.type}
                   onChange={(e) => setLinks((prev) => prev.map((l, j) => j === i ? { ...l, type: e.target.value } : l))}
                   placeholder="Type (Site, GitHub...)"
-                  className={`${inputClass} w-36`}
+                  className={`${inputClass} sm:w-36`}
                 />
                 <input
                   value={link.href}
@@ -268,13 +275,13 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-zinc-400">Galerie d'images</label>
             {images.length > 0 && (
-              <div className="grid grid-cols-4 gap-2 mb-2">
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mb-2">
                 {images.map((src, i) => (
                   <div key={i} className="relative group">
                     <img src={`/api/media${src}`} alt="" className="w-full h-16 object-cover rounded-lg border border-zinc-200" />
                     <button
                       onClick={() => setImages((prev) => prev.filter((_, j) => j !== i))}
-                      className="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
                     >
                       ✕
                     </button>
@@ -305,9 +312,8 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
               ref={bodyRef}
               value={form.body}
               onChange={(e) => setForm((f) => ({ ...f, body: e.target.value }))}
-              rows={10}
               placeholder="Description détaillée du projet... (insère une image au curseur avec le bouton ci-dessus)"
-              className={`${inputClass} resize-y font-mono text-xs`}
+              className={`${inputClass} resize-y text-sm leading-relaxed min-h-[40vh]`}
             />
             <input ref={bodyImageRef} type="file" accept="image/*" onChange={handleBodyImage} className="hidden" />
           </div>

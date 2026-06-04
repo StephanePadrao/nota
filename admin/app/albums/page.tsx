@@ -16,7 +16,7 @@ export default function AlbumsPage() {
 
   return (
     <DashboardShell>
-      <div className="p-8 max-w-4xl mx-auto">
+      <div className="p-4 sm:p-8 max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-semibold text-zinc-900">Albums photos</h1>
@@ -41,7 +41,7 @@ export default function AlbumsPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {albums.map((a) => (
               <Link
                 key={a.slug}

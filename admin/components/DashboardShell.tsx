@@ -49,6 +49,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
   const pathname = usePathname();
   const [building, setBuilding] = useState(false);
   const [buildMsg, setBuildMsg] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   // Publie le site : lance le build (régénère dist/ + commit & push du contenu),
   // puis poll le statut jusqu'à success/error.
@@ -82,7 +83,26 @@ export default function DashboardShell({ children }: { children: React.ReactNode
 
   return (
     <div className="flex h-full min-h-screen">
-      <aside className="w-56 shrink-0 flex flex-col border-r border-zinc-100 bg-white px-3 py-5">
+      {/* Top-bar mobile */}
+      <div className="md:hidden fixed top-0 inset-x-0 z-30 flex items-center gap-3 h-14 px-4 border-b border-zinc-100 bg-white">
+        <button onClick={() => setMobileOpen(true)} aria-label="Ouvrir le menu" className="-ml-1 p-1 text-zinc-600">
+          <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+          </svg>
+        </button>
+        <span className="text-zinc-900 font-semibold text-sm">Nota <span className="font-normal text-zinc-400">Admin</span></span>
+      </div>
+
+      {/* Overlay mobile */}
+      {mobileOpen && (
+        <div onClick={() => setMobileOpen(false)} className="md:hidden fixed inset-0 z-40 bg-black/40" />
+      )}
+
+      <aside
+        className={`fixed md:static inset-y-0 left-0 z-50 w-64 md:w-56 shrink-0 flex flex-col border-r border-zinc-100 bg-white px-3 py-5 transition-transform md:translate-x-0 ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 px-3 mb-7 group">
           <div className="w-7 h-7 bg-amber-500 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-amber-600 transition-colors">
@@ -103,6 +123,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${
                   active
                     ? "bg-amber-50 text-amber-700 font-medium"
@@ -155,7 +176,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto bg-zinc-50">{children}</main>
+      <main className="flex-1 overflow-y-auto bg-zinc-50 pt-14 md:pt-0">{children}</main>
     </div>
   );
 }

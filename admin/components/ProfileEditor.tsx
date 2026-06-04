@@ -126,15 +126,15 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="space-y-10">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div className="max-w-4xl mx-auto space-y-10">
           <p className="text-xs text-zinc-400">
             Modifie ton CV ici, puis clique <b>Sauvegarder</b>. Les changements apparaissent sur le site après un <b>build</b> (bouton publier).
           </p>
 
           {/* Identité */}
           <Group title="Identité">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Field label="Nom" value={id.name} onChange={(v) => setId("name", v)} />
               <Field label="Initiales" value={id.initials} onChange={(v) => setId("initials", v)} placeholder="SP" />
               <Field label="Localisation" value={id.location} onChange={(v) => setId("location", v)} />
@@ -151,7 +151,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
             <div className="space-y-3">
               {profile.work.map((w, i) => (
                 <ItemCard key={i} title={w.company || `Expérience ${i + 1}`} onUp={() => moveItem("work", i, -1)} onDown={() => moveItem("work", i, 1)} onRemove={() => removeItem("work", i)}>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <Field label="Entreprise" value={w.company} onChange={(v) => updateList("work", i, { company: v })} />
                     <Field label="Poste" value={w.title} onChange={(v) => updateList("work", i, { title: v })} />
                     <Field label="Lien" value={w.href} onChange={(v) => updateList("work", i, { href: v })} />
@@ -172,11 +172,11 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
             <div className="space-y-3">
               {profile.education.map((e, i) => (
                 <ItemCard key={i} title={e.school || `Formation ${i + 1}`} onUp={() => moveItem("education", i, -1)} onDown={() => moveItem("education", i, 1)} onRemove={() => removeItem("education", i)}>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <Field label="École" value={e.school} onChange={(v) => updateList("education", i, { school: v })} />
                     <Field label="Lien" value={e.href} onChange={(v) => updateList("education", i, { href: v })} />
                     <Field label="Logo (URL)" value={e.logoUrl} onChange={(v) => updateList("education", i, { logoUrl: v })} />
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <Field label="Début" value={e.start} onChange={(v) => updateList("education", i, { start: v })} />
                       <Field label="Fin" value={e.end} onChange={(v) => updateList("education", i, { end: v })} />
                     </div>
@@ -192,7 +192,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
             <div className="space-y-3">
               {profile.certifications.map((c, i) => (
                 <ItemCard key={i} title={c.name || `Certification ${i + 1}`} onUp={() => moveItem("certifications", i, -1)} onDown={() => moveItem("certifications", i, 1)} onRemove={() => removeItem("certifications", i)}>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <Field label="Intitulé" value={c.name} onChange={(v) => updateList("certifications", i, { name: v })} />
                     <Field label="Organisme" value={c.issuer} onChange={(v) => updateList("certifications", i, { issuer: v })} />
                     <Field label="Date" value={c.date} onChange={(v) => updateList("certifications", i, { date: v })} placeholder="2026" />
@@ -210,8 +210,8 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
           <Group title="Compétences" count={profile.skills.length} addLabel="Compétence" onAdd={() => addItem("skills", { name: "", icon: "ShieldCheck", color: "#6366f1" })}>
             <div className="space-y-2">
               {profile.skills.map((s, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <input value={s.name} onChange={(e) => updateList("skills", i, { name: e.target.value })} placeholder="Compétence" className={`${inputBase} flex-1`} />
+                <div key={i} className="flex flex-wrap items-center gap-2">
+                  <input value={s.name} onChange={(e) => updateList("skills", i, { name: e.target.value })} placeholder="Compétence" className={`${inputBase} flex-1 min-w-[140px]`} />
                   <select value={s.icon} onChange={(e) => updateList("skills", i, { icon: e.target.value })} className={`${inputBase} w-36`}>
                     {ICON_NAMES.map((n) => <option key={n} value={n}>{n}</option>)}
                   </select>
@@ -227,8 +227,8 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
           <Group title="En dehors du bureau" count={profile.hobbies.length} addLabel="Hobby" onAdd={() => addItem("hobbies", { name: "", icon: "Globe", color: "#0d9488" })}>
             <div className="space-y-2">
               {profile.hobbies.map((h, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <input value={h.name} onChange={(e) => updateList("hobbies", i, { name: e.target.value })} placeholder="Centre d'intérêt" className={`${inputBase} flex-1`} />
+                <div key={i} className="flex flex-wrap items-center gap-2">
+                  <input value={h.name} onChange={(e) => updateList("hobbies", i, { name: e.target.value })} placeholder="Centre d'intérêt" className={`${inputBase} flex-1 min-w-[140px]`} />
                   <select value={h.icon} onChange={(e) => updateList("hobbies", i, { icon: e.target.value })} className={`${inputBase} w-36`}>
                     {ICON_NAMES.map((n) => <option key={n} value={n}>{n}</option>)}
                   </select>
