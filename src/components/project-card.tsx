@@ -60,12 +60,7 @@ export function ProjectCard({
       )}
     >
       <div className="relative shrink-0">
-        <a
-          href={href || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block"
-        >
+        <a href={href || "#"} className="block">
           {video ? (
             <video
               src={video}
@@ -111,10 +106,8 @@ export function ProjectCard({
           </div>
           <a
             href={href || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-            aria-label={`Open ${title}`}
+            aria-label={`Ouvrir ${title}`}
           >
             <ArrowUpRight className="h-4 w-4" aria-hidden />
           </a>

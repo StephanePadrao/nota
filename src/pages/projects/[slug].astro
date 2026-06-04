@@ -47,15 +47,20 @@ const { Content } = await render(project);
         </div>
       )}
       {links && links.length > 0 && (
-        <div class="flex flex-wrap gap-2">
-          {links.map((link) => (
+        <div class="flex flex-wrap gap-2.5">
+          {links.map((link, i) => (
             <a
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
+              class={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                i === 0
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                  : "border border-border text-foreground hover:bg-accent"
+              }`}
             >
-              {link.type} →
+              {link.type}
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10" /></svg>
             </a>
           ))}
         </div>

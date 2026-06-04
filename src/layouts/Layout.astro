@@ -165,23 +165,24 @@ const currentPath = Astro.url.pathname;
 
     <!-- Navigation flottante — pills indépendantes sur l'animation, sans barre de fond -->
     <nav class="fixed top-0 inset-x-0 z-30 pointer-events-none">
-      <div class="max-w-7xl mx-auto px-10 pt-4 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-4 flex items-center justify-between">
 
-        <!-- Logo "nota" — identité visuelle, non-cliquable -->
-        <span
-          class="text-sm font-semibold tracking-tight
-                 bg-background/80 backdrop-blur-sm text-foreground
+        <!-- Logo "nota" — retour à l'accueil -->
+        <a
+          href="/"
+          class="text-sm font-semibold tracking-tight pointer-events-auto
+                 bg-background/80 backdrop-blur-sm text-foreground hover:text-foreground/70 transition-colors
                  px-3 py-1.5 rounded-full border border-border/40"
         >
           nota
-        </span>
+        </a>
 
         <!-- Liens de navigation — pills droite -->
-        <div class="flex items-center gap-1.5 pointer-events-auto">
+        <div class="flex items-center gap-1 sm:gap-1.5 pointer-events-auto">
           {DATA.navbar.map((item) => (
             <a
               href={item.href}
-              class={`text-sm px-3 py-1.5 rounded-full border border-border/40
+              class={`text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-full border border-border/40
                       bg-background/80 backdrop-blur-sm transition-colors
                       ${
                         currentPath === item.href ||
@@ -218,7 +219,7 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- Contenu principal — padding-top pour ne pas passer sous la nav fixe -->
-    <div class="relative z-10 max-w-7xl mx-auto pt-16 pb-16 sm:pt-20 sm:pb-20 px-10">
+    <div class="relative z-10 max-w-7xl mx-auto pt-16 pb-16 sm:pt-20 sm:pb-20 px-4 sm:px-6 lg:px-10">
       <slot />
     </div>
 
