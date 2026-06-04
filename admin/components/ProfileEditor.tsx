@@ -54,9 +54,9 @@ function ItemCard({ title, onUp, onDown, onRemove, children }: { title: string; 
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-zinc-500">{title}</span>
         <div className="flex gap-1">
-          <button type="button" onClick={onUp} className="w-6 h-6 text-xs text-zinc-500 rounded hover:bg-zinc-100">↑</button>
-          <button type="button" onClick={onDown} className="w-6 h-6 text-xs text-zinc-500 rounded hover:bg-zinc-100">↓</button>
-          <button type="button" onClick={onRemove} className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50">✕</button>
+          <button type="button" onClick={onUp} aria-label="Monter" className="w-6 h-6 text-xs text-zinc-500 rounded hover:bg-zinc-100">↑</button>
+          <button type="button" onClick={onDown} aria-label="Descendre" className="w-6 h-6 text-xs text-zinc-500 rounded hover:bg-zinc-100">↓</button>
+          <button type="button" onClick={onRemove} aria-label="Supprimer" className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50">✕</button>
         </div>
       </div>
       {children}
@@ -217,7 +217,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
                   </select>
                   <input value={s.color} onChange={(e) => updateList("skills", i, { color: e.target.value })} placeholder="#6366f1" className={`${inputBase} w-24`} />
                   <span className="w-5 h-5 rounded shrink-0 border border-zinc-200" style={{ background: s.color || "transparent" }} />
-                  <button type="button" onClick={() => removeItem("skills", i)} className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50 shrink-0">✕</button>
+                  <button type="button" onClick={() => removeItem("skills", i)} aria-label="Retirer la compétence" className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50 shrink-0">✕</button>
                 </div>
               ))}
             </div>
@@ -234,7 +234,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
                   </select>
                   <input value={h.color} onChange={(e) => updateList("hobbies", i, { color: e.target.value })} placeholder="#0d9488" className={`${inputBase} w-24`} />
                   <span className="w-5 h-5 rounded shrink-0 border border-zinc-200" style={{ background: h.color || "transparent" }} />
-                  <button type="button" onClick={() => removeItem("hobbies", i)} className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50 shrink-0">✕</button>
+                  <button type="button" onClick={() => removeItem("hobbies", i)} aria-label="Retirer le hobby" className="w-6 h-6 text-xs text-red-400 rounded hover:bg-red-50 shrink-0">✕</button>
                 </div>
               ))}
             </div>

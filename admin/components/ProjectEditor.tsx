@@ -213,14 +213,14 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
                 placeholder="React, TypeScript..."
                 className={`${inputClass} flex-1`}
               />
-              <button onClick={addTech} className="px-3 py-2 text-sm bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors">+</button>
+              <button onClick={addTech} aria-label="Ajouter la technologie" className="px-3 py-2 text-sm bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors">+</button>
             </div>
             {technologies.length > 0 && (
               <div className="flex flex-wrap gap-1.5 mt-2">
                 {technologies.map((t) => (
                   <span key={t} className="flex items-center gap-1 px-2 py-0.5 bg-zinc-100 text-zinc-700 rounded-full text-xs">
                     {t}
-                    <button onClick={() => setTechnologies((prev) => prev.filter((x) => x !== t))} className="text-zinc-400 hover:text-red-500 transition-colors">×</button>
+                    <button onClick={() => setTechnologies((prev) => prev.filter((x) => x !== t))} aria-label="Retirer la technologie" className="text-zinc-400 hover:text-red-500 transition-colors">×</button>
                   </span>
                 ))}
               </div>
@@ -247,7 +247,7 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
                   placeholder="https://..."
                   className={`${inputClass} flex-1`}
                 />
-                <button onClick={() => setLinks((prev) => prev.filter((_, j) => j !== i))} className="px-2 text-zinc-400 hover:text-red-500 transition-colors text-sm">✕</button>
+                <button onClick={() => setLinks((prev) => prev.filter((_, j) => j !== i))} aria-label="Retirer le lien" className="px-2 text-zinc-400 hover:text-red-500 transition-colors text-sm">✕</button>
               </div>
             ))}
           </div>
@@ -260,7 +260,7 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
                 <img src={`/api/media${cover}`} alt="" className="w-24 h-16 object-cover rounded-lg border border-zinc-200" />
                 <div className="flex gap-2">
                   <button onClick={() => coverInputRef.current?.click()} disabled={uploadingCover} className="px-2 py-1 text-xs border border-zinc-200 text-zinc-600 rounded-lg hover:bg-zinc-50 transition-colors">Remplacer</button>
-                  <button onClick={() => setCover("")} className="px-2 py-1 text-xs border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition-colors">✕</button>
+                  <button onClick={() => setCover("")} aria-label="Retirer la couverture" className="px-2 py-1 text-xs border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition-colors">✕</button>
                 </div>
               </div>
             ) : (
@@ -281,6 +281,7 @@ export default function ProjectEditor({ slug: existingSlug, initialData }: Props
                     <img src={`/api/media${src}`} alt="" className="w-full h-16 object-cover rounded-lg border border-zinc-200" />
                     <button
                       onClick={() => setImages((prev) => prev.filter((_, j) => j !== i))}
+                      aria-label="Retirer l'image"
                       className="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
                     >
                       ✕

@@ -204,7 +204,7 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
                 <img src={`/api/media${cover}`} alt="" className="w-24 h-16 object-cover rounded-lg border border-zinc-200" />
                 <div className="flex gap-2">
                   <button onClick={() => coverInputRef.current?.click()} disabled={uploadingCover} className="px-2 py-1 text-xs border border-zinc-200 text-zinc-600 rounded-lg hover:bg-zinc-50 transition-colors">Remplacer</button>
-                  <button onClick={() => setCover("")} className="px-2 py-1 text-xs border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition-colors">✕</button>
+                  <button onClick={() => setCover("")} aria-label="Retirer la couverture" className="px-2 py-1 text-xs border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition-colors">✕</button>
                 </div>
               </div>
             ) : (
@@ -239,9 +239,9 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
                         className="w-full px-1.5 py-0.5 text-[10px] bg-white/90 text-zinc-900 rounded border-0 focus:outline-none mx-2"
                       />
                       <div className="flex gap-1">
-                        <button onClick={() => movePhoto(i, i - 1)} disabled={i === 0} className="w-5 h-5 bg-white/80 text-zinc-700 rounded text-xs disabled:opacity-30">←</button>
-                        <button onClick={() => movePhoto(i, i + 1)} disabled={i === photos.length - 1} className="w-5 h-5 bg-white/80 text-zinc-700 rounded text-xs disabled:opacity-30">→</button>
-                        <button onClick={() => setPhotos((prev) => prev.filter((_, j) => j !== i))} className="w-5 h-5 bg-red-500 text-white rounded text-xs">✕</button>
+                        <button onClick={() => movePhoto(i, i - 1)} disabled={i === 0} aria-label="Déplacer la photo à gauche" className="w-5 h-5 bg-white/80 text-zinc-700 rounded text-xs disabled:opacity-30">←</button>
+                        <button onClick={() => movePhoto(i, i + 1)} disabled={i === photos.length - 1} aria-label="Déplacer la photo à droite" className="w-5 h-5 bg-white/80 text-zinc-700 rounded text-xs disabled:opacity-30">→</button>
+                        <button onClick={() => setPhotos((prev) => prev.filter((_, j) => j !== i))} aria-label="Retirer la photo" className="w-5 h-5 bg-red-500 text-white rounded text-xs">✕</button>
                       </div>
                     </div>
                     <span className="absolute top-1 left-1 text-[10px] text-white bg-black/50 rounded px-1">{i + 1}</span>
