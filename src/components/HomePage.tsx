@@ -6,7 +6,8 @@ import { buildData } from "@/data/resume";
 import { defaultLang, type Lang } from "@/i18n/ui";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
-import ProjectsSection, { type ProjectItem } from "@/components/section/projects-section";
+import { type ProjectItem } from "@/components/section/projects-section";
+import ProjectsTimeline from "@/components/section/projects-timeline";
 import WorkSection from "@/components/section/work-section";
 import { ArrowUpRight } from "@/lib/icons";
 
@@ -231,7 +232,7 @@ export default function HomePage({
         <div className="relative flex flex-col gap-14 lg:sticky lg:top-6 lg:self-start lg:pl-10 lg:before:absolute lg:before:left-0 lg:before:top-[15%] lg:before:h-[70%] lg:before:w-[3px] lg:before:bg-border/50">
           <section id="projects">
             <BlurFade delay={BLUR_FADE_DELAY * 11}>
-              <ProjectsSection projects={projects} data={DATA} locale={locale} />
+              <ProjectsTimeline projects={projects} data={DATA} locale={locale} />
             </BlurFade>
           </section>
         </div>
