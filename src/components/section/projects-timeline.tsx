@@ -44,7 +44,7 @@ export default function ProjectsTimeline({
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
-                        className="w-24 aspect-[16/10] object-cover object-top rounded-lg border border-border shadow-sm transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-md"
+                        className="w-44 aspect-[16/10] object-cover object-top rounded-lg border border-border shadow-sm transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-md"
                       />
                     )}
                     <h3 className="text-xs font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
