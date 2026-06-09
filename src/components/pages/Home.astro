@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import HomePage from "@/components/HomePage";
+import { buildData } from "@/data/resume";
 import { entriesForLang } from "@/i18n/content";
 import type { Lang } from "@/i18n/ui";
 
@@ -9,6 +10,18 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
+
+const DATA = buildData(lang);
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: DATA.name,
+  url: DATA.url,
+  image: `${DATA.url}${DATA.avatarUrl}`,
+  description: DATA.description,
+  jobTitle: lang === "en" ? "Product Manager & Tech Maker" : "Responsable Produit & Maker Tech",
+  sameAs: ["https://github.com/StephanePadrao", "https://linkedin.com/in/SPADRAO"],
+};
 
 const localized = entriesForLang(await getCollection("projects"), lang);
 const projects = localized
@@ -30,5 +43,6 @@ const projects = localized
 ---
 
 <Layout lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(personLd)} is:inline />
   <HomePage client:load projects={projects} locale={lang} />
 </Layout>

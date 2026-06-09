@@ -243,3 +243,12 @@ figure.img-full { display: block; width: 100%; margin: 1.5rem 0; }
 figure.img-left img, figure.img-right img, figure.img-center img, figure.img-full img { width: 100%; height: auto; border-radius: 0.75rem; }
 figure.img-left figcaption, figure.img-right figcaption, figure.img-center figcaption, figure.img-full figcaption { font-size: 0.75rem; color: var(--muted-foreground, #71717a); text-align: center; margin-top: 0.5rem; font-style: italic; }
 .prose::after, article::after { content: ''; display: table; clear: both; }
+
+/* a11y : focus clavier visible sur tous les éléments interactifs (le ring suit
+   le border-radius de l'élément dans les navigateurs modernes). */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}

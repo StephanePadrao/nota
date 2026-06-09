@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+import { CONFIG } from "@/data/config";
 import { localizeHref, useTranslations, type Lang } from "@/i18n/ui";
 import { mdxComponents } from "@/mdx-components";
 import { ChevronLeft } from "lucide-react";
@@ -15,9 +16,20 @@ const t = useTranslations(lang);
 
 const { title, dates, active, description, technologies, links, cover, images } = entry.data;
 const { Content } = await render(entry);
+
+const projectLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: title,
+  description,
+  inLanguage: lang,
+  author: { "@type": "Person", name: "Stéphane Padrao", url: CONFIG.site.url },
+  ...(cover ? { image: new URL(cover, CONFIG.site.url).href } : {}),
+};
 ---
 
 <Layout title={title} description={description} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(projectLd)} is:inline />
   <section id="project" class="max-w-3xl mx-auto">
     <a
       href={localizeHref("/", lang)}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://spadrao.erro.cloud/sitemap-index.xml
