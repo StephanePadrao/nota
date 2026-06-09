@@ -1,0 +1,18 @@
+---
+export const prerender = true;
+import { getCollection } from "astro:content";
+import AlbumDetail from "@/components/pages/AlbumDetail.astro";
+import { entriesForLang } from "@/i18n/content";
+
+export async function getStaticPaths() {
+  const all = await getCollection("albums");
+  return entriesForLang(all, "en").map(({ slug, entry }) => ({
+    params: { slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<AlbumDetail lang="en" entry={entry} />

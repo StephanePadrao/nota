@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
-import { DATA } from "@/data/resume";
+import { buildData } from "@/data/resume";
 import { CONFIG } from "@/data/config";
+import { defaultLang, localizeHref, localeUrl, stripLangPrefix, useTranslations, type Lang } from "@/i18n/ui";
 import { DiagonalGrid } from "@/components/magicui/diagonal-grid";
 
 interface Props {
@@ -9,18 +10,18 @@ interface Props {
   description?: string;
   image?: string;
   canonicalURL?: string;
+  lang?: Lang;
 }
 
-const {
-  title,
-  description = DATA.ogDescription,
-  image,
-  canonicalURL = Astro.url.href,
-} = Astro.props;
+const lang: Lang = Astro.props.lang ?? defaultLang;
+const DATA = buildData(lang);
+const t = useTranslations(lang);
+
+const { title, description = DATA.ogDescription, image } = Astro.props;
 
 const pageTitle = title
   ? CONFIG.seo.titleTemplate.replace("%s", title).replace("%n", DATA.name)
-  : CONFIG.seo.homeTitle;
+  : t.seo.homeTitle;
 const ogImage = image
   ? image.startsWith("http")
     ? image
@@ -31,10 +32,21 @@ const { light, dark, radius } = CONFIG.theme;
 const { baseFontSize } = CONFIG.typography;
 
 const currentPath = Astro.url.pathname;
+
+// Liens alternés FR/EN pour la page courante (hreflang + sélecteur de langue).
+const basePath = stripLangPrefix(currentPath);
+const frHref = localeUrl(basePath, "fr", CONFIG.site.url);
+const enHref = localeUrl(basePath, "en", CONFIG.site.url);
+// Canonical normalisé par défaut (slash final), surclassable par la page.
+const canonicalURL = Astro.props.canonicalURL ?? localeUrl(basePath, lang, CONFIG.site.url);
+const otherLang: Lang = lang === "fr" ? "en" : "fr";
+const switchHref = localizeHref(basePath, otherLang);
+const switchLabel = otherLang.toUpperCase();
+const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
 ---
 
 <html
-  lang={CONFIG.site.locale.split("_")[0]}
+  lang={t.htmlLang}
   style={`font-size: ${baseFontSize}%;`}
 >
   <head>
@@ -119,6 +131,11 @@ const currentPath = Astro.url.pathname;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- hreflang: versions FR/EN de la page courante -->
+    <link rel="alternate" hreflang="fr" href={frHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={frHref} />
+
     <!-- Robots -->
     <meta name="robots" content={CONFIG.seo.robots} />
     <meta
@@ -132,7 +149,8 @@ const currentPath = Astro.url.pathname;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={DATA.name} />
-    <meta property="og:locale" content={CONFIG.site.locale} />
+    <meta property="og:locale" content={t.ogLocale} />
+    <meta property="og:locale:alternate" content={t.ogLocaleAlternate} />
     <meta property="og:image" content={ogImage} />
 
     <!-- Twitter -->
@@ -169,7 +187,7 @@ const currentPath = Astro.url.pathname;
 
         <!-- Logo "nota" — retour à l'accueil -->
         <a
-          href="/"
+          href={localizeHref("/", lang)}
           class="text-sm font-semibold tracking-tight pointer-events-auto
                  bg-background/80 backdrop-blur-sm text-foreground hover:text-foreground/70 transition-colors
                  px-3 py-1.5 rounded-full border border-border/40"
@@ -196,10 +214,22 @@ const currentPath = Astro.url.pathname;
             </a>
           ))}
 
+          <!-- Sélecteur de langue FR/EN -->
+          <a
+            href={switchHref}
+            aria-label={switchAria}
+            class="size-8 flex items-center justify-center rounded-full text-xs font-semibold
+                   bg-background/80 backdrop-blur-sm border border-border/40
+                   text-muted-foreground hover:text-foreground transition-colors
+                   pointer-events-auto"
+          >
+            {switchLabel}
+          </a>
+
           <!-- Toggle dark/light -->
           <button
             id="theme-toggle"
-            aria-label="Changer de thème"
+            aria-label={t.nav.themeToggle}
             class="size-8 flex items-center justify-center rounded-full
                    bg-background/80 backdrop-blur-sm border border-border/40
                    text-muted-foreground hover:text-foreground transition-colors cursor-pointer

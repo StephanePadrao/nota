@@ -1,0 +1,202 @@
+{
+  "identity": {
+    "name": "Stéphane Padrao",
+    "initials": "SP",
+    "location": "Le Plessis-Robinson, France",
+    "locationLink": "https://www.google.com/maps/place/le+plessis-robinson+france",
+    "description": "Engineer by training, Product Manager by trade, maker by choice. From a scribbled idea to a circuit board in production. I write about product, design and tech.",
+    "summary": "I spent years drawing electronic schematics. Product caught up with me. Designing a product means assembling constraints: technical, usage, market, production. Now a Product Manager, I also build my own tech projects on the side. The engineer-PM combination is rare. This blog is where I share what I observe from both sides.",
+    "avatarUrl": "/Profil-Pic.webp",
+    "email": "stephanepadrao@icloud.com"
+  },
+  "work": [
+    {
+      "company": "Zaack (Igienair)",
+      "href": "https://zaack.fr",
+      "badges": [
+        "Product Manager"
+      ],
+      "location": "Achères, France",
+      "title": "Product Manager",
+      "logoUrl": "/logos/zaack.webp",
+      "start": "January 2024",
+      "end": "",
+      "description": "Hardware engineer and Product Manager. I handle product architecture, strategy, project management and supplier relations. From circuit to production line, with partners in China and Europe. I manage a team of 3 to 5: electronics, software, mechanical."
+    },
+    {
+      "company": "Kickmaker",
+      "href": "https://kickmaker.co",
+      "badges": [],
+      "location": "Paris 15, France",
+      "title": "Project Manager",
+      "logoUrl": "/logos/kickmaker.png",
+      "start": "June 2022",
+      "end": "January 2024",
+      "description": "Hardware product development studio in Paris. I support clients from POC to PVT: electronics, mechanical, software, certification. Hermès, ELAX Énergie, Javelot, Zaack. One foot in Paris startups, the other in industrial constraints."
+    },
+    {
+      "company": "MCA Ingénierie / Carmat SA",
+      "href": "https://mca-ingenierie.fr",
+      "badges": [],
+      "location": "Levallois-Perret, France",
+      "title": "Electronics Design Engineer",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=mca-ingenierie.fr",
+      "start": "September 2021",
+      "end": "February 2022",
+      "description": "Assignment at Carmat, the maker of the artificial heart. Updating design files, improving power stages, analyzing defects found in production."
+    },
+    {
+      "company": "Springcard SAS",
+      "href": "https://www.springcard.com",
+      "badges": [
+        "Apprenticeship"
+      ],
+      "location": "Palaiseau, France",
+      "title": "Embedded Systems Engineer Apprentice — Production Lead",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
+      "start": "September 2018",
+      "end": "July 2021",
+      "description": "3 years of apprenticeship on NFC/RFID products. From schematic to PCB through to production. Final year: production lead, team management and supplier relations."
+    }
+  ],
+  "education": [
+    {
+      "school": "IAE Paris — Sorbonne Business School",
+      "href": "https://www.iae-paris.com",
+      "degree": "MAE Executive MBA — Business Management and Administration",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
+      "start": "2020",
+      "end": "2022"
+    },
+    {
+      "school": "Polytech Sorbonne — Paris",
+      "href": "https://www.polytech.sorbonne-universite.fr",
+      "degree": "Engineering Degree — Electronics and Industrial Computing (EI2I)",
+      "logoUrl": "/logos/polytech.svg",
+      "start": "2018",
+      "end": "2021"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "High-Performance Leadership: Lessons from Formula 1®",
+      "issuer": "Santander: Open Academy",
+      "date": "2026",
+      "href": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Electronics design",
+      "icon": "CircuitBoard",
+      "color": "#6366f1"
+    },
+    {
+      "name": "C / C++ ARM32",
+      "icon": "Code2",
+      "color": "#0ea5e9"
+    },
+    {
+      "name": "KiCad / Altium",
+      "icon": "Cpu",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "CE certification",
+      "icon": "ShieldCheck",
+      "color": "#22c55e"
+    },
+    {
+      "name": "SolidWorks & Fusion 360",
+      "icon": "Mechanical",
+      "color": ""
+    },
+    {
+      "name": "Product industrialization",
+      "icon": "Factory",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Production lines",
+      "icon": "Wrench",
+      "color": "#f97316"
+    },
+    {
+      "name": "Purchasing & negotiation",
+      "icon": "Handshake",
+      "color": "#10b981"
+    },
+    {
+      "name": "Project management",
+      "icon": "Kanban",
+      "color": "#7c3aed"
+    },
+    {
+      "name": "Cross-functional management",
+      "icon": "Users",
+      "color": "#06b6d4"
+    },
+    {
+      "name": "Product Management",
+      "icon": "TrendingUp",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Market research",
+      "icon": "BarChart2",
+      "color": "#ef4444"
+    }
+  ],
+  "hobbies": [
+    {
+      "name": "Aviation",
+      "icon": "Plane",
+      "color": "#3b82f6"
+    },
+    {
+      "name": "Space",
+      "icon": "Rocket",
+      "color": "#6366f1"
+    },
+    {
+      "name": "New tech",
+      "icon": "Zap",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "F1 & WEC",
+      "icon": "Gauge",
+      "color": "#ef4444"
+    },
+    {
+      "name": "Music",
+      "icon": "Music",
+      "color": "#ec4899"
+    },
+    {
+      "name": "Series & Films",
+      "icon": "Tv2",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "DIY & Fab",
+      "icon": "Hammer",
+      "color": "#d97706"
+    },
+    {
+      "name": "Reading",
+      "icon": "BookOpen",
+      "color": "#22c55e"
+    },
+    {
+      "name": "Travel",
+      "icon": "Globe",
+      "color": "#0d9488"
+    },
+    {
+      "name": "Photography",
+      "icon": "Camera",
+      "color": "#64748b"
+    }
+  ]
+}

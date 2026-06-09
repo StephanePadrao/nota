@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
+import { DEFAULT_LANG, type Lang } from "./i18n";
 
 const NOTA_ROOT = process.env.NOTA_PATH
   ? path.resolve(process.cwd(), process.env.NOTA_PATH)
@@ -11,6 +12,15 @@ export const PROJECTS_DIR = path.join(NOTA_ROOT, "src/content/projects");
 function safeSlug(slug: string) {
   if (slug.includes("/") || slug.includes("..") || slug.includes("\\"))
     throw new Error("Invalid slug");
+}
+
+// FR canonique à la racine ; EN dans le sous-dossier `en/`.
+function dirFor(lang: Lang) {
+  return lang === "en" ? path.join(PROJECTS_DIR, "en") : PROJECTS_DIR;
+}
+function fileFor(slug: string, lang: Lang) {
+  safeSlug(slug);
+  return path.join(dirFor(lang), `${slug}.mdx`);
 }
 
 export interface ProjectLink {
@@ -58,9 +68,8 @@ export function listProjects(): ProjectMeta[] {
     .sort((a, b) => a.title.localeCompare(b.title));
 }
 
-export function getProject(slug: string): Project | null {
-  safeSlug(slug);
-  const filePath = path.join(PROJECTS_DIR, `${slug}.mdx`);
+export function getProject(slug: string, lang: Lang = DEFAULT_LANG): Project | null {
+  const filePath = fileFor(slug, lang);
   if (!fs.existsSync(filePath)) return null;
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content: body } = matter(raw);
@@ -78,10 +87,10 @@ export function getProject(slug: string): Project | null {
   };
 }
 
-export function saveProject(slug: string, project: Omit<Project, "slug">): void {
-  safeSlug(slug);
-  if (!fs.existsSync(PROJECTS_DIR)) fs.mkdirSync(PROJECTS_DIR, { recursive: true });
-  const filePath = path.join(PROJECTS_DIR, `${slug}.mdx`);
+export function saveProject(slug: string, project: Omit<Project, "slug">, lang: Lang = DEFAULT_LANG): void {
+  const dir = dirFor(lang);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const filePath = fileFor(slug, lang);
   const frontmatter: Record<string, unknown> = {
     title: project.title,
     dates: project.dates,
@@ -96,8 +105,7 @@ export function saveProject(slug: string, project: Omit<Project, "slug">): void 
   fs.writeFileSync(filePath, fileContent, "utf-8");
 }
 
-export function deleteProject(slug: string): void {
-  safeSlug(slug);
-  const filePath = path.join(PROJECTS_DIR, `${slug}.mdx`);
+export function deleteProject(slug: string, lang: Lang = DEFAULT_LANG): void {
+  const filePath = fileFor(slug, lang);
   if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 }

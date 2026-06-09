@@ -1,0 +1,103 @@
+---
+title: 'SpringCard: from soldering prototypes to the flagship product''s antenna'
+dates: 2019-2021
+active: false
+description: >-
+  Three years of an engineering apprenticeship at SpringCard, a French maker of
+  13.56 MHz contactless readers. Designing the Puck's antenna, analog and LoRa
+  projects for Cykleo, then heading the methods department: industrialization,
+  DFM and test benches.
+technologies: []
+cover: /projects/PUCK-Base---SpringCard.webp
+images:
+  - /projects/Springcard-1.webp
+  - /projects/Springcard-Logiciel-ERP-4.webp
+  - /projects/Springcard-Banc-de-test-3.webp
+  - /projects/Springcard-2-Puck.webp
+---
+I arrived at SpringCard with a two-year technical degree (DUT GEII) and six months as a technician under my belt, doing support on PCB routing. I left three years later having designed the antenna of the company's flagship product and running the methods department. In between: an engineering apprenticeship at Polytech Sorbonne and a small company where you touch everything because there are only nineteen of you.
+
+That's the whole point of a small outfit: the distance between "I understand the schematic" and "my name is on the top half of a product in production" is measured in months, not years.
+
+## the ground: a French contactless house
+
+SpringCard designs and manufactures in France RFID/NFC couplers and readers at 13.56 MHz, for access control, transit and parking. Born in the early 2000s as a spin-off from Noralsy's design office, Springcard brand in 2005, SpringCard SAS in 2015. A 100% B2B model, with clients like Thales, Sagem, Aéroport de Paris — and the 35,000 readers fitted to Paris's Vélib' stations.
+
+The organization is simple and telling: hardware in Palaiseau (under Jérôme Chalbot, my mentor), software in Angers, assembly at partner Prod2J. A short chain of command, plenty of autonomy per department. The kind of place where an apprentice is handed real projects because there's no one else to carry them.
+
+
+![](/projects/Springcard-2-Puck.webp)
+
+
+## the projects that shaped me
+
+Before the Puck, two Cykleo products served as full-scale testing grounds.
+
+The **CykleoRail**, early in the apprenticeship, is a bike-presence detector for a docking station. Weighing wasn't an option given how heterogeneous the fleet is, so detection is done with ultrasound: pure analog — filtering, op-amp-based amplification — exactly what I was covering in my analog electronics classes at the same time. And since the stations are often offline, that's where I put in LoRa for data backhaul, in parallel with my IoT courses.
+
+
+![](/projects/Springcard-1.webp)
+
+
+The **Biketracker**, again for Cykleo, moved me to the other side: V-model design, but above all a feasibility study, a commercial offer, direct exchange with the client, under Johann Dantant's supervision. That's where I understood that a hardware project is won as much on component choice — availability, obsolescence, we favored Renesas for longevity — as on the schematic itself.
+
+## the Puck, and its antenna
+
+The **Puck** is the desktop reader meant to replace a good chunk of the portfolio by concentrating production on a single product. It's assembled in two parts at the factory: the Puck CPU, and the top part — the Puck antenna, which I worked on.
+
+
+![](/projects/Springcard-Banc-de-test-3.webp)
+
+
+This board isn't just a loop. It stacks several disciplines onto a few square centimeters:
+
+```
+flowchart TD
+  MCU["Renesas RL78 microcontroller<br/>(slave, FreeRTOS)"] --> ANT["RFID antenna<br/>tuned 13.56 MHz · 50 Ω"]
+  MCU --> LED["RGB LEDs<br/>(direct drive)"]
+  MCU --> BUZ["Buzzer<br/>(via MOSFET)"]
+  DCDC["DC/DC power supply"] --> MCU
+  ANT -. "inductive coupling" .-> CARD["NFC card / tag"]
+```
+
+On the analog side, the RFID antenna has to be tuned to respond best at 13.56 MHz (ISO 18000-3), with a matching network bringing the trace impedance back to 50 Ω. It's a balanced antenna: a perfect tuning on an empty bench is worthless if it collapses the moment a hand or an enclosure comes close, so you design for the real case, not for the ideal measurement. Around it, RGB LEDs and a buzzer driven by the microcontroller through MOSFETs, and a DC/DC power supply.
+
+On the firmware side, the RL78 runs FreeRTOS as a slave: it answers commands from the rest of the product. It's the kind of architecture I still build today in embedded work, and this board is where I laid the foundations.
+
+## methods lead: where design meets the factory
+
+In November 2020, the president handed me the methods department. A change of focus: you no longer design the product, you make sure it manufactures fast, well, and without breakage. That's the year I saw why a good schematic isn't enough.
+
+
+![](/projects/Springcard-Logiciel-ERP-4.webp)
+
+
+Two fixes sum up the spirit of the role, because they're invisible in simulation and brutal in volume.
+
+On the **K663** OEM module with a balanced antenna, prototypes passed with no problem. In pre-production, at high volume, over 37% of output came out with soldering defects: a mis-sized footprint, undetectable on a single unit but blowing up at scale. Resize the footprint, problem solved.
+
+On the **Puck**, the two parts are hand-soldered at seven points. The two ground pins refused to heat properly: the antenna's ground plane dissipated too much, the solder dragged. I had the ground spacing modified on the gerber to cut soldering time — and therefore technician time per product, and therefore the cost of that step.
+
+```
+flowchart LR
+  HW["Hardware schematic<br/>(R&D team)"] --> METH["Methods:<br/>product analysis"]
+  METH --> CDC["Test bench spec<br/>(requirements · FMEA)"]
+  CDC --> BANC["Bench design<br/>(V-model)"]
+  BANC --> PROTO["Prototype tests<br/>in factory conditions"]
+  PROTO -->|"OK"| GAMME["Manufacturing process"]
+  PROTO -->|"KO"| CDC
+```
+
+The rest of the role revolved around that: inventory and overhaul of the test benches (some for discontinued products, others carrying twenty years of accumulated functions), design of new benches in V-model, BOM management under Excalibur to absorb the Covid component shortage without drifting from the spec or the target price, and even packaging — the story of the 2 m USB-C cable we ended up having delivered pre-coiled at the right diameter so the technician wouldn't unwind and rewind it for every box.
+
+Finally, I built the after-sales service almost from scratch: an RMA process, repair documentation written for a technician with no electronics background, and internal training — the "Springcard Academy" — on general electronics and soldering 0201 components. The idea: that everyone walks away with a real skill, not just labor.
+
+
+![](/projects/springcard-logo.webp)
+
+
+## what I take away
+
+Three things stuck. The DFM reflex: a product is designed to be manufactured, not just to work on the prototype. The idea that reality always overrules simulation, learned one detuned antenna and one too-greedy ground plane at a time. And team and project management, which pushed me to pair Polytech with a program at IAE Paris.
+
+A nineteen-person company doesn't teach you one specialty, it teaches you the whole chain: from op-amp to gerber, from client to factory technician. To kick off an engineering career, it's hard to beat.

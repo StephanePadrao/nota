@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { callGroq } from "@/lib/groq";
+import { parseLang } from "@/lib/i18n";
 
 const ACTIONS = ["correct", "rewrite", "shorten"] as const;
 type Action = (typeof ACTIONS)[number];
@@ -41,13 +42,15 @@ export async function POST(
     return NextResponse.json({ error: "GROQ_API_KEY non configurée" }, { status: 503 });
   }
 
-  const { text, context } = await req.json();
+  const { text, context, lang } = await req.json();
   if (!text?.trim()) {
     return NextResponse.json({ error: "Texte requis" }, { status: 400 });
   }
 
   try {
-    const result = await callGroq(buildPrompt(action as Action, text, context));
+    // La langue d'édition pilote la langue de sortie : éditer la variante EN
+    // garde Corriger/Reformuler/Raccourcir en anglais.
+    const result = await callGroq(buildPrompt(action as Action, text, context), false, parseLang(lang));
     return NextResponse.json({ result });
   } catch (err) {
     console.error("Groq error:", err);

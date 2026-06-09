@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ICON_NAMES, type Profile } from "@/lib/profile-schema";
+import type { Lang } from "@/lib/i18n";
+import EditorLangBar from "@/components/EditorLangBar";
 
 // Base sans largeur : pour les cellules en flex (largeur via flex-1 / w-36 / w-24).
 const inputBase =
@@ -68,6 +70,43 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
   const [profile, setProfile] = useState<Profile>(initial);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<null | "saved" | string>(null);
+  const [lang, setLang] = useState<Lang>("fr");
+  const [translating, setTranslating] = useState(false);
+
+  // Garde-fou : détecte les modifications non sauvegardées avant bascule/traduction.
+  const baseline = useRef(JSON.stringify(initial));
+  const isDirty = () => baseline.current !== JSON.stringify(profile);
+
+  async function switchLang(l: Lang) {
+    if (l === lang) return;
+    if (isDirty() && !confirm("Modifications non sauvegardées perdues en changeant de langue. Continuer ?")) return;
+    const res = await fetch(`/api/profile?lang=${l}`);
+    if (!res.ok) { setStatus(`Pas de version ${l.toUpperCase()}`); return; }
+    const data = await res.json();
+    setProfile(data);
+    baseline.current = JSON.stringify(data);
+    setLang(l);
+    setStatus(null);
+  }
+
+  async function translate() {
+    if (isDirty() && !confirm("Modifications non sauvegardées perdues par la traduction. Continuer ?")) return;
+    setTranslating(true);
+    setStatus(null);
+    try {
+      const res = await fetch(`/api/profile/translate`, { method: "POST" });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.error ?? "Erreur de traduction");
+      }
+      const en = await fetch(`/api/profile?lang=en`);
+      if (en.ok) { const data = await en.json(); setProfile(data); baseline.current = JSON.stringify(data); setLang("en"); }
+    } catch (e) {
+      setStatus(e instanceof Error ? e.message : "Erreur de traduction");
+    } finally {
+      setTranslating(false);
+    }
+  }
 
   const setId = (field: keyof Profile["identity"], value: string) =>
     setProfile((p) => ({ ...p, identity: { ...p.identity, [field]: value } }));
@@ -93,7 +132,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
     setSaving(true);
     setStatus(null);
     try {
-      const res = await fetch("/api/profile", {
+      const res = await fetch(`/api/profile?lang=${lang}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(profile),
@@ -102,6 +141,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
         const d = await res.json().catch(() => ({}));
         throw new Error(d.error ?? "Erreur lors de la sauvegarde");
       }
+      baseline.current = JSON.stringify(profile);
       setStatus("saved");
     } catch (e) {
       setStatus(e instanceof Error ? e.message : "Erreur inconnue");
@@ -118,6 +158,14 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
       <div className="flex items-center gap-3 px-6 py-3 border-b border-zinc-200 bg-white shrink-0">
         <span className="text-zinc-700 text-sm font-medium">Profil</span>
         <span className="text-zinc-300 text-xs">— CV, compétences, certifications</span>
+        <EditorLangBar
+          hasItem={true}
+          lang={lang}
+          enExists={true}
+          translating={translating}
+          onSwitch={switchLang}
+          onTranslate={translate}
+        />
         <div className="flex-1" />
         {status === "saved" && <span className="text-xs text-green-600">Enregistré ✓</span>}
         {status && status !== "saved" && <span className="text-xs text-red-500">{status}</span>}
@@ -128,6 +176,11 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
 
       <div className="flex-1 overflow-y-auto p-4 sm:p-6">
         <div className="max-w-4xl mx-auto space-y-10">
+          {lang === "en" && (
+            <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-800">
+              Profil anglais (profile.en.json) — relis, ajuste, puis <b>Sauvegarder</b>. Pour repartir du français, utilise « Retraduire EN » depuis l&apos;onglet FR.
+            </div>
+          )}
           <p className="text-xs text-zinc-400">
             Modifie ton CV ici, puis clique <b>Sauvegarder</b>. Les changements apparaissent sur le site après un <b>build</b> (bouton publier).
           </p>

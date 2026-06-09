@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { EMPTY_PROFILE, type Profile } from "./profile-schema";
+import { DEFAULT_LANG, type Lang } from "./i18n";
 
 export type { Profile } from "./profile-schema";
 
@@ -8,14 +9,19 @@ const NOTA_ROOT = process.env.NOTA_PATH
   ? path.resolve(process.cwd(), process.env.NOTA_PATH)
   : path.resolve(process.cwd(), "..");
 
-const PROFILE_FILE = path.join(NOTA_ROOT, "src/data/profile.json");
+const PROFILE_FILES: Record<Lang, string> = {
+  fr: path.join(NOTA_ROOT, "src/data/profile.json"),
+  en: path.join(NOTA_ROOT, "src/data/profile.en.json"),
+};
 
 const str = (v: unknown) => (v == null ? "" : String(v));
 
-export function readProfile(): Profile {
-  if (!fs.existsSync(PROFILE_FILE)) return EMPTY_PROFILE;
+export function readProfile(lang: Lang = DEFAULT_LANG): Profile {
+  const file = PROFILE_FILES[lang];
+  // EN absent → repli sur le FR (jamais de profil vide à traduire), comme côté site.
+  if (!fs.existsSync(file)) return lang === "en" ? readProfile("fr") : EMPTY_PROFILE;
   try {
-    const raw = JSON.parse(fs.readFileSync(PROFILE_FILE, "utf8")) as Partial<Profile>;
+    const raw = JSON.parse(fs.readFileSync(file, "utf8")) as Partial<Profile>;
     return {
       identity: { ...EMPTY_PROFILE.identity, ...(raw.identity ?? {}) },
       work: Array.isArray(raw.work) ? raw.work : [],
@@ -31,7 +37,7 @@ export function readProfile(): Profile {
 
 // Normalise tout le document avant écriture : le formulaire envoie le profil complet,
 // on coerce chaque champ pour qu'un payload malformé ne casse pas le build du site.
-export function writeProfile(data: Profile): void {
+export function writeProfile(data: Profile, lang: Lang = DEFAULT_LANG): void {
   const clean: Profile = {
     identity: {
       name: str(data.identity?.name), initials: str(data.identity?.initials),
@@ -55,5 +61,5 @@ export function writeProfile(data: Profile): void {
     skills: (data.skills ?? []).map((s) => ({ name: str(s.name), icon: str(s.icon), color: str(s.color) })),
     hobbies: (data.hobbies ?? []).map((h) => ({ name: str(h.name), icon: str(h.icon), color: str(h.color) })),
   };
-  fs.writeFileSync(PROFILE_FILE, JSON.stringify(clean, null, 2) + "\n", "utf8");
+  fs.writeFileSync(PROFILE_FILES[lang], JSON.stringify(clean, null, 2) + "\n", "utf8");
 }

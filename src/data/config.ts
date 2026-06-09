@@ -4,16 +4,14 @@ export const CONFIG = {
   // ---------------------------------------------------------------------------
   site: {
     url: "https://spadrao.erro.cloud",
-    locale: "fr_FR",
     twitterHandle: "", // TODO: ajouter ton handle Twitter si tu en as un
   },
 
   // ---------------------------------------------------------------------------
-  // SEO Settings
+  // SEO Settings — locale & home title vivent dans src/i18n/ui.ts (par langue)
   // ---------------------------------------------------------------------------
   seo: {
     titleTemplate: "%s | %n", // %s = page title, %n = DATA.name
-    homeTitle: "Stéphane Padrao — Responsable Produit & Maker Tech",
     twitterCard: "summary_large_image" as const,
     robots: "index, follow",
   },

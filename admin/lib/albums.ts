@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
+import { DEFAULT_LANG, type Lang } from "./i18n";
 
 const NOTA_ROOT = process.env.NOTA_PATH
   ? path.resolve(process.cwd(), process.env.NOTA_PATH)
@@ -11,6 +12,15 @@ export const ALBUMS_DIR = path.join(NOTA_ROOT, "src/content/albums");
 function safeSlug(slug: string) {
   if (slug.includes("/") || slug.includes("..") || slug.includes("\\"))
     throw new Error("Invalid slug");
+}
+
+// FR canonique à la racine ; EN dans le sous-dossier `en/`.
+function dirFor(lang: Lang) {
+  return lang === "en" ? path.join(ALBUMS_DIR, "en") : ALBUMS_DIR;
+}
+function fileFor(slug: string, lang: Lang) {
+  safeSlug(slug);
+  return path.join(dirFor(lang), `${slug}.mdx`);
 }
 
 export interface AlbumPhoto {
@@ -55,9 +65,8 @@ export function listAlbums(): AlbumMeta[] {
     .sort((a, b) => (a.date > b.date ? -1 : 1));
 }
 
-export function getAlbum(slug: string): Album | null {
-  safeSlug(slug);
-  const filePath = path.join(ALBUMS_DIR, `${slug}.mdx`);
+export function getAlbum(slug: string, lang: Lang = DEFAULT_LANG): Album | null {
+  const filePath = fileFor(slug, lang);
   if (!fs.existsSync(filePath)) return null;
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content: body } = matter(raw);
@@ -74,10 +83,10 @@ export function getAlbum(slug: string): Album | null {
   };
 }
 
-export function saveAlbum(slug: string, album: Omit<Album, "slug" | "photoCount">): void {
-  safeSlug(slug);
-  if (!fs.existsSync(ALBUMS_DIR)) fs.mkdirSync(ALBUMS_DIR, { recursive: true });
-  const filePath = path.join(ALBUMS_DIR, `${slug}.mdx`);
+export function saveAlbum(slug: string, album: Omit<Album, "slug" | "photoCount">, lang: Lang = DEFAULT_LANG): void {
+  const dir = dirFor(lang);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const filePath = fileFor(slug, lang);
   const frontmatter: Record<string, unknown> = {
     title: album.title,
     date: album.date,
@@ -90,8 +99,7 @@ export function saveAlbum(slug: string, album: Omit<Album, "slug" | "photoCount"
   fs.writeFileSync(filePath, fileContent, "utf-8");
 }
 
-export function deleteAlbum(slug: string): void {
-  safeSlug(slug);
-  const filePath = path.join(ALBUMS_DIR, `${slug}.mdx`);
+export function deleteAlbum(slug: string, lang: Lang = DEFAULT_LANG): void {
+  const filePath = fileFor(slug, lang);
   if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { Lang } from "@/lib/i18n";
 
 type AIContext = "project" | "voyage";
 
@@ -14,10 +15,12 @@ export default function AIAssist({
   value,
   onChange,
   context,
+  lang = "fr",
 }: {
   value: string;
   onChange: (v: string) => void;
   context: AIContext;
+  lang?: Lang;
 }) {
   const [loading, setLoading] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
@@ -35,7 +38,7 @@ export default function AIAssist({
       const res = await fetch(`/api/ai/${action}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: value, context }),
+        body: JSON.stringify({ text: value, context, lang }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Erreur IA");

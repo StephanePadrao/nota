@@ -2,7 +2,8 @@
 
 import BlurFade from "@/components/magicui/blur-fade";
 import { ProjectCard } from "@/components/project-card";
-import { DATA } from "@/data/resume";
+import { type ResumeData } from "@/data/resume";
+import { defaultLang, localizeHref, type Lang } from "@/i18n/ui";
 import { Icons } from "@/components/icons";
 import type { ReactNode } from "react";
 
@@ -25,16 +26,24 @@ function linkIcon(type: string): ReactNode {
   return <Icons.globe className="size-3" />;
 }
 
-export default function ProjectsSection({ projects = [] }: { projects?: ProjectItem[] }) {
+export default function ProjectsSection({
+  projects = [],
+  data,
+  locale = defaultLang,
+}: {
+  projects?: ProjectItem[];
+  data: ResumeData;
+  locale?: Lang;
+}) {
   return (
     <section id="projects">
       <div className="flex min-h-0 flex-col gap-y-6">
-        <h2 className="text-xl font-bold">{DATA.sections.projects.heading}</h2>
+        <h2 className="text-xl font-bold">{data.sections.projects.heading}</h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 auto-rows-fr">
           {projects.map((project, id) => (
             <BlurFade key={project.id} delay={BLUR_FADE_DELAY * 12 + id * 0.05} className="h-full">
               <ProjectCard
-                href={`/projects/${project.id}`}
+                href={localizeHref(`/projects/${project.id}`, locale)}
                 title={project.title}
                 description={project.description}
                 dates={project.dates}

@@ -1,28 +1,6 @@
 ---
 export const prerender = true;
-import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
-import HomePage from "@/components/HomePage";
-
-const allProjects = await getCollection("projects");
-const projects = allProjects
-  .sort((a, b) => {
-    const ya = parseInt(a.data.dates.match(/\d{4}/)?.[0] ?? "0");
-    const yb = parseInt(b.data.dates.match(/\d{4}/)?.[0] ?? "0");
-    return yb - ya;
-  })
-  .map((p) => ({
-    id: p.id,
-    title: p.data.title,
-    dates: p.data.dates,
-    active: p.data.active,
-    description: p.data.description,
-    technologies: p.data.technologies,
-    links: p.data.links,
-    cover: p.data.cover,
-  }));
+import Home from "@/components/pages/Home.astro";
 ---
 
-<Layout>
-  <HomePage client:load projects={projects} />
-</Layout>
+<Home lang="fr" />

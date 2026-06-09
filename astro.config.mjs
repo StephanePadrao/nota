@@ -18,6 +18,13 @@ export default defineConfig({
   site: CONFIG.site.url,
   output: "static",
 
+  // FR à la racine, EN préfixé /en. Pas de redirection forcée du défaut.
+  i18n: {
+    locales: ["fr", "en"],
+    defaultLocale: "fr",
+    routing: { prefixDefaultLocale: false },
+  },
+
   build: {
     inlineStylesheets: "always",
   },
@@ -31,7 +38,13 @@ export default defineConfig({
       rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
       syntaxHighlight: false,
     }),
-    sitemap(),
+    sitemap({
+      // Codes alignés sur les balises hreflang du HTML (fr/en, pas fr-FR/en-US).
+      i18n: {
+        defaultLocale: "fr",
+        locales: { fr: "fr", en: "en" },
+      },
+    }),
   ],
 
   markdown: {

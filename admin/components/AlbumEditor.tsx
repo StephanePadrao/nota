@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { AlbumPhoto } from "@/lib/albums";
+import type { Lang } from "@/lib/i18n";
 import AIAssist from "@/components/AIAssist";
+import EditorLangBar from "@/components/EditorLangBar";
 
 interface Props {
   slug?: string;
@@ -40,6 +42,21 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
   });
   const [cover, setCover] = useState(initialData?.cover ?? "");
   const [photos, setPhotos] = useState<AlbumPhoto[]>(initialData?.photos ?? []);
+  const [lang, setLang] = useState<Lang>("fr");
+  const [translating, setTranslating] = useState(false);
+  const [enExists, setEnExists] = useState(false);
+
+  // Active l'onglet EN si une traduction existe déjà.
+  useEffect(() => {
+    if (!existingSlug) return;
+    fetch(`/api/albums/${existingSlug}?lang=en`).then((r) => setEnExists(r.ok));
+  }, [existingSlug]);
+
+  // Garde-fou : détecte les modifications non sauvegardées avant bascule/traduction.
+  const baseline = useRef<string | null>(null);
+  const snapshot = () => JSON.stringify({ ...form, cover, photos });
+  if (baseline.current === null) baseline.current = snapshot();
+  const isDirty = () => baseline.current !== snapshot();
 
   function slugify(s: string): string {
     return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -105,7 +122,7 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
     setSaving(true);
     setStatus(null);
     const isNew = !existingSlug;
-    const url = isNew ? "/api/albums" : `/api/albums/${existingSlug}`;
+    const url = isNew ? "/api/albums" : `/api/albums/${existingSlug}?lang=${lang}`;
     const method = isNew ? "POST" : "PUT";
     const payload = isNew
       ? { slug, ...form, cover, photos }
@@ -114,14 +131,59 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
     if (!res.ok) { setStatus("Erreur lors de la sauvegarde"); setSaving(false); return; }
     setSaving(false);
     if (isNew) { router.push(`/albums/${slug}`); return; }
+    baseline.current = snapshot();
     setStatus("saved");
     setTimeout(() => setStatus(null), 3000);
   }
 
   async function handleDelete() {
-    if (!existingSlug || !confirm(`Supprimer "${existingSlug}" ?`)) return;
-    await fetch(`/api/albums/${existingSlug}`, { method: "DELETE" });
-    router.push("/albums");
+    if (!existingSlug || !confirm(`Supprimer "${existingSlug}"${lang === "en" ? " (version EN)" : " et sa traduction EN"} ?`)) return;
+    await fetch(`/api/albums/${existingSlug}?lang=${lang}`, { method: "DELETE" });
+    if (lang === "en") {
+      setEnExists(false);
+      const res = await fetch(`/api/albums/${existingSlug}?lang=fr`);
+      if (res.ok) { populate(await res.json()); setLang("fr"); }
+    } else {
+      router.push("/albums");
+    }
+  }
+
+  function populate(d: NonNullable<Props["initialData"]>) {
+    setForm({ title: d.title, date: d.date, location: d.location ?? "", summary: d.summary ?? "", body: d.body });
+    setCover(d.cover ?? "");
+    setPhotos(d.photos ?? []);
+    baseline.current = JSON.stringify({ title: d.title, date: d.date, location: d.location ?? "", summary: d.summary ?? "", body: d.body, cover: d.cover ?? "", photos: d.photos ?? [] });
+  }
+
+  async function switchLang(l: Lang) {
+    if (l === lang || !existingSlug) return;
+    if (isDirty() && !confirm("Modifications non sauvegardées perdues en changeant de langue. Continuer ?")) return;
+    const res = await fetch(`/api/albums/${existingSlug}?lang=${l}`);
+    if (!res.ok) { setStatus(`Pas de version ${l.toUpperCase()}`); return; }
+    populate(await res.json());
+    setLang(l);
+    setStatus(null);
+  }
+
+  async function translate() {
+    if (!existingSlug) return;
+    if (isDirty() && !confirm("Modifications non sauvegardées perdues par la traduction. Continuer ?")) return;
+    setTranslating(true);
+    setStatus(null);
+    try {
+      const res = await fetch(`/api/albums/${existingSlug}/translate`, { method: "POST" });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.error ?? "Erreur de traduction");
+      }
+      setEnExists(true);
+      const en = await fetch(`/api/albums/${existingSlug}?lang=en`);
+      if (en.ok) { populate(await en.json()); setLang("en"); }
+    } catch (e) {
+      setStatus(e instanceof Error ? e.message : "Erreur de traduction");
+    } finally {
+      setTranslating(false);
+    }
   }
 
   const [status, setStatus] = useState<null | "saved" | string>(null);
@@ -135,6 +197,14 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
         <button onClick={() => router.push("/albums")} className="text-zinc-400 hover:text-zinc-700 text-sm">← Albums</button>
         <span className="text-zinc-300">/</span>
         <span className="text-zinc-500 text-sm truncate">{existingSlug ?? "Nouvel album"}</span>
+        <EditorLangBar
+          hasItem={!!existingSlug}
+          lang={lang}
+          enExists={enExists}
+          translating={translating}
+          onSwitch={switchLang}
+          onTranslate={translate}
+        />
         <div className="flex-1" />
         {status === "saved" && <span className="text-xs text-green-600 shrink-0">Enregistré ✓</span>}
         {status && status !== "saved" && <span className="text-xs text-red-500 shrink-0">{status}</span>}
@@ -150,6 +220,11 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
 
       <div className="flex-1 overflow-y-auto p-4 sm:p-6">
         <div className="max-w-4xl mx-auto space-y-6">
+          {lang === "en" && (
+            <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-800">
+              Traduction anglaise — relis, ajuste si besoin, puis <b>Sauvegarder</b>. Pour repartir du français, utilise « Retraduire EN » depuis l&apos;onglet FR.
+            </div>
+          )}
           {/* Title + Slug */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
@@ -193,7 +268,7 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-zinc-400">Résumé</label>
             <textarea value={form.summary} onChange={(e) => setForm((f) => ({ ...f, summary: e.target.value }))} rows={2} placeholder="Description de l'album..." className={`${inputClass} resize-none`} />
-            <AIAssist value={form.summary} onChange={(v) => setForm((f) => ({ ...f, summary: v }))} context="voyage" />
+            <AIAssist value={form.summary} onChange={(v) => setForm((f) => ({ ...f, summary: v }))} context="voyage" lang={lang} />
           </div>
 
           {/* Cover */}

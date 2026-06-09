@@ -1,5 +1,4 @@
 import React from "react";
-import { Icons } from "@/components/icons";
 import {
   House, Mail, Hammer, Camera, Globe, Library,
   CircuitBoard, Code2, Cpu, ShieldCheck,
@@ -8,7 +7,14 @@ import {
   Plane, Rocket, Zap, Gauge, Music, Tv2, BookOpen,
 } from "@/lib/icons";
 import { Mechanical } from "@/components/ui/svgs/mechanical";
-import profile from "./profile.json";
+import profileFr from "./profile.json";
+import { defaultLang, localizeHref, useTranslations, type Lang } from "@/i18n/ui";
+
+// profile.en.json est optionnel : chargé via glob (eager) pour NE PAS casser le
+// build s'il est absent — repli FR par design, cohérent avec l'admin.
+const enProfileModules = import.meta.glob("./profile.en.json", { eager: true, import: "default" });
+const profileEn = (Object.values(enProfileModules)[0] ?? profileFr) as typeof profileFr;
+const profiles: Record<Lang, typeof profileFr> = { fr: profileFr, en: profileEn };
 
 type IconComponent = React.ComponentType<{ className?: string; color?: string }>;
 
@@ -30,99 +36,77 @@ const resolveIcon = (name: string, color: string) =>
 
 type Certification = { name: string; issuer: string; date: string; href?: string };
 
-export const DATA = {
-  name: profile.identity.name,
-  initials: profile.identity.initials,
-  url: "https://spadrao.erro.cloud",
-  location: profile.identity.location,
-  locationLink: profile.identity.locationLink,
-  description: profile.identity.description,
-  ogDescription:
-    "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Portfolio produit, hardware et tech.",
-  summary: profile.identity.summary,
-  avatarUrl: profile.identity.avatarUrl,
-  ogImage: "/og_image.png",
+const SITE_URL = "https://spadrao.erro.cloud";
 
-  // Structure du site (ordre, sections, intitulés) — volontairement en code, pas dans le CMS.
-  sections: {
-    about: { order: 1, enabled: true, heading: "À propos" },
-    work: { order: 2, enabled: true, heading: "Expériences", presentLabel: "Aujourd'hui" },
-    education: { order: 3, enabled: true, heading: "Formation" },
-    certifications: { order: 4, enabled: true, heading: "Certifications" },
-    skills: { order: 5, enabled: true, heading: "Compétences" },
-    projects: {
-      order: 6,
-      enabled: true,
-      label: "Projets",
-      heading: "Ce sur quoi je travaille",
-      text: "Des produits construits de zéro — side projects, outils, expérimentations. Tout est auto-hébergé ou open-source.",
+// Assemble le modèle de données du CV pour une locale : contenu éditable depuis
+// le bon profile JSON, intitulés/SEO/nav depuis le dictionnaire i18n, structure
+// (icônes, ordre, réseaux) figée en code. Les valeurs renvoyées contiennent des
+// composants React (icônes) → à construire DANS le bundle de l'îlot, pas à
+// sérialiser à travers la frontière Astro→island.
+export function buildData(lang: Lang = defaultLang) {
+  const profile = profiles[lang] ?? profiles[defaultLang];
+  const t = useTranslations(lang);
+
+  return {
+    name: profile.identity.name,
+    initials: profile.identity.initials,
+    url: SITE_URL,
+    location: profile.identity.location,
+    locationLink: profile.identity.locationLink,
+    description: profile.identity.description,
+    ogDescription: t.seo.ogDescription,
+    summary: profile.identity.summary,
+    avatarUrl: profile.identity.avatarUrl,
+    ogImage: "/og_image.png",
+
+    sections: {
+      about: { heading: t.sections.about },
+      work: { heading: t.sections.work, presentLabel: t.sections.presentLabel },
+      education: { heading: t.sections.education },
+      certifications: { heading: t.sections.certifications },
+      skills: { heading: t.sections.skills },
+      hobbies: { heading: t.sections.hobbies },
+      photos: { heading: t.sections.photosHeading },
+      projects: {
+        label: t.sections.projects.label,
+        heading: t.sections.projects.heading,
+        text: t.sections.projects.text,
+      },
+      contact: {
+        label: t.sections.contact.label,
+        heading: t.sections.contact.heading,
+        text: t.sections.contact.text,
+        cta: t.sections.contact.cta,
+      },
     },
-    hackathons: {
-      order: 8,
-      enabled: false,
-      label: "Événements",
-      heading: "Événements & Expériences",
-      text: "Conférences, meetups et formations marquants.",
-    },
-    hobbies: { order: 7, enabled: true, heading: "En dehors du bureau" },
-    photos: { order: 7, enabled: true, heading: "Voyages & Photos" },
-    contact: {
-      order: 9,
-      enabled: true,
-      label: "Contact",
-      heading: "Parlons-en",
-      text: "Une question, une idée, une opportunité ? Envoie-moi un message — je réponds à tout.",
-    },
-  },
 
-  photos: [
-    { src: "/photos/photo1.jpg", alt: "Photo 1" },
-    { src: "/photos/photo2.jpg", alt: "Photo 2" },
-    { src: "/photos/photo3.jpg", alt: "Photo 3" },
-    { src: "/photos/photo4.jpg", alt: "Photo 4" },
-    { src: "/photos/photo5.jpg", alt: "Photo 5" },
-    { src: "/photos/photo6.jpg", alt: "Photo 6" },
-    { src: "/photos/photo7.jpg", alt: "Photo 7" },
-    { src: "/photos/photo8.jpg", alt: "Photo 8" },
-    { src: "/photos/photo9.jpg", alt: "Photo 9" },
-  ],
+    photos: [
+      { src: "/photos/photo1.jpg", alt: "Photo 1" },
+      { src: "/photos/photo2.jpg", alt: "Photo 2" },
+      { src: "/photos/photo3.jpg", alt: "Photo 3" },
+      { src: "/photos/photo4.jpg", alt: "Photo 4" },
+      { src: "/photos/photo5.jpg", alt: "Photo 5" },
+      { src: "/photos/photo6.jpg", alt: "Photo 6" },
+      { src: "/photos/photo7.jpg", alt: "Photo 7" },
+      { src: "/photos/photo8.jpg", alt: "Photo 8" },
+      { src: "/photos/photo9.jpg", alt: "Photo 9" },
+    ],
 
-  // Contenu éditable via l'admin (profile.json) ──────────────────────────────
-  skills: profile.skills.map((s) => ({ name: s.name, icon: resolveIcon(s.icon, s.color) })),
-  hobbies: profile.hobbies.map((h) => ({ name: h.name, icon: resolveIcon(h.icon, h.color) })),
-  // certifications: tableau vide au seed → assertion (JSON infère never[]).
-  certifications: profile.certifications as Certification[],
-  work: profile.work.map((w) => ({ ...w, end: w.end ? w.end : undefined })),
-  education: profile.education,
-  // ───────────────────────────────────────────────────────────────────────────
+    // Contenu éditable via l'admin (profile JSON) ──────────────────────────────
+    skills: profile.skills.map((s) => ({ name: s.name, icon: resolveIcon(s.icon, s.color) })),
+    hobbies: profile.hobbies.map((h) => ({ name: h.name, icon: resolveIcon(h.icon, h.color) })),
+    certifications: profile.certifications as Certification[],
+    work: profile.work.map((w) => ({ ...w, end: w.end ? w.end : undefined })),
+    education: profile.education,
+    // ─────────────────────────────────────────────────────────────────────────
 
-  navbar: [
-    { href: "/", icon: House, label: "Accueil" },
-    { href: "/projects", icon: Hammer, label: "Projets" },
-    { href: "/photos", icon: Camera, label: "Voyages" },
-    { href: "/contact", icon: Mail, label: "Contact" },
-  ],
+    navbar: [
+      { href: localizeHref("/", lang), icon: House, label: t.nav.home },
+      { href: localizeHref("/projects", lang), icon: Hammer, label: t.nav.projects },
+      { href: localizeHref("/photos", lang), icon: Camera, label: t.nav.photos },
+      { href: localizeHref("/contact", lang), icon: Mail, label: t.nav.contact },
+    ],
+  };
+}
 
-  contact: {
-    email: profile.identity.email,
-    tel: "",
-    social: {
-      GitHub: { name: "GitHub", url: "https://github.com/StephanePadrao", icon: Icons.github, navbar: true },
-      LinkedIn: { name: "LinkedIn", url: "https://linkedin.com/in/SPADRAO", icon: Icons.linkedin, navbar: true },
-      X: { name: "X", url: "https://x.com", icon: Icons.x, navbar: false },
-      Youtube: { name: "Youtube", url: "https://youtube.com", icon: Icons.youtube, navbar: false },
-      email: { name: "Envoyer un email", url: `mailto:${profile.identity.email}`, icon: Icons.email, navbar: false },
-    },
-  },
-
-  hackathons: [
-    {
-      title: "À compléter",
-      dates: "2026",
-      location: "France",
-      description: "TODO: ajouter de vrais événements ici.",
-      image: "https://avatar.vercel.sh/todo?size=40",
-      links: [],
-    },
-  ],
-};
+export type ResumeData = ReturnType<typeof buildData>;

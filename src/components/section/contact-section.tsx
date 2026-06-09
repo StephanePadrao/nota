@@ -1,8 +1,10 @@
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
-import { DATA } from "@/data/resume";
+import { type ResumeData } from "@/data/resume";
+import { defaultLang, localizeHref, type Lang } from "@/i18n/ui";
 import { ArrowUpRight } from "@/lib/icons";
 
-export default function ContactSection() {
+export default function ContactSection({ data, locale = defaultLang }: { data: ResumeData; locale?: Lang }) {
+  const DATA = data;
   return (
     <div className="border rounded-xl p-10 relative">
       <div className="absolute -top-4 border bg-primary z-10 rounded-xl px-4 py-1 left-1/2 -translate-x-1/2">
@@ -27,11 +29,11 @@ export default function ContactSection() {
           {DATA.sections.contact.text}
         </p>
         <a
-          href="/contact"
+          href={localizeHref("/contact", locale)}
           className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5
                      text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
         >
-          Écrire un message
+          {DATA.sections.contact.cta}
           <ArrowUpRight className="h-4 w-4" />
         </a>
       </div>

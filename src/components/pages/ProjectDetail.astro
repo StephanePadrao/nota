@@ -1,0 +1,94 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { localizeHref, useTranslations, type Lang } from "@/i18n/ui";
+import { mdxComponents } from "@/mdx-components";
+import { ChevronLeft } from "lucide-react";
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<"projects">;
+}
+const { lang, entry } = Astro.props;
+const t = useTranslations(lang);
+
+const { title, dates, active, description, technologies, links, cover, images } = entry.data;
+const { Content } = await render(entry);
+---
+
+<Layout title={title} description={description} lang={lang}>
+  <section id="project" class="max-w-3xl mx-auto">
+    <a
+      href={localizeHref("/", lang)}
+      class="text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2 py-1 inline-flex items-center gap-1 mb-6 group"
+    >
+      <ChevronLeft className="size-3 group-hover:-translate-x-px transition-transform" />
+      {t.projects.back}
+    </a>
+
+    <div class="flex flex-col gap-3 mb-6">
+      <div class="flex items-center gap-3">
+        <h1 class="title font-semibold text-3xl md:text-4xl tracking-tighter leading-tight flex-1">{title}</h1>
+        {active && (
+          <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-700 rounded-full shrink-0">{t.projects.active}</span>
+        )}
+      </div>
+      <p class="text-sm text-muted-foreground">{dates}</p>
+      <p class="text-base text-foreground/80">{description}</p>
+      {technologies.length > 0 && (
+        <div class="flex flex-wrap gap-1.5">
+          {technologies.map((tech) => (
+            <span class="text-xs px-2 py-0.5 bg-accent text-accent-foreground rounded-full border border-border">{tech}</span>
+          ))}
+        </div>
+      )}
+      {links && links.length > 0 && (
+        <div class="flex flex-wrap gap-2.5">
+          {links.map((link, i) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                i === 0
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                  : "border border-border text-foreground hover:bg-accent"
+              }`}
+            >
+              {link.type}
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10" /></svg>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="my-6 flex w-full items-center">
+      <div
+        class="flex-1 h-px bg-border"
+        style="mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);"
+      />
+    </div>
+
+    {cover && (
+      <img
+        src={cover}
+        alt={title}
+        class="w-full rounded-xl object-cover max-h-[420px] mb-8 shadow-sm"
+      />
+    )}
+
+    {images && images.length > 0 && (
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+        {images.map((src, i) => (
+          <img src={src} alt={`${title} — image ${i + 1}`} class="w-full rounded-lg object-cover aspect-video shadow-sm border border-border/30" />
+        ))}
+      </div>
+    )}
+
+    <article class="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
+      <Content components={mdxComponents} />
+    </article>
+  </section>
+</Layout>

@@ -1,0 +1,102 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { buildData } from "@/data/resume";
+import { localizeHref, useTranslations, type Lang } from "@/i18n/ui";
+import { entriesForLang } from "@/i18n/content";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const DATA = buildData(lang);
+
+function startYear(dates: string): number {
+  const match = dates.match(/(\d{4})/);
+  return match ? parseInt(match[1]) : 0;
+}
+
+const items = entriesForLang(await getCollection("projects"), lang)
+  .map(({ slug, entry }) => ({ slug, data: entry.data }))
+  .sort((a, b) => startYear(b.data.dates) - startYear(a.data.dates));
+
+const byYear = items.reduce<Record<number, typeof items>>((acc, p) => {
+  const year = startYear(p.data.dates);
+  (acc[year] ??= []).push(p);
+  return acc;
+}, {});
+
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+
+<Layout title={t.projects.metaTitle} description={DATA.sections.projects.text} lang={lang}>
+  <section id="projects">
+    <div class="flex min-h-0 flex-col gap-y-8">
+      <!-- Header -->
+      <div class="flex flex-col items-center gap-y-3 text-center">
+        <div class="flex items-center w-full">
+          <div class="flex-1 h-px bg-linear-to-r from-transparent from-5% via-border via-95% to-transparent" />
+          <div class="border bg-primary z-10 rounded-xl px-4 py-1">
+            <span class="text-background text-sm font-medium">{DATA.sections.projects.label}</span>
+          </div>
+          <div class="flex-1 h-px bg-linear-to-l from-transparent from-5% via-border via-95% to-transparent" />
+        </div>
+        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl">{DATA.sections.projects.heading}</h2>
+        <p class="text-muted-foreground text-sm max-w-md">{DATA.sections.projects.text}</p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative">
+        <!-- Ligne verticale -->
+        <div class="absolute left-[5.5rem] top-0 bottom-0 w-px bg-border hidden sm:block" />
+
+        <div class="flex flex-col gap-10">
+          {years.map((year) => (
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
+              <!-- Année -->
+              <div class="sm:w-20 shrink-0 flex sm:flex-col items-center sm:items-end gap-2 sm:gap-0">
+                <span class="text-sm font-bold text-foreground sm:pt-1">{year}</span>
+                <div class="hidden sm:block w-2.5 h-2.5 rounded-full bg-primary border-2 border-background mt-1.5 translate-x-[calc(100%+0.35rem)]" />
+              </div>
+
+              <!-- Projets de l'année -->
+              <div class="flex-1 flex flex-col gap-3">
+                {byYear[year].map((project) => (
+                  <a
+                    href={localizeHref(`/projects/${project.slug}`, lang)}
+                    class="group flex items-start gap-4 p-4 rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-sm transition-all"
+                  >
+                    {project.data.cover && (
+                      <img
+                        src={project.data.cover}
+                        alt={project.data.title}
+                        class="w-16 h-12 object-cover object-top rounded-lg shrink-0 border border-border"
+                        loading="lazy"
+                      />
+                    )}
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{project.data.title}</span>
+                        {project.data.active && (
+                          <span class="text-[10px] font-semibold px-1.5 py-0.5 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full">{t.projects.active}</span>
+                        )}
+                      </div>
+                      <p class="text-xs text-muted-foreground mt-0.5">{project.data.dates}</p>
+                      <p class="text-xs text-muted-foreground mt-1.5 line-clamp-2">{project.data.description}</p>
+                      <div class="flex flex-wrap gap-1 mt-2">
+                        {project.data.technologies.map((tech) => (
+                          <span class="text-[10px] px-1.5 py-0.5 bg-accent text-accent-foreground rounded-full border border-border">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

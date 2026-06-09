@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import HomePage from "@/components/HomePage";
+import { entriesForLang } from "@/i18n/content";
+import type { Lang } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const localized = entriesForLang(await getCollection("projects"), lang);
+const projects = localized
+  .sort((a, b) => {
+    const ya = parseInt(a.entry.data.dates.match(/\d{4}/)?.[0] ?? "0");
+    const yb = parseInt(b.entry.data.dates.match(/\d{4}/)?.[0] ?? "0");
+    return yb - ya;
+  })
+  .map(({ slug, entry }) => ({
+    id: slug, // slug de base → ProjectsSection préfixe la locale dans le href
+    title: entry.data.title,
+    dates: entry.data.dates,
+    active: entry.data.active,
+    description: entry.data.description,
+    technologies: entry.data.technologies,
+    links: entry.data.links,
+    cover: entry.data.cover,
+  }));
+---
+
+<Layout lang={lang}>
+  <HomePage client:load projects={projects} locale={lang} />
+</Layout>

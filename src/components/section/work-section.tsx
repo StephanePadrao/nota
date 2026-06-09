@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { DATA } from "@/data/resume";
+import { type ResumeData } from "@/data/resume";
 import { ChevronDown, ChevronRight } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +29,8 @@ function LogoImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-export default function WorkSection() {
+export default function WorkSection({ data }: { data: ResumeData }) {
+  const DATA = data;
   return (
     <Accordion type="single" collapsible className="w-full grid gap-6">
       {DATA.work.map((work) => (
