@@ -2,7 +2,7 @@
 
 import BlurFade from "@/components/magicui/blur-fade";
 import { type ResumeData } from "@/data/resume";
-import { defaultLang, localizeHref, useTranslations, type Lang } from "@/i18n/ui";
+import { defaultLang, localizeHref, type Lang } from "@/i18n/ui";
 import { type ProjectItem } from "@/components/section/projects-section";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -19,8 +19,6 @@ export default function ProjectsTimeline({
   data: ResumeData;
   locale?: Lang;
 }) {
-  const t = useTranslations(locale);
-
   return (
     <section id="projects">
       <div className="flex min-h-0 flex-col gap-y-6">
@@ -48,12 +46,6 @@ export default function ProjectsTimeline({
                     <time className="text-[11px] font-semibold tabular-nums text-muted-foreground">{project.dates}</time>
                     <h3 className="mt-0.5 text-sm font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
                       {project.title}
-                      {project.active && (
-                        <span
-                          className="ml-1 inline-block size-1.5 rounded-full bg-green-500 align-middle"
-                          title={t.projects.active}
-                        />
-                      )}
                     </h3>
                   </div>
                 </a>

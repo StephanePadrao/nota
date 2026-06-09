@@ -60,7 +60,7 @@ const fr = {
   },
 
   photos: {
-    metaTitle: "Photos",
+    metaTitle: "Voyages",
     badge: "Voyages",
     listingDescription: "Voyages, découvertes et moments de vie en images.",
     back: "Tous les albums",
@@ -149,7 +149,7 @@ const en: Strings = {
   },
 
   photos: {
-    metaTitle: "Photos",
+    metaTitle: "Travels",
     badge: "Travels",
     listingDescription: "Travels, discoveries and slices of life in pictures.",
     back: "All albums",
