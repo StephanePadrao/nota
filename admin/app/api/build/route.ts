@@ -16,6 +16,7 @@ export async function GET() {
     status: buildState.status,
     startedAt: buildState.startedAt,
     logs: buildState.logs,
+    published: buildState.published,
     lastBuild: readLastBuild(),
   });
 }

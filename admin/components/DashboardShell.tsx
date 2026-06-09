@@ -66,8 +66,14 @@ export default function DashboardShell({ children }: { children: React.ReactNode
           if (s.status !== "building") {
             clearInterval(poll);
             setBuilding(false);
-            setBuildMsg(s.status === "success" ? "Publié ✓ — en ligne" : "Échec du build");
-            setTimeout(() => setBuildMsg(null), 6000);
+            const msg =
+              s.status !== "success"
+                ? "Échec du build"
+                : s.published === false
+                  ? "Build OK, push GitHub échoué ⚠ — pousser manuellement"
+                  : "Publié ✓ — en ligne";
+            setBuildMsg(msg);
+            setTimeout(() => setBuildMsg(null), 8000);
           }
         } catch {
           clearInterval(poll);

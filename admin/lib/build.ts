@@ -19,6 +19,8 @@ export const buildState = {
   status: "idle" as BuildStatus,
   logs: [] as string[],
   startedAt: null as number | null,
+  // null = pas encore tenté, true = poussé sur GitHub, false = push échoué.
+  published: null as boolean | null,
 };
 
 export function readLastBuild(): LastBuild | null {
@@ -50,6 +52,7 @@ export function triggerBuild(): boolean {
   buildState.status = "building";
   buildState.logs = [];
   buildState.startedAt = Date.now();
+  buildState.published = null;
 
   const proc = spawn("npm", ["run", "build"], {
     cwd: NOTA_ROOT,
@@ -98,6 +101,9 @@ function publishContent() {
   git.on("close", (code) => {
     if (code !== 0) {
       buildState.logs.push("[git] échec de la publication — le site local est à jour, pousser manuellement\n");
+      buildState.published = false;
+    } else {
+      buildState.published = true;
     }
     buildState.status = "success";
   });
