@@ -15,6 +15,8 @@ export const mdxComponents = {
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className="max-w-full h-auto rounded-xl shadow-sm border border-border/30 mx-auto block"
         {...props}
       />

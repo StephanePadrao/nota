@@ -209,7 +209,8 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
     intersectionObserver.observe(canvas)
 
-    if (isInView) {
+    const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (isInView && !reduced) {
       animationFrameId = requestAnimationFrame(animate)
     }
 

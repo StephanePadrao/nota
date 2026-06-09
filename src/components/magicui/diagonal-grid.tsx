@@ -123,7 +123,9 @@ export const DiagonalGrid: React.FC<DiagonalGridProps> = ({
         rafRef.current = requestAnimationFrame(animate)
       }
 
-      rafRef.current = requestAnimationFrame(animate)
+      // Respecte prefers-reduced-motion : grille statique dessinée, pas d'animation.
+      const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      if (!reduced) rafRef.current = requestAnimationFrame(animate)
 
       return { squares, cols, rows, dpr, colorPrefix }
     }

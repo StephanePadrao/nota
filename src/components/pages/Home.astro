@@ -44,5 +44,5 @@ const projects = localized
 
 <Layout lang={lang}>
   <script type="application/ld+json" set:html={JSON.stringify(personLd)} is:inline />
-  <HomePage client:load projects={projects} locale={lang} />
+  <HomePage client:idle projects={projects} locale={lang} />
 </Layout>
