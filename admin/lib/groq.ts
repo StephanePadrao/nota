@@ -113,7 +113,7 @@ export async function translateFields(
   return parseJsonObject(response.choices[0]?.message?.content ?? "{}");
 }
 
-function parseJsonObject(raw: string): Record<string, string> {
+export function parseJsonObject(raw: string): Record<string, string> {
   let parsed: unknown;
   try {
     parsed = JSON.parse(raw);

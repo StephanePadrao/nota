@@ -9,7 +9,7 @@ const NOTA_ROOT = process.env.NOTA_PATH
 
 export const PROJECTS_DIR = path.join(NOTA_ROOT, "src/content/projects");
 
-function safeSlug(slug: string) {
+export function safeSlug(slug: string) {
   if (slug.includes("/") || slug.includes("..") || slug.includes("\\"))
     throw new Error("Invalid slug");
 }
