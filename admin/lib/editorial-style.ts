@@ -43,7 +43,8 @@ export function readEditorialStyle(): EditorialStyle {
   if (!existsSync(STYLE_FILE)) return DEFAULT_STYLE;
   try {
     return JSON.parse(readFileSync(STYLE_FILE, "utf8")) as EditorialStyle;
-  } catch {
+  } catch (err) {
+    console.warn("[editorial-style] JSON illisible, repli sur le style par défaut :", err);
     return DEFAULT_STYLE;
   }
 }

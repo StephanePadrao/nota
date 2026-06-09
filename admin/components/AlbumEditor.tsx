@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { AlbumPhoto } from "@/lib/albums";
-import type { Lang } from "@/lib/i18n";
+import { useLangEditing } from "@/lib/useLangEditing";
 import AIAssist from "@/components/AIAssist";
 import EditorLangBar from "@/components/EditorLangBar";
 
@@ -42,21 +42,24 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
   });
   const [cover, setCover] = useState(initialData?.cover ?? "");
   const [photos, setPhotos] = useState<AlbumPhoto[]>(initialData?.photos ?? []);
-  const [lang, setLang] = useState<Lang>("fr");
-  const [translating, setTranslating] = useState(false);
-  const [enExists, setEnExists] = useState(false);
 
-  // Active l'onglet EN si une traduction existe déjà.
-  useEffect(() => {
-    if (!existingSlug) return;
-    fetch(`/api/albums/${existingSlug}?lang=en`).then((r) => setEnExists(r.ok));
-  }, [existingSlug]);
+  function populate(d: NonNullable<Props["initialData"]>) {
+    setForm({ title: d.title, date: d.date, location: d.location ?? "", summary: d.summary ?? "", body: d.body });
+    setCover(d.cover ?? "");
+    setPhotos(d.photos ?? []);
+  }
+  const serialize = () => JSON.stringify({ ...form, cover, photos });
+  const serializeData = (d: NonNullable<Props["initialData"]>) =>
+    JSON.stringify({ title: d.title, date: d.date, location: d.location ?? "", summary: d.summary ?? "", body: d.body, cover: d.cover ?? "", photos: d.photos ?? [] });
 
-  // Garde-fou : détecte les modifications non sauvegardées avant bascule/traduction.
-  const baseline = useRef<string | null>(null);
-  const snapshot = () => JSON.stringify({ ...form, cover, photos });
-  if (baseline.current === null) baseline.current = snapshot();
-  const isDirty = () => baseline.current !== snapshot();
+  const { lang, translating, enExists, setEnExists, status, setStatus, markClean, switchLang, translate } = useLangEditing({
+    exists: !!existingSlug,
+    getUrl: (l) => `/api/albums/${existingSlug}?lang=${l}`,
+    translateUrl: () => `/api/albums/${existingSlug}/translate`,
+    serialize,
+    serializeData,
+    apply: populate,
+  });
 
   function slugify(s: string): string {
     return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -131,7 +134,7 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
     if (!res.ok) { setStatus("Erreur lors de la sauvegarde"); setSaving(false); return; }
     setSaving(false);
     if (isNew) { router.push(`/albums/${slug}`); return; }
-    baseline.current = snapshot();
+    markClean();
     setStatus("saved");
     setTimeout(() => setStatus(null), 3000);
   }
@@ -139,54 +142,9 @@ export default function AlbumEditor({ slug: existingSlug, initialData }: Props) 
   async function handleDelete() {
     if (!existingSlug || !confirm(`Supprimer "${existingSlug}"${lang === "en" ? " (version EN)" : " et sa traduction EN"} ?`)) return;
     await fetch(`/api/albums/${existingSlug}?lang=${lang}`, { method: "DELETE" });
-    if (lang === "en") {
-      setEnExists(false);
-      const res = await fetch(`/api/albums/${existingSlug}?lang=fr`);
-      if (res.ok) { populate(await res.json()); setLang("fr"); }
-    } else {
-      router.push("/albums");
-    }
+    if (lang === "en") { setEnExists(false); await switchLang("fr"); }
+    else router.push("/albums");
   }
-
-  function populate(d: NonNullable<Props["initialData"]>) {
-    setForm({ title: d.title, date: d.date, location: d.location ?? "", summary: d.summary ?? "", body: d.body });
-    setCover(d.cover ?? "");
-    setPhotos(d.photos ?? []);
-    baseline.current = JSON.stringify({ title: d.title, date: d.date, location: d.location ?? "", summary: d.summary ?? "", body: d.body, cover: d.cover ?? "", photos: d.photos ?? [] });
-  }
-
-  async function switchLang(l: Lang) {
-    if (l === lang || !existingSlug) return;
-    if (isDirty() && !confirm("Modifications non sauvegardées perdues en changeant de langue. Continuer ?")) return;
-    const res = await fetch(`/api/albums/${existingSlug}?lang=${l}`);
-    if (!res.ok) { setStatus(`Pas de version ${l.toUpperCase()}`); return; }
-    populate(await res.json());
-    setLang(l);
-    setStatus(null);
-  }
-
-  async function translate() {
-    if (!existingSlug) return;
-    if (isDirty() && !confirm("Modifications non sauvegardées perdues par la traduction. Continuer ?")) return;
-    setTranslating(true);
-    setStatus(null);
-    try {
-      const res = await fetch(`/api/albums/${existingSlug}/translate`, { method: "POST" });
-      if (!res.ok) {
-        const d = await res.json().catch(() => ({}));
-        throw new Error(d.error ?? "Erreur de traduction");
-      }
-      setEnExists(true);
-      const en = await fetch(`/api/albums/${existingSlug}?lang=en`);
-      if (en.ok) { populate(await en.json()); setLang("en"); }
-    } catch (e) {
-      setStatus(e instanceof Error ? e.message : "Erreur de traduction");
-    } finally {
-      setTranslating(false);
-    }
-  }
-
-  const [status, setStatus] = useState<null | "saved" | string>(null);
 
   const inputClass = "w-full px-3 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 placeholder:text-zinc-400 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/30 transition-colors";
 

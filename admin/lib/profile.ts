@@ -30,7 +30,8 @@ export function readProfile(lang: Lang = DEFAULT_LANG): Profile {
       skills: Array.isArray(raw.skills) ? raw.skills : [],
       hobbies: Array.isArray(raw.hobbies) ? raw.hobbies : [],
     };
-  } catch {
+  } catch (err) {
+    console.warn(`[profile] JSON illisible (${lang}), repli sur le profil vide :`, err);
     return EMPTY_PROFILE;
   }
 }

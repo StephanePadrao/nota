@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ICON_NAMES, type Profile } from "@/lib/profile-schema";
-import type { Lang } from "@/lib/i18n";
+import { useLangEditing } from "@/lib/useLangEditing";
 import EditorLangBar from "@/components/EditorLangBar";
 
 // Base sans largeur : pour les cellules en flex (largeur via flex-1 / w-36 / w-24).
@@ -69,44 +69,16 @@ function ItemCard({ title, onUp, onDown, onRemove, children }: { title: string; 
 export default function ProfileEditor({ initial }: { initial: Profile }) {
   const [profile, setProfile] = useState<Profile>(initial);
   const [saving, setSaving] = useState(false);
-  const [status, setStatus] = useState<null | "saved" | string>(null);
-  const [lang, setLang] = useState<Lang>("fr");
-  const [translating, setTranslating] = useState(false);
 
-  // Garde-fou : détecte les modifications non sauvegardées avant bascule/traduction.
-  const baseline = useRef(JSON.stringify(initial));
-  const isDirty = () => baseline.current !== JSON.stringify(profile);
-
-  async function switchLang(l: Lang) {
-    if (l === lang) return;
-    if (isDirty() && !confirm("Modifications non sauvegardées perdues en changeant de langue. Continuer ?")) return;
-    const res = await fetch(`/api/profile?lang=${l}`);
-    if (!res.ok) { setStatus(`Pas de version ${l.toUpperCase()}`); return; }
-    const data = await res.json();
-    setProfile(data);
-    baseline.current = JSON.stringify(data);
-    setLang(l);
-    setStatus(null);
-  }
-
-  async function translate() {
-    if (isDirty() && !confirm("Modifications non sauvegardées perdues par la traduction. Continuer ?")) return;
-    setTranslating(true);
-    setStatus(null);
-    try {
-      const res = await fetch(`/api/profile/translate`, { method: "POST" });
-      if (!res.ok) {
-        const d = await res.json().catch(() => ({}));
-        throw new Error(d.error ?? "Erreur de traduction");
-      }
-      const en = await fetch(`/api/profile?lang=en`);
-      if (en.ok) { const data = await en.json(); setProfile(data); baseline.current = JSON.stringify(data); setLang("en"); }
-    } catch (e) {
-      setStatus(e instanceof Error ? e.message : "Erreur de traduction");
-    } finally {
-      setTranslating(false);
-    }
-  }
+  const { lang, translating, status, setStatus, markClean, switchLang, translate } = useLangEditing<Profile>({
+    exists: true,
+    enAlwaysAvailable: true, // profile.en.json (avec repli FR) existe toujours
+    getUrl: (l) => `/api/profile?lang=${l}`,
+    translateUrl: () => `/api/profile/translate`,
+    serialize: () => JSON.stringify(profile),
+    serializeData: (d) => JSON.stringify(d),
+    apply: (d) => setProfile(d),
+  });
 
   const setId = (field: keyof Profile["identity"], value: string) =>
     setProfile((p) => ({ ...p, identity: { ...p.identity, [field]: value } }));
@@ -141,7 +113,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
         const d = await res.json().catch(() => ({}));
         throw new Error(d.error ?? "Erreur lors de la sauvegarde");
       }
-      baseline.current = JSON.stringify(profile);
+      markClean();
       setStatus("saved");
     } catch (e) {
       setStatus(e instanceof Error ? e.message : "Erreur inconnue");
