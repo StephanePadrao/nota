@@ -15,9 +15,11 @@ export const mdxComponents = {
       <img
         src={src}
         alt={alt}
+        data-zoom=""
+        data-zoom-group="article"
         loading="lazy"
         decoding="async"
-        className="max-w-full h-auto rounded-xl shadow-sm border border-border/30 mx-auto block"
+        className="max-w-full h-auto cursor-zoom-in rounded-xl shadow-sm border border-border/30 mx-auto block"
         {...props}
       />
       {alt && (

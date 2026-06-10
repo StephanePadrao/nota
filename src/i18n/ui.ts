@@ -91,6 +91,16 @@ const fr = {
     text: "Cette page n'existe pas ou a été déplacée.",
     backHome: "Retour à l'accueil",
   },
+
+  footer: {
+    rights: "Tous droits réservés.",
+  },
+
+  lightbox: {
+    close: "Fermer",
+    prev: "Image précédente",
+    next: "Image suivante",
+  },
 };
 
 export type Strings = typeof fr;
@@ -179,6 +189,16 @@ const en: Strings = {
     heading: "Page not found",
     text: "This page doesn't exist or has moved.",
     backHome: "Back home",
+  },
+
+  footer: {
+    rights: "All rights reserved.",
+  },
+
+  lightbox: {
+    close: "Close",
+    prev: "Previous image",
+    next: "Next image",
   },
 };
 

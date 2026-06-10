@@ -4,6 +4,9 @@ import { buildData } from "@/data/resume";
 import { CONFIG } from "@/data/config";
 import { defaultLang, localizeHref, localeUrl, stripLangPrefix, useTranslations, type Lang } from "@/i18n/ui";
 import { DiagonalGrid } from "@/components/magicui/diagonal-grid";
+import Lightbox from "@/components/Lightbox.astro";
+
+const year = new Date().getFullYear();
 
 interface Props {
   title?: string;
@@ -142,6 +145,7 @@ const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
       name="googlebot"
       content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
     />
+    <meta name="copyright" content={`© ${year} ${DATA.name}`} />
 
     <!-- OpenGraph -->
     <meta property="og:type" content="website" />
@@ -250,9 +254,19 @@ const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
     </nav>
 
     <!-- Contenu principal — padding-top pour ne pas passer sous la nav fixe -->
-    <div class="relative z-10 max-w-7xl mx-auto pt-16 pb-16 sm:pt-20 sm:pb-20 px-4 sm:px-6 lg:px-10">
+    <div class="relative z-10 max-w-7xl mx-auto pt-16 pb-12 sm:pt-20 sm:pb-12 px-4 sm:px-6 lg:px-10">
       <slot />
     </div>
+
+    <!-- Footer — copyright global -->
+    <footer class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 pb-10">
+      <p class="text-center text-xs text-muted-foreground">
+        © {year} {DATA.name}. {t.footer.rights}
+      </p>
+    </footer>
+
+    <!-- Lightbox global (images data-zoom) -->
+    <Lightbox lang={lang} />
 
     <!-- Theme toggle — vanilla JS, pas de React -->
     <script is:inline>

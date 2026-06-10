@@ -47,7 +47,8 @@ const { Content } = await render(entry);
       <img
         src={cover}
         alt={title}
-        class="w-full rounded-xl object-cover max-h-[480px] mb-8 shadow-sm"
+        data-zoom
+        class="w-full cursor-zoom-in rounded-xl object-cover max-h-[480px] mb-8 shadow-sm"
       />
     )}
 
@@ -58,7 +59,9 @@ const { Content } = await render(entry);
             <img
               src={photo.src}
               alt={photo.alt}
-              class="w-full rounded-lg shadow-sm border border-border/30 hover:shadow-md transition-shadow"
+              data-zoom
+              data-zoom-group="album"
+              class="w-full cursor-zoom-in rounded-lg shadow-sm border border-border/30 hover:shadow-md transition-shadow"
               loading="lazy"
             />
             {photo.alt && photo.alt !== `Photo ${i + 1}` && (

@@ -1,0 +1,95 @@
+---
+import { useTranslations, type Lang } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!-- Lightbox global : toute <img data-zoom> s'ouvre en plein écran. data-zoom-group
+     active la navigation ‹/› entre images du même groupe. Vanilla, sans dépendance. -->
+<div
+  id="lightbox"
+  class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+>
+  <button id="lb-close" type="button" aria-label={t.lightbox.close}
+    class="absolute top-4 right-4 z-10 flex size-10 items-center justify-center rounded-full bg-white/10 text-white text-xl hover:bg-white/20 transition-colors">✕</button>
+  <button id="lb-prev" type="button" aria-label={t.lightbox.prev}
+    class="absolute left-3 sm:left-5 z-10 flex size-11 items-center justify-center rounded-full bg-white/10 text-white text-2xl hover:bg-white/20 transition-colors">‹</button>
+  <img id="lb-img" alt="" class="max-h-[88vh] max-w-[92vw] object-contain rounded-lg shadow-2xl" />
+  <button id="lb-next" type="button" aria-label={t.lightbox.next}
+    class="absolute right-3 sm:right-5 z-10 flex size-11 items-center justify-center rounded-full bg-white/10 text-white text-2xl hover:bg-white/20 transition-colors">›</button>
+  <figcaption id="lb-cap" class="absolute bottom-5 left-1/2 -translate-x-1/2 max-w-[90vw] text-center text-sm text-white/80 italic"></figcaption>
+</div>
+
+<script>
+  const lb = document.getElementById("lightbox") as HTMLElement;
+  const lbImg = document.getElementById("lb-img") as HTMLImageElement;
+  const lbCap = document.getElementById("lb-cap") as HTMLElement;
+  const btnPrev = document.getElementById("lb-prev") as HTMLButtonElement;
+  const btnNext = document.getElementById("lb-next") as HTMLButtonElement;
+  const btnClose = document.getElementById("lb-close") as HTMLButtonElement;
+
+  let group: HTMLImageElement[] = [];
+  let idx = 0;
+
+  function render(i: number) {
+    const el = group[i];
+    if (!el) return;
+    idx = i;
+    lbImg.src = el.currentSrc || el.src;
+    lbImg.alt = el.alt || "";
+    lbCap.textContent = el.alt || "";
+    lbCap.style.display = el.alt ? "" : "none";
+    const multi = group.length > 1;
+    btnPrev.style.display = multi ? "" : "none";
+    btnNext.style.display = multi ? "" : "none";
+  }
+
+  function open(el: HTMLImageElement) {
+    const g = el.getAttribute("data-zoom-group");
+    group = g
+      ? Array.from(document.querySelectorAll<HTMLImageElement>(`img[data-zoom][data-zoom-group="${g}"]`))
+      : [el];
+    render(Math.max(0, group.indexOf(el)));
+    lb.classList.remove("hidden");
+    lb.classList.add("flex");
+    lb.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close() {
+    lb.classList.add("hidden");
+    lb.classList.remove("flex");
+    lb.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    lbImg.src = "";
+  }
+
+  function go(delta: number) {
+    if (group.length > 1) render((idx + delta + group.length) % group.length);
+  }
+
+  document.addEventListener("click", (e) => {
+    const img = (e.target as HTMLElement).closest("img[data-zoom]") as HTMLImageElement | null;
+    if (img) {
+      e.preventDefault();
+      open(img);
+    }
+  });
+  btnClose.addEventListener("click", close);
+  btnPrev.addEventListener("click", (e) => { e.stopPropagation(); go(-1); });
+  btnNext.addEventListener("click", (e) => { e.stopPropagation(); go(1); });
+  lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+  document.addEventListener("keydown", (e) => {
+    if (lb.classList.contains("hidden")) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft") go(-1);
+    else if (e.key === "ArrowRight") go(1);
+  });
+</script>

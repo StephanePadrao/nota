@@ -87,14 +87,15 @@ const projectLd = {
       <img
         src={cover}
         alt={title}
-        class="w-full rounded-xl object-cover max-h-[420px] mb-8 shadow-sm"
+        data-zoom
+        class="w-full cursor-zoom-in rounded-xl object-cover max-h-[420px] mb-8 shadow-sm"
       />
     )}
 
     {images && images.length > 0 && (
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
         {images.map((src, i) => (
-          <img src={src} alt={`${title} — image ${i + 1}`} loading="lazy" decoding="async" class="w-full rounded-lg object-cover aspect-video shadow-sm border border-border/30" />
+          <img src={src} alt={`${title} — image ${i + 1}`} data-zoom data-zoom-group="project" loading="lazy" decoding="async" class="w-full cursor-zoom-in rounded-lg object-cover aspect-video shadow-sm border border-border/30" />
         ))}
       </div>
     )}
