@@ -31,6 +31,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# iCloud Drive conflict copies (e.g. "name 2.webp", "name 3.webp")
+* [0-9].*
+
 # jetbrains setting folder
 .idea/
 
