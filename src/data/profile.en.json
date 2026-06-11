@@ -52,7 +52,7 @@
         "Apprenticeship"
       ],
       "location": "Palaiseau, France",
-      "title": "Embedded Systems Engineer Apprentice — Production Lead",
+      "title": "Embedded Systems Engineer Apprentice, Production Lead",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
       "start": "September 2018",
       "end": "July 2021",
@@ -61,17 +61,17 @@
   ],
   "education": [
     {
-      "school": "IAE Paris — Sorbonne Business School",
+      "school": "IAE Paris, Sorbonne Business School",
       "href": "https://www.iae-paris.com",
-      "degree": "MAE Executive MBA — Business Management and Administration",
+      "degree": "MAE Executive MBA, Business Management and Administration",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
       "start": "2020",
       "end": "2022"
     },
     {
-      "school": "Polytech Sorbonne — Paris",
+      "school": "Polytech Sorbonne, Paris",
       "href": "https://www.polytech.sorbonne-universite.fr",
-      "degree": "Engineering Degree — Electronics and Industrial Computing (EI2I)",
+      "degree": "Engineering Degree, Electronics and Industrial Computing (EI2I)",
       "logoUrl": "/logos/polytech.svg",
       "start": "2018",
       "end": "2021"

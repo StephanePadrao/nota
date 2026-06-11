@@ -52,7 +52,7 @@
         "Alternance"
       ],
       "location": "Palaiseau, France",
-      "title": "Apprenti Ingénieur système embarqué — Responsable production",
+      "title": "Apprenti Ingénieur système embarqué, Responsable production",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
       "start": "Septembre 2018",
       "end": "Juillet 2021",
@@ -61,17 +61,17 @@
   ],
   "education": [
     {
-      "school": "IAE Paris — Sorbonne Business School",
+      "school": "IAE Paris, Sorbonne Business School",
       "href": "https://www.iae-paris.com",
-      "degree": "MAE Executive MBA — Management et Administration des Entreprises",
+      "degree": "MAE Executive MBA, Management et Administration des Entreprises",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
       "start": "2020",
       "end": "2022"
     },
     {
-      "school": "Polytech Sorbonne — Paris",
+      "school": "Polytech Sorbonne, Paris",
       "href": "https://www.polytech.sorbonne-universite.fr",
-      "degree": "Diplôme d'Ingénieur — Électronique et Informatique Industrielle (EI2I)",
+      "degree": "Diplôme d'Ingénieur, Électronique et Informatique Industrielle (EI2I)",
       "logoUrl": "/logos/polytech.svg",
       "start": "2018",
       "end": "2021"

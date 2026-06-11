@@ -52,7 +52,7 @@
         "Alternância"
       ],
       "location": "Palaiseau, France",
-      "title": "Aprendiz de Engenheiro de Sistema Embarcado — Responsável por Produção",
+      "title": "Aprendiz de Engenheiro de Sistema Embarcado, Responsável por Produção",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
       "start": "Septembre 2018",
       "end": "Juillet 2021",
@@ -61,17 +61,17 @@
   ],
   "education": [
     {
-      "school": "IAE Paris — Sorbonne Business School",
+      "school": "IAE Paris, Sorbonne Business School",
       "href": "https://www.iae-paris.com",
-      "degree": "MBA Executivo MAE — Gestão e Administração de Empresas",
+      "degree": "MBA Executivo MAE, Gestão e Administração de Empresas",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
       "start": "2020",
       "end": "2022"
     },
     {
-      "school": "Polytech Sorbonne — Paris",
+      "school": "Polytech Sorbonne, Paris",
       "href": "https://www.polytech.sorbonne-universite.fr",
-      "degree": "Diploma de Engenheiro — Eletrônica e Informática Industrial (EI2I)",
+      "degree": "Diploma de Engenheiro, Eletrônica e Informática Industrial (EI2I)",
       "logoUrl": "/logos/polytech.svg",
       "start": "2018",
       "end": "2021"

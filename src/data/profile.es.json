@@ -52,7 +52,7 @@
         "Alternancia"
       ],
       "location": "Palaiseau, France",
-      "title": "Aprendiz de Ingeniero de sistema embebido — Responsable de producción",
+      "title": "Aprendiz de Ingeniero de sistema embebido, Responsable de producción",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
       "start": "Septembre 2018",
       "end": "Juillet 2021",
@@ -61,17 +61,17 @@
   ],
   "education": [
     {
-      "school": "IAE Paris — Sorbonne Business School",
+      "school": "IAE Paris, Sorbonne Business School",
       "href": "https://www.iae-paris.com",
-      "degree": "MAE Executive MBA — Gestión y Administración de Empresas",
+      "degree": "MAE Executive MBA, Gestión y Administración de Empresas",
       "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
       "start": "2020",
       "end": "2022"
     },
     {
-      "school": "Polytech Sorbonne — Paris",
+      "school": "Polytech Sorbonne, Paris",
       "href": "https://www.polytech.sorbonne-universite.fr",
-      "degree": "Diploma de Ingeniero — Electrónica e Informática Industrial (EI2I)",
+      "degree": "Diploma de Ingeniero, Electrónica e Informática Industrial (EI2I)",
       "logoUrl": "/logos/polytech.svg",
       "start": "2018",
       "end": "2021"
