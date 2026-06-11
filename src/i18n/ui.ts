@@ -19,7 +19,7 @@ const fr = {
   dir: "ltr",
 
   seo: {
-    homeTitle: "Stéphane Padrao — Responsable Produit & Maker Tech",
+    homeTitle: "Stéphane Padrao, Responsable Produit & Maker Tech",
     ogDescription:
       "Ingénieur & Responsable Produit. De l'idée griffonnée à la carte électronique en production. Portfolio produit, hardware et tech.",
   },
@@ -84,7 +84,7 @@ const fr = {
     badge: "Voyages",
     listingDescription: "Voyages, découvertes et moments de vie en images.",
     back: "Tous les albums",
-    albumMetaFallback: "Album photos — ",
+    albumMetaFallback: "Album photos, ",
   },
 
   contact: {
@@ -99,7 +99,7 @@ const fr = {
     messagePlaceholder: "Dis-moi ce que tu as en tête…",
     submit: "Envoyer le message",
     sending: "Envoi en cours…",
-    success: "✓ Message envoyé — je te répondrai rapidement.",
+    success: "✓ Message envoyé, je te répondrai rapidement.",
     errorPrefix: "Une erreur est survenue. Tu peux aussi m'écrire directement à",
     socialsIntro: "Ou retrouve-moi sur :",
     emailDirect: "Email direct",
@@ -130,7 +130,7 @@ const en: Strings = {
   dir: "ltr",
 
   seo: {
-    homeTitle: "Stéphane Padrao — Product Manager & Tech Maker",
+    homeTitle: "Stéphane Padrao, Product Manager & Tech Maker",
     ogDescription:
       "Engineer & Product Manager. From a scribbled idea to a circuit board in production. Product, hardware and tech portfolio.",
   },
@@ -195,7 +195,7 @@ const en: Strings = {
     badge: "Travels",
     listingDescription: "Travels, discoveries and slices of life in pictures.",
     back: "All albums",
-    albumMetaFallback: "Photo album — ",
+    albumMetaFallback: "Photo album, ",
   },
 
   contact: {
@@ -210,7 +210,7 @@ const en: Strings = {
     messagePlaceholder: "Tell me what's on your mind…",
     submit: "Send message",
     sending: "Sending…",
-    success: "✓ Message sent — I'll get back to you soon.",
+    success: "✓ Message sent, I'll get back to you soon.",
     errorPrefix: "Something went wrong. You can also email me directly at",
     socialsIntro: "Or find me on:",
     emailDirect: "Direct email",
@@ -239,7 +239,7 @@ const es: Strings = {
   dir: "ltr",
 
   seo: {
-    homeTitle: "Stéphane Padrao — Responsable de Producto & Maker Tech",
+    homeTitle: "Stéphane Padrao, Responsable de Producto & Maker Tech",
     ogDescription:
       "Ingeniero y Responsable de Producto. De la idea garabateada a la placa electrónica en producción. Portafolio de producto, hardware y tech.",
   },
@@ -304,7 +304,7 @@ const es: Strings = {
     badge: "Viajes",
     listingDescription: "Viajes, descubrimientos y momentos de vida en imágenes.",
     back: "Todos los álbumes",
-    albumMetaFallback: "Álbum de fotos — ",
+    albumMetaFallback: "Álbum de fotos, ",
   },
 
   contact: {
@@ -319,7 +319,7 @@ const es: Strings = {
     messagePlaceholder: "Dime qué tienes en mente…",
     submit: "Enviar el mensaje",
     sending: "Enviando…",
-    success: "✓ Mensaje enviado — te responderé pronto.",
+    success: "✓ Mensaje enviado, te responderé pronto.",
     errorPrefix: "Ha ocurrido un error. También puedes escribirme directamente a",
     socialsIntro: "O encuéntrame en:",
     emailDirect: "Email directo",
@@ -348,7 +348,7 @@ const pt: Strings = {
   dir: "ltr",
 
   seo: {
-    homeTitle: "Stéphane Padrao — Gestor de Produto & Maker Tech",
+    homeTitle: "Stéphane Padrao, Gestor de Produto & Maker Tech",
     ogDescription:
       "Engenheiro e Gestor de Produto. Da ideia rabiscada à placa eletrónica em produção. Portefólio de produto, hardware e tech.",
   },
@@ -413,7 +413,7 @@ const pt: Strings = {
     badge: "Viagens",
     listingDescription: "Viagens, descobertas e momentos de vida em imagens.",
     back: "Todos os álbuns",
-    albumMetaFallback: "Álbum de fotos — ",
+    albumMetaFallback: "Álbum de fotos, ",
   },
 
   contact: {
@@ -428,7 +428,7 @@ const pt: Strings = {
     messagePlaceholder: "Diz-me o que tens em mente…",
     submit: "Enviar a mensagem",
     sending: "A enviar…",
-    success: "✓ Mensagem enviada — responderei em breve.",
+    success: "✓ Mensagem enviada, responderei em breve.",
     errorPrefix: "Ocorreu um erro. Também podes escrever-me diretamente para",
     socialsIntro: "Ou encontra-me em:",
     emailDirect: "Email direto",
