@@ -1,0 +1,103 @@
+---
+title: 'SpringCard: de la soldadura de prototipos a la antena del producto estrella'
+dates: 2019-2021
+active: false
+description: >-
+  Tres años de aprendizaje de ingeniería en SpringCard, fabricante francés de
+  lectores sin contacto de 13,56 MHz. Diseño de la antena del Puck, proyectos
+  analógicos y LoRa para Cykleo, y luego responsable del servicio de métodos:
+  industrialización, DFM y bancos de prueba.
+technologies: []
+cover: /projects/PUCK-Base---SpringCard.webp
+images:
+  - /projects/Springcard-1.webp
+  - /projects/Springcard-Logiciel-ERP-4.webp
+  - /projects/Springcard-Banc-de-test-3.webp
+  - /projects/Springcard-2-Puck.webp
+---
+Llegué a SpringCard con un DUT GEII y seis meses de CDI como técnico en mis manos, haciendo soporte en routage PCB. Me fui tres años después habiendo diseñado la antena del producto estrella de la empresa y dirigiendo el servicio de métodos. Entre los dos, una formación como ingeniero en Polytech Sorbonne y una PYME donde se toca todo porque somos diecinueve.
+
+Ese es el interés de una pequeña estructura: la distancia entre "entiendo el esquema" y "tengo mi nombre en la parte alta del producto en producción" se cuenta en meses, no en años.
+
+## El terreno: una casa francesa de sans-contact
+
+SpringCard diseña y fabrica en Francia acopladores y lectores RFID/NFC en 13,56 MHz, para el control de acceso, los transportes, el aparcamiento. Nacida a principios de los años 2000 de una escisión del bureau d'étude de Noralsy, marca Springcard en 2005, SpringCard SAS en 2015. Modelo 100% B2B, con clientes como Thales, Sagem, Aeropuerto de París — y los 35 000 lectores que equipan las paradas Vélib' de París.
+
+La organización es simple y elocuente: hardware en Palaiseau (bajo la responsabilidad de Jérôme Chalbot, mi tutor), software en Angers, ensamblaje en el partner Prod2J. Una línea jerárquica corta, mucha autonomía por servicio. El tipo de lugar donde un aprendiz se ve confiado con proyectos reales porque no hay nadie más para llevarlos.
+
+
+![](/projects/Springcard-2-Puck.webp)
+
+
+## Los proyectos que me formaron
+
+Antes del Puck, dos productos Cykleo me sirvieron de banco de pruebas de tamaño natural.
+
+El **CykleoRail**, al principio de la formación, es un detector de presencia de bicicleta en parada. No se puede pesar debido a la heterogeneidad de la flota, por lo que se utiliza detección por ultrasonidos: pura analogía — filtrado, amplificación con AOP — exactamente lo que veía en los cursos de electrónica analógica en el mismo momento. Y como las estaciones a menudo no tienen conexión, es ahí donde implementé LoRa para la remontada de datos, en paralelo con mis cursos de IoT.
+
+
+![](/projects/Springcard-1.webp)
+
+
+El **Biketracker**, también para Cykleo, me hizo pasar al otro lado: diseño en ciclo en V, pero sobre todo dossier de viabilidad, oferta comercial, intercambio directo con el cliente, bajo la supervisión de Johann Dantant. Es ahí donde entendí que un proyecto hardware se juega tanto en la elección de los componentes — disponibilidad, obsolescencia, se prioriza Renesas para la vida útil — como en el esquema en sí.
+
+## El Puck, y su antena
+
+El **Puck** es el lector de escritorio que debía reemplazar una gran parte del portafolio concentrando la producción en un solo producto. Se ensambla en dos partes en la fábrica: el CPU Puck, y la parte alta — la antena Puck, en la que trabajé.
+
+
+![](/projects/Springcard-Banc-de-test-3.webp)
+
+
+Esta tarjeta no es solo un bucle. Apila varios oficios en unos pocos centímetros cuadrados:
+
+```
+flowchart TD
+  MCU["Microcontrolador Renesas RL78<br/>(esclavo, FreeRTOS)"] --> ANT["Antena RFID<br/>acordada 13,56 MHz · 50 Ω"]
+  MCU --> LED["LEDs RGB<br/>(comando directo)"]
+  MCU --> BUZ["Buzzer<br/>(via MOSFET)"]
+  DCDC["Alimentación DC/DC"] --> MCU
+  ANT -. "acoplamiento inductivo" .-> CARD["Tarjeta / etiqueta NFC"]
+```
+
+En el lado analógico, la antena RFID debe estar acordada para responder lo mejor posible a 13,56 MHz (ISO 18000-3), con una red de adaptación que devuelve la impedancia de pista a 50 Ω. Es una antena simétrica: el ajuste perfecto en el banco vacío no vale nada si se derrumba en cuanto se acerca una mano o un boíter, por lo que se diseña para el caso real, no para la medición ideal. Alrededor, LEDs RGB y un buzzer pilotados por el microcontrolador a través de MOSFET, y una alimentación DC/DC.
+
+En el lado firmware, el RL78 funciona bajo FreeRTOS en esclavo: responde a los comandos del resto del producto. Es el tipo de arquitectura que vuelvo a hacer hoy en día en sistemas embebidos, y es en esta tarjeta donde puse las bases.
+
+## Responsable de métodos: donde el diseño se encuentra con la fábrica
+
+En noviembre de 2020, el presidente me confió el servicio de métodos. Cambio de enfoque: ya no se diseña el producto, se asegura de que se fabrique rápido, bien y sin problemas. Es el año en que vi por qué un buen esquema no es suficiente.
+
+
+![](/projects/Springcard-Logiciel-ERP-4.webp)
+
+
+Dos correcciones resumen el espíritu del puesto, porque son invisibles en la simulación y brutales en serie.
+
+En el módulo OEM **K663** con antena simétrica, los prototipos pasaban sin problemas. En pre-industrialización, en grandes volúmenes, más del 37% de la producción salía con defectos de soldadura: un footprint mal dimensionado, que no se veía en la unidad pero explotaba a escala. Redimensionamiento de la huella, problema resuelto.
+
+En el **Puck**, las dos partes se soldan a mano en siete puntos. Los dos pines de masa se negaban a calentarse correctamente: el plano de masa de la antena disipaba demasiado, la soldadura se arrastraba. Hice modificar el espaciado de las masas en el gerber para reducir el tiempo de soldadura — por lo tanto, el tiempo técnico por producto, por lo tanto el costo de esta etapa.
+
+```
+flowchart LR
+  HW["Esquema hardware<br/>(equipo R&D)"] --> METH["Métodos :<br/>análisis del producto"]
+  METH --> CDC["Cahier des charges banc<br/>(bête à cornes · AMDEC)"]
+  CDC --> BANC["Concepción banc<br/>(ciclo en V)"]
+  BANC --> PROTO["Pruebas prototipo<br/>en condiciones fábrica"]
+  PROTO -->|"OK"| GAMME["Gama de fabricación"]
+  PROTO -->|"KO"| CDC
+```
+
+El resto del puesto giraba alrededor de eso: inventario y puesta al día de los bancos de pruebas (algunos para productos detenidos, otros con veinte años de funciones acumuladas), concepción de los nuevos bancos en ciclo en V, gestión de las nomenclaturas bajo Excalibur para absorber la escasez de componentes del Covid sin desviarse del cahier des charges ni del precio objetivo, y incluso el embalaje — la historia del cable USB-C de 2 m que finalmente se entregó pre-enrollado al diámetro correcto para que el técnico no lo desenrollara y volviera a enrollarlo en cada caja.
+
+Finalmente, monté el SAV a partir de cero: proceso RMA, documentación de reparación pensada para un técnico sin bagaje electrónico, y formaciones internas — la "Springcard Academy" — sobre electrónica general y soldadura de componentes 0201. La idea: que cada uno se vaya con una verdadera competencia, no solo con mano de obra.
+
+
+![](/projects/springcard-logo.webp)
+
+
+## Lo que retiro de esto
+
+Tres cosas han permanecido. El reflejo DFM: un producto se diseña para ser fabricado, no solo para funcionar en el prototipo. La idea de que la realidad siempre tiene razón sobre la simulación, aprendida con una antena desacordada y un plano de masa demasiado exigente al mismo tiempo. Y la gestión de equipo y proyecto, que me empujó a complementar Polytech con un cursus en IAE París.
+
+Una PYME de diecinueve personas no te enseña una especialidad, te enseña la cadena entera: desde el AOP hasta el gerber, del cliente al técnico de fábrica. Para empezar una carrera de ingeniero, es difícil de superar.

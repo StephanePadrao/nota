@@ -1,0 +1,208 @@
+{
+  "identity": {
+    "name": "Stéphane Padrao",
+    "initials": "SP",
+    "location": "Le Plessis-Robinson, France",
+    "locationLink": "https://www.google.com/maps/place/le+plessis-robinson+france",
+    "description": "Engenheiro por formação, Responsável por Produto por profissão, maker por escolha. De uma ideia rabiscada a uma placa eletrônica em produção. Escrevo sobre o produto, o design e a tecnologia.",
+    "summary": "Passei anos desenhando esquemas eletrônicos. O produto me alcançou. Projetar um produto é reunir restrições: técnica, uso, mercado, produção. Hoje Responsável por Produto, também construo meus próprios projetos de tecnologia em paralelo. A combinação engenheiro-PM é rara. O que observo dos dois lados, compartilho aqui.",
+    "avatarUrl": "/Profil-Pic.webp",
+    "email": "stephanepadrao@icloud.com"
+  },
+  "work": [
+    {
+      "company": "Zaack (Igienair)",
+      "href": "https://zaack.fr",
+      "badges": [
+        "Responsável por Produto"
+      ],
+      "location": "Achères, France",
+      "title": "Responsável por Produto",
+      "logoUrl": "/logos/zaack.webp",
+      "start": "Janvier 2024",
+      "end": "",
+      "description": "Engenheiro de hardware e Responsável por Produto. Cuido da arquitetura do produto, da estratégia, da gestão de projetos e das relações com fornecedores. Do circuito à linha de produção, com parceiros na China e na Europa. Gerencio uma equipe de 3 a 5 pessoas: eletrônica, software, mecânica."
+    },
+    {
+      "company": "Kickmaker",
+      "href": "https://kickmaker.co",
+      "badges": [],
+      "location": "Paris 15, France",
+      "title": "Gerente de Projeto",
+      "logoUrl": "/logos/kickmaker.png",
+      "start": "Juin 2022",
+      "end": "Janvier 2024",
+      "description": "Estúdio de desenvolvimento de produto hardware em Paris. Acompanho os clientes do POC ao PVT: eletrônica, mecânica, software, certificação. Hermès, ELAX Énergie, Javelot, Zaack. Um pé nas startups parisienses, o outro nas restrições industriais."
+    },
+    {
+      "company": "MCA Ingénierie / Carmat SA",
+      "href": "https://mca-ingenierie.fr",
+      "badges": [],
+      "location": "Levallois-Perret, France",
+      "title": "Engenheiro de design eletrônico",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=mca-ingenierie.fr",
+      "start": "Septembre 2021",
+      "end": "Février 2022",
+      "description": "Missão na Carmat, fabricante do coração artificial. Atualização dos arquivos de concepção, melhoria dos estágios de potência, análise dos defeitos detectados em produção."
+    },
+    {
+      "company": "Springcard SAS",
+      "href": "https://www.springcard.com",
+      "badges": [
+        "Alternância"
+      ],
+      "location": "Palaiseau, France",
+      "title": "Aprendiz de Engenheiro de Sistema Embarcado — Responsável por Produção",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=springcard.com",
+      "start": "Septembre 2018",
+      "end": "Juillet 2021",
+      "description": "3 anos de alternância em produtos NFC/RFID. Da esquematização ao PCB até a colocação em produção. Último ano: responsável pela produção, gestão de equipe e relações com fornecedores."
+    }
+  ],
+  "education": [
+    {
+      "school": "IAE Paris — Sorbonne Business School",
+      "href": "https://www.iae-paris.com",
+      "degree": "MBA Executivo MAE — Gestão e Administração de Empresas",
+      "logoUrl": "https://www.google.com/s2/favicons?sz=128&domain=iae-paris.com",
+      "start": "2020",
+      "end": "2022"
+    },
+    {
+      "school": "Polytech Sorbonne — Paris",
+      "href": "https://www.polytech.sorbonne-universite.fr",
+      "degree": "Diploma de Engenheiro — Eletrônica e Informática Industrial (EI2I)",
+      "logoUrl": "/logos/polytech.svg",
+      "start": "2018",
+      "end": "2021"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Gestão de Projeto & Fundamentos Ágeis",
+      "issuer": "Santander: Open Academy",
+      "date": "2026",
+      "href": ""
+    },
+    {
+      "name": "Liderança de Alto Desempenho: Lições da Fórmula 1®",
+      "issuer": "Santander: Open Academy",
+      "date": "2026",
+      "href": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Design eletrônico",
+      "icon": "CircuitBoard",
+      "color": "#6366f1"
+    },
+    {
+      "name": "C / C++ ARM32",
+      "icon": "Code2",
+      "color": "#0ea5e9"
+    },
+    {
+      "name": "KiCad / Altium",
+      "icon": "Cpu",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Certificação CE",
+      "icon": "ShieldCheck",
+      "color": "#22c55e"
+    },
+    {
+      "name": "SolidWorks & Fusion 360",
+      "icon": "Mechanical",
+      "color": ""
+    },
+    {
+      "name": "Industrialização de produto",
+      "icon": "Factory",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Linhas de produção",
+      "icon": "Wrench",
+      "color": "#f97316"
+    },
+    {
+      "name": "Compras & negociação",
+      "icon": "Handshake",
+      "color": "#10b981"
+    },
+    {
+      "name": "Pilotagem de projeto",
+      "icon": "Kanban",
+      "color": "#7c3aed"
+    },
+    {
+      "name": "Gestão multidisciplinar",
+      "icon": "Users",
+      "color": "#06b6d4"
+    },
+    {
+      "name": "Gestão de Produto",
+      "icon": "TrendingUp",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Estudo de mercado",
+      "icon": "BarChart2",
+      "color": "#ef4444"
+    }
+  ],
+  "hobbies": [
+    {
+      "name": "Aviação",
+      "icon": "Plane",
+      "color": "#3b82f6"
+    },
+    {
+      "name": "Espacial",
+      "icon": "Rocket",
+      "color": "#6366f1"
+    },
+    {
+      "name": "Novas tecnologias",
+      "icon": "Zap",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "F1 & WEC",
+      "icon": "Gauge",
+      "color": "#ef4444"
+    },
+    {
+      "name": "Música",
+      "icon": "Music",
+      "color": "#ec4899"
+    },
+    {
+      "name": "Séries & Filmes",
+      "icon": "Tv2",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Bricolagem & Fab",
+      "icon": "Hammer",
+      "color": "#d97706"
+    },
+    {
+      "name": "Leitura",
+      "icon": "BookOpen",
+      "color": "#22c55e"
+    },
+    {
+      "name": "Viagens",
+      "icon": "Globe",
+      "color": "#0d9488"
+    },
+    {
+      "name": "Fotografia",
+      "icon": "Camera",
+      "color": "#64748b"
+    }
+  ]
+}

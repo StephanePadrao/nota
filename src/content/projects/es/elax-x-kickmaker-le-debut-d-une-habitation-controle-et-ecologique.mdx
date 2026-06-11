@@ -1,0 +1,53 @@
+---
+title: 'Elax × Kickmaker : el comienzo de una vivienda controlada y ecológica'
+dates: '2023'
+active: false
+description: >-
+  Líder de proyecto en la fase DVT del módulo conectado Elax: validación,
+  certificación CE y pruebas ESD, entre un laboratorio en Francia y China.
+technologies:
+  - Chef de projet
+  - DVT
+  - Certification CE
+  - ESD / EMC
+cover: /projects/elax-cover.webp
+---
+En Kickmaker, intervení como jefe de proyecto en el dispositivo conectado de Elax Énergie, durante su fase de validación. El núcleo de la misión: llevar el producto hasta la certificación CE y coordinar las últimas actualizaciones del firmware. La distribución de roles era clara: Kickmaker diseñaba el hardware y el firmware, Elax el software del lado web.
+
+## elax, hacer que las calderas sean inteligentes
+
+Elax Énergie es una startup francesa con impacto. Su producto: un dispositivo que se coloca en una caldera existente y la hace inteligente. Desplaza el calentamiento hacia los momentos adecuados según el clima y la red eléctrica, reduce la factura hasta un 30% y aporta flexibilidad a la red. El dispositivo ya equipa a decenas de miles de viviendas, sobre todo en el sector de la vivienda social, y está diseñado y fabricado en Francia.
+
+![Varios dispositivos abiertos durante la campaña de validación.](/projects/elax-units.webp)
+
+## mi rol: jefe de proyecto en el DVT
+
+El **DVT** (Design Verification Test) es la fase en la que se verifica que el diseño cumple con todos los requisitos, antes de lanzar la producción. En el ciclo de desarrollo de hardware, sigue al EVT (se demuestra que el concepto funciona) y precede al PVT (se demuestra que se puede producir en serie). En el DVT, el diseño está congelado: se prueban unidades representativas contra las especificaciones funcionales, ambientales y, sobre todo, regulatorias. Es allí donde se juega la conformidad.
+
+Mi trabajo consistía en dirigir esta fase: mantener el cronograma, coordinar a los ingenieros de hardware y firmware de Kickmaker y al equipo web de Elax, y hacer que todo converja hacia la certificación.
+
+## la certificación CE, y las pruebas ESD
+
+El dispositivo está conectado a la red (95-305 V, 16 A) y se comunica sin cables: la marca CE cubre, por lo tanto, la compatibilidad electromagnética, la seguridad eléctrica y la parte de radio.
+
+El punto difícil fue el **ESD**, las descargas electrostáticas (norma IEC 61000-4-2). Se aplican al producto descargas de varios kilovoltios, y debe seguir funcionando o recuperarse solo. En un dispositivo con una tarjeta de radio y bornes accesibles, una descarga puede reiniciar el microcontrolador, perturbar la comunicación o incluso dañar un componente.
+
+![Análisis de fallo: un componente estresado durante las pruebas.](/projects/elax-defaut.webp)
+
+Cada fallo desencadenaba el mismo ciclo: análisis del fallo, corrección con los ingenieros de hardware (protecciones, plano de masa, sometimes firmware), nueva serie de muestras, reteste. Iterar rápidamente en este ciclo, sin hacer que el cronograma se desvíe, era el nervio de la guerra.
+
+## dos laboratorios, dos continentes
+
+La validación se llevó a cabo entre dos laboratorios. **SGS**, en Francia, para la campaña CEM y ESD. Y una parte de las **pruebas de seguridad subcontratadas en China**. Coordinar dos laboratorios en dos continentes es gestionar la logística de las muestras, los horarios de prueba, las re-pruebas después de la corrección y los desfases de calendario, todo mientras se mantiene una visión única del progreso.
+
+![Bancos de prueba: unidades bajo tensión continua durante la validación.](/projects/elax-test.webp)
+
+## firmware final y dirección de equipos
+
+En paralelo con la certificación, seguí las últimas actualizaciones del firmware que cerraban el proyecto. Concretamente: mantener el cronograma, arbitrar entre correcciones de hardware, evoluciones de firmware y necesidades de la aplicación web de Elax, y hacer que equipos que no dependían de la misma empresa trabajaran juntos.
+
+![La etiqueta del producto: «Controlador de caldera inteligente», marca CE, IP21, diseñado en Francia.](/projects/elax-ce.webp)
+
+## lo que saco de esto
+
+Una certificación no es una formalidad al final: es una fase que se debe dirigir como un proyecto por sí solo, con sus pruebas, sus fallos, sus correcciones y sus laboratorios. Llevar un producto conectado y conectado a la red hasta la marca CE, entre Francia y China, me ha enseñado tanto sobre la norma como sobre la coordinación de equipos que no comparten ni el mismo empleador ni el mismo huso horario.

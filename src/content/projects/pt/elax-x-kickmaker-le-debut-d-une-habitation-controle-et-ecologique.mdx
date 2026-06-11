@@ -1,0 +1,53 @@
+---
+title: 'Elax × Kickmaker : o início de uma habitação controlada e ecológica'
+dates: '2023'
+active: false
+description: >-
+  Líder de projeto na fase DVT do módulo conectado Elax: validação, certificação
+  CE e testes ESD, entre um laboratório na França e na China.
+technologies:
+  - Chef de projet
+  - DVT
+  - Certification CE
+  - ESD / EMC
+cover: /projects/elax-cover.webp
+---
+Na Kickmaker, eu atuei como gerente de projeto no dispositivo conectado da Elax Énergie, durante a fase de validação. O cerne da missão: levar o produto até a certificação CE e coordenar as últimas atualizações do firmware. A distribuição de papéis era clara: Kickmaker concebia o hardware e o firmware, Elax o software lado web.
+
+## elax, tornar as aquecedores de água inteligentes
+
+Elax Énergie é uma startup francesa de impacto. Seu produto: um dispositivo que se coloca sobre um aquecedor de água existente e o torna inteligente. Ele ajusta o aquecimento para os momentos certos de acordo com o clima e a rede elétrica, reduz a conta até 30% e traz flexibilidade à rede. O dispositivo já equipa dezenas de milhares de residências, principalmente no setor de habitação social, e é projetado e fabricado na França.
+
+![Vários dispositivos abertos durante a campanha de validação.](/projects/elax-units.webp)
+
+## meu papel: gerente de projeto no DVT
+
+O **DVT** (Design Verification Test) é a fase em que verificamos se o design atende a todas as suas exigências, antes de iniciar a produção. No ciclo de desenvolvimento de hardware, ele segue o EVT (prova-se que o conceito funciona) e precede o PVT (prova-se que se sabe produzi-lo em série). No DVT, o design é fixo: testamos unidades representativas contra as especificações funcionais, ambientais e, principalmente, regulamentares. É aí que se decide a conformidade.
+
+Meu trabalho consistia em pilotar essa fase: manter o cronograma, coordenar os engenheiros de hardware e firmware da Kickmaker e a equipe web da Elax, e fazer convergir todo o processo para a certificação.
+
+## a certificação CE e os testes ESD
+
+O dispositivo é conectado à rede (95-305 V, 16 A) e se comunica sem fio: a marca CE abrange, portanto, a compatibilidade eletromagnética, a segurança elétrica e a parte de rádio.
+
+O ponto difícil foi o **ESD**, as descargas eletrostáticas (norma IEC 61000-4-2). Aplicamos ao produto descargas de vários quilovolts, e ele deve continuar funcionando ou se recuperar sozinho. Em um dispositivo com uma placa de rádio e bornes acessíveis, uma descarga pode reinicializar o microcontrolador, perturbar a comunicação ou até danificar um componente.
+
+![Análise de falha: um componente estressado durante os testes.](/projects/elax-defaut.webp)
+
+Cada falha disparava o mesmo ciclo: análise da falha, correção com os engenheiros de hardware (proteções, plano de massa, às vezes firmware), nova série de amostras, reteste. Iterar rapidamente nesse ciclo, sem fazer o cronograma derivar, era o nervo da guerra.
+
+## dois laboratórios, dois continentes
+
+A validação ocorreu entre dois laboratórios. **SGS**, na França, para a campanha CEM e ESD. E uma parte dos **testes de segurança terceirizados na China**. Coordenar dois laboratórios em dois continentes é gerenciar a logística das amostras, os horários de teste, os retestes após correção e os desvios de calendário, tudo enquanto se mantém uma visão única do progresso.
+
+![Bancos de teste: unidades sob tensão contínua durante a validação.](/projects/elax-test.webp)
+
+## firmware final e gerenciamento de equipes
+
+Em paralelo à certificação, acompanhei as últimas atualizações do firmware que encerravam o projeto. Concretamente: manter o cronograma, arbitrar entre correções de hardware, evoluções de firmware e necessidades da aplicação web da Elax, e fazer as equipes trabalharem juntas, embora não dependessem da mesma empresa.
+
+![A etiqueta do produto: «Controlador de aquecedor de água inteligente», marca CE, IP21, projetado na França.](/projects/elax-ce.webp)
+
+## o que eu retiro disso
+
+Uma certificação não é uma formalidade de fim: é uma fase a ser pilotada como um projeto à parte, com seus testes, falhas, correções e laboratórios. Levar um produto de consumo conectado e conectado à rede até a marca CE, entre a França e a China, me ensinou tanto sobre a norma quanto sobre a coordenação de equipes que não compartilham nem o mesmo empregador nem o mesmo fuso horário.

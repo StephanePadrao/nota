@@ -1,0 +1,67 @@
+---
+title: 'Javelot × Kickmaker : un primer paso hacia la agricultura conectada'
+dates: '2023'
+active: false
+description: >-
+  Acompañamiento en fase avanzada de la deeptech agrícola Javelot: definir la
+  próxima generación de sonda conectada, desde el estudio de mercado hasta el
+  PRD.
+technologies:
+  - Avant-projet
+  - Capteurs IoT
+  - Étude de marché
+  - PRD
+cover: /projects/javelot-cover.webp
+---
+En Kickmaker, acompañé a Javelot, una deeptech agrícola que conecta los silos de grano, en un proyecto en fase avanzada: definir la próxima generación de su sonda, con nuevos sensores, y sacar un PRD completo listo para lanzar el desarrollo. Un trabajo teórico, pero enmarcado como un verdadero producto.
+
+## Javelot, la deeptech que supervisa el grano
+
+Javelot (Wasquehal, cerca de Lille, fundada en 2018) ha digitalizado la poscosecha. Las sondas plantadas en el grano miden la temperatura varias veces al día y remontan los datos a través de la red de baja velocidad Sigfox, sin electricidad ni wifi. El agricultor sigue sus existencias desde una aplicación, y el sistema controla automáticamente la ventilación. El beneficio es concreto: hasta un 90 % menos de pesticidas y una reducción significativa del consumo de ventilación. Tres gamas estructuran la oferta: Flat'Javelot para el almacenamiento plano, Verti'Javelot para las celdas verticales, Venti'Javelot para la ventilación.
+
+![La cosecha, justo antes del verdadero desafío: conservar el grano durante los meses de almacenamiento.](/projects/javelot-moisson.webp)
+
+## La misión: una sonda que siente más que la temperatura
+
+La sonda histórica mide principalmente la temperatura. Sin embargo, en un montón de grano, la temperatura es una señal de alerta tardía: cuando sube, el daño ya está hecho. El objetivo del proyecto avanzado era definir una sonda capaz de detectar más temprano, agregando dos medidas clave.
+
+- **La humedad** (higrometría): el primer factor de calentamiento y mohosis.
+- **El CO2**: un marcador temprano de la actividad biológica (insectos, germinación, respiración del grano), mucho antes de que la temperatura cambie.
+
+![El grano que se debe preservar de la humedad, los insectos y el calentamiento.](/projects/javelot-grain.webp)
+
+Medir más temprano, es ventilar más justo y tratar menos. Todo el valor del producto está ahí.
+
+## Estudio de mercado: dónde se sitúa Javelot
+
+Antes de especificar nada, cartografié la competencia. El mercado de monitoreo de grano está maduro a nivel internacional: OPI (gama Integris, cables de temperatura y humedad, sondas de insectos Insector), Bin-Sense (IntraGrain, Canadá), Centaur (sin cable, alertas de alteración), AGI SureTrack. La mayoría se basan en cables fijos instalados en celdas metálicas, en mercados principalmente norteamericanos.
+
+La fuerza de Javelot, que se debe preservar en la nueva versión: la sonda móvil plantada directamente en el montón, la red Sigfox sin infraestructura, y el control de la ventilación. Agregar la humedad y el CO2 sin perder esta simplicidad de despliegue, era el verdadero desafío.
+
+## De las necesidades a las opciones tecnológicas
+
+Del estudio surgieron las necesidades, y luego las opciones técnicas.
+
+En cuanto a las **necesidades**: medir temperatura, humedad y CO2 a lo largo de la sonda, durar varios años con batería (sin sector en el campo), resistir la inserción en el grano y el polvo, y mantener la compatibilidad con la aplicación y la red existentes.
+
+En cuanto a las **opciones**: un sensor de CO2 NDIR (infrarrojo no dispersivo) por su robustez y selectividad, un sensor de humedad capacitivo. Como el NDIR consume, definí una medición cadenciada y un duty cycling agresivo para preservar la autonomía. Sigfox se conserva para la continuidad con el parque existente, lo que impone un arbitraje sobre el volumen de datos, ya que los mensajes Sigfox son cortos. Y en cuanto a la mecánica, los sensores debían integrarse en el perfil de la sonda sin obstaculizar su inserción en el grano.
+
+![Almacenamiento en la granja: silos y edificios, el terreno de juego de Javelot.](/projects/javelot-ferme.webp)
+
+## Planificación, riesgos, beneficios
+
+Establecí un plan de concepción por fases: viabilidad de los sensores, prototipo, pruebas en condiciones reales de almacenamiento, y luego industrialización, con los hitos y las dependencias entre ellos.
+
+Los **riesgos** eran claros: el consumo del sensor CO2 frente a la autonomía deseada, la calibración de la humedad en un entorno polvoriento, el débito Sigfox frente a un volumen de datos más importante, y el sobrecoste por sonda frente al precio de mercado.
+
+Los **beneficios**, por otro lado, justificaban el riesgo: una detección más temprana, por lo tanto menos pérdidas y menos tratamientos, una verdadera diferenciación de producto, y una mejora de gama sin romper el modelo de despliegue que hace el éxito de Javelot.
+
+## El entregable: un PRD completo
+
+Todo se condensó en un PRD (Documento de Requisitos de Producto): contexto y mercado, necesidades y usos, funciones y requisitos (medidas, precisión, autonomía, entorno), restricciones y opciones técnicas, planificación, riesgos y arbitrajes. Un documento que permite a Javelot lanzar el desarrollo sabiendo qué construir, por qué, y qué queda por mitigar.
+
+Eso es lo que es la fase avanzada: transformar una intuición de producto en un cuaderno de especificaciones acciónables, antes de comprometer un solo euro de desarrollo.
+
+---
+
+*Fotos de ilustración libres de derechos (Unsplash). No tenía acceso a los visuales del producto de Javelot; estas imágenes ilustran el dominio, no su material.*
