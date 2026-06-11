@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-const LOCALE_TAG: Record<Lang, string> = { fr: "fr-FR", en: "en-US" };
+const LOCALE_TAG: Record<Lang, string> = { fr: "fr-FR", en: "en-US", es: "es-ES", pt: "pt-PT" };
 
 export function formatDate(date: string, lang: Lang = "fr", opts?: Intl.DateTimeFormatOptions) {
   if (!date.includes("T")) {

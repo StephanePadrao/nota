@@ -12,14 +12,16 @@ const NOTA_ROOT = process.env.NOTA_PATH
 const PROFILE_FILES: Record<Lang, string> = {
   fr: path.join(NOTA_ROOT, "src/data/profile.json"),
   en: path.join(NOTA_ROOT, "src/data/profile.en.json"),
+  es: path.join(NOTA_ROOT, "src/data/profile.es.json"),
+  pt: path.join(NOTA_ROOT, "src/data/profile.pt.json"),
 };
 
 const str = (v: unknown) => (v == null ? "" : String(v));
 
 export function readProfile(lang: Lang = DEFAULT_LANG): Profile {
   const file = PROFILE_FILES[lang];
-  // EN absent → repli sur le FR (jamais de profil vide à traduire), comme côté site.
-  if (!fs.existsSync(file)) return lang === "en" ? readProfile("fr") : EMPTY_PROFILE;
+  // Traduction absente → repli sur le FR (jamais de profil vide à traduire), comme côté site.
+  if (!fs.existsSync(file)) return lang === DEFAULT_LANG ? EMPTY_PROFILE : readProfile(DEFAULT_LANG);
   try {
     const raw = JSON.parse(fs.readFileSync(file, "utf8")) as Partial<Profile>;
     return {

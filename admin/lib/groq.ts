@@ -59,20 +59,23 @@ export async function callGroq(
 // Système dédié : préserve la voix de l'auteur ET la structure MDX. Corps et
 // champs de frontmatter sont traduits séparément pour protéger la structure.
 
-function buildTranslationSystemPrompt(): string {
+const LANG_NAME: Record<Lang, string> = { fr: "French", en: "English", es: "Spanish", pt: "Portuguese" };
+
+function buildTranslationSystemPrompt(target: Lang = "en"): string {
   const style = readEditorialStyle();
-  return `You translate the author's French portfolio content into natural, idiomatic English.
+  const name = LANG_NAME[target] ?? "English";
+  return `You translate the author's French portfolio content into natural, idiomatic ${name}.
 Author's voice to preserve: ${style.voice.persona}
 
 CRITICAL RULES:
-- Translate French → English. Keep the author's direct, concrete, jargon-free voice.
+- Translate French → ${name}. Keep the author's direct, concrete, jargon-free voice.
 - Preserve Markdown/MDX structure EXACTLY: headings (#), lists, blockquotes (>), links, image syntax ![alt](url), tables, bold/italic, line breaks, frontmatter.
 - NEVER translate or alter: code, fenced code-block contents and their language tags, JSX/MDX tags and attributes, import/export lines, URLs, file paths, technology names, proper nouns, function or identifier names, numbers and units.
 - Inside Mermaid or other diagram code fences, translate ONLY the human-readable label text inside quotes; keep node IDs, arrows and diagram syntax intact.
 - Do not add, remove or reorder content. Output ONLY the translation — no commentary, no surrounding quotes, no extra code fences.`;
 }
 
-export async function translateText(text: string): Promise<string> {
+export async function translateText(text: string, target: Lang = "en"): Promise<string> {
   if (!text.trim()) return "";
   const groq = getClient();
   const response = await groq.chat.completions.create({
@@ -80,7 +83,7 @@ export async function translateText(text: string): Promise<string> {
     temperature: 0.2,
     max_tokens: 8192,
     messages: [
-      { role: "system", content: buildTranslationSystemPrompt() },
+      { role: "system", content: buildTranslationSystemPrompt(target) },
       { role: "user", content: text },
     ],
   });
@@ -90,7 +93,8 @@ export async function translateText(text: string): Promise<string> {
 // Traduit un lot de champs courts (titre, description, légendes…) en un seul appel,
 // en JSON pour garantir le mapping clé→valeur sans casser la structure.
 export async function translateFields(
-  fields: Record<string, string>
+  fields: Record<string, string>,
+  target: Lang = "en"
 ): Promise<Record<string, string>> {
   const entries = Object.entries(fields).filter(([, v]) => v.trim());
   if (entries.length === 0) return {};
@@ -104,8 +108,8 @@ export async function translateFields(
       {
         role: "system",
         content:
-          buildTranslationSystemPrompt() +
-          "\n\nReturn a JSON object with EXACTLY the same keys as the input; translate each string value to English. Do not add, remove or rename keys.",
+          buildTranslationSystemPrompt(target) +
+          `\n\nReturn a JSON object with EXACTLY the same keys as the input; translate each string value to ${LANG_NAME[target] ?? "English"}. Do not add, remove or rename keys.`,
       },
       { role: "user", content: JSON.stringify(Object.fromEntries(entries)) },
     ],

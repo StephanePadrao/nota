@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { getPost, savePost } from "@/lib/blog";
 import { translateText, translateFields } from "@/lib/groq";
+import { parseLang } from "@/lib/i18n";
 
-// Traduit l'article FR canonique → écrit la variante EN (en/<slug>.mdx).
+// Traduit l'article FR canonique → écrit la variante de la locale cible (?lang=en|es|pt).
 // Prose traduite (titre, description, corps) ; champs structurels conservés
 // (date, cover, tags, statut brouillon).
 export async function POST(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const session = await auth();
@@ -17,15 +18,16 @@ export async function POST(
   }
 
   const { slug } = await params;
+  const raw = new URL(req.url).searchParams.get("lang");
+  const target = raw ? parseLang(raw) : "en";
+  if (target === "fr") return NextResponse.json({ error: "Langue cible invalide" }, { status: 400 });
+
   const fr = getPost(slug, "fr");
   if (!fr) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   try {
-    const fields = await translateFields({
-      title: fr.title,
-      description: fr.description,
-    });
-    const body = await translateText(fr.body);
+    const fields = await translateFields({ title: fr.title, description: fr.description }, target);
+    const body = await translateText(fr.body, target);
 
     savePost(
       slug,
@@ -38,7 +40,7 @@ export async function POST(
         draft: fr.draft,
         body,
       },
-      "en"
+      target
     );
     return NextResponse.json({ ok: true });
   } catch (err) {

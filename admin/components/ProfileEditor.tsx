@@ -70,11 +70,11 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
   const [profile, setProfile] = useState<Profile>(initial);
   const [saving, setSaving] = useState(false);
 
-  const { lang, translating, status, setStatus, markClean, switchLang, translate } = useLangEditing<Profile>({
+  const { lang, translating, transExists, status, setStatus, markClean, switchLang, translate } = useLangEditing<Profile>({
     exists: true,
-    enAlwaysAvailable: true, // profile.en.json (avec repli FR) existe toujours
+    enAlwaysAvailable: true, // profile.<lang>.json (avec repli FR) existe toujours
     getUrl: (l) => `/api/profile?lang=${l}`,
-    translateUrl: () => `/api/profile/translate`,
+    translateUrl: (target) => `/api/profile/translate?lang=${target}`,
     serialize: () => JSON.stringify(profile),
     serializeData: (d) => JSON.stringify(d),
     apply: (d) => setProfile(d),
@@ -133,7 +133,7 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
         <EditorLangBar
           hasItem={true}
           lang={lang}
-          enExists={true}
+          transExists={transExists}
           translating={translating}
           onSwitch={switchLang}
           onTranslate={translate}
@@ -148,9 +148,9 @@ export default function ProfileEditor({ initial }: { initial: Profile }) {
 
       <div className="flex-1 overflow-y-auto p-4 sm:p-6">
         <div className="max-w-4xl mx-auto space-y-10">
-          {lang === "en" && (
+          {lang !== "fr" && (
             <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-800">
-              Profil anglais (profile.en.json) — relis, ajuste, puis <b>Sauvegarder</b>. Pour repartir du français, utilise « Retraduire EN » depuis l&apos;onglet FR.
+              Profil {lang.toUpperCase()} (profile.{lang}.json) : relis, ajuste, puis <b>Sauvegarder</b>. Pour repartir du français, retraduis depuis l&apos;onglet FR.
             </div>
           )}
           <p className="text-xs text-zinc-400">

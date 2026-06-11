@@ -2,16 +2,21 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { readProfile, writeProfile, type Profile } from "@/lib/profile";
 import { translateFields } from "@/lib/groq";
+import { parseLang } from "@/lib/i18n";
 
-// Traduit le profil FR (CV) → écrit profile.en.json. Prose traduite (accroche,
-// résumé, postes, descriptions, badges, diplômes, compétences, hobbies, certifs) ;
+// Traduit le profil FR (CV) → écrit profile.<lang>.json (?lang=en|es|pt). Prose traduite
+// (accroche, résumé, postes, descriptions, badges, diplômes, compétences, hobbies, certifs) ;
 // structurel conservé (icônes, couleurs, URLs, logos, dates, entreprises, écoles).
-export async function POST() {
+export async function POST(req: Request) {
   const session = await auth();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   if (!process.env.GROQ_API_KEY) {
     return NextResponse.json({ error: "GROQ_API_KEY non configurée" }, { status: 503 });
   }
+
+  const raw = new URL(req.url).searchParams.get("lang");
+  const target = raw ? parseLang(raw) : "en";
+  if (target === "fr") return NextResponse.json({ error: "Langue cible invalide" }, { status: 400 });
 
   const fr = readProfile("fr");
 
@@ -33,7 +38,7 @@ export async function POST() {
       fields[`c${i}_iss`] = c.issuer;
     });
 
-    const tr = await translateFields(fields);
+    const tr = await translateFields(fields, target);
     const pick = (key: string, fallback: string) => tr[key] ?? fallback;
 
     const en: Profile = {
@@ -58,7 +63,7 @@ export async function POST() {
       hobbies: fr.hobbies.map((h, i) => ({ ...h, name: pick(`h${i}`, h.name) })),
     };
 
-    writeProfile(en, "en");
+    writeProfile(en, target);
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Translate profile error:", err);

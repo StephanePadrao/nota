@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import { buildData } from "@/data/resume";
 import { CONFIG } from "@/data/config";
-import { defaultLang, localizeHref, localeUrl, stripLangPrefix, useTranslations, type Lang } from "@/i18n/ui";
+import { defaultLang, localizeHref, localeUrl, stripLangPrefix, useTranslations, languages, localeOg, type Lang } from "@/i18n/ui";
 import { DiagonalGrid } from "@/components/magicui/diagonal-grid";
 import Lightbox from "@/components/Lightbox.astro";
 
@@ -36,16 +36,17 @@ const { baseFontSize } = CONFIG.typography;
 
 const currentPath = Astro.url.pathname;
 
-// Liens alternés FR/EN pour la page courante (hreflang + sélecteur de langue).
+// Liens par locale pour la page courante (hreflang + sélecteur de langue).
 const basePath = stripLangPrefix(currentPath);
-const frHref = localeUrl(basePath, "fr", CONFIG.site.url);
-const enHref = localeUrl(basePath, "en", CONFIG.site.url);
 // Canonical normalisé par défaut (slash final), surclassable par la page.
 const canonicalURL = Astro.props.canonicalURL ?? localeUrl(basePath, lang, CONFIG.site.url);
-const otherLang: Lang = lang === "fr" ? "en" : "fr";
-const switchHref = localizeHref(basePath, otherLang);
-const switchLabel = otherLang.toUpperCase();
-const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
+const allLangs = Object.keys(languages) as Lang[];
+const langLinks = allLangs.map((l) => ({
+  code: l,
+  label: languages[l],
+  href: localizeHref(basePath, l),
+  current: l === lang,
+}));
 ---
 
 <html
@@ -134,10 +135,11 @@ const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- hreflang: versions FR/EN de la page courante -->
-    <link rel="alternate" hreflang="fr" href={frHref} />
-    <link rel="alternate" hreflang="en" href={enHref} />
-    <link rel="alternate" hreflang="x-default" href={frHref} />
+    <!-- hreflang: une version par locale + x-default (FR) -->
+    {allLangs.map((l) => (
+      <link rel="alternate" hreflang={l} href={localeUrl(basePath, l, CONFIG.site.url)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={localeUrl(basePath, defaultLang, CONFIG.site.url)} />
 
     <!-- Robots -->
     <meta name="robots" content={CONFIG.seo.robots} />
@@ -153,8 +155,10 @@ const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={DATA.name} />
-    <meta property="og:locale" content={t.ogLocale} />
-    <meta property="og:locale:alternate" content={t.ogLocaleAlternate} />
+    <meta property="og:locale" content={localeOg[lang]} />
+    {allLangs.filter((l) => l !== lang).map((l) => (
+      <meta property="og:locale:alternate" content={localeOg[l]} />
+    ))}
     <meta property="og:image" content={ogImage} />
 
     <!-- Twitter -->
@@ -218,17 +222,33 @@ const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
             </a>
           ))}
 
-          <!-- Sélecteur de langue FR/EN -->
-          <a
-            href={switchHref}
-            aria-label={switchAria}
-            class="size-8 flex items-center justify-center rounded-full text-xs font-semibold
-                   bg-background/80 backdrop-blur-sm border border-border/40
-                   text-muted-foreground hover:text-foreground transition-colors
-                   pointer-events-auto"
-          >
-            {switchLabel}
-          </a>
+          <!-- Sélecteur de langue (FR/EN/ES/PT) -->
+          <details class="relative pointer-events-auto" id="lang-switch">
+            <summary
+              aria-label={t.langSwitch.label}
+              class="size-8 flex items-center justify-center rounded-full text-xs font-semibold
+                     bg-background/80 backdrop-blur-sm border border-border/40
+                     text-muted-foreground hover:text-foreground transition-colors cursor-pointer
+                     list-none [&::-webkit-details-marker]:hidden"
+            >
+              {lang.toUpperCase()}
+            </summary>
+            <div class="absolute right-0 mt-1.5 w-36 rounded-xl border border-border/40 bg-background/95 backdrop-blur-sm shadow-lg overflow-hidden z-50">
+              {langLinks.map((l) => (
+                <a
+                  href={l.href}
+                  hreflang={l.code}
+                  class={`block px-3 py-1.5 text-xs transition-colors ${
+                    l.current
+                      ? "bg-accent text-foreground font-medium"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  }`}
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </details>
 
           <!-- Toggle dark/light -->
           <button
@@ -273,6 +293,11 @@ const switchAria = otherLang === "en" ? t.langSwitch.toEn : t.langSwitch.toFr;
       document.getElementById("theme-toggle").addEventListener("click", function () {
         var isDark = document.documentElement.classList.toggle("dark");
         try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch (_) {}
+      });
+      // Ferme le menu de langue au clic extérieur.
+      document.addEventListener("click", function (e) {
+        var d = document.getElementById("lang-switch");
+        if (d && d.open && !d.contains(e.target)) d.removeAttribute("open");
       });
     </script>
   </body>

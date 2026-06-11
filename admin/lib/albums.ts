@@ -14,9 +14,9 @@ function safeSlug(slug: string) {
     throw new Error("Invalid slug");
 }
 
-// FR canonique à la racine ; EN dans le sous-dossier `en/`.
+// FR canonique à la racine ; EN/ES/PT dans le sous-dossier `<lang>/`.
 function dirFor(lang: Lang) {
-  return lang === "en" ? path.join(ALBUMS_DIR, "en") : ALBUMS_DIR;
+  return lang === DEFAULT_LANG ? ALBUMS_DIR : path.join(ALBUMS_DIR, lang);
 }
 function fileFor(slug: string, lang: Lang) {
   safeSlug(slug);

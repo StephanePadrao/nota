@@ -10,11 +10,15 @@ import { Mechanical } from "@/components/ui/svgs/mechanical";
 import profileFr from "./profile.json";
 import { defaultLang, localizeHref, useTranslations, type Lang } from "@/i18n/ui";
 
-// profile.en.json est optionnel : chargé via glob (eager) pour NE PAS casser le
+// profile.<lang>.json est optionnel : chargé via glob (eager) pour NE PAS casser le
 // build s'il est absent — repli FR par design, cohérent avec l'admin.
 const enProfileModules = import.meta.glob("./profile.en.json", { eager: true, import: "default" });
+const esProfileModules = import.meta.glob("./profile.es.json", { eager: true, import: "default" });
+const ptProfileModules = import.meta.glob("./profile.pt.json", { eager: true, import: "default" });
 const profileEn = (Object.values(enProfileModules)[0] ?? profileFr) as typeof profileFr;
-const profiles: Record<Lang, typeof profileFr> = { fr: profileFr, en: profileEn };
+const profileEs = (Object.values(esProfileModules)[0] ?? profileFr) as typeof profileFr;
+const profilePt = (Object.values(ptProfileModules)[0] ?? profileFr) as typeof profileFr;
+const profiles: Record<Lang, typeof profileFr> = { fr: profileFr, en: profileEn, es: profileEs, pt: profilePt };
 
 type IconComponent = React.ComponentType<{ className?: string; color?: string }>;
 

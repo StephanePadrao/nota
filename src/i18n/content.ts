@@ -1,37 +1,47 @@
-// Contenu bilingue par sous-dossier de locale : `slug.mdx` (FR canonique, à la
-// racine de la collection) + `en/slug.mdx` (EN). L'id de collection Astro vaut
-// "slug" (FR) ou "en/slug" (EN) — le séparateur `/` survit à la slugification,
-// contrairement à un suffixe `.en`. On dérive la langue et le slug de base, et on
-// sélectionne l'entrée de la locale avec fallback FR.
+// Contenu multilingue par sous-dossier de locale : `slug.mdx` (FR canonique, à la
+// racine de la collection) + `en/slug.mdx`, `es/slug.mdx`, `pt/slug.mdx`. L'id de
+// collection Astro vaut "slug" (FR) ou "<lang>/slug" — le séparateur `/` survit à la
+// slugification. On dérive la langue et le slug de base, et on sélectionne l'entrée de
+// la locale demandée avec repli FR.
 
 import { defaultLang, type Lang } from "./ui";
 
+// Locales stockées dans un sous-dossier (toutes sauf le FR canonique).
+const PREFIXED: Lang[] = ["en", "es", "pt"];
+
 export function entryLang(id: string): Lang {
-  return id.startsWith("en/") ? "en" : defaultLang;
+  for (const l of PREFIXED) {
+    if (id.startsWith(`${l}/`)) return l;
+  }
+  return defaultLang;
 }
 
 export function baseSlug(id: string): string {
-  return id.replace(/^en\//, "");
+  return id.replace(/^(en|es|pt)\//, "");
 }
 
 interface HasId {
   id: string;
 }
 
-// Pour chaque slug de base, renvoie l'entrée de la locale demandée si elle existe,
-// sinon l'entrée FR (le site EN n'est jamais cassé). Le slug exposé est toujours le
-// slug de base → URLs propres identiques entre locales (/projects/x et /en/projects/x).
+// Pour chaque slug de base (présent en FR), renvoie l'entrée de la locale demandée si
+// elle existe, sinon l'entrée FR. Le slug exposé est toujours le slug de base → URLs
+// propres identiques entre locales (/projects/x, /en/projects/x, /es/projects/x…).
 export function entriesForLang<T extends HasId>(all: T[], lang: Lang): { slug: string; entry: T }[] {
-  const fr = new Map<string, T>();
-  const translated = new Map<string, T>();
+  const byBase = new Map<string, Partial<Record<Lang, T>>>();
 
   for (const entry of all) {
     const slug = baseSlug(entry.id);
-    (entryLang(entry.id) === defaultLang ? fr : translated).set(slug, entry);
+    const group = byBase.get(slug) ?? {};
+    group[entryLang(entry.id)] = entry;
+    byBase.set(slug, group);
   }
 
-  return [...fr.entries()].map(([slug, frEntry]) => ({
-    slug,
-    entry: lang === defaultLang ? frEntry : translated.get(slug) ?? frEntry,
-  }));
+  const out: { slug: string; entry: T }[] = [];
+  for (const [slug, group] of byBase) {
+    const frEntry = group[defaultLang];
+    if (!frEntry) continue; // pas de FR canonique : on n'expose pas
+    out.push({ slug, entry: lang === defaultLang ? frEntry : group[lang] ?? frEntry });
+  }
+  return out;
 }

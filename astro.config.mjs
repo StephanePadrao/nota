@@ -18,9 +18,9 @@ export default defineConfig({
   site: CONFIG.site.url,
   output: "static",
 
-  // FR à la racine, EN préfixé /en. Pas de redirection forcée du défaut.
+  // FR à la racine, EN/ES/PT préfixés (/en, /es, /pt). Pas de redirection forcée du défaut.
   i18n: {
-    locales: ["fr", "en"],
+    locales: ["fr", "en", "es", "pt"],
     defaultLocale: "fr",
     routing: { prefixDefaultLocale: false },
   },
@@ -39,10 +39,10 @@ export default defineConfig({
       syntaxHighlight: false,
     }),
     sitemap({
-      // Codes alignés sur les balises hreflang du HTML (fr/en, pas fr-FR/en-US).
+      // Codes alignés sur les balises hreflang du HTML (fr/en/es/pt).
       i18n: {
         defaultLocale: "fr",
-        locales: { fr: "fr", en: "en" },
+        locales: { fr: "fr", en: "en", es: "es", pt: "pt" },
       },
     }),
   ],
