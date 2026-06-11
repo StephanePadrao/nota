@@ -6,7 +6,7 @@ Site Astro 6 statique déployé sur `https://spadrao.erro.cloud`.
 
 - **Framework** : Astro 6.2 (`output: "static"`)
 - **UI** : React (composants interactifs), TailwindCSS v4, shadcn/ui
-- **Contenu** : MDX dans `src/content/blog/`
+- **Contenu** : MDX dans `src/content/{projects,albums,blog}` (+ versions `en/`), éditable via l'admin
 - **Données** : tout dans `src/data/resume.tsx` (CV, skills, navbar) + `src/data/config.ts` (thème, couleurs, URL)
 - **Fonts** : Outfit Variable (sans-serif), Geist Mono (code)
 - **Thème** : amber — `oklch(0.52 0.17 55)` light / `oklch(0.74 0.16 55)` dark
@@ -47,19 +47,22 @@ La clé SSH est sur le poste local (chemin à adapter). Le build génère `dist/
 
 ## Écrire un article
 
-Créer `src/content/blog/mon-article.mdx` :
+Le plus simple : via l'admin (section **Blog**, onglets FR/EN, bascule brouillon/publié, traduction Groq). Sinon, créer `src/content/blog/mon-article.mdx` (EN dans `src/content/blog/en/`) :
 
 ```mdx
 ---
 title: "Titre de l'article"
-publishedAt: 2026-05-10
-summary: "Résumé en une ligne affiché sur la homepage"
+date: "2026-06-11"
+description: "Résumé affiché sur l'index et en meta"
+cover: /blog/mon-article/cover.webp
+tags: ["Agilité"]
+draft: false
 ---
 
 Contenu en Markdown ici.
 ```
 
-Le site le détecte automatiquement au prochain build.
+`draft: true` cache l'article du site. Le site le détecte au prochain build.
 
 ## Propriétaire
 
