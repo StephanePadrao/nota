@@ -1,0 +1,51 @@
+---
+title: "Elax × Kickmaker: the start of a controlled, eco-friendly home"
+dates: '2023'
+active: false
+description: "Project manager on the DVT phase of the Elax connected device: validation, CE certification and ESD testing, between a lab in France and China."
+technologies:
+  - Project management
+  - DVT
+  - CE certification
+  - ESD / EMC
+cover: /projects/elax-cover.webp
+---
+At Kickmaker, I came in as project manager on Elax Énergie's connected device, during its validation phase. The core of the mission: take the product through to CE certification and coordinate the final firmware updates. The split of roles was clear: Kickmaker designed the hardware and the firmware, Elax the web software.
+
+## elax, making water heaters smart
+
+Elax Énergie is a French impact startup. Its product: a device that clips onto an existing water heater and makes it smart. It shifts heating to the right moments based on weather and the power grid, cuts the bill by up to 30%, and brings flexibility to the grid. The device already equips tens of thousands of homes, mostly in social housing, and it is designed and manufactured in France.
+
+![Several devices opened during the validation campaign.](/projects/elax-units.webp)
+
+## my role: project manager on DVT
+
+**DVT** (Design Verification Test) is the phase where you verify that the design meets all of its requirements, before launching production. In the hardware development cycle, it follows EVT (proving the concept works) and precedes PVT (proving you can build it at scale). At DVT, the design is frozen: you test representative units against the functional, environmental and, above all, regulatory specifications. This is where conformity is decided.
+
+My job was to drive this phase: hold the schedule, coordinate Kickmaker's hardware and firmware engineers and Elax's web team, and bring the whole thing toward certification.
+
+## CE certification, and the ESD tests
+
+The device is mains-connected (95-305 V, 16 A) and communicates wirelessly: CE marking therefore covers electromagnetic compatibility, electrical safety and the radio part.
+
+The hard part was **ESD**, electrostatic discharge (IEC 61000-4-2). You apply discharges of several kilovolts to the product, and it has to keep working or recover on its own. On a device with a radio board and accessible terminals, a discharge can reset the microcontroller, disrupt communication, or even damage a component.
+
+![Failure analysis: a component stressed during the tests.](/projects/elax-defaut.webp)
+
+Each failure triggered the same loop: failure analysis, a fix with the hardware engineers (protection, ground plane, sometimes firmware), a new batch of samples, a retest. Iterating fast on that loop without letting the schedule drift was the name of the game.
+
+## two labs, two continents
+
+Validation played out between two laboratories. **SGS**, in France, for the EMC and ESD campaign. And part of the **safety tests subcontracted in China**. Coordinating two labs on two continents means managing sample logistics, test slots, retests after each fix and calendar gaps, all while keeping a single view of progress.
+
+![Test benches: units powered continuously during validation.](/projects/elax-test.webp)
+
+## final firmware and steering the teams
+
+Alongside certification, I followed the final firmware updates that closed the project. Concretely: holding the schedule, arbitrating between hardware fixes, firmware changes and the needs of Elax's web app, and getting teams that did not share the same employer to work together.
+
+![The product label: "Smart water heater controller", CE marking, IP21, designed in France.](/projects/elax-ce.webp)
+
+## what I take from it
+
+A certification is not an end-of-line formality: it's a phase to run like a project of its own, with its tests, its failures, its fixes and its labs. Taking a mains-connected, connected consumer product through to CE marking, between France and China, taught me as much about the standard as about coordinating teams that share neither the same employer nor the same time zone.

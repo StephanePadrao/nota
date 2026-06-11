@@ -1,8 +1,51 @@
 ---
-title: 'Elax x kickmaker : Le début d''une habitation controlé et écologique'
-dates: ''
+title: 'Elax × Kickmaker : le début d''une habitation contrôlée et écologique'
+dates: '2023'
 active: false
-description: ''
-technologies: []
+description: "Chef de projet sur la phase DVT du boîtier connecté Elax : validation, certification CE et essais ESD, entre un labo en France et la Chine."
+technologies:
+  - Chef de projet
+  - DVT
+  - Certification CE
+  - ESD / EMC
+cover: /projects/elax-cover.webp
 ---
+Chez Kickmaker, je suis intervenu comme chef de projet sur le boîtier connecté d'Elax Énergie, pendant sa phase de validation. Le cœur de la mission : amener le produit jusqu'à la certification CE et coordonner les dernières mises à jour du firmware. La répartition des rôles était claire : Kickmaker concevait le hardware et le firmware, Elax le logiciel côté web.
 
+## elax, rendre les chauffe-eau intelligents
+
+Elax Énergie est une startup française à impact. Son produit : un boîtier qui se pose sur un chauffe-eau existant et le rend intelligent. Il décale la chauffe vers les bons moments selon la météo et le réseau électrique, réduit la facture jusqu'à 30 % et apporte de la flexibilité au réseau. Le boîtier équipe déjà des dizaines de milliers de logements, surtout dans le logement social, et il est conçu et fabriqué en France.
+
+![Plusieurs boîtiers ouverts pendant la campagne de validation.](/projects/elax-units.webp)
+
+## mon rôle : chef de projet sur le DVT
+
+Le **DVT** (Design Verification Test) est la phase où l'on vérifie que le design répond à toutes ses exigences, avant de lancer la production. Dans le cycle de développement hardware, il suit l'EVT (on prouve que le concept fonctionne) et précède le PVT (on prouve qu'on sait le produire en série). Au DVT, le design est figé : on teste des unités représentatives contre les spécifications fonctionnelles, environnementales et surtout réglementaires. C'est là que se joue la conformité.
+
+Mon travail consistait à piloter cette phase : tenir le planning, coordonner les ingénieurs hardware et firmware de Kickmaker et l'équipe web d'Elax, et faire converger l'ensemble vers la certification.
+
+## la certification CE, et les essais ESD
+
+Le boîtier est raccordé au secteur (95-305 V, 16 A) et communique sans fil : le marquage CE couvre donc la compatibilité électromagnétique, la sécurité électrique et la partie radio.
+
+Le point dur, ça a été l'**ESD**, les décharges électrostatiques (norme IEC 61000-4-2). On applique au produit des décharges de plusieurs kilovolts, et il doit continuer à fonctionner ou récupérer seul. Sur un boîtier avec une carte radio et des borniers accessibles, une décharge peut réinitialiser le microcontrôleur, perturber la communication, voire endommager un composant.
+
+![Analyse de défaillance : un composant stressé pendant les essais.](/projects/elax-defaut.webp)
+
+Chaque échec déclenchait le même cycle : analyse de la défaillance, correctif avec les ingénieurs hardware (protections, plan de masse, parfois firmware), nouvelle série d'échantillons, retest. Itérer vite sur ce cycle, sans faire dériver le planning, c'était le nerf de la guerre.
+
+## deux labos, deux continents
+
+La validation s'est jouée entre deux laboratoires. **SGS**, en France, pour la campagne CEM et ESD. Et une partie des **essais de sécurité sous-traitée en Chine**. Coordonner deux labos sur deux continents, c'est gérer la logistique des échantillons, les créneaux de test, les retests après correctif et les écarts de calendrier, tout en gardant une vision unique de l'avancement.
+
+![Bancs d'essai : des unités sous tension en continu pendant la validation.](/projects/elax-test.webp)
+
+## firmware final et pilotage des équipes
+
+En parallèle de la certification, j'ai suivi les dernières mises à jour du firmware qui clôturaient le projet. Concrètement : tenir le planning, arbitrer entre correctifs hardware, évolutions firmware et besoins de l'application web d'Elax, et faire travailler ensemble des équipes qui ne dépendaient pas de la même entreprise.
+
+![L'étiquette produit : « Smart water heater controller », marquage CE, IP21, conçu en France.](/projects/elax-ce.webp)
+
+## ce que j'en retire
+
+Une certification, ce n'est pas une formalité de fin : c'est une phase à piloter comme un projet à part entière, avec ses essais, ses échecs, ses correctifs et ses laboratoires. Mener un produit grand public connecté et raccordé au secteur jusqu'au marquage CE, entre la France et la Chine, m'a autant appris sur la norme que sur la coordination d'équipes qui ne partagent ni le même employeur ni le même fuseau horaire.
