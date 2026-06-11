@@ -21,7 +21,7 @@ That's the whole point of a small outfit: the distance between "I understand the
 
 ## the ground: a French contactless house
 
-SpringCard designs and manufactures in France RFID/NFC couplers and readers at 13.56 MHz, for access control, transit and parking. Born in the early 2000s as a spin-off from Noralsy's design office, Springcard brand in 2005, SpringCard SAS in 2015. A 100% B2B model, with clients like Thales, Sagem, Aéroport de Paris — and the 35,000 readers fitted to Paris's Vélib' stations.
+SpringCard designs and manufactures in France RFID/NFC couplers and readers at 13.56 MHz, for access control, transit and parking. Born in the early 2000s as a spin-off from Noralsy's design office, Springcard brand in 2005, SpringCard SAS in 2015. A 100% B2B model, with clients like Thales, Sagem, Aéroport de Paris, and the 35,000 readers fitted to Paris's Vélib' stations.
 
 The organization is simple and telling: hardware in Palaiseau (under Jérôme Chalbot, my mentor), software in Angers, assembly at partner Prod2J. A short chain of command, plenty of autonomy per department. The kind of place where an apprentice is handed real projects because there's no one else to carry them.
 
@@ -33,17 +33,17 @@ The organization is simple and telling: hardware in Palaiseau (under Jérôme Ch
 
 Before the Puck, two Cykleo products served as full-scale testing grounds.
 
-The **CykleoRail**, early in the apprenticeship, is a bike-presence detector for a docking station. Weighing wasn't an option given how heterogeneous the fleet is, so detection is done with ultrasound: pure analog — filtering, op-amp-based amplification — exactly what I was covering in my analog electronics classes at the same time. And since the stations are often offline, that's where I put in LoRa for data backhaul, in parallel with my IoT courses.
+The **CykleoRail**, early in the apprenticeship, is a bike-presence detector for a docking station. Weighing wasn't an option given how heterogeneous the fleet is, so detection is done with ultrasound: pure analog (filtering, op-amp-based amplification) exactly what I was covering in my analog electronics classes at the same time. And since the stations are often offline, that's where I put in LoRa for data backhaul, in parallel with my IoT courses.
 
 
 ![](/projects/Springcard-1.webp)
 
 
-The **Biketracker**, again for Cykleo, moved me to the other side: V-model design, but above all a feasibility study, a commercial offer, direct exchange with the client, under Johann Dantant's supervision. That's where I understood that a hardware project is won as much on component choice — availability, obsolescence, we favored Renesas for longevity — as on the schematic itself.
+The **Biketracker**, again for Cykleo, moved me to the other side: V-model design, but above all a feasibility study, a commercial offer, direct exchange with the client, under Johann Dantant's supervision. That's where I understood that a hardware project is won as much on component choice (availability, obsolescence, we favored Renesas for longevity) as on the schematic itself.
 
 ## the Puck, and its antenna
 
-The **Puck** is the desktop reader meant to replace a good chunk of the portfolio by concentrating production on a single product. It's assembled in two parts at the factory: the Puck CPU, and the top part — the Puck antenna, which I worked on.
+The **Puck** is the desktop reader meant to replace a good chunk of the portfolio by concentrating production on a single product. It's assembled in two parts at the factory: the Puck CPU, and the top part, the Puck antenna, which I worked on.
 
 
 ![](/projects/Springcard-Banc-de-test-3.webp)
@@ -76,7 +76,7 @@ Two fixes sum up the spirit of the role, because they're invisible in simulation
 
 On the **K663** OEM module with a balanced antenna, prototypes passed with no problem. In pre-production, at high volume, over 37% of output came out with soldering defects: a mis-sized footprint, undetectable on a single unit but blowing up at scale. Resize the footprint, problem solved.
 
-On the **Puck**, the two parts are hand-soldered at seven points. The two ground pins refused to heat properly: the antenna's ground plane dissipated too much, the solder dragged. I had the ground spacing modified on the gerber to cut soldering time — and therefore technician time per product, and therefore the cost of that step.
+On the **Puck**, the two parts are hand-soldered at seven points. The two ground pins refused to heat properly: the antenna's ground plane dissipated too much, the solder dragged. I had the ground spacing modified on the gerber to cut soldering time, and therefore technician time per product, and therefore the cost of that step.
 
 ```
 flowchart LR
@@ -88,9 +88,9 @@ flowchart LR
   PROTO -->|"KO"| CDC
 ```
 
-The rest of the role revolved around that: inventory and overhaul of the test benches (some for discontinued products, others carrying twenty years of accumulated functions), design of new benches in V-model, BOM management under Excalibur to absorb the Covid component shortage without drifting from the spec or the target price, and even packaging — the story of the 2 m USB-C cable we ended up having delivered pre-coiled at the right diameter so the technician wouldn't unwind and rewind it for every box.
+The rest of the role revolved around that: inventory and overhaul of the test benches (some for discontinued products, others carrying twenty years of accumulated functions), design of new benches in V-model, BOM management under Excalibur to absorb the Covid component shortage without drifting from the spec or the target price, and even packaging, the story of the 2 m USB-C cable we ended up having delivered pre-coiled at the right diameter so the technician wouldn't unwind and rewind it for every box.
 
-Finally, I built the after-sales service almost from scratch: an RMA process, repair documentation written for a technician with no electronics background, and internal training — the "Springcard Academy" — on general electronics and soldering 0201 components. The idea: that everyone walks away with a real skill, not just labor.
+Finally, I built the after-sales service almost from scratch: an RMA process, repair documentation written for a technician with no electronics background, and internal training (the "Springcard Academy") on general electronics and soldering 0201 components. The idea: that everyone walks away with a real skill, not just labor.
 
 
 ![](/projects/springcard-logo.webp)
