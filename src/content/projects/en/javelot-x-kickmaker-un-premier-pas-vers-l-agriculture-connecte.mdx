@@ -1,8 +1,64 @@
 ---
-title: 'Javelot X Kickmaker: A First Step Towards Connected Agriculture'
-dates: ''
+title: "Javelot × Kickmaker: a first step toward connected agriculture"
+dates: '2023'
 active: false
-description: ''
-technologies: []
+description: "An advance-phase engagement with the agtech deeptech Javelot: defining the next generation of their connected probe, from market study to PRD."
+technologies:
+  - Advance phase
+  - IoT sensors
+  - Market study
+  - PRD
+cover: /projects/javelot-cover.webp
+---
+At Kickmaker, I supported Javelot, an agtech deeptech that connects grain silos, on an advance-phase project: defining the next generation of their probe, with new sensors, and producing a complete PRD ready to kick off development. Theoretical work, but framed like a real product.
+
+## javelot, the deeptech that watches over grain
+
+Javelot (Wasquehal, near Lille, founded in 2018) digitized the post-harvest. Probes planted in the grain measure temperature several times a day and send the data over the Sigfox low-power network, with no electricity or wifi. The farmer monitors their stock from an app, and the system controls ventilation automatically. The benefit is concrete: up to 90% less pesticide and a sharply reduced ventilation energy bill. Three ranges structure the offer: Flat'Javelot for flat storage, Verti'Javelot for vertical cells, Venti'Javelot for ventilation.
+
+![Harvest, just before the real challenge: keeping the grain through the months of storage.](/projects/javelot-moisson.webp)
+
+## the mission: a probe that senses more than temperature
+
+The original probe mostly measures temperature. But in a pile of grain, temperature is a late signal: by the time it rises, the damage is often already done. The goal of the advance-phase study was to define a probe able to detect earlier, by adding two key measurements.
+
+- **Humidity** (hygrometry): the primary driver of heating and mould.
+- **CO2**: an early marker of biological activity (insects, germination, grain respiration), well before temperature moves.
+
+![The grain to protect from moisture, insects and heating.](/projects/javelot-grain.webp)
+
+Measuring earlier means ventilating more precisely and treating less. That is where all the product value sits.
+
+## market study: where javelot stands
+
+Before specifying anything, I mapped the competition. The grain-monitoring market is mature internationally: OPI (Integris range, temperature and moisture cables, Insector insect probes), Bin-Sense (IntraGrain, Canada), Centaur (wireless, spoilage alerts), AGI SureTrack. Most rely on fixed cables installed in metal cells, on mostly North American markets.
+
+Javelot's strength, to preserve in the new version: the mobile probe planted directly into the pile, the Sigfox network with no infrastructure, and the ventilation control. Adding humidity and CO2 without losing that deployment simplicity was the real challenge.
+
+## from needs to technology choices
+
+The study produced the needs first, then the technical choices.
+
+On the **needs** side: measure temperature, humidity and CO2 along the probe, last several years on a battery (no mains power in the field), withstand insertion into the grain and dust, and stay compatible with the existing app and network.
+
+On the **choices** side: an NDIR (non-dispersive infrared) CO2 sensor for its robustness and selectivity, a capacitive humidity sensor. Since NDIR draws power, I framed a scheduled measurement and aggressive duty cycling to preserve battery life. Sigfox is kept for continuity with the installed base, which forces a trade-off on data volume, because Sigfox messages are short. And mechanically, the sensors had to fit within the probe's profile without hindering its insertion into the grain.
+
+![On-farm storage: silos and buildings, Javelot's playing field.](/projects/javelot-ferme.webp)
+
+## planning, risks, advantages
+
+I laid out a phased design plan: sensor feasibility, prototype, trials in real storage conditions, then industrialization, with the milestones and the dependencies between them.
+
+The **risks** were clear: the CO2 sensor's power draw against the target battery life, humidity calibration in a dusty environment, the Sigfox throughput against a larger data volume, and the extra cost per probe against the market price.
+
+The **advantages** justified the bet: earlier detection, so fewer losses and fewer treatments, a real product differentiation, and a move upmarket without breaking the deployment model that makes Javelot successful.
+
+## the deliverable: a complete PRD
+
+Everything condensed into a PRD (Product Requirements Document): context and market, needs and use cases, functions and requirements (measurements, accuracy, battery life, environment), constraints and technical choices, planning, risks and trade-offs. A document that lets Javelot start development knowing what to build, why, and what is left to de-risk.
+
+That is what advance phase is about: turning a product intuition into an actionable spec, before committing a single euro of development.
+
 ---
 
+*Royalty-free illustration photos (Unsplash). I did not have access to Javelot's product visuals; these images illustrate the domain, not their hardware.*
