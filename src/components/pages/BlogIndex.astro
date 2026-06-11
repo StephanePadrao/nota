@@ -1,0 +1,70 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { buildData } from "@/data/resume";
+import { localizeHref, useTranslations, type Lang } from "@/i18n/ui";
+import { entriesForLang } from "@/i18n/content";
+import { formatDate } from "@/lib/utils";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const DATA = buildData(lang);
+
+const posts = entriesForLang(await getCollection("blog"), lang)
+  .map(({ slug, entry }) => ({ slug, data: entry.data }))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<Layout title={t.blog.metaTitle} description={t.blog.listingDescription} lang={lang}>
+  <section id="blog">
+    <div class="flex min-h-0 flex-col gap-y-8">
+      <!-- Header -->
+      <div class="flex flex-col items-center gap-y-3 text-center">
+        <div class="flex items-center w-full">
+          <div class="flex-1 h-px bg-linear-to-r from-transparent from-5% via-border via-95% to-transparent" />
+          <div class="border bg-primary z-10 rounded-xl px-4 py-1">
+            <span class="text-background text-sm font-medium">{DATA.sections.blog.label}</span>
+          </div>
+          <div class="flex-1 h-px bg-linear-to-l from-transparent from-5% via-border via-95% to-transparent" />
+        </div>
+        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl">{DATA.sections.blog.heading}</h2>
+        <p class="text-muted-foreground text-sm max-w-md">{DATA.sections.blog.text}</p>
+      </div>
+
+      <!-- Grille d'articles -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {posts.map((post) => (
+          <a
+            href={localizeHref(`/blog/${post.slug}`, lang)}
+            class="group flex flex-col rounded-xl border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-sm transition-all"
+          >
+            {post.data.cover && (
+              <img
+                src={post.data.cover}
+                alt={post.data.title}
+                class="w-full aspect-[16/9] object-cover border-b border-border"
+                loading="lazy"
+              />
+            )}
+            <div class="flex flex-col gap-2 p-4">
+              <span class="text-xs text-muted-foreground">{formatDate(post.data.date, lang)}</span>
+              <h3 class="font-semibold text-base text-foreground group-hover:text-primary transition-colors leading-snug">{post.data.title}</h3>
+              <p class="text-sm text-muted-foreground line-clamp-3">{post.data.description}</p>
+              {post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5 mt-1">
+                  {post.data.tags.map((tag) => (
+                    <span class="text-[10px] px-1.5 py-0.5 bg-accent text-accent-foreground rounded-full border border-border">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -21,6 +21,7 @@ const fr = {
   nav: {
     home: "Accueil",
     projects: "Projets",
+    blog: "Blog",
     photos: "Voyages",
     contact: "Contact",
     themeToggle: "Changer de thème",
@@ -45,6 +46,11 @@ const fr = {
       heading: "Ce sur quoi je travaille",
       text: "Des produits construits de zéro — side projects, outils, expérimentations. Tout est auto-hébergé ou open-source.",
     },
+    blog: {
+      label: "Blog",
+      heading: "Fiches & notes",
+      text: "Des notes de cours et fiches de révision, écrites pour transmettre simplement ce que j'apprends.",
+    },
     contact: {
       label: "Contact",
       heading: "Parlons-en",
@@ -57,6 +63,15 @@ const fr = {
     metaTitle: "Projets",
     back: "Retour",
     active: "Actif",
+  },
+
+  blog: {
+    metaTitle: "Blog",
+    badge: "Blog",
+    listingDescription: "Notes, fiches de révision et ce que j'apprends, expliqué simplement.",
+    back: "Tous les articles",
+    draft: "Brouillon",
+    source: "Source",
   },
 
   photos: {
@@ -120,6 +135,7 @@ const en: Strings = {
   nav: {
     home: "Home",
     projects: "Projects",
+    blog: "Blog",
     photos: "Travels",
     contact: "Contact",
     themeToggle: "Toggle theme",
@@ -144,6 +160,11 @@ const en: Strings = {
       heading: "What I'm working on",
       text: "Products built from scratch — side projects, tools, experiments. All self-hosted or open-source.",
     },
+    blog: {
+      label: "Blog",
+      heading: "Notes & cheat sheets",
+      text: "Course notes and revision sheets, written to pass on what I learn, simply.",
+    },
     contact: {
       label: "Contact",
       heading: "Let's talk",
@@ -156,6 +177,15 @@ const en: Strings = {
     metaTitle: "Projects",
     back: "Back",
     active: "Active",
+  },
+
+  blog: {
+    metaTitle: "Blog",
+    badge: "Blog",
+    listingDescription: "Notes, revision sheets and what I'm learning, explained simply.",
+    back: "All posts",
+    draft: "Draft",
+    source: "Source",
   },
 
   photos: {

@@ -42,7 +42,7 @@ function listDistSlugs(dir: string): string[] {
 
 function saveLastBuild() {
   // Content sections rendered as static routes: projects + photos (albums).
-  const publishedSlugs = [...listDistSlugs("projects"), ...listDistSlugs("photos")];
+  const publishedSlugs = [...listDistSlugs("projects"), ...listDistSlugs("photos"), ...listDistSlugs("blog")];
   const data: LastBuild = { timestamp: Date.now(), publishedSlugs };
   writeFileSync(LAST_BUILD_FILE, JSON.stringify(data, null, 2));
 }
@@ -85,7 +85,7 @@ function publishContent() {
   buildState.logs.push("\n[git] Publication du contenu sur GitHub…\n");
   const msg = `content: publish from admin (${new Date().toISOString()})`;
   const script =
-    "git add src/content/projects src/content/albums src/data/profile.json src/data/profile.en.json public && " +
+    "git add src/content/projects src/content/albums src/content/blog src/data/profile.json src/data/profile.en.json public && " +
     "if git diff --cached --quiet; then echo '[git] aucun changement de contenu'; " +
     'else git commit -m "$COMMIT_MSG" && git push origin main && echo "[git] poussé sur origin/main"; fi';
 

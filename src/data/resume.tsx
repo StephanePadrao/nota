@@ -72,6 +72,11 @@ export function buildData(lang: Lang = defaultLang) {
         heading: t.sections.projects.heading,
         text: t.sections.projects.text,
       },
+      blog: {
+        label: t.sections.blog.label,
+        heading: t.sections.blog.heading,
+        text: t.sections.blog.text,
+      },
       contact: {
         label: t.sections.contact.label,
         heading: t.sections.contact.heading,
@@ -103,6 +108,7 @@ export function buildData(lang: Lang = defaultLang) {
     navbar: [
       { href: localizeHref("/", lang), icon: House, label: t.nav.home },
       { href: localizeHref("/projects", lang), icon: Hammer, label: t.nav.projects },
+      { href: localizeHref("/blog", lang), icon: BookOpen, label: t.nav.blog },
       { href: localizeHref("/photos", lang), icon: Camera, label: t.nav.photos },
       { href: localizeHref("/contact", lang), icon: Mail, label: t.nav.contact },
     ],

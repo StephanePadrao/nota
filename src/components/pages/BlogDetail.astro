@@ -1,0 +1,77 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { CONFIG } from "@/data/config";
+import { localizeHref, useTranslations, type Lang } from "@/i18n/ui";
+import { formatDate } from "@/lib/utils";
+import { mdxComponents } from "@/mdx-components";
+import { ChevronLeft } from "lucide-react";
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<"blog">;
+}
+const { lang, entry } = Astro.props;
+const t = useTranslations(lang);
+
+const { title, date, description, tags, cover } = entry.data;
+const { Content } = await render(entry);
+
+const postLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  datePublished: date,
+  inLanguage: lang,
+  author: { "@type": "Person", name: "Stéphane Padrao", url: CONFIG.site.url },
+  ...(cover ? { image: new URL(cover, CONFIG.site.url).href } : {}),
+};
+---
+
+<Layout title={title} description={description} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(postLd)} is:inline />
+  <section id="post" class="max-w-3xl mx-auto">
+    <a
+      href={localizeHref("/blog", lang)}
+      class="text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2 py-1 inline-flex items-center gap-1 mb-6 group"
+    >
+      <ChevronLeft className="size-3 group-hover:-translate-x-px transition-transform" />
+      {t.blog.back}
+    </a>
+
+    <div class="flex flex-col gap-3 mb-6">
+      <h1 class="title font-semibold text-3xl md:text-4xl tracking-tighter leading-tight">{title}</h1>
+      <p class="text-sm text-muted-foreground">{formatDate(date, lang)}</p>
+      <p class="text-base text-foreground/80">{description}</p>
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-1.5">
+          {tags.map((tag) => (
+            <span class="text-xs px-2 py-0.5 bg-accent text-accent-foreground rounded-full border border-border">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="my-6 flex w-full items-center">
+      <div
+        class="flex-1 h-px bg-border"
+        style="mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);"
+      />
+    </div>
+
+    {cover && (
+      <img
+        src={cover}
+        alt={title}
+        data-zoom
+        class="w-full cursor-zoom-in rounded-xl object-cover max-h-[420px] mb-8 shadow-sm"
+      />
+    )}
+
+    <article class="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
+      <Content components={mdxComponents} />
+    </article>
+  </section>
+</Layout>
