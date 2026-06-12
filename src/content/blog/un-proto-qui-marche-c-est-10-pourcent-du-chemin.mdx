@@ -1,0 +1,50 @@
+---
+title: "Un proto qui marche, c'est 10 % du chemin"
+date: "2026-06-12"
+description: "En hardware, l'échec arrive rarement sur la preuve de concept. Il arrive au passage du prototype à la série : EVT, DVT, PVT, et la documentation qui rend une production reproductible."
+tags:
+  - Hardware
+  - NPI
+  - EVT DVT PVT
+  - Industrialisation
+draft: false
+---
+Tout le monde sait fabriquer un exemplaire qui marche sur l'établi. Le faire fabriquer à 10 000 exemplaires reproductibles, certifiés et tenables dans le temps, c'est un autre métier. L'échec, en hardware, arrive rarement sur la preuve de concept. Il arrive entre le proto et la série, et j'ai vu des plannings mourir exactement là.
+
+## un produit, c'est un assemblage de modules
+
+Un produit électronique se découpe en modules : carte mère, carte IHM, carte d'alimentation, châssis mécanique. Chacun a son cycle propre (architecture, schémas, routage, revue, production, validation) et avance par révisions : A10, puis A11 quand un test impose une correction.
+
+L'erreur classique, c'est de raisonner « produit fini » alors qu'on pilote une matrice modules × révisions. Un proto EVT, ce n'est pas le produit : c'est une combinaison de versions de modules à un instant T. Bien géré, on change un module ou sa version sans tout casser. Mal géré, une révision de carte mère oblige à re-tester l'ensemble.
+
+## EVT, DVT, PVT : ce qu'on valide à chaque jalon
+
+Ces phases ne sont pas des étiquettes de planning, ce sont des contrats de validation :
+
+- **EVT (Engineering Validation Test)** : l'architecture tient-elle ? On valide les fonctions, on découvre les vrais problèmes électriques et mécaniques. Souvent en deux tours (EVT1, EVT2) avec un Go/No-Go entre les deux.
+- **DVT (Design Validation Test)** : le design est-il conforme à la spécification, robuste, certifiable ? C'est là que se jouent la CEM, la sécurité, les essais environnementaux.
+- **PVT (Production Validation Test)** : la ligne sait-elle produire ce design, en volume, avec un rendement tenable ?
+
+Sauter une étape ne fait pas gagner du temps, ça déplace le problème vers l'aval, là où il coûte dix fois plus cher. Un défaut trouvé en EVT, c'est un re-spin de carte. Le même défaut en PVT, c'est un outillage à reprendre et une série bloquée.
+
+## la revue de conception est un jalon, pas une formalité
+
+Entre le routage et la production d'un module, il y a une revue de conception. Une demi-journée sur le planning, mais un point de non-retour : on ne lance pas la fabrication d'une carte qui n'a pas passé sa revue. Multipliez par le nombre de modules et de révisions, et vous avez la vraie colonne vertébrale du planning, une succession de revues et de jalons proto, pas une ligne continue.
+
+S'ajoutent les jalons client : livraisons, démonstrations, Go/No-Go. Ce sont eux qui rythment réellement le projet, parce que ce sont eux qui débloquent la suite.
+
+## la documentation n'est pas de la bureaucratie
+
+Le Design History File (DHF) consolide ce qui rend une série reproductible : matrice de conformité, vérification et validation, analyse de risque, gestion des évolutions (ECR), plans de test. On y ajoute la DFMEA et la PFMEA, qui anticipent les modes de défaillance avant l'outillage, pas après.
+
+Un projet qui néglige cette documentation avance vite en apparence et se bloque à l'industrialisation : impossible de transférer à l'EMS sans mode opératoire, de certifier sans dossier de tests, de tracer une non-conformité série sans historique. La rigueur documentaire n'est pas un coût, c'est ce qui permet de passer la main.
+
+## détailler le présent, esquisser la suite
+
+Un piège récurrent du PM hardware : tout détailler dès le début. On perd un temps fou à mettre à jour des tâches dont on ignore encore le contenu, le planning devient illisible, et on ne voit plus les risques. La règle qui marche : détailler finement la phase en cours, rester haut niveau sur la suivante, ajouter le détail quand la vue se précise. Le planning suit le produit, il ne le précède pas de six mois.
+
+## et le RFQ tourne en parallèle
+
+Pendant qu'on valide en EVT, on consulte déjà les sous-traitants (RFQ EMS). Attendre un design figé pour chercher son industriel, c'est ajouter des semaines mortes en fin de projet. L'industrialisation se prépare pendant la conception, pas après.
+
+Un projet hardware échoue rarement parce que la techno ne marche pas. Il échoue parce qu'on a sous-estimé le passage à l'échelle : modules mal versionnés, revues sautées, documentation en retard, industriel consulté trop tard. La preuve de concept rassure tout le monde et ne prouve presque rien. Le vrai travail commence quand il faut rendre ce proto reproductible, certifiable et fabricable. C'est les 90 % qui restent.
