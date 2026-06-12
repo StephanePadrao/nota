@@ -1,0 +1,50 @@
+---
+title: "Um protótipo que funciona é 10 % do caminho"
+date: "2026-06-12"
+description: "Em hardware, o fracasso raramente acontece na prova de conceito. Acontece na passagem do protótipo à série: EVT, DVT, PVT, e a documentação que torna uma produção reprodutível."
+tags:
+  - Hardware
+  - NPI
+  - EVT DVT PVT
+  - Industrialisation
+draft: false
+---
+Toda a gente sabe fabricar um exemplar que funciona na bancada. Fabricá-lo em 10 000 exemplares reprodutíveis, certificados e sustentáveis no tempo é outro ofício. O fracasso, em hardware, raramente acontece na prova de conceito. Acontece entre o protótipo e a série, e já vi planeamentos morrer exatamente aí.
+
+## um produto é uma montagem de módulos
+
+Um produto eletrónico divide-se em módulos: placa-mãe, placa IHM, placa de alimentação, chassis mecânico. Cada um tem o seu ciclo próprio (arquitetura, esquemas, routing, revisão, produção, validação) e avança por revisões: A10, depois A11 quando um teste impõe uma correção.
+
+O erro clássico é raciocinar « produto acabado » quando se pilota uma matriz módulos × revisões. Um protótipo EVT não é o produto: é uma combinação de versões de módulos num instante T. Bem gerido, muda-se um módulo ou a sua versão sem partir tudo. Mal gerido, uma revisão de placa-mãe obriga a re-testar o conjunto.
+
+## EVT, DVT, PVT: o que se valida em cada marco
+
+Estas fases não são etiquetas de planeamento, são contratos de validação:
+
+- **EVT (Engineering Validation Test)** : a arquitetura aguenta? Validam-se as funções, descobrem-se os verdadeiros problemas elétricos e mecânicos. Muitas vezes em duas voltas (EVT1, EVT2) com um Go/No-Go entre as duas.
+- **DVT (Design Validation Test)** : o design está conforme à especificação, robusto, certificável? É aí que se jogam a CEM, a segurança, os ensaios ambientais.
+- **PVT (Production Validation Test)** : a linha sabe produzir este design, em volume, com um rendimento sustentável?
+
+Saltar uma etapa não faz ganhar tempo, desloca o problema para jusante, onde custa dez vezes mais caro. Um defeito encontrado em EVT é um re-spin de placa. O mesmo defeito em PVT é uma ferramenta a refazer e uma série bloqueada.
+
+## a revisão de conceção é um marco, não uma formalidade
+
+Entre o routing e a produção de um módulo, há uma revisão de conceção. Meia jornada no planeamento, mas um ponto sem retorno: não se lança a fabricação de uma placa que não passou a sua revisão. Multipliquem pelo número de módulos e de revisões, e têm a verdadeira coluna vertebral do planeamento, uma sucessão de revisões e de marcos protótipo, não uma linha contínua.
+
+Acrescentam-se os marcos cliente: entregas, demonstrações, Go/No-Go. São eles que dão o ritmo real ao projeto, porque são eles que desbloqueiam a continuação.
+
+## a documentação não é burocracia
+
+O Design History File (DHF) consolida o que torna uma série reprodutível: matriz de conformidade, verificação e validação, análise de risco, gestão das evoluções (ECR), planos de teste. Acrescentam-se a DFMEA e a PFMEA, que antecipam os modos de falha antes da ferramenta, não depois.
+
+Um projeto que negligencia esta documentação avança depressa na aparência e bloqueia na industrialização: impossível transferir para o EMS sem modo operatório, certificar sem dossier de testes, rastrear uma não conformidade de série sem histórico. O rigor documental não é um custo, é o que permite passar o testemunho.
+
+## detalhar o presente, esboçar a continuação
+
+Uma armadilha recorrente do PM de hardware: detalhar tudo desde o início. Perde-se imenso tempo a atualizar tarefas cujo conteúdo ainda se ignora, o planeamento torna-se ilegível, e já não se veem os riscos. A regra que funciona: detalhar finamente a fase em curso, ficar em alto nível na seguinte, acrescentar o detalhe quando a vista se precisa. O planeamento segue o produto, não o precede em seis meses.
+
+## e o RFQ corre em paralelo
+
+Enquanto se valida em EVT, já se consultam os subcontratantes (RFQ EMS). Esperar por um design fixo para procurar o seu industrial é acrescentar semanas mortas no fim do projeto. A industrialização prepara-se durante a conceção, não depois.
+
+Um projeto de hardware raramente fracassa porque a tecnologia não funciona. Fracassa porque se subestimou a passagem à escala: módulos mal versionados, revisões saltadas, documentação atrasada, industrial consultado demasiado tarde. A prova de conceito tranquiliza toda a gente e quase nada prova. O verdadeiro trabalho começa quando é preciso tornar este protótipo reprodutível, certificável e fabricável. São os 90 % que faltam.
