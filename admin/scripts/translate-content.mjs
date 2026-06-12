@@ -26,8 +26,13 @@ if (!process.env.GROQ_API_KEY) {
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const MODEL = "llama-3.3-70b-versatile";
-const NAMES = { es: "Spanish", pt: "Portuguese" };
+const NAMES = { en: "English", es: "Spanish", pt: "Portuguese" };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Filtre optionnel `--only=slug1,slug2` : ne traduire que ces slugs de base (sinon tout).
+const cliArgs = process.argv.slice(2);
+const onlyArg = cliArgs.find((a) => a.startsWith("--only="));
+const onlySlugs = onlyArg ? onlyArg.slice(7).split(",").map((s) => s.trim()).filter(Boolean) : null;
 
 function sysPrompt(target) {
   const name = NAMES[target];
@@ -98,6 +103,7 @@ async function translateCollection(col, target) {
   fs.mkdirSync(outDir, { recursive: true });
   for (const file of listMdx(baseDir)) {
     const slug = file.replace(/\.mdx$/, "");
+    if (onlySlugs && !onlySlugs.includes(slug)) continue;
     const { data, content } = matter(fs.readFileSync(path.join(baseDir, file), "utf8"));
     const input = {};
     for (const f of col.fields) if (typeof data[f] === "string") input[f] = data[f];
@@ -139,11 +145,11 @@ async function translateProfile(target) {
   console.log(`  ${target}/profile`);
 }
 
-const targets = process.argv.slice(2).length ? process.argv.slice(2) : ["es", "pt"];
-for (const target of targets) {
-  if (!NAMES[target]) { console.error(`Langue inconnue : ${target}`); continue; }
+const targets = cliArgs.filter((a) => !a.startsWith("--") && NAMES[a]);
+for (const target of (targets.length ? targets : ["es", "pt"])) {
   console.log(`\n=== ${NAMES[target]} (${target}) ===`);
-  await translateProfile(target);
+  // Avec --only (ciblage de contenus), on ne touche pas au profil.
+  if (!onlySlugs) await translateProfile(target);
   for (const col of COLLECTIONS) await translateCollection(col, target);
 }
 console.log("\nTraduction terminée.");
