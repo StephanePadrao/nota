@@ -39,6 +39,7 @@ function sysPrompt(target) {
   return `You translate the author's French portfolio and blog content into natural, idiomatic ${name}.
 CRITICAL RULES:
 - Translate French to ${name}. Keep a direct, concrete, jargon-free voice.
+- Titles and headings: write them in natural, idiomatic ${name} using sentence case (capitalize only the first word and proper nouns). Never Capitalize Every Word. Keep them short and punchy, not literal word-for-word.
 - Preserve Markdown/MDX structure EXACTLY: headings (#), lists, blockquotes (>), links, image syntax ![alt](url), tables, bold/italic, line breaks.
 - NEVER translate or alter: code, fenced code-block contents and language tags, JSX/MDX tags and attributes, import/export lines, URLs, file paths, technology and brand names, proper nouns, identifiers, numbers and units.
 - Inside Mermaid or other diagram fences, translate ONLY quoted human-readable labels; keep node IDs, arrows and syntax intact.

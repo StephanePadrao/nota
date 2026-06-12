@@ -69,6 +69,7 @@ Author's voice to preserve: ${style.voice.persona}
 
 CRITICAL RULES:
 - Translate French → ${name}. Keep the author's direct, concrete, jargon-free voice.
+- Titles and headings: write them in natural, idiomatic ${name} using sentence case (capitalize only the first word and proper nouns). Never Capitalize Every Word. Keep them short and punchy, not literal word-for-word.
 - Preserve Markdown/MDX structure EXACTLY: headings (#), lists, blockquotes (>), links, image syntax ![alt](url), tables, bold/italic, line breaks, frontmatter.
 - NEVER translate or alter: code, fenced code-block contents and their language tags, JSX/MDX tags and attributes, import/export lines, URLs, file paths, technology names, proper nouns, function or identifier names, numbers and units.
 - Inside Mermaid or other diagram code fences, translate ONLY the human-readable label text inside quotes; keep node IDs, arrows and diagram syntax intact.
