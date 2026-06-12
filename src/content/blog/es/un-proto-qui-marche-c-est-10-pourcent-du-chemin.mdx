@@ -1,0 +1,53 @@
+---
+title: Un prototipo funcional es el 10% del camino
+date: '2026-06-12'
+description: >-
+  En hardware, el fracaso rara vez ocurre en la prueba de concepto. Ocurre
+  cuando se transita del prototipo a la serie: EVT, DVT, PVT, y la documentación
+  que hace que la producción sea reproducible.
+tags:
+  - Hardware
+  - NPI
+  - EVT DVT PVT
+  - Industrialisation
+draft: false
+---
+Todos saben fabricar un prototipo que funcione en el banco de trabajo. Hacer que se fabrique en 10 000 ejemplares reproductibles, certificados y sostenibles en el tiempo, es otro oficio. El fracaso, en hardware, rara vez llega con la prueba de concepto. Llega entre el prototipo y la serie, y he visto que los planes mueren exactamente allí.
+
+## un producto, es un ensamblaje de módulos
+
+Un producto electrónico se divide en módulos: placa base, placa IHM, placa de alimentación, chasis mecánico. Cada uno tiene su propio ciclo (arquitectura, esquemas, routaje, revisión, producción, validación) y avanza por revisiones: A10, luego A11 cuando una prueba impone una corrección.
+
+El error clásico es razonar "producto terminado" cuando en realidad se está pilotando una matriz de módulos × revisiones. Un prototipo EVT no es el producto: es una combinación de versiones de módulos en un momento T. Bien gestionado, se puede cambiar un módulo o su versión sin romper todo. Mal gestionado, una revisión de la placa base obliga a volver a probar el conjunto.
+
+## EVT, DVT, PVT: qué se valida en cada hito
+
+Estas fases no son etiquetas de planificación, son contratos de validación:
+
+- **EVT (Prueba de Validación de Ingeniería)**: ¿la arquitectura es sólida? Se validan las funciones, se descubren los verdaderos problemas eléctricos y mecánicos. A menudo en dos rondas (EVT1, EVT2) con un Go/No-Go entre ellas.
+- **DVT (Prueba de Validación de Diseño)**: ¿el diseño es conforme a la especificación, robusto, certificable? Es aquí donde se juegan la CEM, la seguridad, las pruebas ambientales.
+- **PVT (Prueba de Validación de Producción)**: ¿la línea sabe producir este diseño, en volumen, con un rendimiento sostenible?
+
+Saltarse una etapa no ahorra tiempo, solo desplaza el problema hacia abajo, donde cuesta diez veces más caro. Un defecto encontrado en EVT es una re-creación de la placa. El mismo defecto en PVT es una herramienta que se debe rehacer y una serie bloqueada.
+
+## la revisión de diseño es un hito, no una formalidad
+
+Entre el routaje y la producción de un módulo, hay una revisión de diseño. Medio día en la planificación, pero un punto de no retorno: no se lanza la fabricación de una placa que no ha pasado su revisión. Multiplica por el número de módulos y revisiones, y tienes la verdadera columna vertebral de la planificación, una sucesión de revisiones y hitos de prototipo, no una línea continua.
+
+Se suman los hitos del cliente: entregas, demostraciones, Go/No-Go. Son ellos los que realmente marcan el ritmo del proyecto, porque son ellos los que desbloquean la siguiente etapa.
+
+## la documentación no es burocracia
+
+El Archivo de Historial de Diseño (DHF) consolida lo que hace que una serie sea reproductible: matriz de conformidad, verificación y validación, análisis de riesgo, gestión de evoluciones (ECR), planes de prueba. Se agregan la DFMEA y la PFMEA, que anticipan los modos de fallo antes de la herramienta, no después.
+
+Un proyecto que descuida esta documentación avanza rápido en apariencia y se bloquea en la industrialización: imposible transferir a la EMS sin modo operativo, certificar sin expediente de pruebas, rastrear una no conformidad de serie sin historial. La rigidez documental no es un costo, es lo que permite pasar la mano.
+
+## detallar el presente, esbozar la siguiente etapa
+
+Una trampa recurrente del PM de hardware: detallar todo desde el principio. Se pierde mucho tiempo actualizando tareas cuyo contenido aún se desconoce, la planificación se vuelve ilegible, y no se ven los riesgos. La regla que funciona: detallar finamente la fase actual, mantener un nivel alto en la siguiente, agregar detalles cuando la visión se clarifica. La planificación sigue al producto, no lo precede en seis meses.
+
+## y el RFQ gira en paralelo
+
+Mientras se valida en EVT, ya se consultan a los subcontratistas (RFQ EMS). Esperar a que el diseño esté fijo para buscar al industrial, es agregar semanas muertas al final del proyecto. La industrialización se prepara durante la concepción, no después.
+
+Un proyecto de hardware rara vez falla porque la tecnología no funcione. Falla porque se subestimó el paso a la escala: módulos mal versionados, revisiones saltadas, documentación atrasada, industrial consultado demasiado tarde. La prueba de concepto tranquiliza a todos y no prueba casi nada. El verdadero trabajo comienza cuando hay que hacer que este prototipo sea reproductible, certificable y fabricable. Son los 90% que quedan.

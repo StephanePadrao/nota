@@ -1,0 +1,53 @@
+---
+title: A working prototype is 10% of the journey
+date: '2026-06-12'
+description: >-
+  In hardware, failure rarely occurs in the proof of concept. It occurs when
+  transitioning from prototype to series: EVT, DVT, PVT, and the documentation
+  that makes production reproducible.
+tags:
+  - Hardware
+  - NPI
+  - EVT DVT PVT
+  - Industrialisation
+draft: false
+---
+Everyone knows how to build a working prototype on a workbench. Having it manufactured in 10,000 reproducible, certified, and sustainable units over time is a different profession. Failure in hardware rarely occurs during the proof of concept. It happens between the prototype and the series, and I've seen plans die exactly there.
+
+## a product is an assembly of modules
+
+An electronic product is broken down into modules: motherboard, IHM card, power card, mechanical chassis. Each has its own cycle (architecture, schematics, routing, review, production, validation) and advances through revisions: A10, then A11 when a test requires a correction.
+
+The classic mistake is to think in terms of a "finished product" when you're actually managing a matrix of modules x revisions. A prototype EVT is not the product: it's a combination of versions of modules at a given time T. Well-managed, you can change a module or its version without breaking everything. Poorly managed, a motherboard revision requires re-testing the entire product.
+
+## EVT, DVT, PVT: what we validate at each milestone
+
+These phases are not just planning labels, they are validation contracts:
+
+- **EVT (Engineering Validation Test)**: does the architecture hold up? We validate functions, discover real electrical and mechanical problems. Often in two rounds (EVT1, EVT2) with a Go/No-Go in between.
+- **DVT (Design Validation Test)**: is the design compliant with the specification, robust, certifiable? This is where CEM, safety, and environmental testing come into play.
+- **PVT (Production Validation Test)**: can the production line produce this design, in volume, with a sustainable yield?
+
+Skipping a step doesn't save time, it just moves the problem downstream, where it costs ten times more. A defect found in EVT is a re-spin of the board. The same defect in PVT is a reworked tool and a blocked series.
+
+## the design review is a milestone, not a formality
+
+Between routing and producing a module, there is a design review. Half a day on the schedule, but a point of no return: we don't start manufacturing a card that hasn't passed its review. Multiply this by the number of modules and revisions, and you have the real backbone of the schedule, a series of reviews and prototype milestones, not a continuous line.
+
+Add to this the customer milestones: deliveries, demonstrations, Go/No-Go. These are the ones that really pace the project, because they unlock the next steps.
+
+## documentation is not bureaucracy
+
+The Design History File (DHF) consolidates what makes a series reproducible: compliance matrix, verification and validation, risk analysis, change management (ECR), test plans. We add the DFMEA and PFMEA, which anticipate failure modes before tooling, not after.
+
+A project that neglects this documentation appears to advance quickly but gets stuck in industrialization: it's impossible to transfer to the EMS without an operating mode, to certify without a test file, to track a series non-conformity without a history. Documentary rigor is not a cost, it's what allows you to pass the baton.
+
+## detailing the present, outlining the future
+
+A recurring trap in hardware PM: detailing everything from the start. We waste a lot of time updating tasks whose content we still don't know, the schedule becomes unreadable, and we can no longer see the risks. The rule that works: detail the current phase finely, stay high-level on the next one, add detail as the view becomes clearer. The schedule follows the product, it doesn't precede it by six months.
+
+## and the RFQ runs in parallel
+
+While we validate in EVT, we're already consulting subcontractors (RFQ EMS). Waiting for a frozen design to look for an industrial partner adds dead weeks to the end of the project. Industrialization is prepared during design, not after.
+
+A hardware project rarely fails because the technology doesn't work. It fails because we underestimated the transition to scale: poorly versioned modules, skipped reviews, delayed documentation, industrial partner consulted too late. The proof of concept reassures everyone and proves almost nothing. The real work begins when we need to make this prototype reproducible, certifiable, and manufacturable. That's the remaining 90%.
