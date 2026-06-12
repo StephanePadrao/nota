@@ -1,0 +1,110 @@
+---
+title: "Compreender Scrum: papéis, artefactos, eventos"
+date: "2026-06-10"
+description: "Ficha de revisão sobre Scrum: a origem da palavra, as equipas auto-geridas, sprints e MVP, a gestão do risco, os papéis, os artefactos, os cinco eventos e o planning poker."
+cover: /blog/comprendre-scrum/cover.webp
+tags:
+  - Scrum
+  - Sprint
+  - Gestion de projet
+draft: false
+---
+
+Scrum é o framework ágil mais difundido. Divide um projeto em ciclos curtos, os sprints, conduzidos por uma equipa que se organiza a si mesma. Esta ficha reúne tudo o que há a reter, do vocabulário às armadilhas clássicas.
+
+## de onde vem a palavra « scrum »
+
+A palavra vem do râguebi: a formação ordenada, onde os jogadores se encaixam e empurram juntos para recuperar a bola. Nonaka e Takeuchi retomam a imagem nos anos 1980, observando equipas na Fuji-Xerox, Canon e HP. Em 1995, Schwaber e Sutherland aplicam-na ao software: uma equipa coesa, uma colaboração intensa, uma estratégia coordenada.
+
+## equipas auto-geridas
+
+Scrum funciona por sprints (de uma semana a dois meses) onde a equipa trabalha de forma autónoma para produzir uma versão que funciona. Tudo assenta em três « auto- ».
+
+| Princípio | Significado |
+| --- | --- |
+| Autossuficiência | todas as competências e recursos estão internos, sem dependência externa. |
+| Auto-gestão | nenhuma supervisão durante o sprint. Sem chefe de projeto, hierarquia plana, decisões democráticas. |
+| Auto-inspeção | a condição da auto-gestão: transparência e visibilidade do fluxo. |
+
+![Uma equipa auto-organizada decide em conjunto, sem direção externa durante o sprint.](/blog/comprendre-scrum/equipe.webp)
+
+> **Contra-intuição**: bem aplicado, o Scrum dá mais controlo sobre o trabalho e a qualidade do que o modelo clássico, porque deixa de depender de uma única pessoa externa. Limitar a direção exterior evita a perda de foco e os sobrecustos de mudança de contexto.
+
+## sprints, MVP e incrementos
+
+O sprint divide o projeto em ciclos iterativos. Priorizam-se as funcionalidades (utilidade, criticidade, potencial comercial) para tratar o cerne do produto o mais cedo possível e validar as necessidades reais.
+
+| Noção | Definição |
+| --- | --- |
+| Iterativo | voltar ao existente para o corrigir e melhorar. |
+| Incremental | acrescentar novas funcionalidades por cima. |
+| MVP | uma versão básica mas funcional e comercialmente viável: o seu valor basta para que o cliente pague. |
+
+![Exemplo de MVP: uma plataforma que permite procurar hotéis da sua zona, sem fotos nem reserva no início.](/blog/comprendre-scrum/mvp.webp)
+
+Cada sprint termina num incremento funcional, avaliável pela equipa e pelo cliente. O exemplo clássico: um MVP de reserva de hotéis permite procurar e encontrar um hotel, sem fotos nem pagamento. Estas duas funções são incrementos acrescentados após validação.
+
+## product-market fit e gestão do risco
+
+O product-market fit é a adequação entre o produto e as necessidades de um cliente que paga. Sem uma procura real satisfeita, o produto falha. O Scrum maximiza essa adequação por sprints curtos e uma validação constante.
+
+![O risco cresce com o produto. O Waterfall só o desarma no fim, o Scrum um pouco a cada sprint.](/blog/comprendre-scrum/risque.webp)
+
+| Modelo | Perfil de risco |
+| --- | --- |
+| Waterfall | todas as fases convergem no fim, sem retorno intermédio. Se o produto falha a necessidade, perde-se tudo. |
+| Scrum | validação a cada sprint: testa-se o funcionamento técnico e a adequação à necessidade. |
+
+> **Imagem da bomba**: o risco cresce ao mesmo tempo que o produto. O Waterfall só o desarma na entrega final, o Scrum desarma-o um pouco a cada sprint, enquanto o valor entregue aumenta.
+
+## os papéis
+
+O **Scrum Guide** (Schwaber e Sutherland) oficializa papéis, artefactos, eventos e vocabulário. Evolui e atualiza-se regularmente.
+
+| Papel | Imagem | Missão |
+| --- | --- | --- |
+| Scrum Master | maestro | facilita, levanta os obstáculos, garante o Scrum. Sem autoridade hierárquica. |
+| Product Owner | tradutor | representa o negócio e os utilizadores, prioriza o product backlog. |
+| Development Team | artesãos | auto-organizada e pluridisciplinar, entrega incrementos de qualidade. |
+| Stakeholders |  | qualquer pessoa com interesse no projeto: feedback e priorização. |
+
+## artefactos e user stories
+
+| Artefacto | Definição | Responsável |
+| --- | --- | --- |
+| Product Backlog | lista ordenada de tudo o que é necessário, única fonte de requisitos. | Product Owner |
+| Sprint Backlog | itens selecionados mais o plano para atingir o objetivo do sprint. | Dev Team |
+| Incremento | soma dos itens « terminados » do sprint e dos anteriores, pronto a usar. | Dev Team |
+
+A necessidade exprime-se em **user story**, sempre sobre o mesmo esqueleto: *enquanto (papel), quero (funcionalidade) para (benefício).* Uma story completa tem cinco elementos: descrição, valor (1 a 10), estimativa (em story points), dependências, e a **Definition of Done** acordada entre o cliente e a equipa.
+
+## os cinco eventos
+
+![O desenrolar de um sprint: planning no início, daily todos os dias, review e retrospetiva no fim.](/blog/comprendre-scrum/sprint.webp)
+
+| Evento | Quando | Duração | Objetivo |
+| --- | --- | --- | --- |
+| Sprint |  | 2 sem. a 1 mês | o cerne do Scrum: atingir os objetivos fixados. |
+| Sprint Planning | início |  | definir o objetivo e selecionar os itens do backlog. |
+| Daily Scrum | todos os dias | ≤ 15 min | feito ontem, previsto hoje, obstáculos. |
+| Sprint Review | fim |  | com os stakeholders: revisão do produto, próximos passos. |
+| Sprint Retrospective | fim |  | autoavaliação da equipa, pistas de melhoria. |
+
+> **Armadilha de exame**: a Review incide sobre o **produto** (com os stakeholders), a Retrospective sobre o **processo e a equipa** (internamente). Não confundir.
+
+## estimar: o planning poker
+
+A equipa avalia o esforço das user stories por consenso. O **planning poker** usa cartas inspiradas em Fibonacci (1, 2, 3, 5, 8, 13, 21…): números pequenos para o simples e rápido, grandes para a complexidade. Desenrolar: apresentação da story, discussão, voto simultâneo, depois novo voto até ao consenso.
+
+![Estimativa colaborativa: cada um vota ao mesmo tempo, discute-se, vota-se de novo.](/blog/comprendre-scrum/poker.webp)
+
+Algumas regras que protegem o sprint:
+
+- O Product Owner prioriza o backlog em contínuo (valor, criticidade, estratégia).
+- Durante o sprint, a Dev Team trabalha sem interferência: nenhuma nova tarefa imposta.
+- O Scrum Master faz barreira aos stakeholders externos.
+- Só o Product Owner pode decidir parar um sprint, e apenas em caso grave.
+
+---
+
+*Ficha de revisão tirada da certificação « Project Management & Agile Fundamentals », Santander Open Academy. Esquemas retirados do curso.*
