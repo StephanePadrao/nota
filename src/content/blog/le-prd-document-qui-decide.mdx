@@ -1,0 +1,80 @@
+---
+title: "Le PRD : le document qui décide si votre projet hardware va dériver"
+date: "2026-06-17"
+description: "Le PRD est le contrat entre le besoin et l'ingénierie. Une exigence qu'on ne sait pas tester est une exigence sur laquelle on se disputera en validation. Comment l'écrire pour qu'il tienne."
+cover: /blog/le-prd-document-qui-decide/cover.webp
+tags:
+  - PRD
+  - Hardware
+  - NPI
+  - Spécifications
+draft: false
+---
+La plupart des dérives d'un projet hardware ne commencent pas au labo, elles commencent dans le PRD. Et le PRD a mauvaise réputation : un document qu'on rédige vite pour « lancer le projet », puis qu'on ne rouvre plus. C'est l'inverse de ce qu'il devrait être. Un bon PRD est l'objet le moins cher à produire et le plus cher à bâcler de tout le projet.
+
+## ce qu'est un PRD, et ce qu'il n'est pas
+
+Un PRD n'est ni une liste de souhaits, ni une spécification technique. C'est le pont entre les deux.
+
+En amont, le MRD (Marketing Requirement Document) dit ce que le marché veut : la cible, l'usage, le prix, la promesse. Le PRD traduit ce besoin en ce que le produit doit faire et garantir, sans dire comment. En aval, la spécification système (SRD) répond au comment : architecture, choix techniques, dimensionnement. Le PRD est l'étage du milieu, et c'est l'étage qu'on saute le plus souvent, à tort.
+
+Sa règle d'or : décrire le « quoi », jamais le « comment ». Dès qu'une exigence contient une solution, elle ferme une porte que l'ingénierie aurait dû garder ouverte.
+
+## où il se situe dans le flux
+
+Le PRD n'est pas un document isolé, c'est un maillon : MRD, puis PRD, puis architecture, puis les phases EVT, DVT, PVT. Et surtout, il boucle : la vérification et la validation (V&V) tracent chaque test vers une exigence du PRD. Si une exigence n'a pas de test associé, soit elle est inutile, soit votre plan de validation a un trou. Si un test ne se rattache à aucune exigence, vous testez par habitude, pas par besoin.
+
+C'est cette traçabilité qui fait du PRD un outil vivant et pas un document mort : il alimente la matrice de conformité, la DFMEA, et il sert d'arbitre à chaque revue de conception.
+
+## ce qui fait une bonne exigence
+
+Une exigence utile tient en quatre qualités :
+
+- **testable** : on doit pouvoir prouver qu'elle est tenue. « L'appareil démarre en moins de 2 secondes » se teste. « L'appareil démarre vite » ne se teste pas, il se discute.
+- **mesurable** : un chiffre, une tolérance, une condition. Les adjectifs (« robuste », « ergonomique », « fiable ») sont des pièges tant qu'on ne les a pas traduits en grandeurs.
+- **traçable** : un identifiant unique, relié à un besoin amont et à un test aval.
+- **priorisée et attribuée** : tout n'a pas le même poids, et chaque exigence a un propriétaire qui tranche en cas de conflit.
+
+## les éléments attendus, et pourquoi chacun
+
+Un PRD électronique sérieux couvre bien plus que les fonctions. Pour chaque rubrique, la vraie question n'est pas « qu'est-ce qu'on y met » mais « qu'est-ce qui casse si on l'oublie ». Les rubriques qu'on saute le plus sont justement celles qui font échouer en aval.
+
+**contexte et objectifs.** Le besoin, la cible, le problème que le produit résout. Pourquoi : c'est l'étalon de toutes les décisions ultérieures. Sans lui, chaque arbitrage devient une opinion, et l'équipe optimise des choses que personne n'a demandées.
+
+**cas d'usage et utilisateurs.** Qui s'en sert, dans quel environnement, pour quoi faire. Pourquoi : un même appareil utilisé en atelier ou en extérieur n'a pas les mêmes exigences de robustesse ni d'interface. Le cas d'usage est ce qui transforme une fonction en exigence chiffrée.
+
+**exigences fonctionnelles.** Ce que le produit doit faire, fonction par fonction. Pourquoi : c'est le cœur testable du document. Chaque fonction non décrite ici est une fonction qui sera improvisée pendant le design, donc non validée.
+
+**performances.** Valeurs chiffrées, tolérances, conditions de mesure (temps de réponse, précision, débit, autonomie). Pourquoi : sans chiffre ni condition, une performance n'est pas une exigence, c'est un sujet de dispute reporté à la validation.
+
+**mécanique et boîtier.** Encombrement, masse, ergonomie, démontabilité, étanchéité (IP). Pourquoi : ces contraintes conditionnent le placement des cartes et la dissipation thermique. Les figer tard, c'est re-router pour faire entrer l'électronique dans un volume qu'on a oublié de spécifier.
+
+**électrique et énergie.** Source d'alimentation, tension, autonomie cible, budget de consommation, interfaces (connectique, protocoles). Pourquoi : l'architecture d'alimentation est l'une des premières décisions de conception. La changer après coup touche presque tout le reste.
+
+**environnement et robustesse.** Plage de température, humidité, vibrations, chocs, CEM. Pourquoi : ce sont les exigences qui font échouer en DVT et en certification. Les déclarer dès le PRD oriente le choix des composants et du boîtier au lieu de les subir aux essais.
+
+**conformité réglementaire.** Directives applicables identifiées dès le départ (RED, CEM, basse tension, RoHS, DEEE, et le sectoriel : médical, jouet, ATEX selon le cas). Pourquoi : une norme découverte en pré-certification, c'est un re-spin. Listée dans le PRD, elle devient une contrainte de conception, pas une mauvaise surprise.
+
+**éco-conception et réparabilité.** Inputs intégrés au PRD ou à la SRD dès le départ : démontabilité, accès aux pièces d'usure, disponibilité des pièces détachées, cible d'indice de réparabilité. Pourquoi : ces propriétés se décident à l'architecture, pas en fin de projet. Les ajouter après, c'est rouvrir le boîtier et la nomenclature.
+
+**contraintes de projet.** Cible de coût (BOM et coût complet), volume de production, calendrier. Pourquoi : un produit techniquement parfait mais hors cible de coût ou de volume est un échec industriel. Ces contraintes cadrent les choix de composants et de sous-traitance dès le premier jour.
+
+**hors périmètre.** Ce que le produit ne fera explicitement pas. Pourquoi : c'est le meilleur rempart contre le glissement de périmètre. Une frontière écrite est une frontière qu'on peut défendre en revue.
+
+## la discipline qui rend le PRD utile
+
+Trois réflexes séparent le PRD qui sert de celui qui prend la poussière :
+
+1. **Chaque exigence est traçable à un test.** Pas de test, pas d'exigence valide.
+2. **On le fige, mais on le versionne.** Le périmètre est verrouillé au lancement, et toute évolution passe par une gestion de changement (ECR) explicite, pas par un glissement silencieux.
+3. **Il nourrit l'analyse de risque.** Les exigences critiques deviennent les entrées de la DFMEA. Une exigence sans traitement de risque associé est une exigence dont on ignore le mode de défaillance.
+
+## les pièges classiques
+
+- des solutions déguisées en exigences (« utiliser un connecteur USB-C » alors que le besoin est « permettre la recharge filaire ») ;
+- des adjectifs non testables (« convivial », « performant », « durable ») jamais traduits en chiffres ;
+- l'oubli du non-fonctionnel : environnement, réglementaire, coût, volume, fin de vie ;
+- aucune priorité, donc tout est urgent, donc rien ne l'est ;
+- aucun propriétaire, donc aucun arbitrage possible quand deux exigences se contredisent.
+
+Le PRD est l'endroit le moins cher pour décider, et le plus cher pour se tromper. Une heure passée à rendre une exigence testable et traçable, c'est une semaine de re-spin évitée en DVT. Il ne décrit pas comment construire le produit, il définit le contrat que l'ingénierie devra honorer et que la validation devra prouver. Écrivez-le avec cette exigence-là, et la moitié des dérives de projet disparaissent avant même la première carte.
