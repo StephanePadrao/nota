@@ -2,7 +2,7 @@
 title: "EP6000 : une interprétation moderne de la mesure de la qualité de l'air"
 dates: '2025'
 active: false
-description: "Reprise d'un capteur de qualité d'air criblé de dettes techniques, diagnostic, et décision de tout refondre. L'EP6000 : architecture propre, mesures fiables, et une cartouche de capteurs interchangeable pensée pour la maintenance et l'évolution."
+description: "Reprise d'un capteur de qualité d'air criblé de dettes techniques, diagnostic, et décision de tout refondre. L'EP6000 : architecture propre, mesures fiables, visée WELL et RESET, et une cartouche de capteurs interchangeable pensée pour la maintenance et l'évolution."
 technologies:
   - Conception produit
   - Qualité d'air (IAQ)
@@ -12,23 +12,42 @@ technologies:
   - Industrialisation
 cover: /projects/ep6000/cover.webp
 ---
-Chez NanoSense, j'ai récupéré l'EP5000 : un capteur de qualité d'air intérieur qui mesure jusqu'à treize paramètres et pilote la ventilation. Sur le papier, un beau produit. En vrai, vingt ans de couches accumulées par des équipes successives, une documentation incomplète et des problèmes récurrents en production. J'ai posé le diagnostic, et j'ai décidé de tout refondre. L'EP6000 est cette refonte.
+Chez NanoSense, j'ai récupéré l'EP5000 : un capteur de qualité d'air intérieur qui mesure jusqu'à treize paramètres et pilote la ventilation des bâtiments. Sur le papier, un beau produit. En vrai, vingt ans de couches accumulées par des équipes successives, une documentation incomplète et des problèmes récurrents en production. J'ai posé le diagnostic, présenté les scénarios à la direction, et tranché : on refait tout. L'EP6000 est cette refonte, et c'est moi qui en ai écrit le cahier des charges.
 
 ## un produit hérité, plein de dettes
 
-Les retours SAV et les analyses internes pointaient toujours les mêmes choses. Côté logiciel : LoRa instable, connexions/déconnexions, freeze du MCU, redémarrages, mesures de particules « corrigées » par un facteur artificiel ajouté dans le firmware, erreurs de calcul. Le tout porté par un firmware unique qui gérait toutes les versions du produit, sans gestion d'historique propre, donc impossible à maintenir sans risquer une régression ailleurs.
+Les retours SAV et les analyses internes pointaient toujours les mêmes choses. Côté logiciel : LoRa instable, connexions et déconnexions à répétition, freeze du microcontrôleur, redémarrages, mesures de particules « corrigées » par un facteur artificiel ajouté dans le firmware, erreurs dans le calcul des effets physiologiques. Le tout porté par un firmware unique qui gérait toutes les versions du produit, sans gestion d'historique propre. Conséquence : la moindre correction risquait d'introduire une régression ailleurs, et personne ne s'y retrouvait.
 
-Côté matériel et industrialisation : un flux d'air mal géré par la mécanique, des défauts de routage, et en production aucun banc de test, pas de suivi des modifications, des lots entiers de rejets. Chaque nouvelle sous-version (Hydro, EPD, solaire, BLE) était une couche de plus sur une base déjà instable. On n'améliorait pas le produit, on empilait la dette.
+Côté matériel et mécanique, le flux d'air était mal géré, avec des défauts de routage et d'antenne. En production, pas de banc de test, pas de suivi structuré des modifications, des lots entiers de rejets. Et chaque nouvelle sous-version (Hydro, écran, solaire, Bluetooth) ajoutait une couche sur une base déjà instable. On n'améliorait pas le produit, on empilait la dette.
 
-## j'ai choisi la refonte, pas la rustine
+## refondre, pas colmater
 
-Trois options sur la table : corriger le code existant, réécrire le firmware sur le même hardware, ou tout refaire, hardware et software. Les deux premières gardaient des fondations pourries : on aurait colmaté pendant des mois pour finir par tout réécrire quand même. J'ai tranché pour la refonte complète. C'est plus cher au départ, et c'est la seule option qui règle les problèmes de fond au lieu de les déplacer vers l'aval.
+Trois scénarios sur la table : corriger le code existant, réécrire le firmware sur le même hardware, ou tout refaire, électronique et logiciel. Les deux premiers gardaient des fondations pourries. La mécanique, le routage et un logiciel « orphelin » plus maintenu étaient la cause racine : on aurait colmaté pendant des mois pour finir par tout réécrire de toute façon. J'ai tranché pour la refonte complète. C'est plus cher au départ, et c'est la seule option qui règle les problèmes de fond au lieu de les repousser vers l'aval, là où ils coûtent dix fois plus.
 
-## ce que l'EP6000 corrige et optimise
+## repartir sur une base propre
 
-Le firmware repart d'une base propre : une architecture modulaire sous FreeRTOS, un build par configuration au lieu d'un monolithe qui tente de tout gérer, des mises à jour OTA, et un vrai versioning. Les mesures ne sont plus trafiquées dans le code : ce que le capteur lit est ce qu'on affiche. La mécanique est redessinée autour du flux d'air, et la production a enfin un banc de test et une traçabilité.
+Le firmware repart d'une architecture modulaire sous FreeRTOS, avec un build par configuration au lieu d'un monolithe qui tente de tout gérer, des mises à jour OTA, et un vrai versioning. Les mesures ne sont plus trafiquées dans le code : ce que le capteur lit est ce qu'on affiche. La mécanique est redessinée autour du flux d'air, condition d'une mesure juste. Et la production récupère enfin un banc de test et une traçabilité des sous-ensembles. Rien de spectaculaire pris isolément, mais c'est la somme de ces bases qui fait la différence entre un produit qu'on subit et un produit qu'on maîtrise.
 
-Le produit reste multi-protocoles (LoRa, Modbus, EnOcean, 0-10V, Wi-Fi/Ethernet) et couvre quatre usages, de la simple indication locale au pilotage actif de la ventilation via VAV ou GTB, en passant par la remontée de données. Le tout cadré pour viser les certifications WELL et RESET.
+## un capteur, jusqu'à treize mesures
+
+L'EP6000 mesure les polluants et paramètres qui comptent : CO₂, COV, particules fines (PM1, PM2.5, PM10), bruit, lumière, humidité, température et pression atmosphérique. En option, des capteurs de NOx, d'ozone et de formaldéhyde. À partir de ces données, il pilote la ventilation, par seuils ou par régulation PID, pour éviter à la fois la sur-ventilation et la sous-ventilation. La bonne mesure ne sert pas qu'à afficher une couleur : elle réduit la consommation énergétique du bâtiment.
+
+![Mesure en temps réel des polluants et remontée des données : CO₂, particules, COV, bruit, température, pression.](/projects/ep6000/mesures.webp)
+
+## multi-protocoles, quatre usages
+
+Le produit reste une plateforme. Côté communication : LoRa, Modbus, EnOcean, 0-10V, Wi-Fi et Ethernet. Côté usage, quatre modes couvrent les besoins du terrain :
+
+- **indication locale** : mesure et affichage par l'anneau LED, sans réseau ;
+- **mesure et remontée de données** : ajout de la transmission temps réel vers une supervision ;
+- **contrôle actif** : pilotage de la ventilation via VAV (0-10V) ou GTB (Modbus), par seuils ou PID ;
+- **mode hors-ligne** : contrôle de l'air sans aucune transmission, pour les environnements sensibles aux données.
+
+Une seule plateforme matérielle, plusieurs configurations, un firmware dédié par configuration plutôt qu'un firmware fourre-tout. C'est exactement la leçon tirée de l'EP5000.
+
+## viser WELL et RESET
+
+L'EP6000 est conçu pour répondre aux certifications WELL et RESET, les deux référentiels qui font foi sur la qualité de l'air intérieur. Concrètement, ça impose des exigences fortes : CO₂ à ±75 ppm, PM2.5 à ±10 %, une mesure au moins toutes les cinq minutes (idéalement chaque minute), un étalonnage usine et annuel, des certificats d'étalonnage téléchargeables, et un identifiant unique par appareil relié à ses données et à son dossier d'étalonnage. Viser ces normes dès le cahier des charges, ce n'est pas cocher une case : c'est orienter chaque choix de capteur, d'affichage et de traçabilité dès le départ.
 
 ## la cartouche de capteurs, le cœur de l'idée
 
@@ -36,12 +55,18 @@ C'est là que l'EP6000 devient vraiment moderne. Au lieu de souder tous les capt
 
 ![Architecture en deux blocs : une cartouche de capteurs amovible devant la carte principale, l'air traverse l'ensemble.](/projects/ep6000/cartouche.webp)
 
-Ce choix change tout, sur deux plans.
+Ce choix change tout, sur trois plans.
 
-**La maintenance.** Un capteur de gaz, ça dérive et ça vieillit. Avant, il fallait remplacer le produit entier ou envoyer un technicien. Là, on change la cartouche : elle part par la poste, le client la remplace lui-même, sans intervention. Le produit se rénove au lieu de finir au rebut, et la cartouche usagée part au recyclage. Pour NanoSense, ça transforme aussi la vente d'un produit en revenu récurrent, propre et scalable.
+**La maintenance.** Un capteur de gaz dérive et vieillit. Avant, il fallait remplacer le produit entier ou envoyer un technicien. Là, on change la cartouche : elle part par la poste, le client la remplace lui-même, sans intervention. Le produit se rénove au lieu de finir au rebut, et la cartouche usagée part au recyclage.
 
 **L'évolution.** Le jour où on veut un nouveau capteur, un meilleur composant ou un polluant supplémentaire, on fait évoluer la cartouche, pas tout le produit. La carte mère ne bouge pas, l'industrialisation non plus. Le produit s'améliore sans repartir de zéro à chaque génération de capteurs.
 
-## ce que j'en retire
+**La certification.** L'étalonnage annuel et la traçabilité qu'exigent WELL et RESET deviennent un simple échange de cartouche, pas un retour produit. La cartouche rend la conformité tenable sur les dix ans de vie de l'appareil. Et côté business, elle transforme la vente d'un produit en revenu récurrent, propre et scalable, sans déplacement ni intervention lourde.
 
-Chez NanoSense, c'est moi qui ai décidé : le diagnostic, la stratégie, et le cahier des charges de l'EP6000. Passer d'un héritage instable à un produit pensé pour durer et évoluer, ça oblige à un vrai courage d'ingénieur : arrêter de colmater, et refondre proprement, en mettant la maintenance et l'évolution dans l'architecture dès le départ, pas en option qu'on regrettera plus tard.
+## une refonte pensée pour durer
+
+La stratégie de déploiement suit la même logique. Une première version, standalone et LoRa, couvre l'essentiel des ventes actuelles : de quoi remplacer l'EP5000 vite, sans tout reconstruire d'un coup. Les versions suivantes (EnOcean, connexions cloud) viendront se greffer sur la même base matérielle. Le produit est vendu à l'achat comme à la location, rénovable par sa cartouche, et recyclable en fin de vie.
+
+## mon rôle, ce que j'en retire
+
+Chez NanoSense, c'est moi qui ai décidé : le diagnostic, la stratégie, et le cahier des charges de l'EP6000. Passer d'un héritage instable à un produit pensé pour durer et évoluer demande un vrai courage d'ingénieur : arrêter de colmater, et refondre proprement, en mettant la maintenance et l'évolution dans l'architecture dès le départ, pas en option qu'on regrettera plus tard. C'est ça, pour moi, une interprétation moderne de la mesure de la qualité de l'air : pas seulement mieux mesurer, mais concevoir un produit qui reste juste et pertinent dix ans après sa sortie d'usine.
