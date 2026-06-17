@@ -1,0 +1,80 @@
+---
+title: "O PRD: o documento que decide se o teu projeto hardware vai derivar"
+date: "2026-06-17"
+description: "O PRD é o contrato entre a necessidade e a engenharia. Um requisito que não se sabe testar é um requisito sobre o qual se vai discutir na validação. Como escrevê-lo para que aguente."
+cover: /blog/le-prd-document-qui-decide/cover.webp
+tags:
+  - PRD
+  - Hardware
+  - NPI
+  - Spécifications
+draft: false
+---
+A maioria das derivas de um projeto de hardware não começa no laboratório, começa no PRD. E o PRD tem má reputação: um documento que se redige à pressa para « lançar o projeto » e que depois não se volta a abrir. É exatamente o contrário do que devia ser. Um bom PRD é o objeto mais barato de produzir e o mais caro de estragar de todo o projeto.
+
+## o que é um PRD, e o que não é
+
+Um PRD não é nem uma lista de desejos nem uma especificação técnica. É a ponte entre as duas.
+
+A montante, o MRD (Marketing Requirement Document) diz o que o mercado quer: o alvo, o uso, o preço, a promessa. O PRD traduz essa necessidade no que o produto deve fazer e garantir, sem dizer como. A jusante, a especificação de sistema (SRD) responde ao como: arquitetura, escolhas técnicas, dimensionamento. O PRD é o andar do meio, e é o andar que mais se salta, e mal.
+
+A sua regra de ouro: descrever o « quê », nunca o « como ». Assim que um requisito contém uma solução, fecha uma porta que a engenharia devia ter mantido aberta.
+
+## onde se situa no fluxo
+
+O PRD não é um documento isolado, é um elo: MRD, depois PRD, depois arquitetura, depois as fases EVT, DVT, PVT. E sobretudo, fecha o ciclo: a verificação e a validação (V&V) ligam cada teste a um requisito do PRD. Se um requisito não tem teste associado, ou é inútil ou o teu plano de validação tem um buraco. Se um teste não se liga a nenhum requisito, testas por hábito, não por necessidade.
+
+É essa rastreabilidade que faz do PRD uma ferramenta viva e não um documento morto: alimenta a matriz de conformidade, a DFMEA, e serve de árbitro em cada revisão de conceção.
+
+## o que faz um bom requisito
+
+Um requisito útil tem quatro qualidades:
+
+- **testável**: tem de se poder provar que está cumprido. « O aparelho arranca em menos de 2 segundos » testa-se. « O aparelho arranca depressa » não se testa, discute-se.
+- **mensurável**: um número, uma tolerância, uma condição. Os adjetivos (« robusto », « ergonómico », « fiável ») são armadilhas enquanto não forem traduzidos em grandezas.
+- **rastreável**: um identificador único, ligado a uma necessidade a montante e a um teste a jusante.
+- **priorizado e atribuído**: nem tudo tem o mesmo peso, e cada requisito tem um dono que decide em caso de conflito.
+
+## os elementos esperados, e porquê cada um
+
+Um PRD eletrónico sério cobre muito mais do que as funções. Para cada rubrica, a verdadeira questão não é « o que se põe » mas « o que parte se o esquecermos ». As rubricas que mais se saltam são justamente as que fazem falhar a jusante.
+
+**contexto e objetivos.** A necessidade, o alvo, o problema que o produto resolve. Porquê: é a bitola de todas as decisões posteriores. Sem ele, cada arbitragem torna-se uma opinião, e a equipa otimiza coisas que ninguém pediu.
+
+**casos de uso e utilizadores.** Quem o usa, em que ambiente, para quê. Porquê: um mesmo aparelho usado em oficina ou no exterior não tem as mesmas exigências de robustez nem de interface. O caso de uso é o que transforma uma função num requisito quantificado.
+
+**requisitos funcionais.** O que o produto deve fazer, função a função. Porquê: é o núcleo testável do documento. Cada função não descrita aqui é uma função que será improvisada durante o design, e portanto não validada.
+
+**desempenho.** Valores quantificados, tolerâncias, condições de medição (tempo de resposta, precisão, débito, autonomia). Porquê: sem número nem condição, um desempenho não é um requisito, é uma disputa adiada para a validação.
+
+**mecânica e caixa.** Dimensões, massa, ergonomia, desmontabilidade, estanqueidade (IP). Porquê: estas restrições condicionam a colocação das placas e a dissipação térmica. Fixá-las tarde é voltar a fazer o routing para meter a eletrónica num volume que se esqueceu de especificar.
+
+**elétrico e energia.** Fonte de alimentação, tensão, autonomia alvo, orçamento de consumo, interfaces (conetores, protocolos). Porquê: a arquitetura de alimentação é uma das primeiras decisões de design. Mudá-la depois mexe em quase todo o resto.
+
+**ambiente e robustez.** Gama de temperatura, humidade, vibrações, choques, CEM. Porquê: são os requisitos que fazem falhar em DVT e em certificação. Declará-los logo no PRD orienta a escolha dos componentes e da caixa em vez de os sofrer nos ensaios.
+
+**conformidade regulamentar.** Diretivas aplicáveis identificadas desde o início (RED, CEM, baixa tensão, RoHS, REEE, e o setorial: médico, brinquedo, ATEX conforme o caso). Porquê: uma norma descoberta em pré-certificação é um re-spin. Listada no PRD, torna-se uma restrição de design, não uma má surpresa.
+
+**ecoconceção e reparabilidade.** Inputs integrados no PRD ou na SRD desde o início: desmontabilidade, acesso às peças de desgaste, disponibilidade de peças sobresselentes, índice de reparabilidade alvo. Porquê: estas propriedades decidem-se na arquitetura, não no fim do projeto. Acrescentá-las depois é reabrir a caixa e a nomenclatura.
+
+**restrições de projeto.** Alvo de custo (BOM e custo completo), volume de produção, calendário. Porquê: um produto tecnicamente perfeito mas fora do alvo de custo ou de volume é um fracasso industrial. Estas restrições enquadram a escolha de componentes e de subcontratação desde o primeiro dia.
+
+**fora de âmbito.** O que o produto explicitamente não fará. Porquê: é a melhor defesa contra o deslize de âmbito. Uma fronteira escrita é uma fronteira que se pode defender em revisão.
+
+## a disciplina que torna o PRD útil
+
+Três reflexos separam o PRD que serve daquele que ganha pó:
+
+1. **Cada requisito é rastreável a um teste.** Sem teste, não há requisito válido.
+2. **Congela-se, mas versiona-se.** O âmbito é bloqueado no arranque, e qualquer evolução passa por uma gestão de alterações (ECR) explícita, não por um deslize silencioso.
+3. **Alimenta a análise de risco.** Os requisitos críticos tornam-se as entradas da DFMEA. Um requisito sem tratamento de risco associado é um requisito cujo modo de falha se ignora.
+
+## as armadilhas clássicas
+
+- soluções disfarçadas de requisitos (« usar um conetor USB-C » quando a necessidade é « permitir o carregamento com fio »);
+- adjetivos não testáveis (« intuitivo », « eficiente », « durável ») nunca traduzidos em números;
+- o esquecimento do não funcional: ambiente, regulamentar, custo, volume, fim de vida;
+- nenhuma prioridade, portanto tudo é urgente, portanto nada o é;
+- nenhum dono, portanto nenhuma arbitragem possível quando dois requisitos se contradizem.
+
+O PRD é o sítio mais barato para decidir, e o mais caro para errar. Uma hora passada a tornar um requisito testável e rastreável é uma semana de re-spin evitada em DVT. Não descreve como construir o produto, define o contrato que a engenharia terá de honrar e que a validação terá de provar. Escreve-o com essa exigência, e metade das derivas do projeto desaparecem antes mesmo da primeira placa.

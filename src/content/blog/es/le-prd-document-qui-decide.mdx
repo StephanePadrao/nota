@@ -1,0 +1,80 @@
+---
+title: "El PRD: el documento que decide si tu proyecto hardware va a derivar"
+date: "2026-06-17"
+description: "El PRD es el contrato entre la necesidad y la ingeniería. Un requisito que no sabes probar es un requisito sobre el que discutirás en validación. Cómo escribirlo para que aguante."
+cover: /blog/le-prd-document-qui-decide/cover.webp
+tags:
+  - PRD
+  - Hardware
+  - NPI
+  - Spécifications
+draft: false
+---
+La mayoría de las derivas de un proyecto hardware no empiezan en el laboratorio, empiezan en el PRD. Y el PRD tiene mala fama: un documento que se redacta deprisa para « lanzar el proyecto » y que luego no se vuelve a abrir. Es justo lo contrario de lo que debería ser. Un buen PRD es el objeto más barato de producir y el más caro de chapucear de todo el proyecto.
+
+## qué es un PRD, y qué no es
+
+Un PRD no es ni una lista de deseos ni una especificación técnica. Es el puente entre ambas.
+
+Aguas arriba, el MRD (Marketing Requirement Document) dice lo que quiere el mercado: el objetivo, el uso, el precio, la promesa. El PRD traduce esa necesidad en lo que el producto debe hacer y garantizar, sin decir cómo. Aguas abajo, la especificación de sistema (SRD) responde al cómo: arquitectura, decisiones técnicas, dimensionado. El PRD es el piso intermedio, y es el piso que más a menudo se salta, y mal.
+
+Su regla de oro: describir el « qué », nunca el « cómo ». En cuanto un requisito contiene una solución, cierra una puerta que la ingeniería debería haber dejado abierta.
+
+## dónde se sitúa en el flujo
+
+El PRD no es un documento aislado, es un eslabón: MRD, luego PRD, luego arquitectura, luego las fases EVT, DVT, PVT. Y sobre todo, cierra el bucle: la verificación y la validación (V&V) trazan cada prueba hasta un requisito del PRD. Si un requisito no tiene prueba asociada, o es inútil o tu plan de validación tiene un agujero. Si una prueba no se vincula a ningún requisito, pruebas por costumbre, no por necesidad.
+
+Es esa trazabilidad la que convierte el PRD en una herramienta viva y no en un documento muerto: alimenta la matriz de conformidad, la DFMEA, y hace de árbitro en cada revisión de diseño.
+
+## qué hace un buen requisito
+
+Un requisito útil tiene cuatro cualidades:
+
+- **comprobable**: hay que poder demostrar que se cumple. « El aparato arranca en menos de 2 segundos » se prueba. « El aparato arranca rápido » no se prueba, se discute.
+- **medible**: una cifra, una tolerancia, una condición. Los adjetivos (« robusto », « ergonómico », « fiable ») son trampas mientras no se traduzcan en magnitudes.
+- **trazable**: un identificador único, vinculado a una necesidad aguas arriba y a una prueba aguas abajo.
+- **priorizado y asignado**: no todo pesa lo mismo, y cada requisito tiene un propietario que decide en caso de conflicto.
+
+## los elementos esperados, y por qué cada uno
+
+Un PRD electrónico serio cubre mucho más que las funciones. Para cada apartado, la verdadera pregunta no es « qué ponemos » sino « qué se rompe si lo olvidamos ». Los apartados que más se saltan son justamente los que hacen fracasar aguas abajo.
+
+**contexto y objetivos.** La necesidad, el objetivo, el problema que resuelve el producto. Por qué: es el patrón de todas las decisiones posteriores. Sin él, cada arbitraje se vuelve una opinión, y el equipo optimiza cosas que nadie ha pedido.
+
+**casos de uso y usuarios.** Quién lo usa, en qué entorno, para qué. Por qué: un mismo aparato usado en taller o a la intemperie no tiene las mismas exigencias de robustez ni de interfaz. El caso de uso es lo que transforma una función en un requisito cuantificado.
+
+**requisitos funcionales.** Lo que el producto debe hacer, función por función. Por qué: es el núcleo comprobable del documento. Cada función no descrita aquí es una función que se improvisará durante el diseño, y por tanto no se validará.
+
+**prestaciones.** Valores cuantificados, tolerancias, condiciones de medida (tiempo de respuesta, precisión, caudal, autonomía). Por qué: sin cifra ni condición, una prestación no es un requisito, es una disputa aplazada a la validación.
+
+**mecánica y carcasa.** Tamaño, masa, ergonomía, desmontabilidad, estanqueidad (IP). Por qué: estas restricciones condicionan la colocación de las placas y la disipación térmica. Fijarlas tarde es volver a rutar para meter la electrónica en un volumen que se olvidó especificar.
+
+**eléctrico y energía.** Fuente de alimentación, tensión, autonomía objetivo, presupuesto de consumo, interfaces (conectores, protocolos). Por qué: la arquitectura de alimentación es una de las primeras decisiones de diseño. Cambiarla después toca casi todo lo demás.
+
+**entorno y robustez.** Rango de temperatura, humedad, vibraciones, choques, CEM. Por qué: son los requisitos que hacen fracasar en DVT y en certificación. Declararlos desde el PRD orienta la elección de componentes y de carcasa en vez de sufrirlos en los ensayos.
+
+**conformidad reglamentaria.** Directivas aplicables identificadas desde el principio (RED, CEM, baja tensión, RoHS, RAEE, y lo sectorial: médico, juguete, ATEX según el caso). Por qué: una norma descubierta en precertificación es un re-spin. Listada en el PRD, se convierte en una restricción de diseño, no en una mala sorpresa.
+
+**ecodiseño y reparabilidad.** Inputs integrados en el PRD o en la SRD desde el principio: desmontabilidad, acceso a las piezas de desgaste, disponibilidad de recambios, índice de reparabilidad objetivo. Por qué: estas propiedades se deciden en la arquitectura, no al final del proyecto. Añadirlas después es volver a abrir la carcasa y la nomenclatura.
+
+**restricciones de proyecto.** Objetivo de coste (BOM y coste completo), volumen de producción, calendario. Por qué: un producto técnicamente perfecto pero fuera del objetivo de coste o de volumen es un fracaso industrial. Estas restricciones encuadran la elección de componentes y de subcontratación desde el primer día.
+
+**fuera de alcance.** Lo que el producto explícitamente no hará. Por qué: es la mejor defensa contra el deslizamiento del alcance. Una frontera escrita es una frontera que se puede defender en revisión.
+
+## la disciplina que hace útil el PRD
+
+Tres reflejos separan el PRD que sirve del que acumula polvo:
+
+1. **Cada requisito es trazable a una prueba.** Sin prueba, no hay requisito válido.
+2. **Se congela, pero se versiona.** El alcance se bloquea en el lanzamiento, y toda evolución pasa por una gestión de cambios (ECR) explícita, no por un deslizamiento silencioso.
+3. **Alimenta el análisis de riesgo.** Los requisitos críticos se convierten en las entradas de la DFMEA. Un requisito sin tratamiento de riesgo asociado es un requisito cuyo modo de fallo se ignora.
+
+## las trampas clásicas
+
+- soluciones disfrazadas de requisitos (« usar un conector USB-C » cuando la necesidad es « permitir la recarga por cable »);
+- adjetivos no comprobables (« intuitivo », « potente », « duradero ») nunca traducidos en cifras;
+- el olvido de lo no funcional: entorno, reglamentario, coste, volumen, fin de vida;
+- ninguna prioridad, así que todo es urgente, así que nada lo es;
+- ningún propietario, así que ningún arbitraje posible cuando dos requisitos se contradicen.
+
+El PRD es el lugar más barato para decidir, y el más caro para equivocarse. Una hora dedicada a hacer un requisito comprobable y trazable es una semana de re-spin evitada en DVT. No describe cómo construir el producto, define el contrato que la ingeniería tendrá que honrar y que la validación tendrá que probar. Escríbelo con esa exigencia, y la mitad de las derivas del proyecto desaparecen antes incluso de la primera placa.

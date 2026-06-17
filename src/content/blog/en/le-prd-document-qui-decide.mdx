@@ -1,0 +1,80 @@
+---
+title: "The PRD: the document that decides whether your hardware project drifts"
+date: "2026-06-17"
+description: "The PRD is the contract between the need and engineering. A requirement you can't test is a requirement you'll argue over during validation. How to write one that holds."
+cover: /blog/le-prd-document-qui-decide/cover.webp
+tags:
+  - PRD
+  - Hardware
+  - NPI
+  - Spécifications
+draft: false
+---
+Most hardware project drifts don't start in the lab, they start in the PRD. And the PRD has a bad reputation: a document you write quickly to "kick off the project", then never reopen. It's the opposite of what it should be. A good PRD is the cheapest thing to produce and the most expensive to botch in the whole project.
+
+## what a PRD is, and what it isn't
+
+A PRD is neither a wish list nor a technical specification. It's the bridge between the two.
+
+Upstream, the MRD (Marketing Requirement Document) says what the market wants: the target, the use, the price, the promise. The PRD translates that need into what the product must do and guarantee, without saying how. Downstream, the system specification (SRD) answers the how: architecture, technical choices, sizing. The PRD is the middle floor, and it's the floor people skip most often, wrongly.
+
+Its golden rule: describe the "what", never the "how". As soon as a requirement contains a solution, it closes a door engineering should have kept open.
+
+## where it sits in the flow
+
+The PRD isn't a standalone document, it's a link in a chain: MRD, then PRD, then architecture, then the EVT, DVT, PVT phases. And above all, it loops back: verification and validation (V&V) trace every test to a PRD requirement. If a requirement has no associated test, either it's useless or your validation plan has a hole. If a test maps to no requirement, you're testing out of habit, not out of need.
+
+It's this traceability that makes the PRD a living tool and not a dead document: it feeds the compliance matrix, the DFMEA, and it acts as the referee at every design review.
+
+## what makes a good requirement
+
+A useful requirement holds four qualities:
+
+- **testable**: you must be able to prove it's met. "The device boots in under 2 seconds" can be tested. "The device boots fast" can't be tested, it gets debated.
+- **measurable**: a number, a tolerance, a condition. Adjectives ("robust", "ergonomic", "reliable") are traps until you've translated them into quantities.
+- **traceable**: a unique identifier, linked to an upstream need and a downstream test.
+- **prioritized and owned**: not everything carries the same weight, and each requirement has an owner who decides in case of conflict.
+
+## the expected elements, and why each one
+
+A serious electronics PRD covers far more than the functions. For each section, the real question isn't "what do we put in it" but "what breaks if we forget it". The sections people skip most are precisely the ones that cause failures downstream.
+
+**context and objectives.** The need, the target, the problem the product solves. Why: it's the yardstick for every later decision. Without it, each trade-off becomes an opinion, and the team optimizes things nobody asked for.
+
+**use cases and users.** Who uses it, in what environment, for what. Why: the same device used in a workshop or outdoors doesn't have the same robustness or interface requirements. The use case is what turns a function into a quantified requirement.
+
+**functional requirements.** What the product must do, function by function. Why: it's the testable core of the document. Every function not described here is a function that will be improvised during design, and therefore not validated.
+
+**performance.** Quantified values, tolerances, measurement conditions (response time, accuracy, throughput, battery life). Why: without a number and a condition, a performance isn't a requirement, it's a dispute postponed to validation.
+
+**mechanics and enclosure.** Footprint, mass, ergonomics, disassembly, sealing (IP). Why: these constraints drive board placement and thermal dissipation. Freezing them late means re-routing to fit the electronics into a volume you forgot to specify.
+
+**electrical and power.** Power source, voltage, target battery life, consumption budget, interfaces (connectors, protocols). Why: the power architecture is one of the first design decisions. Changing it afterwards touches almost everything else.
+
+**environment and robustness.** Temperature range, humidity, vibration, shock, EMC. Why: these are the requirements that cause failures in DVT and certification. Declaring them in the PRD steers the choice of components and enclosure instead of suffering them at the tests.
+
+**regulatory compliance.** Applicable directives identified from the start (RED, EMC, low voltage, RoHS, WEEE, and the sector-specific ones: medical, toys, ATEX as the case may be). Why: a standard discovered in pre-certification is a re-spin. Listed in the PRD, it becomes a design constraint, not a nasty surprise.
+
+**eco-design and repairability.** Inputs built into the PRD or the SRD from the start: disassembly, access to wear parts, spare-parts availability, target repairability index. Why: these properties are decided at the architecture stage, not at the end of the project. Adding them later means reopening the enclosure and the BOM.
+
+**project constraints.** Cost target (BOM and full cost), production volume, schedule. Why: a technically perfect product that misses its cost or volume target is an industrial failure. These constraints frame the choice of components and subcontracting from day one.
+
+**out of scope.** What the product explicitly will not do. Why: it's the best defense against scope creep. A written boundary is a boundary you can defend in a review.
+
+## the discipline that makes a PRD useful
+
+Three habits separate the PRD that serves from the one that gathers dust:
+
+1. **Every requirement is traceable to a test.** No test, no valid requirement.
+2. **You freeze it, but you version it.** The scope is locked at kickoff, and any change goes through an explicit change management (ECR), not a silent drift.
+3. **It feeds the risk analysis.** Critical requirements become the inputs of the DFMEA. A requirement with no associated risk treatment is a requirement whose failure mode you ignore.
+
+## the classic traps
+
+- solutions disguised as requirements ("use a USB-C connector" when the need is "allow wired charging");
+- untestable adjectives ("user-friendly", "high-performance", "durable") never translated into numbers;
+- forgetting the non-functional: environment, regulatory, cost, volume, end of life;
+- no priority, so everything is urgent, so nothing is;
+- no owner, so no arbitration possible when two requirements contradict each other.
+
+The PRD is the cheapest place to decide, and the most expensive to get wrong. An hour spent making a requirement testable and traceable is a week of re-spin avoided in DVT. It doesn't describe how to build the product, it defines the contract engineering will have to honor and validation will have to prove. Write it to that standard, and half the project drifts disappear before the first board even exists.
