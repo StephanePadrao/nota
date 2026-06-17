@@ -1,0 +1,76 @@
+---
+title: "EP6000: uma leitura moderna da medição da qualidade do ar"
+dates: '2025'
+active: false
+description: "Retomar um sensor de qualidade do ar cheio de dívida técnica, diagnosticá-lo, e decidir refazê-lo por completo. O EP6000: arquitetura limpa, medições fiáveis, com WELL e RESET em mira, e um cartucho de sensores intercambiável pensado para a manutenção e a evolução."
+technologies:
+  - Conception produit
+  - Qualité d'air (IAQ)
+  - Architecture modulaire
+  - Firmware embarqué
+  - LoRa / Modbus
+  - Industrialisation
+cover: /projects/ep6000/cover.webp
+---
+Na NanoSense, retomei o EP5000: um sensor de qualidade do ar interior que mede até treze parâmetros e pilota a ventilação dos edifícios. No papel, um bom produto. Na realidade, vinte anos de camadas acumuladas por equipas sucessivas, uma documentação incompleta e problemas recorrentes em produção. Fiz o diagnóstico, apresentei os cenários à direção e assumi a decisão: refazemos tudo. O EP6000 é essa refundição. Escrevi o seu caderno de encargos e piloto o seu desenvolvimento com as equipas de firmware, eletrónica e mecânica, e os subcontratantes que o fabricam.
+
+## um produto herdado, cheio de dívida
+
+Os retornos do SAV e as análises internas apontavam sempre para as mesmas coisas. No software: LoRa instável, ligações e desligamentos repetidos, freezes do microcontrolador, reinícios, medições de partículas « corrigidas » por um fator artificial acrescentado no firmware, erros no cálculo dos efeitos fisiológicos. Tudo isto suportado por um firmware único que geria todas as versões do produto, sem uma gestão de histórico adequada. A consequência: a menor correção arriscava introduzir uma regressão noutro lado, e ninguém se encontrava nisto.
+
+Do lado do hardware e da mecânica, o fluxo de ar era mal gerido, com defeitos de routing e de antena. Em produção, sem banco de teste, sem seguimento estruturado das modificações, lotes inteiros de rejeições. E cada nova subversão (Hydro, ecrã, solar, Bluetooth) acrescentava uma camada sobre uma base já instável. Não melhorávamos o produto, empilhávamos a dívida.
+
+## refazer, não remendar
+
+Três cenários em cima da mesa: corrigir o código existente, reescrever o firmware sobre o mesmo hardware, ou refazer tudo, eletrónica e software. Os dois primeiros mantinham fundações podres. A mecânica, o routing e um software « órfão » já sem manutenção eram a causa raiz: teríamos remendado durante meses para acabar a reescrever tudo de qualquer forma. Optei pela refundição completa. Custa mais ao início, e é a única opção que resolve os problemas de fundo em vez de os empurrar para jusante, onde custam dez vezes mais.
+
+## partir de uma base limpa
+
+O firmware parte de novo de uma arquitetura modular sobre FreeRTOS, com um build por configuração em vez de um monólito que tenta gerir tudo, atualizações OTA e um versionamento real. As medições já não são falseadas no código: o que o sensor lê é o que se mostra. A mecânica é redesenhada em torno do fluxo de ar, condição de uma medição justa. E a produção recupera enfim um banco de teste e a rastreabilidade dos subconjuntos. Nada de espetacular isoladamente, mas é a soma destas bases que separa um produto que se sofre de um produto que se domina.
+
+## um sensor, até treze medições
+
+O EP6000 mede os poluentes e parâmetros que contam: CO₂, COV, partículas finas (PM1, PM2.5, PM10), ruído, luz, humidade, temperatura e pressão atmosférica. Em opção, sensores de NOx, ozono e formaldeído. A partir destes dados, pilota a ventilação, por limiares ou por regulação PID, para evitar tanto a sobreventilação como a subventilação. Uma boa medição não serve apenas para mostrar uma cor: reduz o consumo energético do edifício.
+
+![Medição em tempo real dos poluentes e transmissão dos dados: CO₂, partículas, COV, ruído, temperatura, pressão.](/projects/ep6000/mesures.webp)
+
+## multiprotocolo, quatro usos
+
+O produto continua a ser uma plataforma. Em comunicação: LoRa, Modbus, EnOcean, 0-10V, Wi-Fi e Ethernet. Em uso, quatro modos cobrem as necessidades do terreno:
+
+- **indicação local**: medição e visualização pelo anel LED, sem rede;
+- **medição e transmissão de dados**: transmissão em tempo real para uma supervisão;
+- **controlo ativo**: pilotagem da ventilação por VAV (0-10V) ou GTC (Modbus), por limiares ou PID;
+- **modo offline**: controlo do ar sem qualquer transmissão, para ambientes sensíveis aos dados.
+
+Uma única plataforma de hardware, várias configurações, um firmware dedicado por configuração em vez de um faz-tudo. É exatamente a lição tirada do EP5000.
+
+## visar WELL e RESET
+
+O EP6000 foi concebido para cumprir as certificações WELL e RESET, os dois referenciais que mandam na qualidade do ar interior. Em concreto, isso impõe exigências fortes: CO₂ a ±75 ppm, PM2.5 a ±10 %, uma medição pelo menos a cada cinco minutos (idealmente a cada minuto), uma calibração de fábrica e anual, certificados de calibração descarregáveis, e um identificador único por aparelho ligado aos seus dados e ao seu dossier de calibração. Visar estas normas logo no caderno de encargos não é marcar uma casa: orienta cada escolha de sensor, de visualização e de rastreabilidade desde o início.
+
+## o cartucho de sensores, o coração da ideia
+
+É aqui que o EP6000 se torna verdadeiramente moderno. Em vez de soldar todos os sensores na placa principal, agrupei-os num **cartucho intercambiável**: um módulo amovível que contém todos os sensores críticos, separado da placa-mãe, com o ar a atravessar os dois.
+
+![Uma arquitetura em dois blocos: um cartucho de sensores amovível à frente da placa principal, o ar atravessa o conjunto.](/projects/ep6000/cartouche.webp)
+
+Esta escolha muda tudo, em três planos.
+
+**A manutenção.** Um sensor de gás desvia-se e envelhece. Antes, era preciso substituir o produto inteiro ou enviar um técnico. Agora troca-se o cartucho: segue pelo correio, o cliente substitui-o ele próprio, sem intervenção. O produto renova-se em vez de ir para a sucata, e o cartucho usado segue para a reciclagem.
+
+**A evolução.** No dia em que quisermos um novo sensor, um melhor componente ou um poluente adicional, fazemos evoluir o cartucho, não todo o produto. A placa-mãe não mexe, a industrialização também não. O produto melhora sem partir do zero a cada geração de sensores.
+
+**A certificação.** A calibração anual e a rastreabilidade que WELL e RESET exigem tornam-se uma simples troca de cartucho, não uma devolução de produto. O cartucho torna a conformidade sustentável ao longo dos dez anos de vida do aparelho. E do lado do negócio, transforma a venda pontual de um produto num rendimento recorrente, limpo e escalável, sem deslocação nem intervenção pesada.
+
+O reverso, não o escondo: uma interface amovível no meio do percurso de medição é um risco que é preciso dominar. Um conetor e contactos que aguentem dezenas de trocas sem desviar, uma estanqueidade a manter entre o cartucho e a placa para que o fluxo de ar continue controlado. É precisamente o que o caderno de encargos trata como prioridade: o cartucho só vale se a sua interface for impecável, porque no dia em que enfraquece, é a medição que se perde.
+
+## uma refundição pensada para durar
+
+Hoje, o EP6000 passou do caderno de encargos à pré-série e entra em industrialização. A primeira versão, standalone e LoRa, cobre o essencial das vendas atuais: o suficiente para substituir o EP5000 sem reconstruir tudo de uma vez, com as versões seguintes (EnOcean, ligações cloud) a enxertar-se sobre a mesma base de hardware. O produto está previsto para compra e para aluguer, renovável pelo seu cartucho e reciclável no fim de vida.
+
+Os verdadeiros juízes, a taxa de rejeição em produção e os retornos do terreno, chegarão com as primeiras séries. Mas a dívida que pesava no EP5000 não voltará: é isso que a refundição já garante.
+
+## o meu papel, o que retiro disto
+
+Na NanoSense, conduzi este projeto de ponta a ponta: o diagnóstico, a estratégia, o caderno de encargos e a direção do desenvolvimento com as equipas. A verdadeira coragem de engenharia aqui era parar de remendar para refazer de forma limpa, metendo a manutenção e a evolução na arquitetura desde o início, não como uma opção de que nos arrependemos mais tarde. Isso, para mim, é uma leitura moderna da medição da qualidade do ar: não apenas medir melhor, mas conceber um produto que continue justo e pertinente dez anos depois de sair da fábrica.

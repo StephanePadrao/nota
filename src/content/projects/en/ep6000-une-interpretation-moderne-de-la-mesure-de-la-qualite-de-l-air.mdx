@@ -1,0 +1,76 @@
+---
+title: "EP6000: a modern take on indoor air quality measurement"
+dates: '2025'
+active: false
+description: "Taking over an air-quality sensor riddled with technical debt, diagnosing it, and deciding on a full redesign. The EP6000: clean architecture, reliable measurements, WELL and RESET in its sights, and a swappable sensor cartridge built for maintenance and evolution."
+technologies:
+  - Conception produit
+  - Qualité d'air (IAQ)
+  - Architecture modulaire
+  - Firmware embarqué
+  - LoRa / Modbus
+  - Industrialisation
+cover: /projects/ep6000/cover.webp
+---
+At NanoSense, I took over the EP5000: an indoor air-quality sensor that measures up to thirteen parameters and drives building ventilation. On paper, a fine product. In reality, twenty years of layers stacked by successive teams, incomplete documentation and recurring production problems. I made the diagnosis, laid out the scenarios for management, and owned the call: we rebuild it. The EP6000 is that redesign. I wrote its requirements spec, and I lead its development with the firmware, electronics and mechanical teams, and the subcontractors who build it.
+
+## an inherited product, loaded with debt
+
+Support returns and internal analyses kept pointing at the same things. On the software side: unstable LoRa, repeated connects and disconnects, microcontroller freezes, reboots, particulate readings "corrected" by an artificial factor added in the firmware, errors in the physiological-effect calculations. All of it carried by a single firmware that handled every version of the product, with no proper history management. The result: the slightest fix risked introducing a regression somewhere else, and nobody could find their way around it.
+
+On the hardware and mechanical side, airflow was poorly managed, with routing and antenna defects. In production, no test bench, no structured change tracking, whole batches of rejects. And each new sub-version (Hydro, display, solar, Bluetooth) added a layer on an already unstable base. We weren't improving the product, we were stacking up the debt.
+
+## rebuild, don't patch
+
+Three scenarios on the table: fix the existing code, rewrite the firmware on the same hardware, or redo everything, electronics and software. The first two kept rotten foundations. The mechanics, the routing and an "orphan" software no longer maintained were the root cause: we'd have patched for months only to rewrite everything anyway. I chose the full redesign. It costs more up front, and it's the only option that solves the underlying problems instead of pushing them downstream, where they cost ten times as much.
+
+## starting from a clean base
+
+The firmware starts again from a modular architecture on FreeRTOS, with one build per configuration instead of a monolith trying to handle everything, OTA updates, and real versioning. Measurements are no longer faked in the code: what the sensor reads is what we display. The mechanics are redesigned around airflow, a condition for accurate measurement. And production finally gets a test bench and sub-assembly traceability. Nothing spectacular taken in isolation, but it's the sum of these foundations that separates a product you endure from a product you control.
+
+## one sensor, up to thirteen measurements
+
+The EP6000 measures the pollutants and parameters that matter: CO₂, VOCs, particulate matter (PM1, PM2.5, PM10), noise, light, humidity, temperature and atmospheric pressure. Optionally, NOx, ozone and formaldehyde sensors. From this data, it drives ventilation, by thresholds or PID control, to avoid both over- and under-ventilation. Good measurement isn't just about showing a color: it cuts the building's energy consumption.
+
+![Real-time measurement of pollutants and data transmission: CO₂, particulates, VOCs, noise, temperature, pressure.](/projects/ep6000/mesures.webp)
+
+## multi-protocol, four use cases
+
+The product stays a platform. On communication: LoRa, Modbus, EnOcean, 0-10V, Wi-Fi and Ethernet. On usage, four modes cover what the field needs:
+
+- **local indication**: measurement and display via the LED ring, no network;
+- **measurement and data transmission**: real-time transmission to a supervision system;
+- **active control**: driving ventilation via VAV (0-10V) or BMS (Modbus), by thresholds or PID;
+- **offline mode**: air control with no transmission at all, for data-sensitive environments.
+
+A single hardware platform, several configurations, a dedicated firmware per configuration rather than a catch-all. That's exactly the lesson learned from the EP5000.
+
+## aiming for WELL and RESET
+
+The EP6000 is designed to meet the WELL and RESET certifications, the two reference standards for indoor air quality. In practice, that imposes strong requirements: CO₂ to ±75 ppm, PM2.5 to ±10%, a measurement at least every five minutes (ideally every minute), factory and annual calibration, downloadable calibration certificates, and a unique identifier per device linked to its data and its calibration record. Aiming for these standards from the spec stage isn't ticking a box: it steers every choice of sensor, display and traceability from the start.
+
+## the sensor cartridge, the heart of the idea
+
+This is where the EP6000 becomes truly modern. Instead of soldering all the sensors onto the main board, I grouped them into a **swappable cartridge**: a removable module that holds all the critical sensors, separate from the main board, with air flowing through both.
+
+![A two-block architecture: a removable sensor cartridge in front of the main board, air flows through the whole.](/projects/ep6000/cartouche.webp)
+
+This choice changes everything, on three fronts.
+
+**Maintenance.** A gas sensor drifts and ages. Before, you had to replace the whole product or send a technician. Now you swap the cartridge: it ships by post, the customer replaces it themselves, no intervention. The product is refurbished instead of scrapped, and the used cartridge goes to recycling.
+
+**Evolution.** The day we want a new sensor, a better component or an extra pollutant, we evolve the cartridge, not the whole product. The main board doesn't change, neither does the industrialization. The product improves without starting from scratch at every sensor generation.
+
+**Certification.** The annual calibration and the traceability that WELL and RESET demand become a simple cartridge swap, not a product return. The cartridge keeps compliance sustainable over the device's ten-year life. And on the business side, it turns a one-off product sale into recurring, clean and scalable revenue, with no travel or heavy intervention.
+
+The downside, I won't hide it: a removable interface in the middle of the measurement path is a risk you have to control. A connector and contacts that take dozens of swaps without drifting, a seal to hold between the cartridge and the board so airflow stays controlled. That's exactly what the spec treats as a priority: the cartridge is only worth it if its interface is flawless, because the day it weakens, it's the measurement you lose.
+
+## a redesign built to last
+
+Today, the EP6000 has moved from the requirements spec to pre-production and is entering industrialization. The first version, standalone and LoRa, covers the bulk of current sales: enough to replace the EP5000 without rebuilding everything at once, with the later versions (EnOcean, cloud connections) grafting onto the same hardware base. The product is planned for purchase as well as rental, refurbishable through its cartridge and recyclable at end of life.
+
+The real judges, the production reject rate and the field returns, will come with the first batches. But the debt that weighed the EP5000 down won't come back: that's what the redesign already guarantees.
+
+## my role, what I take from it
+
+At NanoSense, I carried this project end to end: the diagnosis, the strategy, the requirements spec, and the development leadership with the teams. The real engineering courage here was to stop patching and redesign cleanly, putting maintenance and evolution into the architecture from the start, not as an option you'll regret later. That, to me, is a modern take on indoor air quality measurement: not just measuring better, but designing a product that stays accurate and relevant ten years after it leaves the factory.
