@@ -12,7 +12,7 @@ technologies:
   - Industrialisation
 cover: /projects/ep6000/cover.webp
 ---
-Chez NanoSense, j'ai récupéré l'EP5000 : un capteur de qualité d'air intérieur qui mesure jusqu'à treize paramètres et pilote la ventilation des bâtiments. Sur le papier, un beau produit. En vrai, vingt ans de couches accumulées par des équipes successives, une documentation incomplète et des problèmes récurrents en production. J'ai posé le diagnostic, présenté les scénarios à la direction, et tranché : on refait tout. L'EP6000 est cette refonte, et c'est moi qui en ai écrit le cahier des charges.
+Chez NanoSense, j'ai récupéré l'EP5000 : un capteur de qualité d'air intérieur qui mesure jusqu'à treize paramètres et pilote la ventilation des bâtiments. Sur le papier, un beau produit. En vrai, vingt ans de couches accumulées par des équipes successives, une documentation incomplète et des problèmes récurrents en production. J'ai posé le diagnostic, présenté les scénarios à la direction, et porté la décision : on refait tout. L'EP6000 est cette refonte. J'en ai écrit le cahier des charges, et j'en pilote le développement avec les équipes firmware, électronique et mécanique, et les sous-traitants qui le fabriquent.
 
 ## un produit hérité, plein de dettes
 
@@ -63,10 +63,14 @@ Ce choix change tout, sur trois plans.
 
 **La certification.** L'étalonnage annuel et la traçabilité qu'exigent WELL et RESET deviennent un simple échange de cartouche, pas un retour produit. La cartouche rend la conformité tenable sur les dix ans de vie de l'appareil. Et côté business, elle transforme la vente d'un produit en revenu récurrent, propre et scalable, sans déplacement ni intervention lourde.
 
+Le revers, je ne le cache pas : une interface amovible au milieu du chemin de mesure est un risque qu'il faut maîtriser. Un connecteur et des contacts qui encaissent des dizaines d'échanges sans dériver, une étanchéité à tenir entre la cartouche et la carte pour que le flux d'air reste maîtrisé. C'est précisément ce que le cahier des charges traite en priorité : la cartouche ne vaut que si son interface est irréprochable, parce que le jour où elle faiblit, c'est la mesure qu'on perd.
+
 ## une refonte pensée pour durer
 
-La stratégie de déploiement suit la même logique. Une première version, standalone et LoRa, couvre l'essentiel des ventes actuelles : de quoi remplacer l'EP5000 vite, sans tout reconstruire d'un coup. Les versions suivantes (EnOcean, connexions cloud) viendront se greffer sur la même base matérielle. Le produit est vendu à l'achat comme à la location, rénovable par sa cartouche, et recyclable en fin de vie.
+Aujourd'hui, l'EP6000 est passé du cahier des charges à la présérie et entre en industrialisation. La première version, standalone et LoRa, couvre l'essentiel des ventes actuelles : de quoi remplacer l'EP5000 sans tout reconstruire d'un coup, les versions suivantes (EnOcean, connexions cloud) venant se greffer sur la même base matérielle. Le produit est prévu à l'achat comme à la location, rénovable par sa cartouche et recyclable en fin de vie.
+
+Les vrais juges de paix, le taux de rejet en production et les retours terrain, tomberont avec les premières séries. Mais la dette qui plombait l'EP5000, elle, ne se reproduira pas : c'est ça que la refonte garantit déjà.
 
 ## mon rôle, ce que j'en retire
 
-Chez NanoSense, c'est moi qui ai décidé : le diagnostic, la stratégie, et le cahier des charges de l'EP6000. Passer d'un héritage instable à un produit pensé pour durer et évoluer demande un vrai courage d'ingénieur : arrêter de colmater, et refondre proprement, en mettant la maintenance et l'évolution dans l'architecture dès le départ, pas en option qu'on regrettera plus tard. C'est ça, pour moi, une interprétation moderne de la mesure de la qualité de l'air : pas seulement mieux mesurer, mais concevoir un produit qui reste juste et pertinent dix ans après sa sortie d'usine.
+Chez NanoSense, j'ai porté ce projet de bout en bout : le diagnostic, la stratégie, le cahier des charges, et le pilotage du développement avec les équipes. Le vrai courage d'ingénieur, ici, c'était d'arrêter de colmater pour refondre proprement, en mettant la maintenance et l'évolution dans l'architecture dès le départ, pas en option qu'on regrettera plus tard. C'est ça, pour moi, une interprétation moderne de la mesure de la qualité de l'air : pas seulement mieux mesurer, mais concevoir un produit qui reste juste et pertinent dix ans après sa sortie d'usine.
