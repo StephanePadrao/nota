@@ -2,7 +2,7 @@
 title: "Zaack: DUST V2, uma evolução rumo à modernidade"
 dates: '2022-2023'
 active: false
-description: "O sensor de pó DUST da Zaack, em serviço desde 2019, descarrilava no terreno: falso indicador de bateria, desconexões LoRa, componentes em fim de vida. Com um diagnóstico de assistência como base, fi-lo evoluir para a V2, sensor digital, rádio integrado, antena externa e alimentação repensada, sem o reinventar."
+description: "O sensor de pó DUST da Zaack, em serviço desde 2019, descarrilava no terreno: autonomia abaixo de um ano, medição sensível à humidade e à temperatura, falso indicador de bateria, desconexões LoRa. Com um diagnóstico de assistência como base, fi-lo evoluir para a V2, sensor digital, rádio integrado, antena externa e alimentação repensada, sem o reinventar."
 technologies:
   - Conception produit
   - Capteur IoT
@@ -12,17 +12,17 @@ technologies:
   - Industrialisation
 cover: /projects/zaack-dust-v2/cover.webp
 ---
-O DUST da Zaack é um pequeno sensor que vive dentro das condutas de ventilação industrial. Mede o seu grau de sujidade, o pó que nelas se deposita, envia o dado por LoRa para a nuvem da Zaack, e despoleta a limpeza de uma conduta apenas quando esta precisa, em vez de enviar um técnico em data fixa. A Zaack pertence ao grupo Igienair, cujo ofício é precisamente a limpeza de ventilação. A V1 estava em serviço desde 2019. Na Kickmaker, fui o responsável técnico e chefe de projeto da V2: primeiro perceber por que a V1 descarrilava no terreno, depois fazê-la evoluir sem a reinventar.
+O DUST da Zaack é um pequeno sensor que vive dentro das condutas de ventilação industrial. Mede o seu grau de sujidade por via ótica: um LED infravermelho ilumina uma placa exposta ao fluxo de ar, um recetor lê a luz que lhe volta, e quanto mais pó se acumula na placa, mais essa luz diminui. Dessa atenuação, a nuvem da Zaack deduz o nível de sujidade, enviado por LoRa, e despoleta a limpeza de uma conduta apenas quando esta precisa, em vez de enviar um técnico em data fixa. A Zaack pertence ao grupo Igienair, cujo ofício é precisamente a limpeza de ventilação. A V1 estava em serviço desde 2019. Na Kickmaker, fui o responsável técnico e chefe de projeto da V2: primeiro perceber por que a V1 descarrilava no terreno, depois fazê-la evoluir sem a reinventar.
 
 ![Placa-mãe do DUST V2 EVT1: conector de antena externa, microcontrolador com rádio integrado, dois suportes de pilhas AA e botão de teste.](/projects/zaack-dust-v2/cover.webp)
 
 ## um produto no parque, defeitos que voltam
 
-A V1 funcionava, mas o terreno reportava dois problemas tenazes. O primeiro: após uma simples troca de pilhas, alguns aparelhos enviavam um nível de bateria incoerente, sem relação com a tensão real. O segundo: desconexões LoRa repetidas, devidas a uma antena interna mal controlada. A isto somava-se uma razão de fundo, menos visível: componentes-chave em fim de vida ou difíceis de abastecer, e uma bancada de produção que acumulava problemas, retenção das placas, um bug de gravação, nenhum teste elétrico real, rejeições aleatórias. Um produto para envelhecer com dignidade, em vez de o deixar derivar.
+A V1 funcionava, mas o terreno reportava sempre as mesmas coisas. Primeiro, a autonomia: pensada para durar vários anos, caía abaixo de um. O design elétrico deixava passar correntes de fuga, fatais num objeto IoT que deve dormir mais de 99 % do tempo, e as pilhas esvaziavam-se demasiado depressa. Depois a medição em si: a estimativa do pó era muito sensível à humidade e às variações de temperatura, que falseavam os valores lidos. A isto somavam-se um indicador de bateria que devolvia níveis incoerentes após uma troca de pilhas, desconexões LoRa devidas a uma antena interna mal controlada, componentes-chave em fim de vida ou difíceis de abastecer, e uma bancada de produção que acumulava problemas, retenção das placas, um bug de gravação, nenhum teste elétrico real, rejeições aleatórias. Um produto para retomar com limpeza, em vez de o deixar derivar.
 
 ## o bug do indicador de bateria
 
-Antes de redesenhar o que quer que fosse, conduzi a peritagem do defeito mais incómodo, o falso indicador de bateria. Primeiro reflexo, afastar o consumo excessivo: o analisador de corrente não mostrava nenhuma diferença entre placas sãs e defeituosas. O problema estava, portanto, na cadeia de medição da tensão, não no consumo.
+Antes de redesenhar o que quer que fosse, conduzi a peritagem do defeito mais insidioso, o falso indicador de bateria. Primeiro reflexo, afastar o consumo excessivo: o analisador de corrente não mostrava nenhuma diferença entre placas sãs e defeituosas. O problema estava, portanto, na cadeia de medição da tensão, não no consumo.
 
 Instrumentei uma placa no osciloscópio, fiz variar uma fonte de alimentação estabilizada sobre toda a gama das pilhas, e comparei a entrada e a saída do amplificador operacional seguidor que lê a tensão. A constatação: no topo da gama, pilhas cheias, a saída afastava-se da entrada em mais de 240 mV. Soldaduras de resistências mal feitas agravavam o quadro, mas não eram a causa raiz: mesmo ressoldadas, algumas placas continuavam falsas.
 
@@ -32,19 +32,19 @@ A correção que recomendei é das que gosto: um amplificador operacional rail-t
 
 ## evoluir em vez de refazer
 
-Este diagnóstico guiou a V2. A armadilha, num produto já no parque, é querer refazer tudo. Segui o caminho inverso: conservar o invólucro mecânico e as dimensões de placa da V1, e concentrar as mudanças onde os retornos do terreno e o abastecimento o justificavam. Uma evolução dirigida, não uma rutura. O produto continua compatível com a sua instalação e a sua cadeia de fabrico, e cada modificação responde a um problema nomeado.
+Estes diagnósticos guiaram a V2. A armadilha, num produto já no parque, é querer refazer tudo. Segui o caminho inverso: conservar o invólucro mecânico e as dimensões de placa da V1, e concentrar as mudanças onde os retornos do terreno e o abastecimento o justificavam. Uma evolução dirigida, não uma rutura. O produto continua compatível com a sua instalação e a sua cadeia de fabrico, e cada modificação responde a um problema nomeado.
 
 ## o que muda, do analógico ao digital
 
 ![A placa com a sua antena LoRa externa orientável ligada ao conector SMA, no lugar da antena interna da V1.](/projects/zaack-dust-v2/antenne.webp)
 
-O sensor de pó, primeiro. A V1 media a luz infravermelha devolvida pelo pó com um LED, um fotodíodo e um amplificador analógico: uma cadeia que deriva com a temperatura e que é preciso corrigir depois. A V2 passa para um sensor ótico tudo-em-um, digital, com compensação térmica integrada, controlo de LED otimizado e um verdadeiro modo de repouso. Ganha-se em precisão e em consumo de uma só vez.
+O sensor de pó, primeiro. A V1 lia a atenuação da luz infravermelha com um LED, um fotodíodo e um amplificador analógico: uma cadeia que deriva com a temperatura e a humidade, que era preciso corrigir depois no algoritmo. A V2 passa para um sensor ótico tudo-em-um, digital, com compensação térmica integrada, controlo de LED otimizado e um verdadeiro modo de repouso. A medição torna-se mais estável face às condições ambientais, e ganha-se em consumo.
 
 O cérebro e o rádio, depois. A V1 apoiava-se num módulo de rádio que se tornara caro e difícil de abastecer. A V2 substitui-o por um microcontrolador que integra o núcleo de cálculo e o emissor LoRa num único encapsulamento: mais barato, mais disponível, um design mais compacto.
 
 A antena. A antena interna da V1 causava as desconexões. A V2 passa para uma antena externa orientável, com uma rede de adaptação de 50 Ω prevista para as frequências LoRa europeias e americanas. Finalmente é possível apontar a antena para a gateway.
 
-A alimentação, por fim. A V1 levava três pilhas AAA das quais só aproveitava uma parte da carga, porque a eletrónica já não funcionava abaixo de 3,3 V. A V2 passa para duas pilhas AA e um conversor elevador que fabrica os 3,3 V mesmo quando as pilhas estão quase vazias. Esvaziam-se realmente as pilhas, reduz-se o custo e a lista de materiais, e mantêm-se os quatro anos e mais de autonomia visados.
+A alimentação, por fim. A V1 levava três pilhas AAA das quais só aproveitava uma parte da carga, porque a eletrónica já não funcionava abaixo de 3,3 V, e as correntes de fuga acabavam de afundar a autonomia. A V2 passa para duas pilhas AA e um conversor elevador que fabrica os 3,3 V mesmo quando as pilhas estão quase vazias. Esvaziam-se realmente as pilhas, caçam-se as fugas que matavam a autonomia da V1, reduz-se o custo e a lista de materiais, e recuperam-se os quatro anos e mais visados em vez de menos de um.
 
 ## de um produto mudo a um que fala
 
@@ -73,4 +73,4 @@ Sobre a mesa, as placas anotadas «OK» e «KO» dizem tudo: é aí que se trans
 
 ## o meu papel, o que retiro disto
 
-Neste projeto, conduzi o diagnóstico de assistência, o caderno de encargos da V2 e o bring-up das primeiras placas. A lição, ponho-a face a outras refundições que dirigi: reconstruir tudo nem sempre é a resposta certa. Num produto já instalado em clientes, uma evolução dirigida, guiada pelos retornos reais do terreno e pelo abastecimento, vale mais do que uma rutura. A melhor correção do projeto não mudou uma única linha do PCB: um amplificador operacional do mesmo encapsulamento, escolhido pela boa razão, e um indicador que volta a ler certo. Modernizar, aqui, não era refazer tudo: era corrigir o que falseava a medição e dar ao produto os meios de se fazer instalar, testar e reparar.
+Neste projeto, conduzi o diagnóstico de assistência, o caderno de encargos da V2 e o bring-up das primeiras placas. A lição, ponho-a face a outras refundições que dirigi: reconstruir tudo nem sempre é a resposta certa. Num produto já instalado em clientes, uma evolução dirigida, guiada pelos retornos reais do terreno e pelo abastecimento, vale mais do que uma rutura. A melhor correção do projeto não mudou uma única linha do PCB: um amplificador operacional do mesmo encapsulamento, escolhido pela boa razão, e um indicador que volta a ler certo. Modernizar, aqui, não era refazer tudo: era corrigir o que falseava a medição e a autonomia, e dar ao produto os meios de se fazer instalar, testar e reparar.

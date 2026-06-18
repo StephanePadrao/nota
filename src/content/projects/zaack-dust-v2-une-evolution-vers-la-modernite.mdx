@@ -2,7 +2,7 @@
 title: 'Zaack : DUST V2, une évolution vers la modernité'
 dates: '2022-2023'
 active: false
-description: "Le capteur de poussière DUST de Zaack, en service depuis 2019, déraillait sur le terrain : fausse jauge de batterie, déconnexions LoRa, composants en fin de vie. Diagnostic SAV à l'appui, je l'ai fait évoluer en V2, capteur numérique, radio intégrée, antenne externe et alimentation repensée, sans le réinventer."
+description: "Le capteur de poussière DUST de Zaack, en service depuis 2019, déraillait sur le terrain : autonomie sous un an, mesure sensible à l'humidité et à la température, fausse jauge de batterie, déconnexions LoRa. Diagnostic SAV à l'appui, je l'ai fait évoluer en V2, capteur numérique, radio intégrée, antenne externe et alimentation repensée, sans le réinventer."
 technologies:
   - Conception produit
   - Capteur IoT
@@ -12,17 +12,17 @@ technologies:
   - Industrialisation
 cover: /projects/zaack-dust-v2/cover.webp
 ---
-Le DUST de Zaack est un petit capteur qui vit dans les conduits de ventilation industrielle. Il mesure leur encrassement, la poussière qui s'y dépose, remonte la donnée en LoRa vers le cloud de Zaack, et déclenche le nettoyage d'un conduit seulement quand il en a besoin, au lieu d'envoyer un technicien à date fixe. Zaack appartient au groupe Igienair, dont le métier est justement le nettoyage de ventilation. La V1 était en service depuis 2019. Chez Kickmaker, j'ai été le référent technique et chef de projet de la V2 : d'abord comprendre pourquoi la V1 déraillait sur le terrain, puis la faire évoluer sans la réinventer.
+Le DUST de Zaack est un petit capteur qui vit dans les conduits de ventilation industrielle. Il mesure leur encrassement par voie optique : une diode infrarouge éclaire une plaque exposée au flux d'air, un récepteur lit la lumière qui lui revient, et plus la poussière s'accumule sur la plaque, plus cette lumière diminue. De cette atténuation, le cloud de Zaack déduit le niveau d'encrassement, remonté en LoRa, et déclenche le nettoyage d'un conduit seulement quand il en a besoin, au lieu d'envoyer un technicien à date fixe. Zaack appartient au groupe Igienair, dont le métier est justement le nettoyage de ventilation. La V1 était en service depuis 2019. Chez Kickmaker, j'ai été le référent technique et chef de projet de la V2 : d'abord comprendre pourquoi la V1 déraillait sur le terrain, puis la faire évoluer sans la réinventer.
 
 ![Carte mère du DUST V2 EVT1 : connecteur d'antenne externe, microcontrôleur radio intégré, deux supports de piles AA et bouton de test.](/projects/zaack-dust-v2/cover.webp)
 
 ## un produit en parc, des défauts qui remontent
 
-La V1 marchait, mais le terrain remontait deux problèmes tenaces. Le premier : après un simple changement de piles, certains appareils envoyaient un niveau de batterie incohérent, sans rapport avec la tension réelle. Le second : des déconnexions LoRa à répétition, dues à une antenne interne mal maîtrisée. À cela s'ajoutait une raison de fond, moins visible : des composants clés en fin de vie ou difficiles à sourcer, et un banc de production qui accumulait les soucis, rétention des cartes, bug de flash, aucun test électrique réel, rejets aléatoires. Un produit à faire vieillir proprement, plutôt qu'à laisser dériver.
+La V1 marchait, mais le terrain remontait toujours les mêmes choses. D'abord l'autonomie : censée tenir plusieurs années, elle tombait sous un an. Le design électrique laissait passer des courants de fuite, fatals sur un objet IoT qui doit dormir plus de 99 % du temps, et les piles se vidaient bien trop vite. Ensuite la mesure elle-même : l'estimation de la poussière était très sensible à l'humidité et aux variations de température, qui faussaient les valeurs lues. À cela s'ajoutaient une jauge de batterie qui remontait des niveaux incohérents après un changement de piles, des déconnexions LoRa dues à une antenne interne mal maîtrisée, des composants clés en fin de vie ou difficiles à sourcer, et un banc de production qui accumulait les soucis, rétention des cartes, bug de flash, aucun test électrique réel, rejets aléatoires. Un produit à reprendre proprement, plutôt qu'à laisser dériver.
 
 ## le bug de la jauge de batterie
 
-Avant de redessiner quoi que ce soit, j'ai mené l'expertise sur le défaut le plus gênant, la fausse jauge de batterie. Premier réflexe, écarter la surconsommation : l'analyseur de courant ne montrait aucune différence entre cartes saines et cartes défectueuses. Le problème était donc dans la chaîne de mesure de la tension, pas dans la consommation.
+Avant de redessiner quoi que ce soit, j'ai mené l'expertise sur le défaut le plus sournois, la fausse jauge de batterie. Premier réflexe, écarter la surconsommation : l'analyseur de courant ne montrait aucune différence entre cartes saines et cartes défectueuses. Le problème était donc dans la chaîne de mesure de la tension, pas dans la consommation.
 
 J'ai instrumenté une carte à l'oscilloscope, fait varier une alimentation stabilisée sur toute la plage des piles, et comparé l'entrée et la sortie de l'ampli op suiveur qui lit la tension. Le constat : sur le haut de la plage, piles pleines, la sortie décrochait de l'entrée de plus de 240 mV. Des soudures de résistances mal réalisées aggravaient le tableau, mais ce n'était pas la cause racine : même ressoudées, certaines cartes restaient fausses.
 
@@ -32,19 +32,19 @@ La correction que j'ai recommandée est de celles que j'aime : un ampli op rail-
 
 ## évoluer plutôt que refondre
 
-Ce diagnostic a guidé la V2. Le piège, sur un produit déjà en parc, c'est de tout vouloir refaire. J'ai pris l'inverse : garder l'enveloppe mécanique et les dimensions de carte de la V1, et concentrer les changements là où les retours terrain et le sourcing le justifiaient. Une évolution ciblée, pas une rupture. Le produit reste compatible avec son installation et sa chaîne de fabrication, et chaque modification répond à un problème nommé.
+Ces diagnostics ont guidé la V2. Le piège, sur un produit déjà en parc, c'est de tout vouloir refaire. J'ai pris l'inverse : garder l'enveloppe mécanique et les dimensions de carte de la V1, et concentrer les changements là où les retours terrain et le sourcing le justifiaient. Une évolution ciblée, pas une rupture. Le produit reste compatible avec son installation et sa chaîne de fabrication, et chaque modification répond à un problème nommé.
 
 ## ce qui change, de l'analogique au numérique
 
 ![La carte avec son antenne LoRa externe orientable branchée sur le connecteur SMA, à la place de l'antenne interne de la V1.](/projects/zaack-dust-v2/antenne.webp)
 
-Le capteur de poussière, d'abord. La V1 mesurait la lumière infrarouge renvoyée par la poussière avec une LED, une photodiode et un ampli analogique : une chaîne qui dérive avec la température et qu'il faut corriger après coup. La V2 passe à un capteur optique tout-en-un, numérique, avec compensation thermique intégrée, pilotage de LED optimisé et un vrai mode veille. On gagne en justesse et en consommation d'un coup.
+Le capteur de poussière, d'abord. La V1 lisait l'atténuation de la lumière infrarouge avec une LED, une photodiode et un ampli analogique : une chaîne qui dérive avec la température et l'humidité, qu'il fallait rattraper après coup côté algorithme. La V2 passe à un capteur optique tout-en-un, numérique, avec compensation thermique intégrée, pilotage de LED optimisé et un vrai mode veille. La mesure devient plus stable face aux conditions ambiantes, et on gagne en consommation.
 
 Le cerveau et la radio, ensuite. La V1 s'appuyait sur un module radio devenu cher et difficile à approvisionner. La V2 le remplace par un microcontrôleur qui intègre le cœur de calcul et l'émetteur LoRa dans un seul boîtier : moins cher, mieux disponible, design plus compact.
 
 L'antenne. L'antenne interne de la V1 causait les déconnexions. La V2 passe à une antenne externe orientable, avec un réseau d'adaptation 50 Ω prévu pour les fréquences LoRa européennes comme américaines. On peut enfin pointer l'antenne vers la passerelle.
 
-L'alimentation, enfin. La V1 embarquait trois piles AAA dont elle n'exploitait qu'une partie de la charge, parce que l'électronique ne fonctionnait plus sous 3,3 V. La V2 passe à deux piles AA et un convertisseur élévateur qui fabrique le 3,3 V même quand les piles sont presque vides. On vide réellement les piles, on réduit le coût et la nomenclature, et on tient toujours les quatre ans et plus d'autonomie visés.
+L'alimentation, enfin. La V1 embarquait trois piles AAA dont elle n'exploitait qu'une partie de la charge, parce que l'électronique ne fonctionnait plus sous 3,3 V, et les courants de fuite finissaient de plomber l'autonomie. La V2 passe à deux piles AA et un convertisseur élévateur qui fabrique le 3,3 V même quand les piles sont presque vides. On vide réellement les piles, on traque les fuites qui tuaient l'autonomie de la V1, on réduit le coût et la nomenclature, et on retrouve les quatre ans et plus visés au lieu de moins d'un an.
 
 ## d'un produit muet à un produit qui parle
 
@@ -73,4 +73,4 @@ Sur la table, les cartes annotées « OK » et « KO » disent tout : c'est là 
 
 ## mon rôle, ce que j'en retire
 
-Sur ce projet, j'ai porté le diagnostic SAV, le cahier des charges de la V2, et le bring-up des premières cartes. La leçon, je la mets en regard d'autres refontes que j'ai menées : tout reconstruire n'est pas toujours la bonne réponse. Sur un produit déjà installé chez des clients, l'évolution ciblée, guidée par les vrais retours terrain et par le sourcing, vaut mieux qu'une rupture. La plus belle correction du projet n'a pas changé une ligne du PCB : un ampli op de même boîtier, choisi pour la bonne raison, et une jauge qui redevient juste. Moderniser, ici, ce n'était pas tout refaire : c'était corriger ce qui faussait la mesure et donner au produit les moyens de se faire installer, tester et réparer.
+Sur ce projet, j'ai porté le diagnostic SAV, le cahier des charges de la V2, et le bring-up des premières cartes. La leçon, je la mets en regard d'autres refontes que j'ai menées : tout reconstruire n'est pas toujours la bonne réponse. Sur un produit déjà installé chez des clients, l'évolution ciblée, guidée par les vrais retours terrain et par le sourcing, vaut mieux qu'une rupture. La plus belle correction du projet n'a pas changé une ligne du PCB : un ampli op de même boîtier, choisi pour la bonne raison, et une jauge qui redevient juste. Moderniser, ici, ce n'était pas tout refaire : c'était corriger ce qui faussait la mesure et l'autonomie, et donner au produit les moyens de se faire installer, tester et réparer.
