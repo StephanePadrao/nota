@@ -1,8 +1,76 @@
 ---
-title: 'Zaack : DUST V2, una evolución hacia la modernidad'
-dates: ''
+title: "Zaack: DUST V2, una evolución hacia la modernidad"
+dates: '2022-2023'
 active: false
-description: ''
-technologies: []
+description: "El sensor de polvo DUST de Zaack, en servicio desde 2019, descarrilaba sobre el terreno: falso indicador de batería, desconexiones LoRa, componentes en fin de vida. Con un diagnóstico de servicio como base, lo hice evolucionar a la V2, sensor digital, radio integrada, antena externa y alimentación repensada, sin reinventarlo."
+technologies:
+  - Conception produit
+  - Capteur IoT
+  - LoRa
+  - Électronique embarquée
+  - Diagnostic SAV
+  - Industrialisation
+cover: /projects/zaack-dust-v2/cover.webp
 ---
+El DUST de Zaack es un pequeño sensor que vive dentro de los conductos de ventilación industrial. Mide su grado de suciedad, el polvo que se deposita en ellos, envía el dato por LoRa a la nube de Zaack, y dispara la limpieza de un conducto solo cuando lo necesita, en lugar de enviar a un técnico en una fecha fija. Zaack pertenece al grupo Igienair, cuyo oficio es precisamente la limpieza de ventilación. La V1 estaba en servicio desde 2019. En Kickmaker fui el referente técnico y jefe de proyecto de la V2: primero entender por qué la V1 descarrilaba sobre el terreno, y luego hacerla evolucionar sin reinventarla.
 
+![Placa base del DUST V2 EVT1: conector de antena externa, microcontrolador con radio integrada, dos portapilas AA y botón de prueba.](/projects/zaack-dust-v2/cover.webp)
+
+## un producto en el parque, defectos que vuelven
+
+La V1 funcionaba, pero el terreno reportaba dos problemas tenaces. El primero: tras un simple cambio de pilas, algunos aparatos enviaban un nivel de batería incoherente, sin relación con la tensión real. El segundo: desconexiones LoRa repetidas, debidas a una antena interna mal controlada. A eso se sumaba una razón de fondo, menos visible: componentes clave en fin de vida o difíciles de abastecer, y un banco de producción que acumulaba problemas, retención de las placas, un fallo de flasheo, ningún test eléctrico real, rechazos aleatorios. Un producto para envejecer con dignidad, en vez de dejarlo derivar.
+
+## el fallo del indicador de batería
+
+Antes de rediseñar nada, llevé a cabo el peritaje del defecto más molesto, el falso indicador de batería. Primer reflejo, descartar el sobreconsumo: el analizador de corriente no mostraba ninguna diferencia entre placas sanas y defectuosas. El problema estaba pues en la cadena de medición de la tensión, no en el consumo.
+
+Instrumenté una placa con el osciloscopio, hice variar una fuente de alimentación estabilizada sobre todo el rango de las pilas, y comparé la entrada y la salida del amplificador operacional seguidor que lee la tensión. La constatación: en la parte alta del rango, pilas llenas, la salida se desviaba de la entrada en más de 240 mV. Soldaduras de resistencias mal hechas agravaban el cuadro, pero no eran la causa raíz: incluso resoldadas, algunas placas seguían dando valores falsos.
+
+La verdadera causa: el amplificador operacional elegido no era rail-to-rail. Su fabricante solo garantiza un comportamiento lineal hasta unos 1,2 V por debajo de su tensión de alimentación. Más allá, la salida se vuelve impredecible, justo donde caía la tensión de las pilas llenas. Para quedarse en la zona garantizada, habría habido que sacrificar la mitad del rango de medición.
+
+La corrección que recomendé es de las que me gustan: un amplificador operacional rail-to-rail, mismo encapsulado, mismo patillaje, precio equivalente. Un reemplazo directo, sin tocar el PCB, que restaura todo el rango de medición y vuelve a hacer predecible el comportamiento. Cambiar un componente, no la placa.
+
+## evolucionar en vez de rehacer
+
+Este diagnóstico guió la V2. La trampa, en un producto ya en el parque, es querer rehacerlo todo. Tomé el camino contrario: conservar la carcasa mecánica y las dimensiones de placa de la V1, y concentrar los cambios allí donde los retornos del terreno y el abastecimiento lo justificaban. Una evolución dirigida, no una ruptura. El producto sigue siendo compatible con su instalación y su cadena de fabricación, y cada modificación responde a un problema nombrado.
+
+## lo que cambia, de lo analógico a lo digital
+
+![La placa con su antena LoRa externa orientable conectada al conector SMA, en lugar de la antena interna de la V1.](/projects/zaack-dust-v2/antenne.webp)
+
+El sensor de polvo, primero. La V1 medía la luz infrarroja devuelta por el polvo con un LED, un fotodiodo y un amplificador analógico: una cadena que deriva con la temperatura y que hay que corregir después. La V2 pasa a un sensor óptico todo en uno, digital, con compensación térmica integrada, control de LED optimizado y un verdadero modo de reposo. Se gana en precisión y en consumo de golpe.
+
+El cerebro y la radio, después. La V1 se apoyaba en un módulo de radio que se había vuelto caro y difícil de abastecer. La V2 lo reemplaza por un microcontrolador que integra el núcleo de cálculo y el emisor LoRa en un solo encapsulado: más barato, mejor disponible, un diseño más compacto.
+
+La antena. La antena interna de la V1 causaba las desconexiones. La V2 pasa a una antena externa orientable, con una red de adaptación de 50 Ω prevista para las frecuencias LoRa europeas y americanas. Por fin se puede apuntar la antena hacia la pasarela.
+
+La alimentación, por último. La V1 llevaba tres pilas AAA de las que solo aprovechaba una parte de la carga, porque la electrónica ya no funcionaba por debajo de 3,3 V. La V2 pasa a dos pilas AA y un convertidor elevador que fabrica los 3,3 V incluso cuando las pilas están casi vacías. Se vacían realmente las pilas, se reduce el coste y la lista de materiales, y se mantienen los cuatro años y más de autonomía buscados.
+
+## de un producto mudo a uno que habla
+
+La V1 casi no tenía interfaz: ni botón, ni LED, ni puerto de depuración, ni memoria. En la instalación como en el servicio técnico, se trabajaba a ciegas. La V2 lo corrige:
+
+- un **botón** que dispara una trama LoRa de prueba: el instalador valida la conectividad en el sitio, sin esperar al próximo envío programado;
+- **LED** de estado que muestran las fases de envío y el acuse de recibo;
+- un **puerto UART y comandos AT** para probar la placa en producción y leer el producto en un retorno de servicio;
+- una **EEPROM** que almacena los mensajes cuando el enlace LoRa cae, para reenviarlos más tarde.
+
+Nada espectacular por separado, pero en conjunto convierte un objeto pasivo en un producto que se puede instalar, probar y reparar.
+
+## pensado para la instalación y el servicio técnico
+
+Fue una petición explícita de Zaack, y coincide con el diagnóstico: la V1 obligaba a desmontar por completo el producto para el menor control. Con el botón de trama, la lectura directa por UART y los comandos AT, un técnico valida o diagnostica el aparato sin desmontarlo. Del lado de la fábrica, la V2 viene con un banco de producción que prueba de verdad las placas y traza los subconjuntos, número de serie, versión de firmware, fecha de programación, allí donde la V1 se limitaba a flashear y serializar.
+
+## el bring-up, la vida real de una EVT
+
+![Validación de la alimentación marcada en el dorso de las placas: el convertidor sí entrega 3,28 V.](/projects/zaack-dust-v2/alim.webp)
+
+Entre el esquema y una placa que funciona, está el bring-up. Monté, alimenté y clasifiqué las primeras placas EVT1 una a una: tensión de salida del convertidor comprobada, los famosos 3,28 V anotados con rotulador en el dorso de las placas, LED recableados a mano cuando la implementación inicial era errónea, y un detalle típico de estas fases, un condensador del convertidor que no había que montar bajo ningún concepto, so pena de disparar el consumo en reposo.
+
+![Campaña de clasificación de las primeras placas EVT1, cada una anotada «OK» o «KO» según las mediciones.](/projects/zaack-dust-v2/test.webp)
+
+Sobre la mesa, las placas anotadas «OK» y «KO» lo dicen todo: ahí es donde se transforma un diseño en pantalla en un producto que aguanta.
+
+## mi papel, lo que saco de ello
+
+En este proyecto llevé el diagnóstico de servicio, el pliego de condiciones de la V2 y el bring-up de las primeras placas. La lección, la pongo frente a otras refundiciones que he dirigido: reconstruirlo todo no siempre es la respuesta correcta. En un producto ya instalado en clientes, una evolución dirigida, guiada por los retornos reales del terreno y por el abastecimiento, vale más que una ruptura. La mejor corrección del proyecto no cambió ni una línea del PCB: un amplificador operacional del mismo encapsulado, elegido por la buena razón, y un indicador que vuelve a leer correcto. Modernizar, aquí, no era rehacerlo todo: era corregir lo que falseaba la medición y dar al producto los medios de hacerse instalar, probar y reparar.
