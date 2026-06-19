@@ -20,6 +20,26 @@ const personLd = {
   image: `${DATA.url}${DATA.avatarUrl}`,
   description: DATA.description,
   jobTitle: lang === "en" ? "Product Manager & Tech Maker" : "Responsable Produit & Maker Tech",
+  knowsAbout: [
+    "Conception électronique",
+    "Conception de carte électronique (PCB)",
+    "Industrialisation produit",
+    "Sourcing électronique Chine et Europe",
+    "Marquage CE",
+    "Firmware embarqué",
+    "LoRa",
+    "Product management hardware",
+  ],
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "Polytech Sorbonne" },
+    { "@type": "CollegeOrUniversity", name: "IAE Paris, Sorbonne Business School" },
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Le Plessis-Robinson",
+    addressRegion: "Île-de-France",
+    addressCountry: "FR",
+  },
   sameAs: ["https://github.com/StephanePadrao", "https://linkedin.com/in/SPADRAO"],
 };
 
