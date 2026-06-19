@@ -264,9 +264,6 @@ export default function HomePage({
         </div>
       </section>
 
-      {/* Missions ponctuelles — full-width, haut de page */}
-      {sectionComponents.freelance}
-
       {/* Grille deux colonnes */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-14 items-start">
 
@@ -290,6 +287,9 @@ export default function HomePage({
         </div>
 
       </div>
+
+      {/* Missions ponctuelles — full-width */}
+      {sectionComponents.freelance}
 
       {/* Contact — full-width */}
       {sectionComponents.contact}
