@@ -59,7 +59,7 @@ const fr = {
     contact: {
       label: "Contact",
       heading: "Parlons-en",
-      text: "Une question, une idée, une opportunité ? Envoie-moi un message, je réponds à tout.",
+      text: "Une question, un projet, une mission ponctuelle ? Écris-moi, je réponds à tout.",
       cta: "Écrire un message",
     },
   },
@@ -90,7 +90,7 @@ const fr = {
   contact: {
     metaTitle: "Contact",
     heading: "Parlons-en",
-    intro: "Une question, une idée, une opportunité ? Je lis tous les messages et réponds à tous.",
+    intro: "Une question, un projet, ou une mission ponctuelle (design de carte, conseil en industrialisation) ? Décris ton besoin, je lis tous les messages et réponds à tous.",
     name: "Nom",
     namePlaceholder: "Ton nom ou prénom",
     email: "Email",
@@ -103,6 +103,16 @@ const fr = {
     errorPrefix: "Une erreur est survenue. Tu peux aussi m'écrire directement à",
     socialsIntro: "Ou retrouve-moi sur :",
     emailDirect: "Email direct",
+  },
+
+  freelance: {
+    heading: "Missions ponctuelles",
+    intro: "En parallèle, je prends quelques missions ponctuelles et sélectives.",
+    card1Title: "Design de carte électronique",
+    card1Text: "Du schéma au PCB prêt pour la production.",
+    card2Title: "Conseil en industrialisation",
+    card2Text: "Du proto à la série, sourcing Chine/Europe, bancs de test, marquage CE.",
+    cta: "Parlons-en",
   },
 
   notFound: {
@@ -170,7 +180,7 @@ const en: Strings = {
     contact: {
       label: "Contact",
       heading: "Let's talk",
-      text: "A question, an idea, an opportunity? Send me a message, I reply to everything.",
+      text: "A question, a project, a one-off engagement? Send me a message, I reply to everything.",
       cta: "Write a message",
     },
   },
@@ -201,7 +211,7 @@ const en: Strings = {
   contact: {
     metaTitle: "Contact",
     heading: "Let's talk",
-    intro: "A question, an idea, an opportunity? I read every message and reply to all.",
+    intro: "A question, a project, or a one-off engagement (PCB design, industrialization consulting)? Tell me about it, I read every message and reply to all.",
     name: "Name",
     namePlaceholder: "Your name",
     email: "Email",
@@ -214,6 +224,16 @@ const en: Strings = {
     errorPrefix: "Something went wrong. You can also email me directly at",
     socialsIntro: "Or find me on:",
     emailDirect: "Direct email",
+  },
+
+  freelance: {
+    heading: "Occasional engagements",
+    intro: "On the side, I take on a few selective, one-off engagements.",
+    card1Title: "PCB design",
+    card1Text: "From schematic to production-ready board.",
+    card2Title: "Industrialization consulting",
+    card2Text: "Proto to series, China/Europe sourcing, test benches, CE marking.",
+    cta: "Let's talk",
   },
 
   notFound: {
@@ -279,7 +299,7 @@ const es: Strings = {
     contact: {
       label: "Contacto",
       heading: "Hablemos",
-      text: "¿Una pregunta, una idea, una oportunidad? Escríbeme, respondo a todo.",
+      text: "¿Una pregunta, un proyecto, una misión puntual? Escríbeme, respondo a todo.",
       cta: "Escribir un mensaje",
     },
   },
@@ -310,7 +330,7 @@ const es: Strings = {
   contact: {
     metaTitle: "Contacto",
     heading: "Hablemos",
-    intro: "¿Una pregunta, una idea, una oportunidad? Leo todos los mensajes y respondo a todos.",
+    intro: "¿Una pregunta, un proyecto o una misión puntual (diseño de placa, consultoría en industrialización)? Cuéntame, leo todos los mensajes y respondo a todos.",
     name: "Nombre",
     namePlaceholder: "Tu nombre",
     email: "Email",
@@ -323,6 +343,16 @@ const es: Strings = {
     errorPrefix: "Ha ocurrido un error. También puedes escribirme directamente a",
     socialsIntro: "O encuéntrame en:",
     emailDirect: "Email directo",
+  },
+
+  freelance: {
+    heading: "Misiones puntuales",
+    intro: "En paralelo, acepto algunas misiones puntuales y selectivas.",
+    card1Title: "Diseño de placa electrónica",
+    card1Text: "Del esquema a la placa lista para producción.",
+    card2Title: "Consultoría en industrialización",
+    card2Text: "De proto a serie, sourcing China/Europa, bancos de prueba, marcado CE.",
+    cta: "Hablemos",
   },
 
   notFound: {
@@ -388,7 +418,7 @@ const pt: Strings = {
     contact: {
       label: "Contacto",
       heading: "Vamos falar",
-      text: "Uma pergunta, uma ideia, uma oportunidade? Escreve-me, respondo a tudo.",
+      text: "Uma pergunta, um projeto, uma missão pontual? Escreve-me, respondo a tudo.",
       cta: "Escrever uma mensagem",
     },
   },
@@ -419,7 +449,7 @@ const pt: Strings = {
   contact: {
     metaTitle: "Contacto",
     heading: "Vamos falar",
-    intro: "Uma pergunta, uma ideia, uma oportunidade? Leio todas as mensagens e respondo a todas.",
+    intro: "Uma pergunta, um projeto ou uma missão pontual (design de placa, consultoria em industrialização)? Conta-me, leio todas as mensagens e respondo a todas.",
     name: "Nome",
     namePlaceholder: "O teu nome",
     email: "Email",
@@ -432,6 +462,16 @@ const pt: Strings = {
     errorPrefix: "Ocorreu um erro. Também podes escrever-me diretamente para",
     socialsIntro: "Ou encontra-me em:",
     emailDirect: "Email direto",
+  },
+
+  freelance: {
+    heading: "Missões pontuais",
+    intro: "Em paralelo, aceito algumas missões pontuais e seletivas.",
+    card1Title: "Design de placa eletrónica",
+    card1Text: "Do esquema à placa pronta para produção.",
+    card2Title: "Consultoria em industrialização",
+    card2Text: "De protótipo a série, sourcing China/Europa, bancadas de teste, marcação CE.",
+    cta: "Vamos falar",
   },
 
   notFound: {

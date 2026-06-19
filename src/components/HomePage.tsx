@@ -3,7 +3,7 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { buildData } from "@/data/resume";
-import { defaultLang, type Lang } from "@/i18n/ui";
+import { defaultLang, localizeHref, useTranslations, type Lang } from "@/i18n/ui";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
 import { type ProjectItem } from "@/components/section/projects-section";
@@ -23,6 +23,7 @@ export default function HomePage({
   // Construit dans le bundle de l'îlot : les icônes (composants React) ne sont pas
   // sérialisables → impossible de passer `data` en prop depuis Astro.
   const DATA = buildData(locale);
+  const t = useTranslations(locale);
 
   const sectionComponents: Record<string, React.ReactNode> = {
     about: (
@@ -180,6 +181,54 @@ export default function HomePage({
         </div>
       </section>
     ),
+    freelance: (
+      <section id="freelance">
+        <div className="flex flex-col gap-y-5">
+          <BlurFade delay={BLUR_FADE_DELAY * 14}>
+            <div className="flex flex-col gap-y-1">
+              <h2 className="text-xl font-bold">{t.freelance.heading}</h2>
+              <p className="text-sm text-muted-foreground text-pretty">{t.freelance.intro}</p>
+            </div>
+          </BlurFade>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {[
+              {
+                title: t.freelance.card1Title,
+                text: t.freelance.card1Text,
+                href: "/projects/springcard-de-la-soudure-de-prototypes-a-l-antenne-du-produit-phare",
+              },
+              {
+                title: t.freelance.card2Title,
+                text: t.freelance.card2Text,
+                href: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
+              },
+            ].map((m, id) => (
+              <BlurFade key={m.title} delay={BLUR_FADE_DELAY * 15 + id * 0.05} className="h-full">
+                <a
+                  href={localizeHref(m.href, locale)}
+                  className="group flex h-full flex-col gap-1 rounded-lg border bg-background ring-2 ring-border/20 px-4 py-3 transition-colors hover:bg-muted/40"
+                >
+                  <span className="flex items-center gap-2 text-sm font-semibold">
+                    {m.title}
+                    <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0" aria-hidden />
+                  </span>
+                  <span className="text-sm text-muted-foreground">{m.text}</span>
+                </a>
+              </BlurFade>
+            ))}
+          </div>
+          <BlurFade delay={BLUR_FADE_DELAY * 16}>
+            <a
+              href={localizeHref("/contact", locale)}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-opacity hover:opacity-70"
+            >
+              {t.freelance.cta}
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </BlurFade>
+        </div>
+      </section>
+    ),
     contact: (
       <section id="contact">
         <BlurFade delay={BLUR_FADE_DELAY * 16}>
@@ -238,6 +287,9 @@ export default function HomePage({
         </div>
 
       </div>
+
+      {/* Missions ponctuelles — full-width */}
+      {sectionComponents.freelance}
 
       {/* Contact — full-width */}
       {sectionComponents.contact}
