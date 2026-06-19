@@ -184,7 +184,7 @@ export default function HomePage({
     freelance: (
       <section id="freelance">
         <div className="flex flex-col gap-y-5">
-          <BlurFade delay={BLUR_FADE_DELAY * 14}>
+          <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="flex flex-col gap-y-1">
               <h2 className="text-xl font-bold">{t.freelance.heading}</h2>
               <p className="text-sm text-muted-foreground text-pretty">{t.freelance.intro}</p>
@@ -195,7 +195,7 @@ export default function HomePage({
               {
                 title: t.freelance.card1Title,
                 text: t.freelance.card1Text,
-                href: "/projects/springcard-de-la-soudure-de-prototypes-a-l-antenne-du-produit-phare",
+                href: "/projects/zaack-dust-v2-une-evolution-vers-la-modernite",
               },
               {
                 title: t.freelance.card2Title,
@@ -203,7 +203,7 @@ export default function HomePage({
                 href: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
               },
             ].map((m, id) => (
-              <BlurFade key={m.title} delay={BLUR_FADE_DELAY * 15 + id * 0.05} className="h-full">
+              <BlurFade key={m.title} delay={BLUR_FADE_DELAY * 3 + id * 0.05} className="h-full">
                 <a
                   href={localizeHref(m.href, locale)}
                   className="group flex h-full flex-col gap-1 rounded-lg border bg-background ring-2 ring-border/20 px-4 py-3 transition-colors hover:bg-muted/40"
@@ -217,7 +217,7 @@ export default function HomePage({
               </BlurFade>
             ))}
           </div>
-          <BlurFade delay={BLUR_FADE_DELAY * 16}>
+          <BlurFade delay={BLUR_FADE_DELAY * 4}>
             <a
               href={localizeHref("/contact", locale)}
               className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-opacity hover:opacity-70"
@@ -264,6 +264,9 @@ export default function HomePage({
         </div>
       </section>
 
+      {/* Missions ponctuelles — full-width, haut de page */}
+      {sectionComponents.freelance}
+
       {/* Grille deux colonnes */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-14 items-start">
 
@@ -287,9 +290,6 @@ export default function HomePage({
         </div>
 
       </div>
-
-      {/* Missions ponctuelles — full-width */}
-      {sectionComponents.freelance}
 
       {/* Contact — full-width */}
       {sectionComponents.contact}
