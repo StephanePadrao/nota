@@ -30,6 +30,7 @@ const fr = {
     blog: "Blog",
     photos: "Voyages",
     contact: "Contact",
+    freelance: "Freelance",
     themeToggle: "Changer de thème",
   },
 
@@ -115,6 +116,37 @@ const fr = {
     cta: "Parlons-en",
   },
 
+  freelancePage: {
+    metaTitle: "Ingénieur électronique freelance",
+    metaDescription:
+      "Ingénieur électronique et produit en freelance : design de carte (PCB), conseil en industrialisation (proto à série, sourcing Chine/Europe, marquage CE) et expertise électronique. Missions ponctuelles, à Paris et à distance.",
+    h1: "Ingénieur électronique freelance, design de carte et conseil en industrialisation",
+    intro:
+      "Je suis ingénieur électronique et produit. En parallèle de mon activité principale, je prends quelques missions freelance ponctuelles et sélectives, de la conception de carte au passage en production. Voici les trois portes d'entrée, chacune adossée à un projet réel.",
+    services: [
+      {
+        title: "Design de carte électronique",
+        text: "Du schéma au PCB prêt pour la production : choix des composants, routage, bring-up et mise au point. Pour un nouveau produit comme pour la refonte d'une carte existante.",
+        caseLabel: "Voir le projet Zaack DUST V2",
+        caseHref: "/projects/zaack-dust-v2-une-evolution-vers-la-modernite",
+      },
+      {
+        title: "Conseil en industrialisation",
+        text: "Passage du prototype à la série : DFM, bancs de test, sourcing en Chine et en Europe, marquage CE. Pour fiabiliser une production ou en monter une nouvelle.",
+        caseLabel: "Voir le projet NanoSense",
+        caseHref: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
+      },
+      {
+        title: "Expertise et SAV électronique",
+        text: "Diagnostic de pannes, analyse de défauts terrain, revue de conception. Trouver la cause racine et la corriger au bon endroit, pas en surface.",
+        caseLabel: "Voir le projet Carmat",
+        caseHref: "/projects/carmat-quand-on-comprends-enfin-l-impact-de-la-tech-dans-la-vie-des-gens",
+      },
+    ],
+    ctaIntro: "Un projet de carte, une production à fiabiliser, une panne à élucider ?",
+    cta: "Me contacter",
+  },
+
   notFound: {
     metaTitle: "404 - Page introuvable",
     heading: "Page introuvable",
@@ -151,6 +183,7 @@ const en: Strings = {
     blog: "Blog",
     photos: "Travels",
     contact: "Contact",
+    freelance: "Freelance",
     themeToggle: "Toggle theme",
   },
 
@@ -236,6 +269,37 @@ const en: Strings = {
     cta: "Let's talk",
   },
 
+  freelancePage: {
+    metaTitle: "Freelance electronics engineer",
+    metaDescription:
+      "Freelance electronics and product engineer: PCB design, industrialization consulting (proto to series, China/Europe sourcing, CE marking) and electronics troubleshooting. Occasional engagements, Paris and remote.",
+    h1: "Freelance electronics engineer, PCB design and industrialization consulting",
+    intro:
+      "I'm an electronics and product engineer. Alongside my main role, I take on a few selective, one-off freelance engagements, from board design to production ramp-up. Here are the three ways in, each backed by a real project.",
+    services: [
+      {
+        title: "PCB design",
+        text: "From schematic to production-ready board: component selection, routing, bring-up and tuning. For a new product or the redesign of an existing board.",
+        caseLabel: "See the Zaack DUST V2 project",
+        caseHref: "/projects/zaack-dust-v2-une-evolution-vers-la-modernite",
+      },
+      {
+        title: "Industrialization consulting",
+        text: "From prototype to series: DFM, test benches, sourcing in China and Europe, CE marking. To stabilize a production line or set up a new one.",
+        caseLabel: "See the NanoSense project",
+        caseHref: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
+      },
+      {
+        title: "Electronics expertise and troubleshooting",
+        text: "Fault diagnosis, field-defect analysis, design review. Find the root cause and fix it in the right place, not on the surface.",
+        caseLabel: "See the Carmat project",
+        caseHref: "/projects/carmat-quand-on-comprends-enfin-l-impact-de-la-tech-dans-la-vie-des-gens",
+      },
+    ],
+    ctaIntro: "A board to design, a production to stabilize, a fault to crack?",
+    cta: "Get in touch",
+  },
+
   notFound: {
     metaTitle: "404 - Page not found",
     heading: "Page not found",
@@ -270,6 +334,7 @@ const es: Strings = {
     blog: "Blog",
     photos: "Viajes",
     contact: "Contacto",
+    freelance: "Freelance",
     themeToggle: "Cambiar de tema",
   },
 
@@ -355,6 +420,37 @@ const es: Strings = {
     cta: "Hablemos",
   },
 
+  freelancePage: {
+    metaTitle: "Ingeniero electrónico freelance",
+    metaDescription:
+      "Ingeniero electrónico y de producto freelance: diseño de placa (PCB), consultoría en industrialización (de proto a serie, sourcing China/Europa, marcado CE) y peritaje electrónico. Misiones puntuales, en París y en remoto.",
+    h1: "Ingeniero electrónico freelance, diseño de placa y consultoría en industrialización",
+    intro:
+      "Soy ingeniero electrónico y de producto. En paralelo a mi actividad principal, acepto algunas misiones freelance puntuales y selectivas, del diseño de placa al paso a producción. Estas son las tres puertas de entrada, cada una respaldada por un proyecto real.",
+    services: [
+      {
+        title: "Diseño de placa electrónica",
+        text: "Del esquema a la placa lista para producción: elección de componentes, enrutado, bring-up y puesta a punto. Para un producto nuevo o el rediseño de una placa existente.",
+        caseLabel: "Ver el proyecto Zaack DUST V2",
+        caseHref: "/projects/zaack-dust-v2-une-evolution-vers-la-modernite",
+      },
+      {
+        title: "Consultoría en industrialización",
+        text: "Del prototipo a la serie: DFM, bancos de prueba, sourcing en China y Europa, marcado CE. Para fiabilizar una producción o montar una nueva.",
+        caseLabel: "Ver el proyecto NanoSense",
+        caseHref: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
+      },
+      {
+        title: "Peritaje y SAV electrónico",
+        text: "Diagnóstico de averías, análisis de defectos de campo, revisión de diseño. Encontrar la causa raíz y corregirla en el sitio adecuado, no en la superficie.",
+        caseLabel: "Ver el proyecto Carmat",
+        caseHref: "/projects/carmat-quand-on-comprends-enfin-l-impact-de-la-tech-dans-la-vie-des-gens",
+      },
+    ],
+    ctaIntro: "¿Una placa que diseñar, una producción que fiabilizar, una avería que resolver?",
+    cta: "Contactarme",
+  },
+
   notFound: {
     metaTitle: "404 - Página no encontrada",
     heading: "Página no encontrada",
@@ -389,6 +485,7 @@ const pt: Strings = {
     blog: "Blog",
     photos: "Viagens",
     contact: "Contacto",
+    freelance: "Freelance",
     themeToggle: "Mudar de tema",
   },
 
@@ -472,6 +569,37 @@ const pt: Strings = {
     card2Title: "Consultoria em industrialização",
     card2Text: "De protótipo a série, sourcing China/Europa, bancadas de teste, marcação CE.",
     cta: "Vamos falar",
+  },
+
+  freelancePage: {
+    metaTitle: "Engenheiro eletrónico freelance",
+    metaDescription:
+      "Engenheiro eletrónico e de produto freelance: design de placa (PCB), consultoria em industrialização (de protótipo a série, sourcing China/Europa, marcação CE) e peritagem eletrónica. Missões pontuais, em Paris e remoto.",
+    h1: "Engenheiro eletrónico freelance, design de placa e consultoria em industrialização",
+    intro:
+      "Sou engenheiro eletrónico e de produto. Em paralelo à minha atividade principal, aceito algumas missões freelance pontuais e seletivas, do design de placa à passagem para produção. Eis as três portas de entrada, cada uma apoiada num projeto real.",
+    services: [
+      {
+        title: "Design de placa eletrónica",
+        text: "Do esquema à placa pronta para produção: escolha de componentes, roteamento, bring-up e afinação. Para um novo produto ou a redefinição de uma placa existente.",
+        caseLabel: "Ver o projeto Zaack DUST V2",
+        caseHref: "/projects/zaack-dust-v2-une-evolution-vers-la-modernite",
+      },
+      {
+        title: "Consultoria em industrialização",
+        text: "Do protótipo à série: DFM, bancadas de teste, sourcing na China e na Europa, marcação CE. Para fiabilizar uma produção ou montar uma nova.",
+        caseLabel: "Ver o projeto NanoSense",
+        caseHref: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
+      },
+      {
+        title: "Peritagem e assistência eletrónica",
+        text: "Diagnóstico de avarias, análise de defeitos de campo, revisão de design. Encontrar a causa raiz e corrigi-la no sítio certo, não à superfície.",
+        caseLabel: "Ver o projeto Carmat",
+        caseHref: "/projects/carmat-quand-on-comprends-enfin-l-impact-de-la-tech-dans-la-vie-des-gens",
+      },
+    ],
+    ctaIntro: "Uma placa para desenhar, uma produção para fiabilizar, uma avaria para resolver?",
+    cta: "Contactar-me",
   },
 
   notFound: {

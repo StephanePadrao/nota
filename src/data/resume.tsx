@@ -114,6 +114,7 @@ export function buildData(lang: Lang = defaultLang) {
       { href: localizeHref("/projects", lang), icon: Hammer, label: t.nav.projects },
       { href: localizeHref("/blog", lang), icon: BookOpen, label: t.nav.blog },
       { href: localizeHref("/photos", lang), icon: Camera, label: t.nav.photos },
+      { href: localizeHref("/freelance", lang), icon: Handshake, label: t.nav.freelance },
       { href: localizeHref("/contact", lang), icon: Mail, label: t.nav.contact },
     ],
   };

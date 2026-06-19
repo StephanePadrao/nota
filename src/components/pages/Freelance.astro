@@ -1,0 +1,65 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { useTranslations, localizeHref, type Lang } from "@/i18n/ui";
+import { CONFIG } from "@/data/config";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const fp = t.freelancePage;
+
+// JSON-LD : signale explicitement une offre de prestations (provider = la personne).
+const serviceLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: fp.metaTitle,
+  description: fp.metaDescription,
+  url: `${CONFIG.site.url}${localizeHref("/freelance", lang)}`,
+  areaServed: ["France", "Europe"],
+  serviceType: fp.services.map((s) => s.title),
+  provider: {
+    "@type": "Person",
+    name: "Stéphane Padrao",
+    url: CONFIG.site.url,
+  },
+};
+---
+
+<Layout title={fp.metaTitle} description={fp.metaDescription} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceLd)} is:inline />
+  <div class="flex flex-col gap-10">
+
+    <div class="flex flex-col gap-3">
+      <h1 class="text-3xl font-semibold tracking-tighter sm:text-4xl">{fp.h1}</h1>
+      <p class="max-w-2xl text-pretty text-muted-foreground">{fp.intro}</p>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      {fp.services.map((s) => (
+        <div class="flex flex-col gap-2 rounded-xl border bg-background p-5 ring-2 ring-border/20">
+          <h2 class="text-lg font-semibold">{s.title}</h2>
+          <p class="text-pretty text-sm text-muted-foreground">{s.text}</p>
+          <a
+            href={localizeHref(s.caseHref, lang)}
+            class="text-sm font-medium text-foreground underline-offset-4 hover:text-primary hover:underline transition-colors"
+          >
+            {s.caseLabel}
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="flex flex-col items-start gap-3 border-t border-border pt-8">
+      <p class="text-muted-foreground">{fp.ctaIntro}</p>
+      <a
+        href={localizeHref("/contact", lang)}
+        class="inline-flex items-center rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+      >
+        {fp.cta}
+      </a>
+    </div>
+
+  </div>
+</Layout>
