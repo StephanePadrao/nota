@@ -9,6 +9,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const fp = t.freelancePage;
+const email = "stephanepadrao@icloud.com";
 
 // Projets liés par prestation (mêmes pour les 4 langues : noms neutres + slugs).
 // L'ordre suit celui de fp.services : 0 cadrage, 1 design carte, 2 revue & expertise, 3 sourcing, 4 industrialisation.
@@ -84,6 +85,12 @@ const serviceLd = {
     <div class="flex flex-col gap-3">
       <h1 class="text-3xl font-semibold tracking-tighter sm:text-4xl">{fp.h1}</h1>
       <p class="max-w-2xl text-pretty text-muted-foreground">{fp.intro}</p>
+      <a
+        href={localizeHref("/contact", lang)}
+        class="mt-1 inline-flex w-fit items-center rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+      >
+        {fp.cta}
+      </a>
     </div>
 
     <div class="flex flex-col gap-4">
@@ -106,14 +113,33 @@ const serviceLd = {
       ))}
     </div>
 
-    <div class="flex flex-col items-start gap-3 border-t border-border pt-8">
-      <p class="text-muted-foreground">{fp.ctaIntro}</p>
-      <a
-        href={localizeHref("/contact", lang)}
-        class="inline-flex items-center rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-      >
-        {fp.cta}
-      </a>
+    <div class="flex flex-col gap-4 rounded-xl border border-border bg-muted/30 p-6 sm:p-8">
+      <div class="flex flex-col gap-1.5">
+        <p class="text-balance text-lg font-semibold text-foreground">{fp.ctaIntro}</p>
+        <p class="text-sm text-muted-foreground">{fp.reassurance}</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <a
+          href={localizeHref("/contact", lang)}
+          class="inline-flex items-center rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          {fp.cta}
+        </a>
+        <a
+          href={`mailto:${email}`}
+          class="text-sm font-medium text-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+        >
+          {email}
+        </a>
+        <a
+          href="https://linkedin.com/in/SPADRAO"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-medium text-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+        >
+          LinkedIn
+        </a>
+      </div>
     </div>
 
   </div>

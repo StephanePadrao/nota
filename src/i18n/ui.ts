@@ -147,7 +147,8 @@ const fr = {
       },
     ],
     ctaIntro: "Un projet de carte, une production à fiabiliser, une panne à élucider ?",
-    cta: "Me contacter",
+    cta: "Décrire mon projet",
+    reassurance: "Je réponds sous 48 h, et le premier échange est sans engagement.",
   },
 
   notFound: {
@@ -303,7 +304,8 @@ const en: Strings = {
       },
     ],
     ctaIntro: "A board to design, a production to stabilize, a fault to crack?",
-    cta: "Get in touch",
+    cta: "Describe my project",
+    reassurance: "I reply within 48 h, and the first chat is no-commitment.",
   },
 
   notFound: {
@@ -457,7 +459,8 @@ const es: Strings = {
       },
     ],
     ctaIntro: "¿Una placa que diseñar, una producción que fiabilizar, una avería que resolver?",
-    cta: "Contactarme",
+    cta: "Describir mi proyecto",
+    reassurance: "Respondo en 48 h, y el primer intercambio es sin compromiso.",
   },
 
   notFound: {
@@ -611,7 +614,8 @@ const pt: Strings = {
       },
     ],
     ctaIntro: "Uma placa para desenhar, uma produção para fiabilizar, uma avaria para resolver?",
-    cta: "Contactar-me",
+    cta: "Descrever o meu projeto",
+    reassurance: "Respondo em 48 h, e a primeira conversa é sem compromisso.",
   },
 
   notFound: {
