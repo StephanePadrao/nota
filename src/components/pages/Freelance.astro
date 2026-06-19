@@ -10,6 +10,39 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const fp = t.freelancePage;
 
+// Projets liés par prestation (mêmes pour les 4 langues : noms neutres + slugs).
+// L'ordre suit celui de fp.services : 0 design carte, 1 industrialisation, 2 expertise/SAV.
+const P = {
+  ep6000: "/projects/ep6000-une-interpretation-moderne-de-la-mesure-de-la-qualite-de-l-air",
+  zaack: "/projects/zaack-dust-v2-une-evolution-vers-la-modernite",
+  carmat: "/projects/carmat-quand-on-comprends-enfin-l-impact-de-la-tech-dans-la-vie-des-gens",
+  springcard: "/projects/springcard-de-la-soudure-de-prototypes-a-l-antenne-du-produit-phare",
+  nanosense: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
+  hermes: "/projects/hermes-x-kickmaker-quand-le-luxe-rencontre-la-tech",
+  elax: "/projects/elax-x-kickmaker-le-debut-d-une-habitation-controle-et-ecologique",
+};
+const serviceCases: { name: string; href: string }[][] = [
+  [
+    { name: "EP6000", href: P.ep6000 },
+    { name: "Zaack DUST V2", href: P.zaack },
+    { name: "Carmat", href: P.carmat },
+    { name: "SpringCard", href: P.springcard },
+  ],
+  [
+    { name: "NanoSense", href: P.nanosense },
+    { name: "Hermès", href: P.hermes },
+    { name: "Elax", href: P.elax },
+    { name: "SpringCard", href: P.springcard },
+    { name: "EP6000", href: P.ep6000 },
+    { name: "Zaack DUST V2", href: P.zaack },
+  ],
+  [
+    { name: "Zaack DUST V2", href: P.zaack },
+    { name: "Carmat", href: P.carmat },
+    { name: "EP6000", href: P.ep6000 },
+  ],
+];
+
 // JSON-LD : signale explicitement une offre de prestations (provider = la personne).
 const serviceLd = {
   "@context": "https://schema.org",
@@ -37,16 +70,21 @@ const serviceLd = {
     </div>
 
     <div class="flex flex-col gap-4">
-      {fp.services.map((s) => (
-        <div class="flex flex-col gap-2 rounded-xl border bg-background p-5 ring-2 ring-border/20">
+      {fp.services.map((s, i) => (
+        <div class="flex flex-col gap-3 rounded-xl border bg-background p-5 ring-2 ring-border/20">
           <h2 class="text-lg font-semibold">{s.title}</h2>
           <p class="text-pretty text-sm text-muted-foreground">{s.text}</p>
-          <a
-            href={localizeHref(s.caseHref, lang)}
-            class="text-sm font-medium text-foreground underline-offset-4 hover:text-primary hover:underline transition-colors"
-          >
-            {s.caseLabel}
-          </a>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="mr-1 text-xs text-muted-foreground">{fp.relatedLabel} :</span>
+            {(serviceCases[i] ?? []).map((c) => (
+              <a
+                href={localizeHref(c.href, lang)}
+                class="rounded-md border bg-background px-2 py-0.5 text-xs font-medium text-foreground ring-1 ring-border/20 transition-colors hover:text-primary hover:ring-primary/40"
+              >
+                {c.name}
+              </a>
+            ))}
+          </div>
         </div>
       ))}
     </div>
