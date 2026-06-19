@@ -11,7 +11,7 @@ const t = useTranslations(lang);
 const fp = t.freelancePage;
 
 // Projets liés par prestation (mêmes pour les 4 langues : noms neutres + slugs).
-// L'ordre suit celui de fp.services : 0 design carte, 1 industrialisation, 2 expertise/SAV.
+// L'ordre suit celui de fp.services : 0 cadrage, 1 design carte, 2 revue & expertise, 3 sourcing, 4 industrialisation.
 const P = {
   ep6000: "/projects/ep6000-une-interpretation-moderne-de-la-mesure-de-la-qualite-de-l-air",
   zaack: "/projects/zaack-dust-v2-une-evolution-vers-la-modernite",
@@ -20,14 +20,36 @@ const P = {
   nanosense: "/projects/nanosense-histoire-d-une-reprise-d-une-industrialisation-en-chine",
   hermes: "/projects/hermes-x-kickmaker-quand-le-luxe-rencontre-la-tech",
   elax: "/projects/elax-x-kickmaker-le-debut-d-une-habitation-controle-et-ecologique",
+  javelot: "/projects/javelot-x-kickmaker-un-premier-pas-vers-l-agriculture-connecte",
 };
 const serviceCases: { name: string; href: string }[][] = [
+  // 0 — Cahier des charges & cadrage
+  [
+    { name: "EP6000", href: P.ep6000 },
+    { name: "Javelot", href: P.javelot },
+    { name: "Zaack DUST V2", href: P.zaack },
+  ],
+  // 1 — Design de carte électronique
   [
     { name: "EP6000", href: P.ep6000 },
     { name: "Zaack DUST V2", href: P.zaack },
     { name: "Carmat", href: P.carmat },
     { name: "SpringCard", href: P.springcard },
   ],
+  // 2 — Revue & expertise
+  [
+    { name: "Zaack DUST V2", href: P.zaack },
+    { name: "Carmat", href: P.carmat },
+    { name: "EP6000", href: P.ep6000 },
+    { name: "SpringCard", href: P.springcard },
+  ],
+  // 3 — Sourcing & obsolescence
+  [
+    { name: "Zaack DUST V2", href: P.zaack },
+    { name: "NanoSense", href: P.nanosense },
+    { name: "SpringCard", href: P.springcard },
+  ],
+  // 4 — Conseil en industrialisation
   [
     { name: "NanoSense", href: P.nanosense },
     { name: "Hermès", href: P.hermes },
@@ -35,11 +57,6 @@ const serviceCases: { name: string; href: string }[][] = [
     { name: "SpringCard", href: P.springcard },
     { name: "EP6000", href: P.ep6000 },
     { name: "Zaack DUST V2", href: P.zaack },
-  ],
-  [
-    { name: "Zaack DUST V2", href: P.zaack },
-    { name: "Carmat", href: P.carmat },
-    { name: "EP6000", href: P.ep6000 },
   ],
 ];
 

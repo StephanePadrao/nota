@@ -122,20 +122,28 @@ const fr = {
       "Ingénieur électronique et produit en freelance : design de carte (PCB), conseil en industrialisation (proto à série, sourcing Chine/Europe, marquage CE) et expertise électronique. Missions ponctuelles, à Paris et à distance.",
     h1: "Ingénieur électronique freelance, design de carte et conseil en industrialisation",
     intro:
-      "Je suis ingénieur électronique et produit. En parallèle de mon activité principale, je prends quelques missions freelance ponctuelles et sélectives, de la conception de carte au passage en production. Voici les trois portes d'entrée, chacune adossée à des projets réels.",
+      "Je suis ingénieur électronique et produit. En parallèle de mon activité principale, je prends quelques missions freelance ponctuelles et sélectives, du cahier des charges au passage en production. Voici les portes d'entrée, chacune adossée à des projets réels.",
     relatedLabel: "Projets liés",
     services: [
       {
+        title: "Cahier des charges & cadrage",
+        text: "Définir le produit avant de le construire : cahier des charges (PRD), architecture, choix techno, étude de faisabilité. Pour partir sur des bases claires plutôt que de découvrir les contraintes en route.",
+      },
+      {
         title: "Design de carte électronique",
-        text: "Du schéma au PCB prêt pour la production : choix des composants, routage, bring-up et mise au point. Pour un nouveau produit comme pour la refonte d'une carte existante.",
+        text: "Du schéma au PCB prêt pour la production : saisie de schéma, choix des composants, routage, bring-up et mise au point. Pour un nouveau produit comme pour la refonte d'une carte existante.",
+      },
+      {
+        title: "Revue & expertise",
+        text: "Audit d'un design existant : relecture de schéma et de routage, revue de BOM (obsolescence, coûts, alternatives), et diagnostic de pannes ou de défauts terrain. Trouver la cause racine et la corriger au bon endroit, pas en surface.",
+      },
+      {
+        title: "Sourcing & obsolescence",
+        text: "Trouver des composants équivalents, gérer les fins de vie, arbitrer entre sources Chine et Europe. Sécuriser une nomenclature menacée par une rupture ou un composant obsolète.",
       },
       {
         title: "Conseil en industrialisation",
-        text: "Passage du prototype à la série : DFM, bancs de test, sourcing en Chine et en Europe, marquage CE. Pour fiabiliser une production ou en monter une nouvelle.",
-      },
-      {
-        title: "Expertise et SAV électronique",
-        text: "Diagnostic de pannes, analyse de défauts terrain, revue de conception. Trouver la cause racine et la corriger au bon endroit, pas en surface.",
+        text: "Passage du prototype à la série : DFM, bancs de test, mise en place de la production, marquage CE. Pour fiabiliser une production ou en monter une nouvelle.",
       },
     ],
     ctaIntro: "Un projet de carte, une production à fiabiliser, une panne à élucider ?",
@@ -270,20 +278,28 @@ const en: Strings = {
       "Freelance electronics and product engineer: PCB design, industrialization consulting (proto to series, China/Europe sourcing, CE marking) and electronics troubleshooting. Occasional engagements, Paris and remote.",
     h1: "Freelance electronics engineer, PCB design and industrialization consulting",
     intro:
-      "I'm an electronics and product engineer. Alongside my main role, I take on a few selective, one-off freelance engagements, from board design to production ramp-up. Here are the three ways in, each backed by real projects.",
+      "I'm an electronics and product engineer. Alongside my main role, I take on a few selective, one-off freelance engagements, from requirements spec to production ramp-up. Here are the ways in, each backed by real projects.",
     relatedLabel: "Related projects",
     services: [
       {
+        title: "Requirements & product scoping",
+        text: "Define the product before building it: requirements spec (PRD), architecture, tech choices, feasibility study. To start on a clear footing instead of discovering constraints along the way.",
+      },
+      {
         title: "PCB design",
-        text: "From schematic to production-ready board: component selection, routing, bring-up and tuning. For a new product or the redesign of an existing board.",
+        text: "From schematic to production-ready board: schematic capture, component selection, routing, bring-up and tuning. For a new product or the redesign of an existing board.",
+      },
+      {
+        title: "Design review & expertise",
+        text: "Audit of an existing design: schematic and routing review, BOM review (obsolescence, costs, alternatives), and diagnosis of failures or field defects. Find the root cause and fix it in the right place, not on the surface.",
+      },
+      {
+        title: "Sourcing & obsolescence",
+        text: "Find equivalent components, manage end-of-life parts, weigh China vs Europe sources. Secure a bill of materials threatened by a shortage or an obsolete part.",
       },
       {
         title: "Industrialization consulting",
-        text: "From prototype to series: DFM, test benches, sourcing in China and Europe, CE marking. To stabilize a production line or set up a new one.",
-      },
-      {
-        title: "Electronics expertise and troubleshooting",
-        text: "Fault diagnosis, field-defect analysis, design review. Find the root cause and fix it in the right place, not on the surface.",
+        text: "From prototype to series: DFM, test benches, production setup, CE marking. To stabilize a production line or set up a new one.",
       },
     ],
     ctaIntro: "A board to design, a production to stabilize, a fault to crack?",
@@ -416,20 +432,28 @@ const es: Strings = {
       "Ingeniero electrónico y de producto freelance: diseño de placa (PCB), consultoría en industrialización (de proto a serie, sourcing China/Europa, marcado CE) y peritaje electrónico. Misiones puntuales, en París y en remoto.",
     h1: "Ingeniero electrónico freelance, diseño de placa y consultoría en industrialización",
     intro:
-      "Soy ingeniero electrónico y de producto. En paralelo a mi actividad principal, acepto algunas misiones freelance puntuales y selectivas, del diseño de placa al paso a producción. Estas son las tres puertas de entrada, cada una respaldada por proyectos reales.",
+      "Soy ingeniero electrónico y de producto. En paralelo a mi actividad principal, acepto algunas misiones freelance puntuales y selectivas, del pliego de condiciones al paso a producción. Estas son las puertas de entrada, cada una respaldada por proyectos reales.",
     relatedLabel: "Proyectos relacionados",
     services: [
       {
+        title: "Pliego de condiciones y encuadre",
+        text: "Definir el producto antes de construirlo: pliego de condiciones (PRD), arquitectura, elecciones técnicas, estudio de viabilidad. Para partir de bases claras en vez de descubrir las restricciones sobre la marcha.",
+      },
+      {
         title: "Diseño de placa electrónica",
-        text: "Del esquema a la placa lista para producción: elección de componentes, enrutado, bring-up y puesta a punto. Para un producto nuevo o el rediseño de una placa existente.",
+        text: "Del esquema a la placa lista para producción: captura de esquema, elección de componentes, enrutado, bring-up y puesta a punto. Para un producto nuevo o el rediseño de una placa existente.",
+      },
+      {
+        title: "Revisión y peritaje",
+        text: "Auditoría de un diseño existente: revisión de esquema y enrutado, revisión de BOM (obsolescencia, costes, alternativas), y diagnóstico de averías o defectos de campo. Encontrar la causa raíz y corregirla en el sitio adecuado, no en la superficie.",
+      },
+      {
+        title: "Sourcing y obsolescencia",
+        text: "Encontrar componentes equivalentes, gestionar los fines de vida, arbitrar entre fuentes de China y Europa. Asegurar una lista de materiales amenazada por una rotura o un componente obsoleto.",
       },
       {
         title: "Consultoría en industrialización",
-        text: "Del prototipo a la serie: DFM, bancos de prueba, sourcing en China y Europa, marcado CE. Para fiabilizar una producción o montar una nueva.",
-      },
-      {
-        title: "Peritaje y SAV electrónico",
-        text: "Diagnóstico de averías, análisis de defectos de campo, revisión de diseño. Encontrar la causa raíz y corregirla en el sitio adecuado, no en la superficie.",
+        text: "Del prototipo a la serie: DFM, bancos de prueba, puesta en marcha de la producción, marcado CE. Para fiabilizar una producción o montar una nueva.",
       },
     ],
     ctaIntro: "¿Una placa que diseñar, una producción que fiabilizar, una avería que resolver?",
@@ -562,20 +586,28 @@ const pt: Strings = {
       "Engenheiro eletrónico e de produto freelance: design de placa (PCB), consultoria em industrialização (de protótipo a série, sourcing China/Europa, marcação CE) e peritagem eletrónica. Missões pontuais, em Paris e remoto.",
     h1: "Engenheiro eletrónico freelance, design de placa e consultoria em industrialização",
     intro:
-      "Sou engenheiro eletrónico e de produto. Em paralelo à minha atividade principal, aceito algumas missões freelance pontuais e seletivas, do design de placa à passagem para produção. Eis as três portas de entrada, cada uma apoiada em projetos reais.",
+      "Sou engenheiro eletrónico e de produto. Em paralelo à minha atividade principal, aceito algumas missões freelance pontuais e seletivas, do caderno de encargos à passagem para produção. Eis as portas de entrada, cada uma apoiada em projetos reais.",
     relatedLabel: "Projetos relacionados",
     services: [
       {
+        title: "Caderno de encargos e enquadramento",
+        text: "Definir o produto antes de o construir: caderno de encargos (PRD), arquitetura, escolhas técnicas, estudo de viabilidade. Para partir de bases claras em vez de descobrir as restrições pelo caminho.",
+      },
+      {
         title: "Design de placa eletrónica",
-        text: "Do esquema à placa pronta para produção: escolha de componentes, roteamento, bring-up e afinação. Para um novo produto ou a redefinição de uma placa existente.",
+        text: "Do esquema à placa pronta para produção: captura de esquema, escolha de componentes, roteamento, bring-up e afinação. Para um novo produto ou a redefinição de uma placa existente.",
+      },
+      {
+        title: "Revisão e peritagem",
+        text: "Auditoria de um design existente: revisão de esquema e roteamento, revisão de BOM (obsolescência, custos, alternativas), e diagnóstico de avarias ou defeitos de campo. Encontrar a causa raiz e corrigi-la no sítio certo, não à superfície.",
+      },
+      {
+        title: "Sourcing e obsolescência",
+        text: "Encontrar componentes equivalentes, gerir os fins de vida, arbitrar entre fontes da China e da Europa. Garantir uma lista de materiais ameaçada por uma rutura ou um componente obsoleto.",
       },
       {
         title: "Consultoria em industrialização",
-        text: "Do protótipo à série: DFM, bancadas de teste, sourcing na China e na Europa, marcação CE. Para fiabilizar uma produção ou montar uma nova.",
-      },
-      {
-        title: "Peritagem e assistência eletrónica",
-        text: "Diagnóstico de avarias, análise de defeitos de campo, revisão de design. Encontrar a causa raiz e corrigi-la no sítio certo, não à superfície.",
+        text: "Do protótipo à série: DFM, bancadas de teste, arranque da produção, marcação CE. Para fiabilizar uma produção ou montar uma nova.",
       },
     ],
     ctaIntro: "Uma placa para desenhar, uma produção para fiabilizar, uma avaria para resolver?",
