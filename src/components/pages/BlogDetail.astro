@@ -73,5 +73,36 @@ const postLd = {
     <article class="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
       <Content components={mdxComponents} />
     </article>
+
+    <aside class="mt-12 flex flex-col gap-4 rounded-xl border border-border bg-muted/30 p-6 sm:p-8">
+      <div class="flex items-center gap-3">
+        <img
+          src="/Profil-Pic.webp"
+          alt="Stéphane Padrao"
+          width="48"
+          height="48"
+          loading="lazy"
+          decoding="async"
+          class="size-12 rounded-full border object-cover ring-2 ring-border"
+        />
+        <span class="font-semibold leading-tight">Stéphane Padrao</span>
+      </div>
+      <p class="text-pretty text-base font-semibold text-foreground">{t.blogCta.heading}</p>
+      <p class="text-pretty text-sm text-muted-foreground">{t.blogCta.text}</p>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <a
+          href={localizeHref("/freelance", lang)}
+          class="inline-flex items-center rounded-lg bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          {t.blogCta.cta}
+        </a>
+        <a
+          href={localizeHref("/contact", lang)}
+          class="text-sm font-medium text-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+        >
+          {t.nav.contact}
+        </a>
+      </div>
+    </aside>
   </section>
 </Layout>

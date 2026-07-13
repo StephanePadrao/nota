@@ -1,0 +1,150 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { useTranslations, languages, type Lang } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const c = t.cvPage;
+
+// Un CV par langue. Le viewer s'ouvre par défaut sur la langue de la page.
+const PDF: Record<Lang, string> = {
+  fr: "/cv/cv-stephane-padrao-fr.pdf",
+  en: "/cv/cv-stephane-padrao-en.pdf",
+  es: "/cv/cv-stephane-padrao-es.pdf",
+  pt: "/cv/cv-stephane-padrao-pt.pdf",
+};
+const DOWNLOAD_NAME: Record<Lang, string> = {
+  fr: "CV-Stephane-Padrao-FR.pdf",
+  en: "Stephane-Padrao-Resume-EN.pdf",
+  es: "CV-Stephane-Padrao-ES.pdf",
+  pt: "CV-Stephane-Padrao-PT.pdf",
+};
+
+const defaultCv: Lang = lang;
+const tabs = Object.keys(languages) as Lang[];
+---
+
+<Layout title={c.metaTitle} description={c.metaDescription} lang={lang}>
+  <div class="mx-auto flex max-w-4xl flex-col gap-6">
+
+    <div class="flex flex-col gap-3">
+      <h1 class="text-3xl font-semibold tracking-tighter sm:text-4xl">{c.h1}</h1>
+      <p class="text-pretty text-muted-foreground">{c.intro}</p>
+    </div>
+
+    <div
+      id="cv"
+      data-fr={PDF.fr}
+      data-en={PDF.en}
+      data-es={PDF.es}
+      data-pt={PDF.pt}
+      class="flex flex-col gap-4"
+    >
+
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="inline-flex flex-wrap rounded-lg border border-border bg-muted/40 p-0.5" role="tablist">
+          {tabs.map((code) => {
+            const active = code === defaultCv;
+            return (
+              <button
+                type="button"
+                data-cv-lang={code}
+                role="tab"
+                aria-selected={active ? "true" : "false"}
+                class:list={[
+                  "cv-tab rounded-md px-3 py-1 text-sm font-medium transition-colors",
+                  active ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
+                ]}
+              >
+                {languages[code]}
+              </button>
+            );
+          })}
+        </div>
+
+        <span class="grow"></span>
+
+        <a
+          id="cv-download"
+          href={PDF[defaultCv]}
+          download={DOWNLOAD_NAME[defaultCv]}
+          class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+          </svg>
+          {c.download}
+        </a>
+
+        <a
+          id="cv-open"
+          href={PDF[defaultCv]}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+        >
+          {c.openInNewTab}
+        </a>
+      </div>
+
+      <div class="overflow-hidden rounded-xl border border-border bg-muted/30">
+        <iframe
+          id="cv-frame"
+          src={PDF[defaultCv]}
+          title={c.h1}
+          class="h-[80vh] w-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var root = document.getElementById("cv");
+      if (!root) return;
+      var frame = document.getElementById("cv-frame");
+      var dl = document.getElementById("cv-download");
+      var open = document.getElementById("cv-open");
+      var sources = {
+        fr: root.getAttribute("data-fr"),
+        en: root.getAttribute("data-en"),
+        es: root.getAttribute("data-es"),
+        pt: root.getAttribute("data-pt"),
+      };
+      var names = {
+        fr: "CV-Stephane-Padrao-FR.pdf",
+        en: "Stephane-Padrao-Resume-EN.pdf",
+        es: "CV-Stephane-Padrao-ES.pdf",
+        pt: "CV-Stephane-Padrao-PT.pdf",
+      };
+      var tabs = root.querySelectorAll("[data-cv-lang]");
+
+      function select(l) {
+        var src = sources[l];
+        if (!src) return;
+        frame.src = src;
+        dl.href = src;
+        dl.setAttribute("download", names[l]);
+        open.href = src;
+        tabs.forEach(function (tab) {
+          var on = tab.getAttribute("data-cv-lang") === l;
+          tab.setAttribute("aria-selected", on ? "true" : "false");
+          tab.classList.toggle("bg-background", on);
+          tab.classList.toggle("text-foreground", on);
+          tab.classList.toggle("shadow-sm", on);
+          tab.classList.toggle("text-muted-foreground", !on);
+        });
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          select(tab.getAttribute("data-cv-lang"));
+        });
+      });
+    })();
+  </script>
+</Layout>

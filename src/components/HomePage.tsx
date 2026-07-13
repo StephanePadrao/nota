@@ -254,6 +254,24 @@ export default function HomePage({
               delay={BLUR_FADE_DELAY}
               text={DATA.description}
             />
+            <BlurFade delay={BLUR_FADE_DELAY * 2} className="mt-3 flex flex-wrap items-center gap-2">
+              <a
+                href={localizeHref("/cv", locale)}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              >
+                <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m4 4H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2Z" />
+                </svg>
+                {t.cvPage.linkLabel}
+              </a>
+              <a
+                href={localizeHref("/freelance", locale)}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-opacity hover:opacity-70"
+              >
+                {t.nav.freelance}
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </BlurFade>
           </div>
           <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2 flex-none">
             <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">

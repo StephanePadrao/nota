@@ -119,10 +119,10 @@ const fr = {
   freelancePage: {
     metaTitle: "Ingénieur électronique freelance",
     metaDescription:
-      "Ingénieur électronique et produit en freelance : design de carte (PCB), conseil en industrialisation (proto à série, sourcing Chine/Europe, marquage CE) et expertise électronique. Missions ponctuelles, à Paris et à distance.",
+      "Ingénieur électronique et produit en freelance : design de carte (PCB), conseil en industrialisation (proto à série, sourcing Chine/Europe, marquage CE) et expertise électronique. Missions freelance courtes ou longues, à Paris et à distance.",
     h1: "Ingénieur électronique freelance, design de carte et conseil en industrialisation",
     intro:
-      "Je suis ingénieur électronique et produit. En parallèle de mon activité principale, je prends quelques missions freelance ponctuelles et sélectives, du cahier des charges au passage en production. Voici les portes d'entrée, chacune adossée à des projets réels.",
+      "Ingénieur électronique et Responsable Produit, je fais le pont entre la carte et le marché : du cahier des charges au passage en production. Disponible pour des missions freelance, courtes comme longues, à Paris et à distance. Voici les portes d'entrée, chacune adossée à des projets réels.",
     relatedLabel: "Projets liés",
     services: [
       {
@@ -149,6 +149,24 @@ const fr = {
     ctaIntro: "Un projet de carte, une production à fiabiliser, une panne à élucider ?",
     cta: "Décrire mon projet",
     reassurance: "Je réponds sous 48 h, et le premier échange est sans engagement.",
+  },
+
+  cvPage: {
+    metaTitle: "CV",
+    metaDescription:
+      "CV de Stéphane Padrao, ingénieur électronique et Responsable Produit. Consultable en ligne et téléchargeable en PDF (français, anglais, espagnol, portugais).",
+    h1: "CV",
+    intro:
+      "Ingénieur électronique et Responsable Produit. CV consultable ci-dessous et téléchargeable en PDF, en quatre langues.",
+    download: "Télécharger le PDF",
+    openInNewTab: "Ouvrir dans un onglet",
+    linkLabel: "Voir mon CV",
+  },
+
+  blogCta: {
+    heading: "Un projet hardware, une production à fiabiliser ?",
+    text: "Ingénieur électronique et Responsable Produit, je prends des missions freelance, du cahier des charges au passage en production.",
+    cta: "Parler de mon projet",
   },
 
   notFound: {
@@ -276,10 +294,10 @@ const en: Strings = {
   freelancePage: {
     metaTitle: "Freelance electronics engineer",
     metaDescription:
-      "Freelance electronics and product engineer: PCB design, industrialization consulting (proto to series, China/Europe sourcing, CE marking) and electronics troubleshooting. Occasional engagements, Paris and remote.",
+      "Freelance electronics and product engineer: PCB design, industrialization consulting (proto to series, China/Europe sourcing, CE marking) and electronics troubleshooting. Freelance engagements, short or long, Paris and remote.",
     h1: "Freelance electronics engineer, PCB design and industrialization consulting",
     intro:
-      "I'm an electronics and product engineer. Alongside my main role, I take on a few selective, one-off freelance engagements, from requirements spec to production ramp-up. Here are the ways in, each backed by real projects.",
+      "Electronics engineer and product manager, I bridge the board and the market: from requirements spec to production ramp-up. Available for freelance engagements, short or long, in Paris and remote. Here are the ways in, each backed by real projects.",
     relatedLabel: "Related projects",
     services: [
       {
@@ -306,6 +324,24 @@ const en: Strings = {
     ctaIntro: "A board to design, a production to stabilize, a fault to crack?",
     cta: "Describe my project",
     reassurance: "I reply within 48 h, and the first chat is no-commitment.",
+  },
+
+  cvPage: {
+    metaTitle: "Résumé",
+    metaDescription:
+      "Stéphane Padrao's résumé — electronics engineer and product manager. Viewable online and downloadable as PDF (French, English, Spanish, Portuguese).",
+    h1: "Résumé",
+    intro:
+      "Electronics engineer and product manager. View the résumé below and download it as PDF, in four languages.",
+    download: "Download PDF",
+    openInNewTab: "Open in a new tab",
+    linkLabel: "View résumé",
+  },
+
+  blogCta: {
+    heading: "A hardware project, a production to stabilize?",
+    text: "Electronics engineer and product manager, I take on freelance engagements, from requirements spec to production ramp-up.",
+    cta: "Discuss my project",
   },
 
   notFound: {
@@ -431,10 +467,10 @@ const es: Strings = {
   freelancePage: {
     metaTitle: "Ingeniero electrónico freelance",
     metaDescription:
-      "Ingeniero electrónico y de producto freelance: diseño de placa (PCB), consultoría en industrialización (de proto a serie, sourcing China/Europa, marcado CE) y peritaje electrónico. Misiones puntuales, en París y en remoto.",
+      "Ingeniero electrónico y de producto freelance: diseño de placa (PCB), consultoría en industrialización (de proto a serie, sourcing China/Europa, marcado CE) y peritaje electrónico. Misiones freelance cortas o largas, en París y en remoto.",
     h1: "Ingeniero electrónico freelance, diseño de placa y consultoría en industrialización",
     intro:
-      "Soy ingeniero electrónico y de producto. En paralelo a mi actividad principal, acepto algunas misiones freelance puntuales y selectivas, del pliego de condiciones al paso a producción. Estas son las puertas de entrada, cada una respaldada por proyectos reales.",
+      "Ingeniero electrónico y responsable de producto, tiendo el puente entre la placa y el mercado: del pliego de condiciones al paso a producción. Disponible para misiones freelance, cortas o largas, en París y en remoto. Estas son las puertas de entrada, cada una respaldada por proyectos reales.",
     relatedLabel: "Proyectos relacionados",
     services: [
       {
@@ -461,6 +497,24 @@ const es: Strings = {
     ctaIntro: "¿Una placa que diseñar, una producción que fiabilizar, una avería que resolver?",
     cta: "Describir mi proyecto",
     reassurance: "Respondo en 48 h, y el primer intercambio es sin compromiso.",
+  },
+
+  cvPage: {
+    metaTitle: "CV",
+    metaDescription:
+      "CV de Stéphane Padrao, ingeniero electrónico y responsable de producto. Consultable en línea y descargable en PDF (francés, inglés, español, portugués).",
+    h1: "CV",
+    intro:
+      "Ingeniero electrónico y responsable de producto. CV consultable abajo y descargable en PDF, en cuatro idiomas.",
+    download: "Descargar PDF",
+    openInNewTab: "Abrir en una pestaña",
+    linkLabel: "Ver mi CV",
+  },
+
+  blogCta: {
+    heading: "¿Un proyecto hardware, una producción que fiabilizar?",
+    text: "Ingeniero electrónico y responsable de producto, acepto misiones freelance, del pliego de condiciones al paso a producción.",
+    cta: "Hablar de mi proyecto",
   },
 
   notFound: {
@@ -586,10 +640,10 @@ const pt: Strings = {
   freelancePage: {
     metaTitle: "Engenheiro eletrónico freelance",
     metaDescription:
-      "Engenheiro eletrónico e de produto freelance: design de placa (PCB), consultoria em industrialização (de protótipo a série, sourcing China/Europa, marcação CE) e peritagem eletrónica. Missões pontuais, em Paris e remoto.",
+      "Engenheiro eletrónico e de produto freelance: design de placa (PCB), consultoria em industrialização (de protótipo a série, sourcing China/Europa, marcação CE) e peritagem eletrónica. Missões freelance curtas ou longas, em Paris e remoto.",
     h1: "Engenheiro eletrónico freelance, design de placa e consultoria em industrialização",
     intro:
-      "Sou engenheiro eletrónico e de produto. Em paralelo à minha atividade principal, aceito algumas missões freelance pontuais e seletivas, do caderno de encargos à passagem para produção. Eis as portas de entrada, cada uma apoiada em projetos reais.",
+      "Engenheiro eletrónico e responsável de produto, faço a ponte entre a placa e o mercado: do caderno de encargos à passagem para produção. Disponível para missões freelance, curtas ou longas, em Paris e remoto. Eis as portas de entrada, cada uma apoiada em projetos reais.",
     relatedLabel: "Projetos relacionados",
     services: [
       {
@@ -616,6 +670,24 @@ const pt: Strings = {
     ctaIntro: "Uma placa para desenhar, uma produção para fiabilizar, uma avaria para resolver?",
     cta: "Descrever o meu projeto",
     reassurance: "Respondo em 48 h, e a primeira conversa é sem compromisso.",
+  },
+
+  cvPage: {
+    metaTitle: "CV",
+    metaDescription:
+      "CV de Stéphane Padrao, engenheiro eletrónico e responsável de produto. Consultável online e descarregável em PDF (francês, inglês, espanhol, português).",
+    h1: "CV",
+    intro:
+      "Engenheiro eletrónico e responsável de produto. CV consultável abaixo e descarregável em PDF, em quatro línguas.",
+    download: "Descarregar PDF",
+    openInNewTab: "Abrir num separador",
+    linkLabel: "Ver o meu CV",
+  },
+
+  blogCta: {
+    heading: "Um projeto hardware, uma produção a fiabilizar?",
+    text: "Engenheiro eletrónico e responsável de produto, aceito missões freelance, do caderno de encargos à passagem para produção.",
+    cta: "Falar do meu projeto",
   },
 
   notFound: {
