@@ -37,6 +37,8 @@ Serious eco-design is not just about "adding recycled materials." It follows a s
 
 Concretely, this means integrating Design For Environment into design reviews, sourcing eco-compatible materials, studying packaging, planning for disassembly at end-of-life, and ensuring the availability of parts. Repairability, recyclability, and re-manufacturability are design objectives, not constraints.
 
+> **In practice.** Cutting the component count isn't only about cost: fewer parts mean fewer failure points and a product that's simpler to repair and recycle. An integrated module like the ESP32 replaces, in one move, several blocks you'd otherwise place separately around an MCU such as an STM32: the dedicated transceiver or Wi-Fi module, and the external EEPROM. Fewer line items on the BOM, fewer traces to route, a simpler board. The decision is made at the architecture stage, repairability and cost in the same hand.
+
 ## The cost of neglect
 
 Pushing these topics aside has a mechanical cost. Failing CEM pre-certification means reworking the layout, redoing tests, and delaying market release. Discovering that wear parts are not accessible means a mediocre repairability index displayed on store shelves, which is a commercial disadvantage. On the other hand, a product designed to last and be repaired becomes an argument, not a constraint.
