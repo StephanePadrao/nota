@@ -60,7 +60,7 @@ const fr = {
     contact: {
       label: "Contact",
       heading: "Parlons-en",
-      text: "Une question, un projet, une mission ponctuelle ? Écris-moi, je réponds à tout.",
+      text: "Une question, un projet, une mission ? Écris-moi, je réponds à tout.",
       cta: "Écrire un message",
     },
   },
@@ -91,7 +91,7 @@ const fr = {
   contact: {
     metaTitle: "Contact",
     heading: "Parlons-en",
-    intro: "Une question, un projet, ou une mission ponctuelle (design de carte, conseil en industrialisation) ? Décris ton besoin, je lis tous les messages et réponds à tous.",
+    intro: "Une question, un projet, ou une mission (design de carte, conseil en industrialisation) ? Décris ton besoin, je lis tous les messages et réponds à tous.",
     name: "Nom",
     namePlaceholder: "Ton nom ou prénom",
     email: "Email",
@@ -107,8 +107,8 @@ const fr = {
   },
 
   freelance: {
-    heading: "Missions ponctuelles",
-    intro: "En parallèle, je prends quelques missions ponctuelles et sélectives.",
+    heading: "Missions freelance",
+    intro: "Ingénieur électronique et Responsable Produit, disponible pour des missions, du cahier des charges au passage en production.",
     card1Title: "Design de carte électronique",
     card1Text: "Du schéma au PCB prêt pour la production.",
     card2Title: "Conseil en industrialisation",
@@ -235,7 +235,7 @@ const en: Strings = {
     contact: {
       label: "Contact",
       heading: "Let's talk",
-      text: "A question, a project, a one-off engagement? Send me a message, I reply to everything.",
+      text: "A question, a project, an engagement? Send me a message, I reply to everything.",
       cta: "Write a message",
     },
   },
@@ -266,7 +266,7 @@ const en: Strings = {
   contact: {
     metaTitle: "Contact",
     heading: "Let's talk",
-    intro: "A question, a project, or a one-off engagement (PCB design, industrialization consulting)? Tell me about it, I read every message and reply to all.",
+    intro: "A question, a project, or an engagement (PCB design, industrialization consulting)? Tell me about it, I read every message and reply to all.",
     name: "Name",
     namePlaceholder: "Your name",
     email: "Email",
@@ -282,8 +282,8 @@ const en: Strings = {
   },
 
   freelance: {
-    heading: "Occasional engagements",
-    intro: "On the side, I take on a few selective, one-off engagements.",
+    heading: "Freelance engagements",
+    intro: "Electronics engineer and product manager, available for missions, from requirements spec to production ramp-up.",
     card1Title: "PCB design",
     card1Text: "From schematic to production-ready board.",
     card2Title: "Industrialization consulting",
@@ -408,7 +408,7 @@ const es: Strings = {
     contact: {
       label: "Contacto",
       heading: "Hablemos",
-      text: "¿Una pregunta, un proyecto, una misión puntual? Escríbeme, respondo a todo.",
+      text: "¿Una pregunta, un proyecto, una misión? Escríbeme, respondo a todo.",
       cta: "Escribir un mensaje",
     },
   },
@@ -439,7 +439,7 @@ const es: Strings = {
   contact: {
     metaTitle: "Contacto",
     heading: "Hablemos",
-    intro: "¿Una pregunta, un proyecto o una misión puntual (diseño de placa, consultoría en industrialización)? Cuéntame, leo todos los mensajes y respondo a todos.",
+    intro: "¿Una pregunta, un proyecto o una misión (diseño de placa, consultoría en industrialización)? Cuéntame, leo todos los mensajes y respondo a todos.",
     name: "Nombre",
     namePlaceholder: "Tu nombre",
     email: "Email",
@@ -455,8 +455,8 @@ const es: Strings = {
   },
 
   freelance: {
-    heading: "Misiones puntuales",
-    intro: "En paralelo, acepto algunas misiones puntuales y selectivas.",
+    heading: "Misiones freelance",
+    intro: "Ingeniero electrónico y responsable de producto, disponible para misiones, del pliego de condiciones al paso a producción.",
     card1Title: "Diseño de placa electrónica",
     card1Text: "Del esquema a la placa lista para producción.",
     card2Title: "Consultoría en industrialización",
@@ -581,7 +581,7 @@ const pt: Strings = {
     contact: {
       label: "Contacto",
       heading: "Vamos falar",
-      text: "Uma pergunta, um projeto, uma missão pontual? Escreve-me, respondo a tudo.",
+      text: "Uma pergunta, um projeto, uma missão? Escreve-me, respondo a tudo.",
       cta: "Escrever uma mensagem",
     },
   },
@@ -612,7 +612,7 @@ const pt: Strings = {
   contact: {
     metaTitle: "Contacto",
     heading: "Vamos falar",
-    intro: "Uma pergunta, um projeto ou uma missão pontual (design de placa, consultoria em industrialização)? Conta-me, leio todas as mensagens e respondo a todas.",
+    intro: "Uma pergunta, um projeto ou uma missão (design de placa, consultoria em industrialização)? Conta-me, leio todas as mensagens e respondo a todas.",
     name: "Nome",
     namePlaceholder: "O teu nome",
     email: "Email",
@@ -628,8 +628,8 @@ const pt: Strings = {
   },
 
   freelance: {
-    heading: "Missões pontuais",
-    intro: "Em paralelo, aceito algumas missões pontuais e seletivas.",
+    heading: "Missões freelance",
+    intro: "Engenheiro eletrónico e responsável de produto, disponível para missões, do caderno de encargos à passagem para produção.",
     card1Title: "Design de placa eletrónica",
     card1Text: "Do esquema à placa pronta para produção.",
     card2Title: "Consultoria em industrialização",

@@ -306,7 +306,7 @@ export default function HomePage({
 
       </div>
 
-      {/* Missions ponctuelles — full-width */}
+      {/* Section freelance, full-width */}
       {sectionComponents.freelance}
 
       {/* Contact — full-width */}
