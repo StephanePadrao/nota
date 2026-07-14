@@ -241,8 +241,8 @@ export default function HomePage({
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="gap-2 flex flex-col order-2 md:order-1 max-w-2xl">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <div className="gap-2 flex flex-col order-2 md:order-1 md:flex-1 max-w-2xl">
             <BlurFadeText
               delay={BLUR_FADE_DELAY}
               className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
@@ -273,8 +273,8 @@ export default function HomePage({
               </a>
             </BlurFade>
           </div>
-          <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2 flex-none">
-            <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
+          <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2 md:flex-1 flex justify-center">
+            <Avatar className="size-28 md:size-44 border rounded-full shadow-lg ring-4 ring-muted">
               <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
               <AvatarFallback>{DATA.initials}</AvatarFallback>
             </Avatar>
