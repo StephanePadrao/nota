@@ -205,52 +205,55 @@ const langLinks = allLangs.map((l) => ({
 
         <!-- Liens de navigation — pills droite -->
         <div class="flex items-center gap-1 sm:gap-1.5 pointer-events-auto">
-          {DATA.navbar.map((item) => (
-            <a
-              href={item.href}
-              aria-current={currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href)) ? "page" : undefined}
-              class={`text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-full border border-border/40
-                      bg-background/80 backdrop-blur-sm transition-colors
-                      ${
-                        currentPath === item.href ||
-                        (item.href !== "/" && currentPath.startsWith(item.href))
-                          ? "text-foreground font-medium"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-            >
-              {item.label}
-            </a>
-          ))}
 
-          <!-- Sélecteur de langue (FR/EN/ES/PT) -->
-          <details class="relative pointer-events-auto" id="lang-switch">
-            <summary
-              aria-label={t.langSwitch.label}
-              class="size-8 flex items-center justify-center rounded-full text-xs font-semibold
-                     bg-background/80 backdrop-blur-sm border border-border/40
-                     text-muted-foreground hover:text-foreground transition-colors cursor-pointer
-                     list-none [&::-webkit-details-marker]:hidden"
-            >
-              {lang.toUpperCase()}
-            </summary>
-            <div class="absolute right-0 mt-1.5 w-36 rounded-xl border border-border/40 bg-background/95 backdrop-blur-sm shadow-lg overflow-hidden z-50">
-              {langLinks.map((l) => (
-                <a
-                  href={l.href}
-                  hreflang={l.code}
-                  class={`block px-3 py-1.5 text-xs transition-colors ${
-                    l.current
-                      ? "bg-accent text-foreground font-medium"
-                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                  }`}
-                >
-                  {l.label}
-                </a>
-              ))}
-            </div>
-          </details>
+          <!-- Desktop : pills de navigation + sélecteur de langue -->
+          <div class="hidden items-center gap-1 sm:gap-1.5 md:flex">
+            {DATA.navbar.map((item) => (
+              <a
+                href={item.href}
+                aria-current={currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href)) ? "page" : undefined}
+                class={`text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-full border border-border/40
+                        bg-background/80 backdrop-blur-sm transition-colors
+                        ${
+                          currentPath === item.href ||
+                          (item.href !== "/" && currentPath.startsWith(item.href))
+                            ? "text-foreground font-medium"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+              >
+                {item.label}
+              </a>
+            ))}
 
-          <!-- Toggle dark/light -->
+            <details class="relative pointer-events-auto" id="lang-switch">
+              <summary
+                aria-label={t.langSwitch.label}
+                class="size-8 flex items-center justify-center rounded-full text-xs font-semibold
+                       bg-background/80 backdrop-blur-sm border border-border/40
+                       text-muted-foreground hover:text-foreground transition-colors cursor-pointer
+                       list-none [&::-webkit-details-marker]:hidden"
+              >
+                {lang.toUpperCase()}
+              </summary>
+              <div class="absolute right-0 mt-1.5 w-36 rounded-xl border border-border/40 bg-background/95 backdrop-blur-sm shadow-lg overflow-hidden z-50">
+                {langLinks.map((l) => (
+                  <a
+                    href={l.href}
+                    hreflang={l.code}
+                    class={`block px-3 py-1.5 text-xs transition-colors ${
+                      l.current
+                        ? "bg-accent text-foreground font-medium"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    }`}
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            </details>
+          </div>
+
+          <!-- Toggle dark/light — toujours visible -->
           <button
             id="theme-toggle"
             aria-label={t.nav.themeToggle}
@@ -269,6 +272,49 @@ const langLinks = allLangs.map((l) => ({
               <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
             </svg>
           </button>
+
+          <!-- Mobile : menu hamburger (liens + langues) -->
+          <details class="relative pointer-events-auto md:hidden" id="mobile-menu">
+            <summary
+              aria-label="Menu"
+              class="size-8 flex items-center justify-center rounded-full
+                     bg-background/80 backdrop-blur-sm border border-border/40
+                     text-muted-foreground hover:text-foreground transition-colors cursor-pointer
+                     list-none [&::-webkit-details-marker]:hidden"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </summary>
+            <div class="absolute right-0 mt-1.5 w-52 rounded-xl border border-border/40 bg-background/95 backdrop-blur-sm shadow-lg overflow-hidden z-50">
+              {DATA.navbar.map((item) => (
+                <a
+                  href={item.href}
+                  aria-current={currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href)) ? "page" : undefined}
+                  class={`block px-4 py-2 text-sm transition-colors ${
+                    currentPath === item.href ||
+                    (item.href !== "/" && currentPath.startsWith(item.href))
+                      ? "bg-accent text-foreground font-medium"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <div class="my-1 border-t border-border/40"></div>
+              <div class="flex items-center gap-1.5 px-4 py-2">
+                {langLinks.map((l) => (
+                  <a
+                    href={l.href}
+                    hreflang={l.code}
+                    class={`rounded-md border border-border/40 px-2 py-0.5 text-xs font-medium transition-colors ${
+                      l.current ? "bg-accent text-foreground" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {l.code.toUpperCase()}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </details>
         </div>
       </div>
     </nav>
@@ -294,10 +340,12 @@ const langLinks = allLangs.map((l) => ({
         var isDark = document.documentElement.classList.toggle("dark");
         try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch (_) {}
       });
-      // Ferme le menu de langue au clic extérieur.
+      // Ferme les menus déroulants (langue, mobile) au clic extérieur.
       document.addEventListener("click", function (e) {
-        var d = document.getElementById("lang-switch");
-        if (d && d.open && !d.contains(e.target)) d.removeAttribute("open");
+        ["lang-switch", "mobile-menu"].forEach(function (id) {
+          var d = document.getElementById(id);
+          if (d && d.open && !d.contains(e.target)) d.removeAttribute("open");
+        });
       });
     </script>
   </body>
