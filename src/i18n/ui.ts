@@ -31,6 +31,7 @@ const fr = {
     photos: "Voyages",
     contact: "Contact",
     freelance: "Freelance",
+    bookCall: "Prendre RDV",
     themeToggle: "Changer de thème",
   },
 
@@ -104,6 +105,9 @@ const fr = {
     errorPrefix: "Une erreur est survenue. Tu peux aussi m'écrire directement à",
     socialsIntro: "Ou retrouve-moi sur :",
     emailDirect: "Email direct",
+    calendlyHeading: "Préfères-tu un échange direct ?",
+    calendlyText: "Réserve un créneau de 30 min dans mon calendrier pour discuter de ton besoin sans engagement.",
+    calendlyCta: "Réserver un échange (30 min)",
   },
 
   freelance: {
@@ -148,6 +152,7 @@ const fr = {
     ],
     ctaIntro: "Un projet de carte, une production à fiabiliser, une panne à élucider ?",
     cta: "Décrire mon projet",
+    calendlyCta: "Réserver un échange (30 min)",
     reassurance: "Je réponds sous 48 h, et le premier échange est sans engagement.",
   },
 
@@ -167,6 +172,7 @@ const fr = {
     heading: "Un projet hardware, une production à fiabiliser ?",
     text: "Ingénieur électronique et Responsable Produit, je prends des missions freelance, du cahier des charges au passage en production.",
     cta: "Parler de mon projet",
+    calendlyCta: "Réserver un échange (30 min)",
   },
 
   notFound: {
@@ -206,6 +212,7 @@ const en: Strings = {
     photos: "Travels",
     contact: "Contact",
     freelance: "Freelance",
+    bookCall: "Book a call",
     themeToggle: "Toggle theme",
   },
 
@@ -279,6 +286,9 @@ const en: Strings = {
     errorPrefix: "Something went wrong. You can also email me directly at",
     socialsIntro: "Or find me on:",
     emailDirect: "Direct email",
+    calendlyHeading: "Prefer a direct chat?",
+    calendlyText: "Book a 30-min slot in my calendar to discuss your project with no commitment.",
+    calendlyCta: "Book a 30-min call",
   },
 
   freelance: {
@@ -323,6 +333,7 @@ const en: Strings = {
     ],
     ctaIntro: "A board to design, a production to stabilize, a fault to crack?",
     cta: "Describe my project",
+    calendlyCta: "Book a 30-min call",
     reassurance: "I reply within 48 h, and the first chat is no-commitment.",
   },
 
@@ -342,6 +353,7 @@ const en: Strings = {
     heading: "A hardware project, a production to stabilize?",
     text: "Electronics engineer and product manager, I take on freelance engagements, from requirements spec to production ramp-up.",
     cta: "Discuss my project",
+    calendlyCta: "Book a 30-min call",
   },
 
   notFound: {
@@ -379,6 +391,7 @@ const es: Strings = {
     photos: "Viajes",
     contact: "Contacto",
     freelance: "Freelance",
+    bookCall: "Reservar cita",
     themeToggle: "Cambiar de tema",
   },
 
@@ -452,6 +465,9 @@ const es: Strings = {
     errorPrefix: "Ha ocurrido un error. También puedes escribirme directamente a",
     socialsIntro: "O encuéntrame en:",
     emailDirect: "Email directo",
+    calendlyHeading: "¿Prefieres una charla directa?",
+    calendlyText: "Reserva un espacio de 30 min en mi calendario para hablar de tu proyecto sin compromiso.",
+    calendlyCta: "Reservar llamada (30 min)",
   },
 
   freelance: {
@@ -496,6 +512,7 @@ const es: Strings = {
     ],
     ctaIntro: "¿Una placa que diseñar, una producción que fiabilizar, una avería que resolver?",
     cta: "Describir mi proyecto",
+    calendlyCta: "Reservar llamada (30 min)",
     reassurance: "Respondo en 48 h, y el primer intercambio es sin compromiso.",
   },
 
@@ -515,6 +532,7 @@ const es: Strings = {
     heading: "¿Un proyecto hardware, una producción que fiabilizar?",
     text: "Ingeniero electrónico y responsable de producto, acepto misiones freelance, del pliego de condiciones al paso a producción.",
     cta: "Hablar de mi proyecto",
+    calendlyCta: "Reservar llamada (30 min)",
   },
 
   notFound: {
@@ -552,6 +570,7 @@ const pt: Strings = {
     photos: "Viagens",
     contact: "Contacto",
     freelance: "Freelance",
+    bookCall: "Marcar reunião",
     themeToggle: "Mudar de tema",
   },
 
@@ -625,6 +644,9 @@ const pt: Strings = {
     errorPrefix: "Ocorreu um erro. Também podes escrever-me diretamente para",
     socialsIntro: "Ou encontra-me em:",
     emailDirect: "Email direto",
+    calendlyHeading: "Preferes uma conversa direta?",
+    calendlyText: "Reserva um horário de 30 min no meu calendário para discutir o teu projeto sem compromisso.",
+    calendlyCta: "Reservar reunião (30 min)",
   },
 
   freelance: {
@@ -669,6 +691,7 @@ const pt: Strings = {
     ],
     ctaIntro: "Uma placa para desenhar, uma produção para fiabilizar, uma avaria para resolver?",
     cta: "Descrever o meu projeto",
+    calendlyCta: "Reservar reunião (30 min)",
     reassurance: "Respondo em 48 h, e a primeira conversa é sem compromisso.",
   },
 
@@ -688,6 +711,7 @@ const pt: Strings = {
     heading: "Um projeto hardware, uma produção a fiabilizar?",
     text: "Engenheiro eletrónico e responsável de produto, aceito missões freelance, do caderno de encargos à passagem para produção.",
     cta: "Falar do meu projeto",
+    calendlyCta: "Reservar reunião (30 min)",
   },
 
   notFound: {

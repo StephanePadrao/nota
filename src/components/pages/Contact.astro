@@ -18,6 +18,26 @@ const email = "contact.SPADRAO@proton.me";
       <p class="text-muted-foreground">{t.contact.intro}</p>
     </div>
 
+    <!-- Encadré Calendly — Prise de rendez-vous directe -->
+    <div class="rounded-2xl border border-primary/30 bg-primary/5 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="flex flex-col gap-1">
+        <h2 class="text-base font-semibold text-foreground flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          {t.contact.calendlyHeading}
+        </h2>
+        <p class="text-sm text-muted-foreground">{t.contact.calendlyText}</p>
+      </div>
+      <a
+        href="https://calendly.com/stephanepadrao/30min"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shrink-0 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+      >
+        {t.contact.calendlyCta}
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+      </a>
+    </div>
+
     <!-- Formulaire de contact — alimenté par Web3Forms (gratuit, 250 envois/mois) -->
     <form id="contact-form" class="flex flex-col gap-4">
       <input type="hidden" name="access_key" value="257f3448-baa0-4725-964f-5b59a4fe7f4b" />
